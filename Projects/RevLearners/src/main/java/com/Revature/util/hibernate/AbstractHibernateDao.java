@@ -9,12 +9,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.Revature.util.configs.Constants;
 
-// Spring loaded parameterized generic dao implementation
 
-// uses Spring annotations and Java reflections to create a single 
-// Dao implement to be used across all entities
-
-// This class was made in conjunction with Spring best practices
+/**
+ * Spring loaded parameterized generic dao implementation
+ *
+ * Uses Spring annotations and Java reflections to create a single 
+ * Dao implement to be used across all entities
+ *
+ * This class was made in conjunction with Spring best practices
+ */
 public abstract class AbstractHibernateDao<T extends Serializable> {
 
 	private Class<T> clazz;
