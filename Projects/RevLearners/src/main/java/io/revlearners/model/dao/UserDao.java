@@ -1,8 +1,8 @@
-package com.Revature.model.dao;
+package io.revlearners.model.dao;
 
 import org.springframework.stereotype.Repository;
 
-import com.Revature.model.bean.UserBean;
+import io.revlearners.model.bean.UserBean;
 import io.revlearners.util.hibernate.AbstractHibernateDao;
 
 @Repository
