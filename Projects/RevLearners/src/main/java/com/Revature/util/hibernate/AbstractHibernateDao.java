@@ -18,7 +18,7 @@ import com.Revature.util.configs.Constants;
  *
  * This class was made in conjunction with Spring best practices
  */
-public abstract class AbstractHibernateDao<T extends Serializable> {
+public abstract class AbstractHibernateDao<T extends Serializable> implements IGenericDao<T extends Serializable> {
 
 	private Class<T> clazz;
 	
