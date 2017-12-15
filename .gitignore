@@ -36,3 +36,5 @@
 #Mac
 .DS_Store
 /.recommenders/
+
+**/RemoteSystemsTempFiles/

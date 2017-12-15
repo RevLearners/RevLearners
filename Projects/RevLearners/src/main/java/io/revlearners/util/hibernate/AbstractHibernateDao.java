@@ -1,14 +1,14 @@
-package com.Revature.util.hibernate;
+package io.revlearners.util.hibernate;
 
 import java.io.Serializable;
 import java.util.List;
 
+import io.revlearners.util.configs.Constants;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.Revature.util.configs.Constants;
-
+// Spring loaded parameterized generic dao implementation
 
 /**
  * Spring loaded parameterized generic dao implementation

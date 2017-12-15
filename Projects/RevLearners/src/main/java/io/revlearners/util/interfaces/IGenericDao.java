@@ -1,4 +1,4 @@
-package com.Revature.util.interfaces;
+package io.revlearners.util.interfaces;
 
 import java.io.Serializable;
 import java.util.List;

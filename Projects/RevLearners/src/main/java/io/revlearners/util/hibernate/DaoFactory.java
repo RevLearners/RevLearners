@@ -1,4 +1,4 @@
-package com.Revature.util.hibernate;
+package io.revlearners.util.hibernate;
 
 public abstract class DaoFactory {
 

@@ -1,4 +1,4 @@
-package com.Revature.model.services;
+package io.revlearners.model.services;
 
 public class ServicePlaceholder {
 

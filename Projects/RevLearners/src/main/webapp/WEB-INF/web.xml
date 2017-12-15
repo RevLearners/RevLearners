@@ -13,7 +13,7 @@
     <description></description>
     <display-name>DispatcherServlet</display-name>
     <servlet-name>DispatcherServlet</servlet-name>
-    <servlet-class>com.Revature.controller.routing.DispatcherServlet</servlet-class>
+    <servlet-class>io.revlearners.controller.routing.DispatcherServlet</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>DispatcherServlet</servlet-name>
