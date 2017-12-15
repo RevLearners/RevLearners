@@ -1,4 +1,4 @@
-package com.Revature.util.configs;
+package io.revlearners.util.configs;
 
 public final class Constants {
 	

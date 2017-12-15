@@ -1,4 +1,4 @@
-package com.Revature.util.hibernate;
+package io.revlearners.util.hibernate;
 
 import java.io.Serializable;
 import java.util.List;
@@ -7,7 +7,7 @@ import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Repository;
 
-import com.Revature.util.interfaces.IGenericDao;
+import io.revlearners.util.interfaces.IGenericDao;
 
 @Repository
 @Scope( BeanDefinition.SCOPE_PROTOTYPE )
