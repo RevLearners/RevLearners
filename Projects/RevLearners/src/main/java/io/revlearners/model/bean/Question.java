@@ -30,8 +30,8 @@ public class Question implements Serializable{
 	private int questionId;
 	
 	@ManyToOne(cascade=CascadeType.ALL, fetch=FetchType.EAGER)
-	@JoinColumn(name="QUESTION_LANGUAGE")
-	private Language language;
+	@JoinColumn(name="QUESTION_TOPIC")
+	private Topic topic;
 	
 	@ManyToOne(cascade=CascadeType.ALL, fetch=FetchType.EAGER)
 	@JoinColumn(name="QUESTION_TYPE")
@@ -44,11 +44,11 @@ public class Question implements Serializable{
 	@Column(name="Q_TEXTS")
 	private String qTexts;
 
-	public Question(int questionId, Language language, QuestionType questionType, QuestionDifficulty questionDifficulty,
+	public Question(int questionId, Topic topic, QuestionType questionType, QuestionDifficulty questionDifficulty,
 			String qTexts) {
 		super();
 		this.questionId = questionId;
-		this.language = language;
+		this.topic = topic;
 		this.questionType = questionType;
 		this.questionDifficulty = questionDifficulty;
 		this.qTexts = qTexts;
@@ -66,12 +66,12 @@ public class Question implements Serializable{
 		this.questionId = questionId;
 	}
 
-	public Language getLanguage() {
-		return language;
+	public Topic getTopic() {
+		return topic;
 	}
 
-	public void setLanguage(Language language) {
-		this.language = language;
+	public void setTopic(Topic topic) {
+		this.topic = topic;
 	}
 
 	public QuestionType getQuestionType() {
@@ -100,7 +100,7 @@ public class Question implements Serializable{
 
 	@Override
 	public String toString() {
-		return "Question [questionId=" + questionId + ", language=" + language + ", questionType=" + questionType
+		return "Question [questionId=" + questionId + ", topic=" + topic + ", questionType=" + questionType
 				+ ", questionDifficulty=" + questionDifficulty + ", qTexts=" + qTexts + "]";
 	}
 
