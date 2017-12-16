@@ -1,9 +1,9 @@
 package io.revlearners.model.dao;
 
-import com.Revature.util.interfaces.IGenericDao;
+import io.revlearners.util.interfaces.IGenericDao;
 
-import io.revlearners.model.bean.UserBean;
+import io.revlearners.model.bean.User;
 
-public interface IUserDao extends IGenericDao<UserBean> {
+public interface IUserDao extends IGenericDao<User> {
 
 }

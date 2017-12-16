@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.List;
 
 import io.revlearners.util.configs.Constants;
+import io.revlearners.util.interfaces.IGenericDao;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +19,7 @@ import org.springframework.beans.factory.annotation.Autowired;
  *
  * This class was made in conjunction with Spring best practices
  */
-public abstract class AbstractHibernateDao<T extends Serializable> implements IGenericDao<T extends Serializable> {
+public class AbstractHibernateDao<T extends Serializable> implements IGenericDao<T> {
 
 	private Class<T> clazz;
 	
@@ -28,17 +29,33 @@ public abstract class AbstractHibernateDao<T extends Serializable> implements IG
 	public final void setClazz(Class<T> clazz) {
 		this.clazz = clazz;
 	}
-	
-	public T fetchOne(long id) {
-		return clazz.cast(sf.getCurrentSession().get(clazz, id));
+
+	protected final Session getSession() {
+		return sf.getCurrentSession();
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	public List<T> fetchAll(){
 		return sf.getCurrentSession().createQuery(Constants.FROM + clazz.getName()).list();
 	}
 
-	protected final Session getSession() {
-		return sf.getCurrentSession();
+	@Override
+	public T fetchById(long id) {
+        return clazz.cast(sf.getCurrentSession().get(clazz, id));
+	}
+
+	@Override
+	public List<T> findByEntity(T entity) {
+		return null;
+	}
+
+	@Override
+	public T makePersistent(T entity) {
+		return null;
+	}
+
+	@Override
+	public void makeTransient(T entity) {
+
 	}
 }
