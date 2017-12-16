@@ -13,11 +13,11 @@ public class Message {
     private long id;
 
     @ManyToOne
-    @JoinColumn(name="user_id")
+    @JoinColumn(name="USER_ID")
     private User sender;
 
     @ManyToOne
-    @JoinColumn(name="user_id")
+    @JoinColumn(name="USER_ID")
     private User receiver;
 
     @Column(name="message_title")
@@ -123,4 +123,5 @@ public class Message {
     public void setStatus(MessageStatus status) {
         this.status = status;
     }
+
 }

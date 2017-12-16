@@ -51,4 +51,3 @@ public class Rank {
         this.meritThreshold = meritThreshold;
     }
 }
-

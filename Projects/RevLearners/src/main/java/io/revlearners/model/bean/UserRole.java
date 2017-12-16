@@ -1,40 +1,39 @@
 package io.revlearners.model.bean;
 
-import javax.persistence.*;
+import java.io.Serializable;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Entity
-@Table(name="user_role")
-public class UserRole {
+@Table(name="USER_ROLE")
+public class UserRole implements Serializable {
 
-    @Id
-    @Column(name = "role_id")
-    @SequenceGenerator(name = "seq_gen_user_role", sequenceName = "seq_user_role", initialValue = 1, allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.AUTO, generator = "seq_gen_user_role")
-    private long id;
+	private static final long serialVersionUID = 4523050103926297436L;
 
-    @Column(name = "role_name")
-    private String name;
+	@Id
+	@Column(name="US_ROLE_ID")
+	private int roleId;
+	
+	@Column(name="US_ROLE")
+	private String role;
 
-    public UserRole() {
-    }
+	public int getRoleId() {
+		return roleId;
+	}
 
-    public UserRole(String name) {
-        this.name = name;
-    }
+	public void setRoleId(int roleId) {
+		this.roleId = roleId;
+	}
 
-    public long getId() {
-        return id;
-    }
+	public String getRole() {
+		return role;
+	}
 
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
+	public void setRole(String role) {
+		this.role = role;
+	}
+	
 }

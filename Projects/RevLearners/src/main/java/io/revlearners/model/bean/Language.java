@@ -1,5 +1,6 @@
 package io.revlearners.model.bean;
 
+
 import java.io.Serializable;
 
 import javax.persistence.Column;
@@ -17,43 +18,30 @@ public class Language implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	@Id
-	@Column(name="lang_id")
-	@SequenceGenerator(name = "seq_gen_lang", sequenceName = "seq_lang")
-	@GeneratedValue(generator="seq_gen_lang", strategy= GenerationType.AUTO)
-	private int id;
-
-	@Column(name="lang_name")
-	private String name;
+	@Column (name="LANGUAGE_ID")
+	@SequenceGenerator(sequenceName="LANG_SEQ", name="LANG_SEQ")
+	@GeneratedValue(generator="LANG_SEQ", strategy=GenerationType.SEQUENCE)
+	private int languageId;
 	
-	public Language() {
+	@Column(name="LANG_NAME")
+	private String langName;
+
+	public Language(int languageId, String langName) {
+		super();
+		this.languageId = languageId;
+		this.langName = langName;
 	}
 
-	public Language(String name) {
-		this.name = name;
+	public String getLangName() {
+		return langName;
 	}
 
-	public int getId() {
-		return id;
+	public void setLangName(String langName) {
+		this.langName = langName;
 	}
 
-	public void setId(int id) {
-		this.id = id;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-	
-	
-	
-	
-	
-	
-	
-	
-
+	@Override
+	public String toString() {
+		return "Language [languageId=" + languageId + ", langName=" + langName + "]";
+	}	
 }

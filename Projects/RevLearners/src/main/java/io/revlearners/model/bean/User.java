@@ -1,73 +1,98 @@
 package io.revlearners.model.bean;
 
-import javax.persistence.*;
 import java.io.Serializable;
 
-@Entity
-@Table(name="user")
-public class User implements Serializable {
+import java.util.List;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
 
+@Entity
+@Table(name="USER")
+public class User implements Serializable {
 	private static final long serialVersionUID = 8799966307722508679L;
 
-    @Id
-    @Column(name = "user_id")
-    @SequenceGenerator(name = "seq_gen_user", sequenceName = "seq_user", initialValue = 1, allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.AUTO, generator = "seq_gen_user")
-    private long id;
+	@Id
+	@Column(name="USER_ID")
+	@SequenceGenerator(
+			sequenceName="USER_SEQ", 
+			name="USER_SEQ")
+	@GeneratedValue(
+			generator="USER_SEQ", 
+			strategy=GenerationType.SEQUENCE)
+	private int userId;
 
-    @Column(name = "user_name")
-    private String name;
+	@Column(name="USERNAME")
+	private String username;
 
-    @ManyToOne
-    @JoinColumn(name="status_id")
-    private UserStatus status;
+	@ManyToOne
+	@JoinColumn(name="STATUS_ID")
+	private UserStatus status;
 
-    @ManyToOne
-    @JoinColumn(name="role_id")
-    private UserRole role;
+	@ManyToOne
+	@JoinColumn(name="ROLE_ID")
+	private UserRole role;
 
-    public User() {
-    }
+	@ManyToMany
+	@JoinTable(name="FRIENDS")
+	private List<User> friends;
+	
+	public User() {
+	
+	}
 
-    public User(String name, UserStatus status, UserRole role) {
-        this.name = name;
-        this.status = status;
-        this.role = role;
-    }
+	public User(int userId, String username, UserStatus statusId, UserRole role) {
+		this.userId = userId;
+		this.username = username;
+		this.status = statusId;
+		this.role = role;
+	}
+		
+	public int getUserId() {
+		return userId;
+	}
 
-    public static long getSerialVersionUID() {
-        return serialVersionUID;
-    }
+	public void setUserId(int userId) {
+		this.userId = userId;
+	}
 
-    public long getId() {
-        return id;
-    }
+	public String getUsername() {
+		return username;
+	}
 
-    public void setId(long id) {
-        this.id = id;
-    }
+	public void setUsername(String username) {
+		this.username = username;
+	}
 
-    public String getName() {
-        return name;
-    }
+	public UserStatus getStatusId() {
+		return status;
+	}
 
-    public void setName(String name) {
-        this.name = name;
-    }
+	public void setStatusId(UserStatus status) {
+		this.status = status;
+	}
 
-    public UserStatus getStatus() {
-        return status;
-    }
+	public UserRole getRoleId() {
+		return role;
+	}
 
-    public void setStatus(UserStatus status) {
-        this.status = status;
-    }
+	public void setRoleId(UserRole role) {
+		this.role = role;
+	}
 
-    public UserRole getRole() {
-        return role;
-    }
+	public List<User> getFriends() {
+		return friends;
+	}
 
-    public void setRole(UserRole role) {
-        this.role = role;
-    }
+	public void setFriends(List<User> friends) {
+		this.friends = friends;
+	}
 }

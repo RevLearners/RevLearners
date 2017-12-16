@@ -1,42 +1,39 @@
 package io.revlearners.model.bean;
 
-import javax.persistence.*;
+
+import java.io.Serializable;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Entity
-@Table(name="user_status")
-public class UserStatus {
-    @Id
-    @Column(name = "status_id")
-    @SequenceGenerator(name = "seq_gen_user_status", sequenceName = "seq_user_status", initialValue = 1, allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.AUTO, generator = "seq_gen_user_status")
-    private long id;
+@Table(name="USER_STATUS")
+public class UserStatus implements Serializable {
 
-    @Column(name = "user_status_name")
-    private String name;
+	private static final long serialVersionUID = 1582847082129648664L;
 
-    public UserStatus() {
-    }
+	@Id
+	@Column(name="US_STAT_ID")
+	private int statusId;
+	
+	@Column(name="US_STAT")
+	private String status;
 
-    public UserStatus(String name) {
+	public int getStatusId() {
+		return statusId;
+	}
 
-        this.name = name;
-    }
+	public void setStatusId(int statusId) {
+		this.statusId = statusId;
+	}
 
-    public long getId() {
+	public String getStatus() {
+		return status;
+	}
 
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
+	public void setStatus(String status) {
+		this.status = status;
+	}
 }
