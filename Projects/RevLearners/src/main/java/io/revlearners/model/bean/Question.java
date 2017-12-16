@@ -15,33 +15,29 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 @Entity
-@Table (name="QUESTION")
-public class Question implements Serializable{
+@Table(name = "QUESTION")
+public class Question implements Serializable {
 	private static final long serialVersionUID = 3506791910251447189L;
 
 	@Id
-	@Column(name="QUESTION_ID")
-	@SequenceGenerator(
-			sequenceName="QUESTION_SEQ", 
-			name="QUESTION_SEQ")
-	@GeneratedValue(
-			generator="QUESTION_SEQ", 
-			strategy=GenerationType.SEQUENCE)
+	@Column(name = "QUESTION_ID")
+	@SequenceGenerator(sequenceName = "QUESTION_SEQ", name = "QUESTION_SEQ")
+	@GeneratedValue(generator = "QUESTION_SEQ", strategy = GenerationType.SEQUENCE)
 	private int questionId;
-	
-	@ManyToOne(cascade=CascadeType.ALL, fetch=FetchType.EAGER)
-	@JoinColumn(name="QUESTION_TOPIC")
+
+	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@JoinColumn(name = "TOPIC_ID")
 	private Topic topic;
-	
-	@ManyToOne(cascade=CascadeType.ALL, fetch=FetchType.EAGER)
-	@JoinColumn(name="QUESTION_TYPE")
+
+	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@JoinColumn(name = "QUESTION_TYPE_ID")
 	private QuestionType questionType;
 
-	@ManyToOne(cascade=CascadeType.ALL, fetch=FetchType.EAGER)
-	@JoinColumn(name="QUESTION_DIFFICULTY")
+	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@JoinColumn(name = "DIFFICULTY_ID")
 	private QuestionDifficulty questionDifficulty;
-	
-	@Column(name="Q_TEXTS")
+
+	@Column(name = "Q_TEXTS")
 	private String qTexts;
 
 	public Question(int questionId, Topic topic, QuestionType questionType, QuestionDifficulty questionDifficulty,
@@ -53,7 +49,7 @@ public class Question implements Serializable{
 		this.questionDifficulty = questionDifficulty;
 		this.qTexts = qTexts;
 	}
-	
+
 	public Question() {
 
 	}

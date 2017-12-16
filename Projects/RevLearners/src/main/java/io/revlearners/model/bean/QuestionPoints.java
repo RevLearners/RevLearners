@@ -32,13 +32,13 @@ public class QuestionPoints implements Serializable{
 	@ManyToOne(
 			cascade=CascadeType.ALL, 
 			fetch=FetchType.EAGER)
-	@JoinColumn(name="QUESTION_TYPE")
+	@JoinColumn(name="QUESTION_TYPE_ID")
 	private QuestionType questionType;
 	
 	@ManyToOne(
 			cascade=CascadeType.ALL, 
 			fetch=FetchType.EAGER)
-	@JoinColumn(name="QUESTION_DIFFICULTY")
+	@JoinColumn(name="DIFFICULTY_ID")
 	private QuestionDifficulty questionDifficulty;
 	
 	@Column(name="QUESTION_POINTS")

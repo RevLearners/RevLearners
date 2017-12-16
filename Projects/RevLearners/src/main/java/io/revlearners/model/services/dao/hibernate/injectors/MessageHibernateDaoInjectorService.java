@@ -14,7 +14,7 @@ import io.revlearners.util.persistence.interfaces.IGenericDao;
 @Service
 public class MessageHibernateDaoInjectorService extends AbstractHibernateDaoInjectorService<Message> implements IMessageDaoInjectorService{
 	@Autowired
-	@Qualifier(Constants.QUALIFY_MESSAGE_HIBERNATE_DAO)
+	@Qualifier(Constants.QUALIFY_MESSAGE_DAO)
 	private IMessageDao dao;
 	
 	@Override

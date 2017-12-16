@@ -24,9 +24,8 @@ public class Topic implements Serializable{
 	@Column(name="TOPIC_NAME")
 	private String topicName;
 
-	public Topic(int topicId, String topicName) {
+	public Topic(String topicName) {
 		super();
-		this.topicId = topicId;
 		this.topicName = topicName;
 	}
 	
@@ -54,5 +53,6 @@ public class Topic implements Serializable{
 	public String toString() {
 		return "Topic [topicId=" + topicId + ", topicName=" + topicName + "]";
 	}	
+
 
 }
