@@ -1,4 +1,4 @@
-package io.revlearners.util.configs;
+package io.revlearners.util.commons.configs;
 
 import io.revlearners.model.InboxItem;
 import org.hibernate.SessionFactory;

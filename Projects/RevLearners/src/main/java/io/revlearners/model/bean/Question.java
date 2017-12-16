@@ -15,45 +15,41 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 @Entity
-@Table (name="QUESTION")
-public class Question implements Serializable{
+@Table(name = "QUESTION")
+public class Question implements Serializable {
 	private static final long serialVersionUID = 3506791910251447189L;
 
 	@Id
-	@Column(name="QUESTION_ID")
-	@SequenceGenerator(
-			sequenceName="QUESTION_SEQ", 
-			name="QUESTION_SEQ")
-	@GeneratedValue(
-			generator="QUESTION_SEQ", 
-			strategy=GenerationType.SEQUENCE)
+	@Column(name = "QUESTION_ID")
+	@SequenceGenerator(sequenceName = "QUESTION_SEQ", name = "QUESTION_SEQ")
+	@GeneratedValue(generator = "QUESTION_SEQ", strategy = GenerationType.SEQUENCE)
 	private int questionId;
-	
-	@ManyToOne(cascade=CascadeType.ALL, fetch=FetchType.EAGER)
-	@JoinColumn(name="QUESTION_LANGUAGE")
-	private Language language;
-	
-	@ManyToOne(cascade=CascadeType.ALL, fetch=FetchType.EAGER)
-	@JoinColumn(name="QUESTION_TYPE")
+
+	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@JoinColumn(name = "QUESTION_LANGUAGE")
+	private Topic topic;
+
+	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@JoinColumn(name = "QUESTION_TYPE")
 	private QuestionType questionType;
 
-	@ManyToOne(cascade=CascadeType.ALL, fetch=FetchType.EAGER)
-	@JoinColumn(name="QUESTION_DIFFICULTY")
+	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@JoinColumn(name = "QUESTION_DIFFICULTY")
 	private QuestionDifficulty questionDifficulty;
-	
-	@Column(name="Q_TEXTS")
+
+	@Column(name = "Q_TEXTS")
 	private String qTexts;
 
-	public Question(int questionId, Language language, QuestionType questionType, QuestionDifficulty questionDifficulty,
+	public Question(int questionId, Topic topic, QuestionType questionType, QuestionDifficulty questionDifficulty,
 			String qTexts) {
 		super();
 		this.questionId = questionId;
-		this.language = language;
+		this.topic = topic;
 		this.questionType = questionType;
 		this.questionDifficulty = questionDifficulty;
 		this.qTexts = qTexts;
 	}
-	
+
 	public Question() {
 
 	}
@@ -66,12 +62,12 @@ public class Question implements Serializable{
 		this.questionId = questionId;
 	}
 
-	public Language getLanguage() {
-		return language;
+	public Topic getTopic() {
+		return topic;
 	}
 
-	public void setLanguage(Language language) {
-		this.language = language;
+	public void setTopic(Topic topic) {
+		this.topic = topic;
 	}
 
 	public QuestionType getQuestionType() {
@@ -100,7 +96,7 @@ public class Question implements Serializable{
 
 	@Override
 	public String toString() {
-		return "Question [questionId=" + questionId + ", language=" + language + ", questionType=" + questionType
+		return "Question [questionId=" + questionId + ", topic=" + topic + ", questionType=" + questionType
 				+ ", questionDifficulty=" + questionDifficulty + ", qTexts=" + qTexts + "]";
 	}
 

@@ -1,5 +1,6 @@
 package io.revlearners.model.bean;
 
+
 import java.io.Serializable;
 
 import javax.persistence.Column;
@@ -17,17 +18,17 @@ public class Language implements Serializable{
 	
 	@Id
 	@Column (name="LANGUAGE_ID")
-	@SequenceGenerator(sequenceName="LANGUAGE_SEQ", name="LANGUAGE_SEQ")
-	@GeneratedValue(generator="LANGUAGE_SEQ", strategy=GenerationType.SEQUENCE)
+	@SequenceGenerator(sequenceName="LANG_SEQ", name="LANG_SEQ")
+	@GeneratedValue(generator="LANG_SEQ", strategy=GenerationType.SEQUENCE)
 	private int languageId;
 	
-	@Column(name="LANGUAGE_NAME")
-	private int languageName;
+	@Column(name="LANG_NAME")
+	private String langName;
 
-	public Language(int languageId, int languageName) {
+	public Language(int languageId, String langName) {
 		super();
 		this.languageId = languageId;
-		this.languageName = languageName;
+		this.langName = langName;
 	}
 	
 	public Language() {
@@ -42,17 +43,17 @@ public class Language implements Serializable{
 		this.languageId = languageId;
 	}
 
-	public int getLanguageName() {
-		return languageName;
+	public String getLangName() {
+		return langName;
 	}
 
-	public void setLanguageName(int languageName) {
-		this.languageName = languageName;
+	public void setLangName(String langName) {
+		this.langName = langName;
 	}
 
 	@Override
 	public String toString() {
-		return "Language [languageId=" + languageId + ", languageName=" + languageName + "]";
-	}
+		return "Language [languageId=" + languageId + ", langName=" + langName + "]";
+	}	
 
 }
