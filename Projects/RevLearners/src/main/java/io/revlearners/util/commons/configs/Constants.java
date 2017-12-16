@@ -15,6 +15,5 @@ public final class Constants {
 	public static final String QUALIFY_QUESTION_DAO_INJECTOR = "questionDaoInjectorService";
 	public static final String QUALIFY_RANK_DAO_INJECTOR = "rankDaoInjectorService";
 	public static final String QUALIFY_USER_DAO_INJECTOR = "userDaoInjectorService";
-	
 
 }
