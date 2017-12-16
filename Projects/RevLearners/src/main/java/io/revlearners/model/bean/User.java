@@ -37,11 +37,11 @@ public class User implements Serializable {
 
 	@ManyToOne
 	@JoinColumn(name="STATUS_ID")
-	private int statusId;
+	private UserStatus status;
 
 	@ManyToOne
 	@JoinColumn(name="ROLE_ID")
-	private int roleId;
+	private UserRole role;
 
 	@ManyToMany
 	@JoinTable(name="FRIENDS")
@@ -51,11 +51,11 @@ public class User implements Serializable {
 	
 	}
 
-	public User(int userId, String username, int statusId, int roleId) {
+	public User(int userId, String username, UserStatus statusId, UserRole role) {
 		this.userId = userId;
 		this.username = username;
-		this.statusId = statusId;
-		this.roleId = roleId;
+		this.status = statusId;
+		this.role = role;
 	}
 		
 	public int getUserId() {
@@ -74,20 +74,20 @@ public class User implements Serializable {
 		this.username = username;
 	}
 
-	public int getStatusId() {
-		return statusId;
+	public UserStatus getStatusId() {
+		return status;
 	}
 
-	public void setStatusId(int statusId) {
-		this.statusId = statusId;
+	public void setStatusId(UserStatus status) {
+		this.status = status;
 	}
 
-	public int getRoleId() {
-		return roleId;
+	public UserRole getRoleId() {
+		return role;
 	}
 
-	public void setRoleId(int roleId) {
-		this.roleId = roleId;
+	public void setRoleId(UserRole role) {
+		this.role = role;
 	}
 
 	public List<User> getFriends() {
