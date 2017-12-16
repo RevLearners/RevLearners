@@ -1,4 +1,4 @@
-package io.revlearners.model;
+package io.revlearners.model.bean;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -10,7 +10,7 @@ public class InboxItem implements Serializable {
     @Column(name = "bean_id")
     @SequenceGenerator(name = "seq_gen_inbox_item", sequenceName = "seq_inbox_item", initialValue = 1, allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "seq_gen_inbox_item")
-    Long id;
+    private Long id;
 
     @Column(name = "bean_message")
     private String message;
@@ -18,5 +18,22 @@ public class InboxItem implements Serializable {
     public InboxItem(String message) {
         this.message = message;
     }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
 }
 

@@ -1,6 +1,6 @@
 package io.revlearners.util.configs;
 
-import io.revlearners.model.InboxItem;
+import io.revlearners.model.bean.InboxItem;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.config.BeanPostProcessor;
 import org.springframework.context.annotation.Bean;

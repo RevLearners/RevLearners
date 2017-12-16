@@ -1,4 +1,4 @@
-import io.revlearners.model.InboxItem;
+import io.revlearners.model.bean.InboxItem;
 import io.revlearners.util.configs.AppConfig;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;

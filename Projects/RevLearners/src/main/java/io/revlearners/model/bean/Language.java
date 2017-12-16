@@ -1,4 +1,4 @@
-package com.Revature.model.bean;
+package io.revlearners.model.bean;
 
 import java.io.Serializable;
 
@@ -11,17 +11,18 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 @Entity
-@Table (name="LANGUAGE")
+@Table (name="language")
 public class Language implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 	
 	@Id
-	@Column(name="LANG_ID")
+	@Column(name="lang_id")
 	@SequenceGenerator(name = "seq_gen_lang", sequenceName = "seq_lang")
-	@GeneratedValue(strategy= GenerationType.AUTO)
+	@GeneratedValue(generator="seq_gen_lang", strategy= GenerationType.AUTO)
 	private int id;
-	@Column(name="LANG_NAME")
+
+	@Column(name="lang_name")
 	private String name;
 	
 	public Language() {
