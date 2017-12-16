@@ -19,6 +19,7 @@ public class DaoHibernateFactory<T extends Serializable> implements DaoFactory<T
 		if(factory == null) {
 			factory = new DaoHibernateFactory<T>();
 		}
+		
 		switch(type){
 		case USER:
 			break;
