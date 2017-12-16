@@ -26,6 +26,9 @@
 **/Servers/
 **/.springBeans
 
+#Maven
+*/target/**
+
 #IDEA
 **/.idea/
 **/*.iml

@@ -1,4 +1,5 @@
-import io.revlearners.model.InboxItem;
+
+import io.revlearners.model.bean.Topic;
 import io.revlearners.util.commons.configs.AppConfig;
 
 import org.hibernate.Session;
@@ -13,7 +14,9 @@ public class TestDriver {
 
         try (Session session = sessionFactory.openSession()){
             session.beginTransaction();
-            InboxItem item = new InboxItem("this is a test message");
+            Topic item = new Topic();
+            item.setTopicName("whatever");
+            
             session.save(item);
             session.getTransaction().commit();
         }

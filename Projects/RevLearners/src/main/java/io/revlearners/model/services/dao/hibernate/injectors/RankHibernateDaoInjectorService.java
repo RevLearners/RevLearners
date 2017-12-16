@@ -14,7 +14,7 @@ import io.revlearners.util.persistence.interfaces.IGenericDao;
 @Service
 public class RankHibernateDaoInjectorService extends AbstractHibernateDaoInjectorService<Rank> implements IRankDaoInjectorService {
 	@Autowired
-	@Qualifier(Constants.QUALIFY_RANK_HIBERNATE_DAO)
+	@Qualifier(Constants.QUALIFY_RANK_DAO)
 	private IRankDao dao;
 	
 	@Override

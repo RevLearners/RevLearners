@@ -14,7 +14,7 @@ import io.revlearners.util.persistence.interfaces.IGenericDao;
 @Service
 public class UserHibernateDaoInjectorService extends AbstractHibernateDaoInjectorService<User> implements IUserDaoInjectorService {
 	@Autowired
-	@Qualifier(Constants.QUALIFY_USER_HIBERNATE_DAO)
+	@Qualifier(Constants.QUALIFY_USER_DAO)
 	private IUserDao dao;
 	
 	@Override

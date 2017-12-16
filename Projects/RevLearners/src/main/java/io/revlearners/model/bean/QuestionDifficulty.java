@@ -21,7 +21,7 @@ public class QuestionDifficulty implements Serializable{
 	@GeneratedValue(generator="DIFFICULTY_SEQ", strategy=GenerationType.SEQUENCE)
 	private int difficultyId;
 	
-	@Column(name="LANGUAGE_NAME")
+	@Column(name="TOPIC_NAME")
 	private int difficultyName;
 
 	public QuestionDifficulty(int difficultyId, int difficultyName) {
