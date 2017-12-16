@@ -32,8 +32,14 @@ public class User implements Serializable {
 			strategy=GenerationType.SEQUENCE)
 	private int userId;
 
-	@Column(name="USERNAME")
-	private String username;
+	@Column(name="FNAME")
+	private String firstName;
+
+	@Column(name="MNAME")
+	private String middleName;
+	
+	@Column(name="LNAME")
+	private String lastName;
 
 	@ManyToOne
 	@JoinColumn(name="STATUS_ID")
@@ -50,14 +56,18 @@ public class User implements Serializable {
 	public User() {
 	
 	}
-
-	public User(int userId, String username, UserStatus statusId, UserRole role) {
-		this.userId = userId;
-		this.username = username;
-		this.status = statusId;
-		this.role = role;
-	}
 		
+	public User(int userId, String firstName, String middleName, String lastName, UserStatus status, UserRole role,
+			List<User> friends) {
+		this.userId = userId;
+		this.firstName = firstName;
+		this.middleName = middleName;
+		this.lastName = lastName;
+		this.status = status;
+		this.role = role;
+		this.friends = friends;
+	}
+
 	public int getUserId() {
 		return userId;
 	}
@@ -66,34 +76,50 @@ public class User implements Serializable {
 		this.userId = userId;
 	}
 
-	public String getUsername() {
-		return username;
+	public String getFirstName() {
+		return firstName;
 	}
 
-	public void setUsername(String username) {
-		this.username = username;
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
 	}
 
-	public UserStatus getStatusId() {
+	public String getMiddleName() {
+		return middleName;
+	}
+
+	public void setMiddleName(String middleName) {
+		this.middleName = middleName;
+	}
+
+	public String getLastName() {
+		return lastName;
+	}
+
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
+
+	public UserStatus getStatus() {
 		return status;
 	}
 
-	public void setStatusId(UserStatus status) {
+	public void setStatus(UserStatus status) {
 		this.status = status;
 	}
 
-	public UserRole getRoleId() {
+	public UserRole getRole() {
 		return role;
 	}
 
-	public void setRoleId(UserRole role) {
+	public void setRole(UserRole role) {
 		this.role = role;
 	}
 
 	public List<User> getFriends() {
 		return friends;
 	}
-
+	
 	public void setFriends(List<User> friends) {
 		this.friends = friends;
 	}
