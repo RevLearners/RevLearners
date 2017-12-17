@@ -1,7 +1,12 @@
 package io.revlearners.util.commons.configs;
 
-import io.revlearners.model.bean.InboxItem;
+import java.sql.Connection;
+import java.util.Properties;
+
+import javax.sql.DataSource;
+
 import org.hibernate.SessionFactory;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.config.BeanPostProcessor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -10,16 +15,46 @@ import org.springframework.dao.annotation.PersistenceExceptionTranslationPostPro
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.hibernate5.HibernateTransactionManager;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
-
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
-import javax.sql.DataSource;
-import java.sql.Connection;
-import java.util.Properties;
+import io.revlearners.model.bean.Credentials;
+import io.revlearners.model.bean.FriendList;
+import io.revlearners.model.bean.Message;
+import io.revlearners.model.bean.Question;
+import io.revlearners.model.bean.QuestionDifficulty;
+import io.revlearners.model.bean.QuestionOption;
+import io.revlearners.model.bean.QuestionPoints;
+import io.revlearners.model.bean.QuestionType;
+import io.revlearners.model.bean.Quiz;
+import io.revlearners.model.bean.Rank;
+import io.revlearners.model.bean.Topic;
+import io.revlearners.model.bean.User;
+import io.revlearners.model.bean.UserRole;
+import io.revlearners.model.bean.UserStatus;
+import io.revlearners.model.dao.hibernate.MessageHibernateDao;
+import io.revlearners.model.dao.hibernate.QuestionHibernateDao;
+import io.revlearners.model.dao.hibernate.RankHibernateDao;
+import io.revlearners.model.dao.hibernate.TopicHibernateDao;
+import io.revlearners.model.dao.hibernate.UserHibernateDao;
+import io.revlearners.model.dao.interfaces.IMessageDao;
+import io.revlearners.model.dao.interfaces.IQuestionDao;
+import io.revlearners.model.dao.interfaces.IRankDao;
+import io.revlearners.model.dao.interfaces.ITopicDao;
+import io.revlearners.model.dao.interfaces.IUserDao;
+import io.revlearners.model.services.dao.hibernate.injectors.MessageHibernateDaoInjectorService;
+import io.revlearners.model.services.dao.hibernate.injectors.QuestionHibernateDaoInjectorService;
+import io.revlearners.model.services.dao.hibernate.injectors.RankHibernateDaoInjectorService;
+import io.revlearners.model.services.dao.hibernate.injectors.TopicHibernateDaoInjectorService;
+import io.revlearners.model.services.dao.hibernate.injectors.UserHibernateDaoInjectorService;
+import io.revlearners.model.services.dao.interfaces.contracts.IMessageDaoInjectorService;
+import io.revlearners.model.services.dao.interfaces.contracts.IQuestionDaoInjectorService;
+import io.revlearners.model.services.dao.interfaces.contracts.IRankDaoInjectorService;
+import io.revlearners.model.services.dao.interfaces.contracts.ITopicDaoInjectorService;
+import io.revlearners.model.services.dao.interfaces.contracts.IUserDaoInjectorService;
 
 
 
@@ -57,7 +92,20 @@ public class AppConfig {
 
         factoryBean.setHibernateProperties(props);
         factoryBean.setAnnotatedClasses(    // register @Entity classes
-                InboxItem.class
+                Credentials.class,
+                FriendList.class,
+                Message.class,
+                Question.class,
+                QuestionDifficulty.class,
+                QuestionOption.class,
+                QuestionPoints.class,
+                QuestionType.class,
+                Quiz.class,
+                Rank.class,
+                Topic.class,
+                User.class,
+                UserRole.class,
+                UserStatus.class
         );
         return factoryBean;
     }
@@ -87,4 +135,66 @@ public class AppConfig {
         // to translate hibernate exceptions to spring exceptions (for whatever reason)
         return new PersistenceExceptionTranslationPostProcessor();
     }
+    
+    @Bean
+    @Qualifier(Constants.QUALIFY_MESSAGE_DAO)
+    public IMessageDao getIMessageDao() {
+    	return new MessageHibernateDao();
+    }
+    
+    @Bean
+    @Qualifier(Constants.QUALIFY_QUESTION_DAO)
+    public IQuestionDao getIQuestionDao() {
+    	return new QuestionHibernateDao();
+    }
+    
+    @Bean
+    @Qualifier(Constants.QUALIFY_RANK_DAO)
+    public IRankDao getIRankDao() {
+    	return new RankHibernateDao();
+    }
+    
+    @Bean
+    @Qualifier(Constants.QUALIFY_TOPIC_DAO)
+    public ITopicDao getITopicDao() {
+    	return new TopicHibernateDao();
+    }
+    
+    @Bean
+    @Qualifier(Constants.QUALIFY_USER_DAO)
+    public IUserDao getIUserDao() {
+    	return new UserHibernateDao();
+    }
+    
+    @Bean
+    @Qualifier(Constants.QUALIFY_TOPIC_DAO_INJECTOR)
+    public ITopicDaoInjectorService getTopicHibernateDaoInjectorService() {
+    	return new TopicHibernateDaoInjectorService();
+    }
+	
+    @Bean
+    @Qualifier(Constants.QUALIFY_MESSAGE_DAO_INJECTOR)
+    public IMessageDaoInjectorService getMessageHibernateDaoInjectorService() {
+    	return new MessageHibernateDaoInjectorService();
+    }
+    
+    @Bean
+    @Qualifier(Constants.QUALIFY_QUESTION_DAO_INJECTOR)
+    public IQuestionDaoInjectorService getQuestionHibernateDaoInjectorService() {
+    	return new QuestionHibernateDaoInjectorService();
+    }
+    
+    @Bean
+    @Qualifier(Constants.QUALIFY_RANK_DAO_INJECTOR)
+    public IRankDaoInjectorService getRankHibernateDaoInjectorService() {
+    	return new RankHibernateDaoInjectorService();
+    }
+    
+    @Bean
+    @Qualifier(Constants.QUALIFY_USER_DAO_INJECTOR)
+    public IUserDaoInjectorService getUserHibernateDaoInjectorService() {
+    	return new UserHibernateDaoInjectorService();
+    }
+      
+    
 }

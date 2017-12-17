@@ -26,15 +26,15 @@ public class Question implements Serializable {
 	private int questionId;
 
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	@JoinColumn(name = "QUESTION_LANGUAGE")
+	@JoinColumn(name = "TOPIC_ID")
 	private Topic topic;
 
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	@JoinColumn(name = "QUESTION_TYPE")
+	@JoinColumn(name = "QUESTION_TYPE_ID")
 	private QuestionType questionType;
 
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	@JoinColumn(name = "QUESTION_DIFFICULTY")
+	@JoinColumn(name = "DIFFICULTY_ID")
 	private QuestionDifficulty questionDifficulty;
 
 	@Column(name = "Q_TEXTS")
