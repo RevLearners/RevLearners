@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
-@Table(name="user_certification")
+@Table(name="USER_CERTIFICATION")
 public class UserCertification implements Serializable {
     @EmbeddedId
     private UserCertPair id;

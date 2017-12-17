@@ -3,115 +3,104 @@ package io.revlearners.model.bean;
 import java.io.Serializable;
 
 import java.util.List;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
-import javax.persistence.SequenceGenerator;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
-@Table(name="APP_USER")
+@Table(name = "APP_USER")
 public class User implements Serializable {
-	private static final long serialVersionUID = 8799966307722508679L;
+    private static final long serialVersionUID = 8799966307722508679L;
 
-	@Id
-	@Column(name="USER_ID")
-	@SequenceGenerator(sequenceName="USER_SEQ", name="USER_SEQ")
-	@GeneratedValue(generator="USER_SEQ", strategy=GenerationType.SEQUENCE)
-	private Long userId;
+    @Id
+    @Column(name = "USER_ID")
+    @SequenceGenerator(sequenceName = "USER_SEQ", name = "USER_SEQ")
+    @GeneratedValue(generator = "USER_SEQ", strategy = GenerationType.SEQUENCE)
+    private Long userId;
 
-	@Column(name="FNAME")
-	private String firstName;
+    @Column(name = "FNAME")
+    private String firstName;
 
-	@Column(name="MNAME")
-	private String middleName;
-	
-	@Column(name="LNAME")
-	private String lastName;
+    @Column(name = "MNAME")
+    private String middleName;
 
-	@ManyToOne
-	@JoinColumn(name="STATUS_ID")
-	private UserStatus status;
+    @Column(name = "LNAME")
+    private String lastName;
 
-	@ManyToOne
-	@JoinColumn(name="ROLE_ID")
-	private UserRole role;
+    @ManyToOne
+    @JoinColumn(name = "STATUS_ID")
+    private UserStatus status;
 
-	@ManyToMany
-	@JoinTable(name="FRIEND", joinColumns=@JoinColumn(name="USER1_ID"), inverseJoinColumns=@JoinColumn(name="USER2_ID"))
-	private List<User> friends;
-	
-	public User() {
-	}
-		
-	public User(String firstName, String middleName, String lastName, UserStatus status, UserRole role) {
-		this.firstName = firstName;
-		this.middleName = middleName;
-		this.lastName = lastName;
-		this.status = status;
-		this.role = role;
-		this.friends = friends;
-	}
+    @ManyToOne
+    @JoinColumn(name = "ROLE_ID")
+    private UserRole role;
 
-	public Long getId() {
-		return userId;
-	}
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "FRIEND", joinColumns = @JoinColumn(name = "USER1_ID"), inverseJoinColumns = @JoinColumn(name = "USER2_ID"))
+    private List<User> friends;
 
-	public void setUserId(Long userId) {
-		this.userId = userId;
-	}
+    public User() {
+    }
 
-	public String getFirstName() {
-		return firstName;
-	}
+    public User(String firstName, String middleName, String lastName, UserStatus status, UserRole role) {
+        this.firstName = firstName;
+        this.middleName = middleName;
+        this.lastName = lastName;
+        this.status = status;
+        this.role = role;
+    }
 
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
-	}
+    public Long getId() {
+        return userId;
+    }
 
-	public String getMiddleName() {
-		return middleName;
-	}
+    public void setUserId(Long userId) {
+        this.userId = userId;
+    }
 
-	public void setMiddleName(String middleName) {
-		this.middleName = middleName;
-	}
+    public String getFirstName() {
+        return firstName;
+    }
 
-	public String getLastName() {
-		return lastName;
-	}
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
 
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
-	}
+    public String getMiddleName() {
+        return middleName;
+    }
 
-	public UserStatus getStatus() {
-		return status;
-	}
+    public void setMiddleName(String middleName) {
+        this.middleName = middleName;
+    }
 
-	public void setStatus(UserStatus status) {
-		this.status = status;
-	}
+    public String getLastName() {
+        return lastName;
+    }
 
-	public UserRole getRole() {
-		return role;
-	}
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
 
-	public void setRole(UserRole role) {
-		this.role = role;
-	}
+    public UserStatus getStatus() {
+        return status;
+    }
 
-	public List<User> getFriends() {
-		return friends;
-	}
-	
-	public void setFriends(List<User> friends) {
-		this.friends = friends;
-	}
+    public void setStatus(UserStatus status) {
+        this.status = status;
+    }
+
+    public UserRole getRole() {
+        return role;
+    }
+
+    public void setRole(UserRole role) {
+        this.role = role;
+    }
+
+    public List<User> getFriends() {
+        return friends;
+    }
+
+    public void setFriends(List<User> friends) {
+        this.friends = friends;
+    }
 }

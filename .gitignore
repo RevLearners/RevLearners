@@ -36,6 +36,10 @@
 #AngularJS
 **/.tern-project
 
+#Visual Studio
+**/.vs/
+
+
 #Mac
 .DS_Store
 /.recommenders/

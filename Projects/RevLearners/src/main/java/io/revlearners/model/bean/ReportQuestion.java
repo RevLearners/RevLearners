@@ -23,66 +23,59 @@ public class ReportQuestion implements Serializable{
 	@Column (name="REPORT_ID")
 	@SequenceGenerator(sequenceName="REPORT_SEQ", name="REPORT_SEQ")
 	@GeneratedValue(generator="REPORT_SEQ", strategy=GenerationType.SEQUENCE)
-	private int reportId;
+	private Long reportId;
 	
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinColumn(name = "QUESTION_ID")
-	private int questionId;
+	private Question question;
 	
 	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinColumn(name = "REASON_ID")
-	private int reasonId;
-	
+    private Reason reason;
+
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinColumn(name="USER_ID")
-	private int reporterId;
+    private User reporter;
 
 	
-
-	public int getReporterId() {
-		return reporterId;
-	}
-
-	public void setReporterId(int reporterId) {
-		this.reporterId = reporterId;
-	}
-
-	public ReportQuestion(int reportId, int questionId, int reasonId, int reporterId) {
-		super();
-		this.reportId = reportId;
-		this.questionId = questionId;
-		this.reasonId = reasonId;
-		this.reporterId = reporterId;
-	}
-
 	public ReportQuestion() {
-		super();
-		// TODO Auto-generated constructor stub
 	}
 
-	public int getReportId() {
-		return reportId;
-	}
+    public ReportQuestion(Question question, Reason reason, User reporter) {
+        this.question = question;
+        this.reason = reason;
+        this.reporter = reporter;
+    }
 
-	public void setReportId(int reportId) {
-		this.reportId = reportId;
-	}
+    public Long getReportId() {
+        return reportId;
+    }
 
-	public int getQuestionId() {
-		return questionId;
-	}
+    public void setReportId(Long reportId) {
+        this.reportId = reportId;
+    }
 
-	public void setQuestionId(int questionId) {
-		this.questionId = questionId;
-	}
+    public Question getQuestion() {
+        return question;
+    }
 
-	public int getReasonId() {
-		return reasonId;
-	}
+    public void setQuestion(Question question) {
+        this.question = question;
+    }
 
-	public void setReasonId(int reasonId) {
-		this.reasonId = reasonId;
-	}
-	
-	
+    public Reason getReason() {
+        return reason;
+    }
+
+    public void setReason(Reason reason) {
+        this.reason = reason;
+    }
+
+    public User getReporter() {
+        return reporter;
+    }
+
+    public void setReporter(User reporter) {
+        this.reporter = reporter;
+    }
 }

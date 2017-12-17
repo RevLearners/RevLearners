@@ -5,7 +5,6 @@ import java.util.Properties;
 
 import javax.sql.DataSource;
 
-import io.revlearners.model.bean.*;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.config.BeanPostProcessor;
@@ -22,26 +21,11 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
-import io.revlearners.model.dao.hibernate.MessageHibernateDao;
-import io.revlearners.model.dao.hibernate.QuestionHibernateDao;
-import io.revlearners.model.dao.hibernate.RankHibernateDao;
-import io.revlearners.model.dao.hibernate.TopicHibernateDao;
-import io.revlearners.model.dao.hibernate.UserHibernateDao;
-import io.revlearners.model.dao.interfaces.IMessageDao;
-import io.revlearners.model.dao.interfaces.IQuestionDao;
-import io.revlearners.model.dao.interfaces.IRankDao;
-import io.revlearners.model.dao.interfaces.ITopicDao;
-import io.revlearners.model.dao.interfaces.IUserDao;
-import io.revlearners.model.services.dao.hibernate.injectors.MessageHibernateDaoInjectorService;
-import io.revlearners.model.services.dao.hibernate.injectors.QuestionHibernateDaoInjectorService;
-import io.revlearners.model.services.dao.hibernate.injectors.RankHibernateDaoInjectorService;
-import io.revlearners.model.services.dao.hibernate.injectors.TopicHibernateDaoInjectorService;
-import io.revlearners.model.services.dao.hibernate.injectors.UserHibernateDaoInjectorService;
-import io.revlearners.model.services.dao.interfaces.contracts.IMessageDaoInjectorService;
-import io.revlearners.model.services.dao.interfaces.contracts.IQuestionDaoInjectorService;
-import io.revlearners.model.services.dao.interfaces.contracts.IRankDaoInjectorService;
-import io.revlearners.model.services.dao.interfaces.contracts.ITopicDaoInjectorService;
-import io.revlearners.model.services.dao.interfaces.contracts.IUserDaoInjectorService;
+import io.revlearners.model.bean.*;
+import io.revlearners.model.dao.hibernate.*;
+import io.revlearners.model.dao.interfaces.*;
+import io.revlearners.model.services.dao.hibernate.injectors.*;
+import io.revlearners.model.services.dao.interfaces.contracts.*;
 
 
 
@@ -98,7 +82,9 @@ public class AppConfig {
                 UserCertification.class,
                 UserLangRank.class,
                 UserRole.class,
-                UserStatus.class
+                UserStatus.class,
+                Reason.class,
+                ReportQuestion.class
         );
         return factoryBean;
     }

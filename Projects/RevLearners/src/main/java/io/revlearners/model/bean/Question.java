@@ -1,18 +1,9 @@
 package io.revlearners.model.bean;
 
 import java.io.Serializable;
+import java.util.Set;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.SequenceGenerator;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "QUESTION")
@@ -36,6 +27,9 @@ public class Question implements Serializable {
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinColumn(name = "DIFFICULTY_ID")
 	private QuestionDifficulty difficulty;
+
+	@OneToMany(mappedBy="question", cascade=CascadeType.ALL)
+	private Set<QuestionOption> options;
 
 	@Column(name = "Q_TEXTS")
 	private String text;
