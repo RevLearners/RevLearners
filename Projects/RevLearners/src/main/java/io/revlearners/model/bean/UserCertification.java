@@ -7,35 +7,31 @@ import java.io.Serializable;
 @Table(name="user_certification")
 public class UserCertification implements Serializable {
     @EmbeddedId
-    private UserCertPair userCertKey;
+    private UserCertPair id;
 
-    @Column(name="certification_file")
+    @OneToOne
+    @JoinColumn(name="BLOB_ID")
     private FileBlob file;
 
-    public UserCertification(UserCertPair userCertKey, FileBlob file) {
-        this.userCertKey = userCertKey;
-        this.file = file;
-    }
-
     public UserCertification(User user, Certification certification, FileBlob file) {
-        this.userCertKey = new UserCertPair(user, certification);
+        this.id = new UserCertPair(user, certification);
         this.file = file;
     }
 
     public UserCertification(User user, Certification certification) {
-        this.userCertKey = new UserCertPair(user, certification);
+        this.id = new UserCertPair(user, certification);
         this.file = file;
     }
 
     public UserCertification() {
     }
 
-    public UserCertPair getUserCertKey() {
-        return userCertKey;
+    public UserCertPair getId() {
+        return id;
     }
 
-    public void setUserCertKey(UserCertPair userCertKey) {
-        this.userCertKey = userCertKey;
+    public void setId(UserCertPair userCertKey) {
+        this.id = userCertKey;
     }
 
     public FileBlob getFile() {
@@ -50,8 +46,13 @@ public class UserCertification implements Serializable {
 
     @Embeddable
     public static class UserCertPair implements Serializable {
-        User user;
-        Certification certification;
+        @ManyToOne
+        @JoinColumn(name="USER_ID")
+        private User user;
+
+        @ManyToOne
+        @JoinColumn(name="CERTIFICATION_ID")
+        private Certification certification;
 
         public UserCertPair(User user, Certification certification) {
             this.user = user;
@@ -67,8 +68,8 @@ public class UserCertification implements Serializable {
 
             UserCertPair that = (UserCertPair) o;
 
-            return this.user.getId() == that.user.getId() &&
-                   this.certification.getId() == that.certification.getId();
+            return this.user.getId().equals(that.user.getId()) &&
+                   this.certification.getId().equals(that.certification.getId());
         }
         @Override
         public int hashCode() {

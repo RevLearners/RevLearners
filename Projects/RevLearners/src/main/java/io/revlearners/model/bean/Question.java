@@ -23,7 +23,7 @@ public class Question implements Serializable {
 	@Column(name = "QUESTION_ID")
 	@SequenceGenerator(sequenceName = "QUESTION_SEQ", name = "QUESTION_SEQ")
 	@GeneratedValue(generator = "QUESTION_SEQ", strategy = GenerationType.SEQUENCE)
-	private int questionId;
+	private Long id;
 
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinColumn(name = "TOPIC_ID")
@@ -31,35 +31,32 @@ public class Question implements Serializable {
 
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinColumn(name = "QUESTION_TYPE_ID")
-	private QuestionType questionType;
+	private QuestionType type;
 
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinColumn(name = "DIFFICULTY_ID")
-	private QuestionDifficulty questionDifficulty;
+	private QuestionDifficulty difficulty;
 
 	@Column(name = "Q_TEXTS")
-	private String qTexts;
+	private String text;
 
-	public Question(int questionId, Topic topic, QuestionType questionType, QuestionDifficulty questionDifficulty,
-			String qTexts) {
-		super();
-		this.questionId = questionId;
+	public Question(Topic topic, QuestionType type, QuestionDifficulty difficulty, String text) {
+		this.id = id;
 		this.topic = topic;
-		this.questionType = questionType;
-		this.questionDifficulty = questionDifficulty;
-		this.qTexts = qTexts;
+		this.type = type;
+		this.difficulty = difficulty;
+		this.text = text;
 	}
 
 	public Question() {
-
 	}
 
-	public int getQuestionId() {
-		return questionId;
+	public Long getId() {
+		return id;
 	}
 
-	public void setQuestionId(int questionId) {
-		this.questionId = questionId;
+	public void setId(Long questionId) {
+		this.id = questionId;
 	}
 
 	public Topic getTopic() {
@@ -70,34 +67,34 @@ public class Question implements Serializable {
 		this.topic = topic;
 	}
 
-	public QuestionType getQuestionType() {
-		return questionType;
+	public QuestionType getType() {
+		return type;
 	}
 
-	public void setQuestionType(QuestionType questionType) {
-		this.questionType = questionType;
+	public void setType(QuestionType type) {
+		this.type = type;
 	}
 
-	public QuestionDifficulty getQuestionDifficulty() {
-		return questionDifficulty;
+	public QuestionDifficulty getDifficulty() {
+		return difficulty;
 	}
 
-	public void setQuestionDifficulty(QuestionDifficulty questionDifficulty) {
-		this.questionDifficulty = questionDifficulty;
+	public void setDifficulty(QuestionDifficulty difficulty) {
+		this.difficulty = difficulty;
 	}
 
-	public String getqTexts() {
-		return qTexts;
+	public String getText() {
+		return text;
 	}
 
-	public void setqTexts(String qTexts) {
-		this.qTexts = qTexts;
+	public void setText(String text) {
+		this.text = text;
 	}
 
 	@Override
 	public String toString() {
-		return "Question [questionId=" + questionId + ", topic=" + topic + ", questionType=" + questionType
-				+ ", questionDifficulty=" + questionDifficulty + ", qTexts=" + qTexts + "]";
+		return "Question [id=" + id + ", topic=" + topic + ", type=" + type
+				+ ", difficulty=" + difficulty + ", text=" + text + "]";
 	}
 
 }

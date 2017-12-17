@@ -1,25 +1,26 @@
 package io.revlearners.model.bean;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
-@Table(name="rank")
-public class Rank {
+@Table(name="RANK")
+public class Rank implements Serializable {
 
     @Id
-    @Column(name = "rank_id")
-    @SequenceGenerator(name = "seq_gen_rank", sequenceName = "seq_rank", initialValue = 1, allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.AUTO, generator = "seq_gen_rank")
-    private long id;
+    @Column(name = "RANK_ID")
+    @SequenceGenerator(name = "SEQ_GEN_RANK", sequenceName = "SEQ_RANK", initialValue = 1, allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.AUTO, generator = "SEQ_GEN_RANK")
+    private Long id;
 
-    @Column(name="rank_name")
+    @Column(name="RANK_NAME")
     private String name;
 
-    @Column(name="merit_threshold")
-    private long meritThreshold;
+    @Column(name="MERIT_THRESHOLD")
+    private Long meritThreshold;
 
 
-    public Rank(String name, long meritThreshold) {
+    public Rank(String name, Long meritThreshold) {
         this.name = name;
         this.meritThreshold = meritThreshold;
     }
@@ -27,11 +28,11 @@ public class Rank {
     public Rank() {
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -43,11 +44,11 @@ public class Rank {
         this.name = name;
     }
 
-    public long getMeritThreshold() {
+    public Long getMeritThreshold() {
         return meritThreshold;
     }
 
-    public void setMeritThreshold(long meritThreshold) {
+    public void setMeritThreshold(Long meritThreshold) {
         this.meritThreshold = meritThreshold;
     }
 }

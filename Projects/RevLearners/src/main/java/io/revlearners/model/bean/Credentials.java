@@ -2,11 +2,7 @@ package io.revlearners.model.bean;
 
 import java.io.Serializable;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name="CREDENTIALS")
@@ -14,7 +10,11 @@ public class Credentials implements Serializable {
 
 	private static final long serialVersionUID = -4553263186684526703L;
 
-	@Id
+    @Id
+    @Column(name="USER_ID")
+	private Long userId;
+
+	@MapsId
 	@JoinColumn(name="USER_ID")
 	private User user;
 	
@@ -28,7 +28,6 @@ public class Credentials implements Serializable {
 	private String salt;
 
 	public Credentials() {
-
 	}
 
 	public Credentials(User user, String email, String password, String salt) {
@@ -37,6 +36,14 @@ public class Credentials implements Serializable {
 		this.password = password;
 		this.salt = salt;
 	}
+
+    public Long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Long userId) {
+        this.userId = userId;
+    }
 
 	public User getUser() {
 		return user;

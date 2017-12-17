@@ -1,51 +1,57 @@
 package io.revlearners.model.bean;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name="notification")
-public class Notification {
+@Table(name="NOTIFICATION")
+public class Notification implements Serializable {
 
     @Id
-    @Column(name = "notification_id")
-    @SequenceGenerator(name = "seq_gen_notification", sequenceName = "seq_notification", initialValue = 1, allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.AUTO, generator = "seq_gen_notification")
-    private long id;
+    @Column(name = "NOTIFICATION_ID")
+    @SequenceGenerator(name = "SEQ_GEN_NOTIFICATION", sequenceName = "SEQ_NOTIFICATION", initialValue = 1, allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.AUTO, generator = "SEQ_GEN_NOTIFICATION")
+    private Long id;
 
     @ManyToOne
-    @JoinColumn(name="user_id")
+    @JoinColumn(name="SENDER_ID", referencedColumnName="USER_ID")
     private User sender;
 
     @ManyToOne
-    @JoinColumn(name="user_id")
+    @JoinColumn(name="RECEIVER_ID", referencedColumnName="USER_ID")
     private User receiver;
 
-    @Column(name="notification_title")
+    @Column(name="NOTIFICATION_TITLE")
     private String title;
 
-    @Column(name="notification_contents")
+    @Column(name="NOTIFICATION_CONTENTS")
     private String contents;
 
-    @Column(name="notification_time")
+    @Column(name="NOTIFICATION_TIME")
     private LocalDateTime time;
+
+    @ManyToOne
+    @JoinColumn(name="STATUS_ID")
+    private MessageStatus status;
 
     public Notification() {
     }
 
-    public Notification(User sender, User receiver, String title, String contents, LocalDateTime time) {
+    public Notification(User sender, User receiver, String title, String contents, LocalDateTime time, MessageStatus status) {
         this.sender = sender;
         this.receiver = receiver;
         this.title = title;
         this.contents = contents;
         this.time = time;
+        this.status = status;
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -87,5 +93,13 @@ public class Notification {
 
     public void setTime(LocalDateTime time) {
         this.time = time;
+    }
+
+    public MessageStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(MessageStatus status) {
+        this.status = status;
     }
 }

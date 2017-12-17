@@ -1,40 +1,41 @@
 package io.revlearners.model.bean;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name="message")
-public class Message {
+@Table(name="MESSAGE")
+public class Message implements Serializable {
     @Id
-    @Column(name = "message_id")
-    @SequenceGenerator(name = "seq_gen_message", sequenceName = "seq_message", initialValue = 1, allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.AUTO, generator = "seq_gen_message")
-    private long id;
+    @Column(name = "MESSAGE_ID")
+    @SequenceGenerator(name = "SEQ_GEN_MESSAGE", sequenceName = "SEQ_MESSAGE", initialValue = 1, allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.AUTO, generator = "SEQ_GEN_MESSAGE")
+    private Long id;
 
     @ManyToOne
-    @JoinColumn(name="USER_ID")
+    @JoinColumn(name="SENDER_ID", referencedColumnName="USER_ID")
     private User sender;
 
     @ManyToOne
-    @JoinColumn(name="USER_ID")
+    @JoinColumn(name="RECEIVER_ID", referencedColumnName="USER_ID")
     private User receiver;
 
-    @Column(name="message_title")
+    @Column(name="MESSAGE_TITLE")
     private String title;
 
-    @Column(name="message_contents")
+    @Column(name="MESSAGE_CONTENTS")
     private String contents;
 
-    @ManyToOne       // or should this be one to one?
-    @JoinColumn(name="blob_id")
+    @OneToOne
+    @JoinColumn(name="BLOB_ID")
     private FileBlob blob;
 
-    @Column(name="message_time")
+    @Column(name="MESSAGE_TIME")
     private LocalDateTime time;
 
     @ManyToOne
-    @JoinColumn(name="status_id")
+    @JoinColumn(name="STATUS_ID")
     private MessageStatus status;
 
 
@@ -48,11 +49,11 @@ public class Message {
         this.status = status;
     }
 
-    public Message(User sender, User receiver, String title, String contents, LocalDateTime time, MessageStatus status) {
+    public Message(User sender, User receiver, String title, String content, LocalDateTime time, MessageStatus status) {
         this.sender = sender;
         this.receiver = receiver;
         this.title = title;
-        this.contents = contents;
+        this.contents = content;
         this.time = time;
         this.status = status;
     }
@@ -60,11 +61,11 @@ public class Message {
     public Message() {
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

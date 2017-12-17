@@ -1,68 +1,70 @@
 package io.revlearners.model.bean;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
-@Table(name = "file_blob")
-public class FileBlob {
+@Table(name = "FILE_BLOB")
+public class FileBlob implements Serializable {
 
     @Id
-    @Column(name = "blob_id")
-    @SequenceGenerator(name = "seq_gen_blob", sequenceName = "seq_blob")
-    @GeneratedValue(generator = "seq_gen_blob", strategy = GenerationType.AUTO)
-    private int id;
+    @Column(name = "BLOB_ID")
+    @SequenceGenerator(name = "SEQ_GEN_BLOB", sequenceName = "SEQ_BLOB")
+    @GeneratedValue(generator = "SEQ_GEN_BLOB", strategy = GenerationType.AUTO)
+    private Long id;
 
-    @Column(name = "file_name")
-    private String fileName;
+    @Column(name = "FILE_NAME")
+    private String name;
 
-    @Column(name = "file_size")
-    private long file_size;
+    @Column(name = "FILESIZE")
+    private Long size;
 
     @Lob
-    @Column(name = "blob_contents")
+    @Column(name = "BLOB_CONTENTS")
     private Byte[] contents;
 
     @ManyToOne
-    @JoinColumn(name = "mime_id")
+    @JoinColumn(name = "MIME_ID")
     private MimeType mimeType;
 
     public FileBlob() {}
 
-    public FileBlob(String fileName, long file_size, MimeType mimeType) {
-        this.fileName = fileName;
-        this.file_size = file_size;
+    public FileBlob(String name, Long size, MimeType mimeType) {
+        this.name = name;
+        this.size = size;
         this.mimeType = mimeType;
     }
 
-    public FileBlob(String fileName, long file_size, Byte[] contents, MimeType mimeType) {
-        this.fileName = fileName;
-        this.file_size = file_size;
+    public FileBlob(String name, Long size, Byte[] contents, MimeType mimeType) {
+        this.name = name;
+        this.size = size;
         this.contents = contents;
         this.mimeType = mimeType;
     }
 
-    public int getId() {
+
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
-    public String getFileName() {
-        return fileName;
+    public String getName() {
+        return name;
     }
 
-    public void setFileName(String fileName) {
-        this.fileName = fileName;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public long getFile_size() {
-        return file_size;
+    public Long getSize() {
+        return size;
     }
 
-    public void setFile_size(long file_size) {
-        this.file_size = file_size;
+    public void setSize(Long size) {
+        this.size = size;
     }
 
     public Byte[] getContents() {

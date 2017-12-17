@@ -25,44 +25,30 @@ public class Quiz implements Serializable{
 
 	@Id
 	@Column(name="QUIZ_ID")
-	@SequenceGenerator(
-			sequenceName="QUIZ_SEQ", 
-			name="QUIZ_SEQ")
-	@GeneratedValue(
-			generator="QUIZ_SEQ", 
-			strategy=GenerationType.SEQUENCE)
-	private int quizId;
+	@SequenceGenerator(sequenceName="QUIZ_SEQ", name="QUIZ_SEQ")
+    @GeneratedValue(generator="QUIZ_SEQ", strategy=GenerationType.SEQUENCE)
+	private Long id;
 	
-	@ManyToOne(
-			cascade=CascadeType.ALL, 
-			fetch=FetchType.EAGER)
-	@JoinColumn(name="TO_USER_ID")
-	private User toUser;
+	@ManyToOne( cascade=CascadeType.ALL, fetch=FetchType.EAGER)
+    @JoinColumn(name="USER_RECEIVER")
+	private User receiver;
 	
-	@ManyToOne(
-			cascade=CascadeType.ALL, 
-			fetch=FetchType.EAGER)
-	@JoinColumn(name="FROM_USER_ID")
-	private User fromUser;
+	@ManyToOne( cascade=CascadeType.ALL, fetch=FetchType.EAGER)
+    @JoinColumn(name="USER_SENDER")
+	private User sender;
 	
 	@Column(name="QUIZ_TIME")
 	private Date time;
 	
-	@ManyToMany(
-			targetEntity=Question.class,
-			cascade=CascadeType.ALL,
-			fetch=FetchType.EAGER)
-	@JoinTable(
-			name="QUIZ_QUESTION",
-			joinColumns=@JoinColumn(name="BEAR_ID"), 
-			inverseJoinColumns=@JoinColumn(name="CUB_ID"))
+	@ManyToMany(targetEntity=Question.class, cascade=CascadeType.ALL, fetch=FetchType.EAGER)
+	@JoinTable(name="QUIZ_QUESTION", joinColumns=@JoinColumn(name="QUIZ_ID"), inverseJoinColumns=@JoinColumn(name="QUESTION_ID"))
 	private Set<Question> questions;
 
-	public Quiz(int quizId, User toUser, User fromUser, Date time) {
+	public Quiz(Long id, User receiver, User sender, Date time) {
 		super();
-		this.quizId = quizId;
-		this.toUser = toUser;
-		this.fromUser = fromUser;
+		this.id = id;
+		this.receiver = receiver;
+		this.sender = sender;
 		this.time = time;
 	}
 	
@@ -70,32 +56,32 @@ public class Quiz implements Serializable{
 
 	}
 	
-	public Quiz(int quizId) {
-		this.quizId = quizId;
+	public Quiz(Long id) {
+		this.id = id;
 	}
 
-	public int getQuizId() {
-		return quizId;
+	public Long getId() {
+		return id;
 	}
 
-	public void setQuizId(int quizId) {
-		this.quizId = quizId;
+	public void setId(Long id) {
+		this.id = id;
 	}
 
-	public User getToUser() {
-		return toUser;
+	public User getReceiver() {
+		return receiver;
 	}
 
-	public void setToUser(User toUser) {
-		this.toUser = toUser;
+	public void setReceiver(User receiver) {
+		this.receiver = receiver;
 	}
 
-	public User getFromUser() {
-		return fromUser;
+	public User getSender() {
+		return sender;
 	}
 
-	public void setFromUser(User fromUser) {
-		this.fromUser = fromUser;
+	public void setSender(User sender) {
+		this.sender = sender;
 	}
 
 	public Date getTime() {
@@ -116,7 +102,7 @@ public class Quiz implements Serializable{
 
 	@Override
 	public String toString() {
-		return "Quiz [quizId=" + quizId + ", toUser=" + toUser + ", fromUser=" + fromUser + ", time=" + time + "]";
+		return "Quiz [id=" + id + ", receiver=" + receiver + ", sender=" + sender + ", time=" + time + "]";
 	}	
 	
 }

@@ -14,26 +14,26 @@ public class UserRole implements Serializable {
 	private static final long serialVersionUID = 4523050103926297436L;
 
 	@Id
-	@Column(name="US_ROLE_ID")
-	private int roleId;
+	@Column(name="ROLE_ID")
+	private Long id;
 	
-	@Column(name="US_ROLE")
-	private String role;
+	@Column(name="ROLE_NAME")
+	private String name;
 
-	public int getRoleId() {
-		return roleId;
+	public Long getId() {
+		return id;
 	}
 
-	public void setRoleId(int roleId) {
-		this.roleId = roleId;
+	public void setId(Long id) {
+		this.id = id;
 	}
 
-	public String getRole() {
-		return role;
+	public String getName() {
+		return name;
 	}
 
-	public void setRole(String role) {
-		this.role = role;
+	public void setName(String name) {
+		this.name = name;
 	}
 	
 }

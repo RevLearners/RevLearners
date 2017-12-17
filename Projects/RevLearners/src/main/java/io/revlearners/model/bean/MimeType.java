@@ -4,15 +4,15 @@ import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
-@Table(name="mime_type")
+@Table(name="MIME_TYPE")
 public class MimeType implements Serializable {
     @Id
-    @Column(name = "mime_id")
-    @SequenceGenerator(name = "seq_gen_mime_type", sequenceName = "seq_mime_type", initialValue = 1, allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.AUTO, generator = "seq_gen_mime_type")
-    private long id;
+    @Column(name = "MIME_ID")
+    @SequenceGenerator(name = "SEQ_GEN_MIME_TYPE", sequenceName = "SEQ_MIME_TYPE", initialValue = 1, allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.AUTO, generator = "SEQ_GEN_MIME_TYPE")
+    private Long id;
 
-    @Column(name = "mime_name")
+    @Column(name = "MIME_NAME")
     private String name;
 
     public MimeType() {
@@ -22,11 +22,11 @@ public class MimeType implements Serializable {
         this.name = name;
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

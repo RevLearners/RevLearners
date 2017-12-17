@@ -1,37 +1,46 @@
 package io.revlearners.model.bean;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
-@Table(name="certificaiton")
-public class Certification {
+@Table(name="CERTIFICAITON")
+public class Certification implements Serializable {
 
     @Id
-    @Column(name = "certification_id")
-    @SequenceGenerator(name = "seq_gen_certification", sequenceName = "seq_certification", initialValue = 1, allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.AUTO, generator = "seq_gen_certification")
-    private long id;
+    @Column(name = "CERTIFICATION_ID")
+    @SequenceGenerator(name = "SEQ_GEN_CERTIFICATION", sequenceName = "SEQ_CERTIFICATION", initialValue = 1, allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.AUTO, generator = "SEQ_GEN_CERTIFICATION")
+    private Long id;
 
-    @Column(name="certification_name")
+    @Column(name="CERTIFICATION_NAME")
     private String name;
 
     @ManyToOne
-    @JoinColumn(name="lang_id")
-    private Language language;
+    @JoinColumn(name="TOPIC_ID")
+    private Topic topic;
 
     public Certification() {
     }
 
-    public Certification(String name, Language language) {
+    public Certification(String name, Topic topic) {
         this.name = name;
-        this.language = language;
+        this.topic = topic;
     }
 
-    public long getId() {
+    public Topic getTopic() {
+        return topic;
+    }
+
+    public void setTopic(Topic topic) {
+        this.topic = topic;
+    }
+
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -41,13 +50,5 @@ public class Certification {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public Language getLanguage() {
-        return language;
-    }
-
-    public void setLanguage(Language language) {
-        this.language = language;
     }
 }
