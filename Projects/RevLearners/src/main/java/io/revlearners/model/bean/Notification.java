@@ -5,12 +5,13 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name="MESSAGE")
-public class Message implements Serializable {
+@Table(name="NOTIFICATION")
+public class Notification implements Serializable {
+
     @Id
-    @Column(name = "MESSAGE_ID")
-    @SequenceGenerator(name = "SEQ_GEN_MESSAGE", sequenceName = "SEQ_MESSAGE", initialValue = 1, allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.AUTO, generator = "SEQ_GEN_MESSAGE")
+    @Column(name = "NOTIFICATION_ID")
+    @SequenceGenerator(name = "SEQ_GEN_NOTIFICATION", sequenceName = "SEQ_NOTIFICATION", initialValue = 1, allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.AUTO, generator = "SEQ_GEN_NOTIFICATION")
     private Long id;
 
     @ManyToOne
@@ -21,44 +22,29 @@ public class Message implements Serializable {
     @JoinColumn(name="RECEIVER_ID", referencedColumnName="USER_ID")
     private User receiver;
 
-    @Column(name="MESSAGE_TITLE")
+    @Column(name="NOTIFICATION_TITLE")
     private String title;
 
-    @Column(name="MESSAGE_CONTENTS")
+    @Column(name="NOTIFICATION_CONTENTS")
     private String contents;
 
-    @OneToOne
-    @JoinColumn(name="BLOB_ID")
-    private FileBlob blob;
-
-    @Column(name="MESSAGE_TIME")
+    @Column(name="NOTIFICATION_TIME")
     private LocalDateTime time;
 
     @ManyToOne
     @JoinColumn(name="STATUS_ID")
     private MessageStatus status;
 
+    public Notification() {
+    }
 
-    public Message(User sender, User receiver, String title, String contents, FileBlob blob, LocalDateTime time, MessageStatus status) {
+    public Notification(User sender, User receiver, String title, String contents, LocalDateTime time, MessageStatus status) {
         this.sender = sender;
         this.receiver = receiver;
         this.title = title;
         this.contents = contents;
-        this.blob = blob;
         this.time = time;
         this.status = status;
-    }
-
-    public Message(User sender, User receiver, String title, String content, LocalDateTime time, MessageStatus status) {
-        this.sender = sender;
-        this.receiver = receiver;
-        this.title = title;
-        this.contents = content;
-        this.time = time;
-        this.status = status;
-    }
-
-    public Message() {
     }
 
     public Long getId() {
@@ -101,14 +87,6 @@ public class Message implements Serializable {
         this.contents = contents;
     }
 
-    public FileBlob getBlob() {
-        return blob;
-    }
-
-    public void setBlob(FileBlob blob) {
-        this.blob = blob;
-    }
-
     public LocalDateTime getTime() {
         return time;
     }
@@ -124,5 +102,4 @@ public class Message implements Serializable {
     public void setStatus(MessageStatus status) {
         this.status = status;
     }
-
 }

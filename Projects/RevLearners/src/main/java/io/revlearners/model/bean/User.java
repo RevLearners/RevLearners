@@ -1,8 +1,8 @@
 package io.revlearners.model.bean;
 
-import java.util.List;
 import java.io.Serializable;
 
+import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -15,22 +15,16 @@ import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
-
-
 @Entity
-@Table(name="USER")
+@Table(name="APP_USER")
 public class User implements Serializable {
 	private static final long serialVersionUID = 8799966307722508679L;
 
 	@Id
 	@Column(name="USER_ID")
-	@SequenceGenerator(
-			sequenceName="USER_SEQ", 
-			name="USER_SEQ")
-	@GeneratedValue(
-			generator="USER_SEQ", 
-			strategy=GenerationType.SEQUENCE)
-	private int userId;
+	@SequenceGenerator(sequenceName="USER_SEQ", name="USER_SEQ")
+	@GeneratedValue(generator="USER_SEQ", strategy=GenerationType.SEQUENCE)
+	private Long userId;
 
 	@Column(name="FNAME")
 	private String firstName;
@@ -50,16 +44,13 @@ public class User implements Serializable {
 	private UserRole role;
 
 	@ManyToMany
-	@JoinTable(name="FRIENDS")
+	@JoinTable(name="FRIEND", joinColumns=@JoinColumn(name="USER1_ID"), inverseJoinColumns=@JoinColumn(name="USER2_ID"))
 	private List<User> friends;
 	
 	public User() {
-	
 	}
 		
-	public User(int userId, String firstName, String middleName, String lastName, UserStatus status, UserRole role,
-			List<User> friends) {
-		this.userId = userId;
+	public User(String firstName, String middleName, String lastName, UserStatus status, UserRole role) {
 		this.firstName = firstName;
 		this.middleName = middleName;
 		this.lastName = lastName;
@@ -68,11 +59,11 @@ public class User implements Serializable {
 		this.friends = friends;
 	}
 
-	public int getUserId() {
+	public Long getId() {
 		return userId;
 	}
 
-	public void setUserId(int userId) {
+	public void setUserId(Long userId) {
 		this.userId = userId;
 	}
 

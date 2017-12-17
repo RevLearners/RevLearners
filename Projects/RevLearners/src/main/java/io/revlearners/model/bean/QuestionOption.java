@@ -20,49 +20,40 @@ public class QuestionOption implements Serializable{
 	private static final long serialVersionUID = 8295215015097184041L;
 	
 	@Id
-	@Column(name="Q_OPTION_ID")
-	@SequenceGenerator(
-			sequenceName="Q_OPTION_SEQ", 
-			name="Q_OPTION_SEQ")
-	@GeneratedValue(
-			generator="Q_OPTION_SEQ", 
-			strategy=GenerationType.SEQUENCE)
-	private int qOptionId;
+	@Column(name="OPTION_ID")
+	@SequenceGenerator(sequenceName="Q_OPTION_SEQ", name="Q_OPTION_SEQ")
+	@GeneratedValue(generator="Q_OPTION_SEQ", strategy=GenerationType.SEQUENCE)
+	private Long id;
 	
-	@ManyToOne(
-			cascade=CascadeType.ALL, 
-			fetch=FetchType.EAGER)
+	@ManyToOne(cascade=CascadeType.ALL, fetch=FetchType.EAGER)
 	@JoinColumn(name="QUESTION_ID")
 	private Question question;
 	
 	@Column(name="OPTION_TEXTS")
-	private String optionTexts;
+	private String text;
 
 	@Column(name="IS_CORRECT")
 	private boolean isCorrect;
 
-	public QuestionOption(int qOptionId, Question question, String optionTexts, boolean isCorrect) {
-		super();
-		this.qOptionId = qOptionId;
+	public QuestionOption(Question question, String text, boolean isCorrect) {
 		this.question = question;
-		this.optionTexts = optionTexts;
+		this.text = text;
 		this.isCorrect = isCorrect;
 	}
 	
 	public QuestionOption() {
-		
 	}
 	
 	public QuestionOption(Question question) {
 		this.question = question;
 	}
 
-	public int getqOptionId() {
-		return qOptionId;
+	public Long getId() {
+		return id;
 	}
 
-	public void setqOptionId(int qOptionId) {
-		this.qOptionId = qOptionId;
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 	public Question getQuestion() {
@@ -73,12 +64,12 @@ public class QuestionOption implements Serializable{
 		this.question = question;
 	}
 
-	public String getOptionTexts() {
-		return optionTexts;
+	public String getText() {
+		return text;
 	}
 
-	public void setOptionTexts(String optionTexts) {
-		this.optionTexts = optionTexts;
+	public void setText(String text) {
+		this.text = text;
 	}
 
 	public boolean isCorrect() {
@@ -91,7 +82,7 @@ public class QuestionOption implements Serializable{
 
 	@Override
 	public String toString() {
-		return "QuestionOption [qOptionId=" + qOptionId + ", question=" + question + ", optionTexts=" + optionTexts
+		return "QuestionOption [id=" + id + ", question=" + question + ", text=" + text
 				+ ", isCorrect=" + isCorrect + "]";
 	}
 

@@ -19,40 +19,37 @@ public class QuestionDifficulty implements Serializable{
 	@Column (name="DIFFICULTY_ID")
 	@SequenceGenerator(sequenceName="DIFFICULTY_SEQ", name="DIFFICULTY_SEQ")
 	@GeneratedValue(generator="DIFFICULTY_SEQ", strategy=GenerationType.SEQUENCE)
-	private int difficultyId;
+	private Long id;
 
 	@Column(name="DIFFICULTY_NAME")
-	private int difficultyName;
+	private String name;
 
-	public QuestionDifficulty(int difficultyId, int difficultyName) {
-		super();
-		this.difficultyId = difficultyId;
-		this.difficultyName = difficultyName;
+	public QuestionDifficulty(String name) {
+		this.name = name;
 	}
 	
 	public QuestionDifficulty() {
-		
 	}
 
-	public int getDifficultyId() {
-		return difficultyId;
+	public Long getId() {
+		return id;
 	}
 
-	public void setDifficultyId(int difficultyId) {
-		this.difficultyId = difficultyId;
+	public void setId(Long id) {
+		this.id = id;
 	}
 
-	public int getDifficultyName() {
-		return difficultyName;
+	public String getName() {
+		return name;
 	}
 
-	public void setDifficultyName(int difficultyName) {
-		this.difficultyName = difficultyName;
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	@Override
 	public String toString() {
-		return "QuestionDifficulty [difficultyId=" + difficultyId + ", difficultyName=" + difficultyName + "]";
+		return "QuestionDifficulty [id=" + id + ", name=" + name + "]";
 	}
 
 }

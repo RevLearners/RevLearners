@@ -19,40 +19,40 @@ public class QuestionType implements Serializable{
 	@Column (name="QUESTION_TYPE_ID")
 	@SequenceGenerator(sequenceName="QUESTION_TYPE_SEQ", name="QUESTION_TYPE_SEQ")
 	@GeneratedValue(generator="QUESTION_TYPE_SEQ", strategy=GenerationType.SEQUENCE)
-	private int qTypeId;
+	private Long id;
 	
 	@Column(name="QUESTION_TYPE_NAME")
-	private int qTypeName;
+	private String name;
 
-	public QuestionType(int qTypeId, int qTypeName) {
+	public QuestionType(Long id, String name) {
 		super();
-		this.qTypeId = qTypeId;
-		this.qTypeName = qTypeName;
+		this.id = id;
+		this.name = name;
 	}
 	
 	public QuestionType() {
 
 	}
 
-	public int getqTypeId() {
-		return qTypeId;
+	public Long getId() {
+		return id;
 	}
 
-	public void setqTypeId(int qTypeId) {
-		this.qTypeId = qTypeId;
+	public void setId(Long id) {
+		this.id = id;
 	}
 
-	public int getqTypeName() {
-		return qTypeName;
+	public String getName() {
+		return name;
 	}
 
-	public void setqTypeName(int qTypeName) {
-		this.qTypeName = qTypeName;
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	@Override
 	public String toString() {
-		return "QuestionType [qTypeId=" + qTypeId + ", qTypeName=" + qTypeName + "]";
+		return "QuestionType [id=" + id + ", name=" + name + "]";
 	}
 		
 }

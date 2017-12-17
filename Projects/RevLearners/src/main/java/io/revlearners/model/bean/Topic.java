@@ -25,12 +25,10 @@ public class Topic implements Serializable{
 	private String topicName;
 
 	public Topic(String topicName) {
-		super();
 		this.topicName = topicName;
 	}
 	
 	public Topic() {
-
 	}
 
 	public int getTopicId() {
@@ -53,6 +51,4 @@ public class Topic implements Serializable{
 	public String toString() {
 		return "Topic [topicId=" + topicId + ", topicName=" + topicName + "]";
 	}	
-
-
 }

@@ -5,6 +5,7 @@ import java.util.Properties;
 
 import javax.sql.DataSource;
 
+import io.revlearners.model.bean.*;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.config.BeanPostProcessor;
@@ -21,20 +22,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
-import io.revlearners.model.bean.Credentials;
-import io.revlearners.model.bean.FriendList;
-import io.revlearners.model.bean.Message;
-import io.revlearners.model.bean.Question;
-import io.revlearners.model.bean.QuestionDifficulty;
-import io.revlearners.model.bean.QuestionOption;
-import io.revlearners.model.bean.QuestionPoints;
-import io.revlearners.model.bean.QuestionType;
-import io.revlearners.model.bean.Quiz;
-import io.revlearners.model.bean.Rank;
-import io.revlearners.model.bean.Topic;
-import io.revlearners.model.bean.User;
-import io.revlearners.model.bean.UserRole;
-import io.revlearners.model.bean.UserStatus;
 import io.revlearners.model.dao.hibernate.MessageHibernateDao;
 import io.revlearners.model.dao.hibernate.QuestionHibernateDao;
 import io.revlearners.model.dao.hibernate.RankHibernateDao;
@@ -92,9 +79,13 @@ public class AppConfig {
 
         factoryBean.setHibernateProperties(props);
         factoryBean.setAnnotatedClasses(    // register @Entity classes
+                Certification.class,
                 Credentials.class,
-                FriendList.class,
+                FileBlob.class,
                 Message.class,
+                MessageStatus.class,
+                MimeType.class,
+                Notification.class,
                 Question.class,
                 QuestionDifficulty.class,
                 QuestionOption.class,
@@ -104,6 +95,8 @@ public class AppConfig {
                 Rank.class,
                 Topic.class,
                 User.class,
+                UserCertification.class,
+                UserLangRank.class,
                 UserRole.class,
                 UserStatus.class
         );
