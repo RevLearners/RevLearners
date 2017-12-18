@@ -25,10 +25,12 @@ public class Topic implements Serializable{
 	private String topicName;
 
 	public Topic(String topicName) {
+		super();
 		this.topicName = topicName;
 	}
 	
 	public Topic() {
+		super();
 	}
 
 	public int getTopicId() {

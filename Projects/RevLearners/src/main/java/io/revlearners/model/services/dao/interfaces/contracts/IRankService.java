@@ -1,8 +1,8 @@
 package io.revlearners.model.services.dao.interfaces.contracts;
 
-import io.revlearners.model.bean.Message;
+import io.revlearners.model.bean.Rank;
 import io.revlearners.util.persistence.interfaces.IGenericDao;
 
-public interface IMessageDaoInjectorService extends IGenericDao<Message> {
+public interface IRankService extends IGenericDao<Rank> {
 
 }

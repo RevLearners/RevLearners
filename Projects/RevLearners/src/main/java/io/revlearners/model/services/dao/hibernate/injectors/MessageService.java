@@ -6,13 +6,14 @@ import org.springframework.stereotype.Service;
 
 import io.revlearners.model.bean.Message;
 import io.revlearners.model.dao.interfaces.IMessageDao;
-import io.revlearners.model.services.dao.interfaces.contracts.IMessageDaoInjectorService;
+import io.revlearners.model.services.dao.interfaces.contracts.IMessageService;
 import io.revlearners.util.commons.configs.Constants;
-import io.revlearners.util.persistence.hibernate.AbstractHibernateDaoInjectorService;
+import io.revlearners.util.persistence.hibernate.AbstractHibernateService;
 import io.revlearners.util.persistence.interfaces.IGenericDao;
 
 @Service
-public class MessageHibernateDaoInjectorService extends AbstractHibernateDaoInjectorService<Message> implements IMessageDaoInjectorService{
+public class MessageService extends AbstractHibernateService<Message> implements IMessageService{
+
 	@Autowired
 	@Qualifier(Constants.QUALIFY_MESSAGE_DAO)
 	private IMessageDao dao;

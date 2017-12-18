@@ -6,13 +6,13 @@ import org.springframework.stereotype.Service;
 
 import io.revlearners.model.bean.Question;
 import io.revlearners.model.dao.interfaces.IQuestionDao;
-import io.revlearners.model.services.dao.interfaces.contracts.IQuestionDaoInjectorService;
+import io.revlearners.model.services.dao.interfaces.contracts.IQuestionService;
 import io.revlearners.util.commons.configs.Constants;
-import io.revlearners.util.persistence.hibernate.AbstractHibernateDaoInjectorService;
+import io.revlearners.util.persistence.hibernate.AbstractHibernateService;
 import io.revlearners.util.persistence.interfaces.IGenericDao;
 
 @Service
-public class QuestionHibernateDaoInjectorService extends AbstractHibernateDaoInjectorService<Question> implements IQuestionDaoInjectorService {
+public class QuestionService extends AbstractHibernateService<Question> implements IQuestionService {
 
 	@Autowired
 	@Qualifier(Constants.QUALIFY_QUESTION_DAO)

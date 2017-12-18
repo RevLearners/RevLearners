@@ -7,9 +7,9 @@ import io.revlearners.model.dao.interfaces.IUserDao;
 import io.revlearners.util.persistence.hibernate.AbstractHibernateDao;
 
 @Repository
-public class UserHibernateDao extends AbstractHibernateDao<User> implements IUserDao {
+public class UserDao extends AbstractHibernateDao<User> implements IUserDao {
 
-	public UserHibernateDao() {
+	public UserDao() {
 		super();
 		setClazz(User.class);
 	}

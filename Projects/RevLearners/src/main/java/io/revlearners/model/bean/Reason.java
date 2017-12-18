@@ -22,6 +22,9 @@ public class Reason implements Serializable {
 	
 	@Column(name="NAME")
 	private String name;
+	
+	@Column(name="TYPE_ID")
+	private int type;
 
 	public Reason() {
 	}
@@ -44,6 +47,14 @@ public class Reason implements Serializable {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+	
+	public int getType() {
+		return type;
+	}
+	
+	public void setType(int type) {
+		this.type = type;
 	}
 	
 	

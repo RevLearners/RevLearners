@@ -7,9 +7,9 @@ import io.revlearners.model.dao.interfaces.IRankDao;
 import io.revlearners.util.persistence.hibernate.AbstractHibernateDao;
 
 @Repository
-public class RankHibernateDao extends AbstractHibernateDao<Rank> implements IRankDao {
+public class RankDao extends AbstractHibernateDao<Rank> implements IRankDao {
 
-	public RankHibernateDao() {
+	public RankDao() {
 		super();
 		setClazz(Rank.class);
 	}

@@ -9,11 +9,11 @@ import java.util.List;
 // best practices
 public interface IGenericDao<T extends Serializable> {
 	
-	public T fetchOne(final long id);
+	public T fetchById(final long id);
 	
 	public List<T> fetchAll();
 	
-	public void save(final T entity);
+	public void create(final T entity);
 	
 	public T update(final T entity);
 	

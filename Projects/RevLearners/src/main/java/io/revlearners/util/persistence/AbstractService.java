@@ -6,11 +6,11 @@ import java.util.List;
 import io.revlearners.util.persistence.interfaces.IGenericDao;
 
 // Persistence layer injector to inject bean into dao
-public abstract class AbstractDaoInjectorService<T extends Serializable> implements IGenericDao<T> {
+public abstract class AbstractService<T extends Serializable> implements IGenericDao<T> {
 
 	@Override
-	public T fetchOne(long id) {
-		return getDao().fetchOne(id);
+	public T fetchById(long id) {
+		return getDao().fetchById(id);
 	}
 
 	@Override
@@ -19,8 +19,8 @@ public abstract class AbstractDaoInjectorService<T extends Serializable> impleme
 	}
 
 	@Override
-	public void save(T entity) {
-		getDao().save(entity);
+	public void create(T entity) {
+		getDao().create(entity);
 	}
 
 	@Override

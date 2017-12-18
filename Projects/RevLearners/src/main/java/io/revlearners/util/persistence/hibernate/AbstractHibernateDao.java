@@ -31,7 +31,7 @@ public class AbstractHibernateDao<T extends Serializable> extends AbstractDao<T>
 	}
 	
 	@Override
-	public T fetchOne(long id) {
+	public T fetchById(long id) {
         return clazz.cast(sf.getCurrentSession().get(clazz, id));
 	}
 
@@ -46,7 +46,7 @@ public class AbstractHibernateDao<T extends Serializable> extends AbstractDao<T>
 //	}
 	
 	@Override
-	public void save(final T entity) {
+	public void create(final T entity) {
 		sf.getCurrentSession().persist(entity);
 	}
 	
@@ -62,7 +62,7 @@ public class AbstractHibernateDao<T extends Serializable> extends AbstractDao<T>
 	
 	@Override
 	public void deleteById(final long id) {
-		final T entity = fetchOne(id);
+		final T entity = fetchById(id);
 		delete(entity);
 	}
 }

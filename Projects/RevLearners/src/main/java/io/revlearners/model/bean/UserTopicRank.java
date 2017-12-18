@@ -5,7 +5,7 @@ import java.io.Serializable;
 
 @Entity
 @Table(name="USER_RANK")
-public class UserLangRank implements Serializable {
+public class UserTopicRank implements Serializable {
 
     @EmbeddedId
     private UserOptionRankTrio id;
@@ -13,12 +13,12 @@ public class UserLangRank implements Serializable {
     @Column(name="MERIT")
     private Long merit;
 
-    public UserLangRank(User user, Rank rank, QuestionOption option, Long merit) {
+    public UserTopicRank(User user, Rank rank, QuestionOption option, Long merit) {
         this.id = new UserOptionRankTrio(user, rank, option);
         this.merit = merit;
     }
 
-    public UserLangRank() {
+    public UserTopicRank() {
     }
 
     public UserOptionRankTrio getId() {

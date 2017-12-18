@@ -1,12 +1,16 @@
 package io.revlearners.model.dao.hibernate;
 
+import org.springframework.stereotype.Repository;
+
 import io.revlearners.model.bean.Message;
 import io.revlearners.model.dao.interfaces.IMessageDao;
 import io.revlearners.util.persistence.hibernate.AbstractHibernateDao;
 
-public class MessageHibernateDao extends AbstractHibernateDao<Message> implements IMessageDao{
+@Repository
+public class MessageDao extends AbstractHibernateDao<Message> implements IMessageDao{
 
-	public MessageHibernateDao() {
+	public MessageDao() {
+		super();
 		setClazz(Message.class);
 	}
 }
