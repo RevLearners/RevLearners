@@ -1,22 +1,30 @@
 package io.revlearners.model.bean;
 
 import javax.persistence.*;
+
+import io.revlearners.util.commons.configs.Constants;
+
 import java.io.Serializable;
 
 @Entity
-@Table(name="RANK")
+@Table(name=Constants.TABLE_RANK)
 public class Rank implements Serializable {
 
-    @Id
-    @Column(name = "RANK_ID")
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = -5410626868066784809L;
+
+	@Id
+    @Column(name = Constants.COLUMN_RANK_ID)
     @SequenceGenerator(name = "SEQ_GEN_RANK", sequenceName = "SEQ_RANK", initialValue = 1, allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "SEQ_GEN_RANK")
     private Long id;
 
-    @Column(name="RANK_NAME")
+    @Column(name=Constants.COLUMN_RANK_NAME)
     private String name;
 
-    @Column(name="MERIT_THRESHOLD")
+    @Column(name=Constants.COLUMN_MERIT_THRESHOLD)
     private Long meritThreshold;
 
 

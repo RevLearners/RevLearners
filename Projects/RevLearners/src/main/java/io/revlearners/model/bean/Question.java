@@ -5,37 +5,38 @@ import java.util.Set;
 
 import javax.persistence.*;
 
+import io.revlearners.util.commons.configs.Constants;
+
 @Entity
-@Table(name = "QUESTION")
+@Table(name = Constants.TABLE_QUESTION)
 public class Question implements Serializable {
 	private static final long serialVersionUID = 3506791910251447189L;
 
 	@Id
-	@Column(name = "QUESTION_ID")
+	@Column(name = Constants.COLUMN_QUESTION_ID)
 	@SequenceGenerator(sequenceName = "QUESTION_SEQ", name = "QUESTION_SEQ")
 	@GeneratedValue(generator = "QUESTION_SEQ", strategy = GenerationType.SEQUENCE)
 	private Long id;
 
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	@JoinColumn(name = "TOPIC_ID")
+	@JoinColumn(name = Constants.COLUMN_TOPIC_ID)
 	private Topic topic;
 
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	@JoinColumn(name = "QUESTION_TYPE_ID")
+	@JoinColumn(name = Constants.COLUMN_QUESTION_TYPE_ID)
 	private QuestionType type;
 
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	@JoinColumn(name = "DIFFICULTY_ID")
+	@JoinColumn(name = Constants.COLUMN_DIFFICULTY_ID)
 	private QuestionDifficulty difficulty;
 
 	@OneToMany(mappedBy="question", cascade=CascadeType.ALL)
 	private Set<QuestionOption> options;
 
-	@Column(name = "Q_TEXTS")
+	@Column(name = Constants.COLUMN_QTEXT)
 	private String text;
 
 	public Question(Topic topic, QuestionType type, QuestionDifficulty difficulty, String text) {
-		this.id = id;
 		this.topic = topic;
 		this.type = type;
 		this.difficulty = difficulty;

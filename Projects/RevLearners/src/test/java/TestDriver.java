@@ -37,8 +37,8 @@ public class TestDriver {
                     "John",
                     null,
                     "Doe",
-                    new UserStatus(pendingStatusId),
-                    new UserRole(regularRoleId)
+                    new UserStatus(pendingStatusId, "Pending"),
+                    new UserRole(regularRoleId, "Regular")
             );
             Credentials credentials = new Credentials(user, "mail@email.com","password", "this is a salt, a really bad salt, but a salt none the less");
             session.save(credentials);

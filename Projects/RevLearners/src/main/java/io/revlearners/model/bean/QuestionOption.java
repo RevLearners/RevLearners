@@ -14,25 +14,27 @@ import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import io.revlearners.util.commons.configs.Constants;
+
 @Entity
-@Table (name="QUESTION_OPTION")
+@Table (name=Constants.TABLE_QUESTION_POINTS)
 public class QuestionOption implements Serializable{
 	private static final long serialVersionUID = 8295215015097184041L;
 	
 	@Id
-	@Column(name="OPTION_ID")
+	@Column(name=Constants.COLUMN_OPTION_ID)
 	@SequenceGenerator(sequenceName="Q_OPTION_SEQ", name="Q_OPTION_SEQ")
 	@GeneratedValue(generator="Q_OPTION_SEQ", strategy=GenerationType.SEQUENCE)
 	private Long id;
 	
 	@ManyToOne(cascade=CascadeType.ALL, fetch=FetchType.EAGER)
-	@JoinColumn(name="QUESTION_ID")
+	@JoinColumn(name=Constants.COLUMN_OPTION_ID)
 	private Question question;
 	
-	@Column(name="OPTION_TEXTS")
+	@Column(name=Constants.COLUMN_OPTION_TEXT)
 	private String text;
 
-	@Column(name="IS_CORRECT")
+	@Column(name=Constants.COLUMN_IS_CORRECT)
 	private boolean isCorrect;
 
 	public QuestionOption(Question question, String text, boolean isCorrect) {

@@ -41,18 +41,4 @@ public class PersistenceLayerTest {
 	public void topicInsertTest() {
 		topicService.create(new Topic("Topic 1"));
 	}
-	
-	@Test
-	public void userInsertTest() {
-		User user = new User();
-		user.setFirstName("fName");
-		user.setMiddleName("mName");
-		user.setLastName("lName");
-		user.setRole(1);
-		user.setStatus(1);
-		user.setUsername("User1");
-		user.
-		topicService.create();
-	}
-
 }

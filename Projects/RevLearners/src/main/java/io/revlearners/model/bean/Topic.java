@@ -10,18 +10,20 @@ import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import io.revlearners.util.commons.configs.Constants;
+
 @Entity
-@Table (name="TOPIC")
+@Table (name=Constants.TABLE_TOPIC)
 public class Topic implements Serializable{
 	private static final long serialVersionUID = -7336698542678175301L;
 	
 	@Id
-	@Column (name="TOPIC_ID")
+	@Column (name=Constants.COLUMN_TOPIC_ID)
 	@SequenceGenerator(sequenceName="TOPIC_SEQ", name="TOPIC_SEQ")
 	@GeneratedValue(generator="TOPIC_SEQ", strategy=GenerationType.SEQUENCE)
 	private int topicId;
 	
-	@Column(name="TOPIC_NAME")
+	@Column(name=Constants.COLUMN_TOPIC_NAME)
 	private String topicName;
 
 	public Topic(String topicName) {

@@ -10,19 +10,32 @@ import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import io.revlearners.util.commons.configs.Constants;
+
 @Entity
-@Table (name="QUESTION_DIFFICULTY")
+@Table (name=Constants.TABLE_QUESTION_DIFFICULTY)
 public class QuestionDifficulty implements Serializable{
 	private static final long serialVersionUID = -8771743210310047839L;
 	
 	@Id
-	@Column (name="DIFFICULTY_ID")
+	@Column (name=Constants.COLUMN_DIFFICULTY_ID)
 	@SequenceGenerator(sequenceName="DIFFICULTY_SEQ", name="DIFFICULTY_SEQ")
 	@GeneratedValue(generator="DIFFICULTY_SEQ", strategy=GenerationType.SEQUENCE)
 	private Long id;
 
-	@Column(name="DIFFICULTY_NAME")
+	@Column(name=Constants.COLUMN_DIFFICULTY_NAME)
 	private String name;
+	
+	@Column(name=Constants.COLUMN_MULTIPLIER)
+	private double multiplier;
+
+	public double getMultiplier() {
+		return multiplier;
+	}
+
+	public void setMultiplier(double multiplier) {
+		this.multiplier = multiplier;
+	}
 
 	public QuestionDifficulty(String name) {
 		this.name = name;

@@ -1,40 +1,47 @@
 package io.revlearners.model.bean;
 
 import javax.persistence.*;
+
+import io.revlearners.util.commons.configs.Constants;
+
 import java.io.Serializable;
 
 @Entity
-@Table(name="MIME_TYPE")
+@Table(name = Constants.TABLE_MIME_TYPE)
 public class MimeType implements Serializable {
-    @Id
-    @Column(name = "MIME_ID")
-    @SequenceGenerator(name = "SEQ_GEN_MIME_TYPE", sequenceName = "SEQ_MIME_TYPE", initialValue = 1, allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.AUTO, generator = "SEQ_GEN_MIME_TYPE")
-    private Long id;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -2378392009368245684L;
 
-    @Column(name = "MIME_NAME")
-    private String name;
+	@Id
+	@Column(name = Constants.COLUMN_MIME_ID)
+	private Long id;
 
-    public MimeType() {
-    }
+	@Column(name = Constants.COLUMN_MIME_NAME)
+	private String name;
 
-    public MimeType(String name) {
-        this.name = name;
-    }
+	public MimeType() {
+	}
 
-    public Long getId() {
-        return id;
-    }
+	public MimeType(Long long1, String name) {
+		this.id = long1;
+		this.name = name;
+	}
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+	public Long getId() {
+		return id;
+	}
 
-    public String getName() {
-        return name;
-    }
+	public void setId(Long id) {
+		this.id = id;
+	}
 
-    public void setName(String name) {
-        this.name = name;
-    }
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
 }

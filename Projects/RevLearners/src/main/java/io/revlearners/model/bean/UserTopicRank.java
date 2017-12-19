@@ -1,16 +1,24 @@
 package io.revlearners.model.bean;
 
 import javax.persistence.*;
+
+import io.revlearners.util.commons.configs.Constants;
+
 import java.io.Serializable;
 
 @Entity
-@Table(name="USER_RANK")
+@Table(name=Constants.TABLE_USER_RANK)
 public class UserTopicRank implements Serializable {
 
-    @EmbeddedId
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = -3402953668398433930L;
+
+	@EmbeddedId
     private UserOptionRankTrio id;
 
-    @Column(name="MERIT")
+    @Column(name=Constants.COLUMN_MERIT)
     private Long merit;
 
     public UserTopicRank(User user, Rank rank, QuestionOption option, Long merit) {
@@ -39,16 +47,21 @@ public class UserTopicRank implements Serializable {
 
     @Embeddable
     public static class UserOptionRankTrio implements Serializable {
-        @ManyToOne
-        @JoinColumn(name="USER_ID")
+        /**
+		 * 
+		 */
+		private static final long serialVersionUID = -3420765176964284918L;
+
+		@ManyToOne
+        @JoinColumn(name=Constants.COLUMN_USER_ID)
         private User user;
 
         @ManyToOne
-        @JoinColumn(name="RANK_ID")
+        @JoinColumn(name=Constants.COLUMN_RANK_ID)
         private Rank rank;
 
         @ManyToOne
-        @JoinColumn(name="OPTION_ID")
+        @JoinColumn(name=Constants.COLUMN_OPTION_ID)
         private QuestionOption option;
 
         public UserOptionRankTrio(User user, Rank rank, QuestionOption option) {

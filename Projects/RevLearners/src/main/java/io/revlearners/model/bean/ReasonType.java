@@ -1,25 +1,37 @@
 package io.revlearners.model.bean;
 
+import java.io.Serializable;
+
 import javax.persistence.*;
 
+import io.revlearners.util.commons.configs.Constants;
+
 @Entity
-@Table(name="REASON_TYPE")
-public class ReasonType {
+@Table(name=Constants.TABLE_REASON_TYPE)
+public class ReasonType implements Serializable {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -2405792134925676181L;
+
 	@Id
-	@Column(name="TYPE_ID")
-    @SequenceGenerator(sequenceName = "REASON_TYPE_SEQ", name = "REASON_TYPE_SEQ")
-    @GeneratedValue(generator = "REASON_TYPE_SEQ", strategy = GenerationType.SEQUENCE)
-	private int typeId;
+	@Column(name=Constants.COLUMN_TYPE_ID)
+	private long typeId;
 	
-	@Column(name="REASON_TYPE")
+	@Column(name=Constants.COLUMN_REASON_TYPE)
 	private String type;
 
-	public int getTypeId() {
+	public ReasonType(Long valueOf, String string) {
+		typeId = valueOf;
+		type = string;
+	}
+
+	public long getTypeId() {
 		return typeId;
 	}
 
-	public void setTypeId(int typeId) {
+	public void setTypeId(long typeId) {
 		this.typeId = typeId;
 	}
 

@@ -63,7 +63,7 @@ public class PersistenceConfig {
 		factoryBean.setAnnotatedClasses( // register @Entity classes
 				Certification.class, Credentials.class, FileBlob.class, Message.class, MessageStatus.class,
 				MimeType.class, Notification.class, Question.class, QuestionDifficulty.class, QuestionOption.class,
-				QuestionPoints.class, QuestionType.class, Quiz.class, Rank.class, Topic.class, User.class,
+				QuestionType.class, Quiz.class, Rank.class, Topic.class, User.class,
 				UserCertification.class, UserTopicRank.class, UserRole.class, UserStatus.class, Reason.class,
 				ReportQuestion.class);
 		return factoryBean;

@@ -8,15 +8,7 @@ import org.hibernate.SessionFactory;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
-import io.revlearners.model.bean.Certification;
-import io.revlearners.model.bean.Credentials;
-import io.revlearners.model.bean.QuestionDifficulty;
-import io.revlearners.model.bean.QuestionType;
-import io.revlearners.model.bean.ReasonType;
-import io.revlearners.model.bean.Topic;
-import io.revlearners.model.bean.User;
-import io.revlearners.model.bean.UserRole;
-import io.revlearners.model.bean.UserStatus;
+import io.revlearners.model.bean.*;
 import io.revlearners.util.commons.configs.Constants;
 import io.revlearners.util.commons.configs.PersistenceConfig;
 import io.revlearners.util.persistence.AbstractService;
@@ -34,18 +26,44 @@ public class DBInit {
 
     public static void main(String[] args) {
 
-    		Collection<Map<Integer, String>> maps = new LinkedList<Map<Integer,String>>();
-    		Map<Integer, String> map = new LinkedHashMap<Integer, String>();
-    		maps.add(Constants.getQuestionDifficulties());
-    		maps.add(Constants.getQuestiontypes());
-    		maps.add(Constants.getTopics());
-    		maps.add(Constants.getUserRoles());
-    		maps.add(Constants.getUserStatuses());
-
         try (Session session = sf.openSession()) {
             session.beginTransaction();
+            Map<Integer, String> map;
+            String[] arr, arr2;
+            int i, j;
             
-            session.save(credentials);
+            map = Constants.getUserRoles();
+            for(Integer key : map.keySet()) {
+            		session.save(new UserRole(Long.valueOf(key.longValue()), map.get(key)));
+            }
+            
+            map = Constants.getUserStatuses();
+            for(Integer key : map.keySet()) {
+            		session.save(new UserStatus(Long.valueOf(key.longValue()), map.get(key)));
+            }
+            
+            map = Constants.getMessageStatuses();
+            for(Integer key : map.keySet()) {
+            		session.save(new MessageStatus(Long.valueOf(key.longValue()), map.get(key)));
+            }
+            
+            map = Constants.getMimeTypes();
+            for(Integer key : map.keySet()) {
+            		session.save(new MimeType(Long.valueOf(key.longValue()), map.get(key)));
+            }
+            
+            map = Constants.getReasonTypes();
+            for(Integer key : map.keySet()) {
+            		session.save(new ReasonType(Long.valueOf(key.longValue()), map.get(key)));
+            }
+            
+            map = Constants.getJRanks();
+            for(Integer key : map.keySet()) {
+            		session.save(new UserTopicRank());
+            }
+            
+            
+//            session.save();
 
             session.getTransaction().commit();
         } finally {

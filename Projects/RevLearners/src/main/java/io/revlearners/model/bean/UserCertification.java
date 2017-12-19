@@ -1,16 +1,24 @@
 package io.revlearners.model.bean;
 
 import javax.persistence.*;
+
+import io.revlearners.util.commons.configs.Constants;
+
 import java.io.Serializable;
 
 @Entity
-@Table(name="USER_CERTIFICATION")
+@Table(name=Constants.TABLE_USER_CERTIFICATION)
 public class UserCertification implements Serializable {
-    @EmbeddedId
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = -5568090599034834224L;
+
+	@EmbeddedId
     private UserCertPair id;
 
     @OneToOne
-    @JoinColumn(name="BLOB_ID")
+    @JoinColumn(name=Constants.COLUMN_BLOB_ID)
     private FileBlob file;
 
     public UserCertification(User user, Certification certification, FileBlob file) {
@@ -46,12 +54,17 @@ public class UserCertification implements Serializable {
 
     @Embeddable
     public static class UserCertPair implements Serializable {
-        @ManyToOne
-        @JoinColumn(name="USER_ID")
+        /**
+		 * 
+		 */
+		private static final long serialVersionUID = 4724550790684214251L;
+
+		@ManyToOne
+        @JoinColumn(name=Constants.COLUMN_USER_ID)
         private User user;
 
         @ManyToOne
-        @JoinColumn(name="CERTIFICATION_ID")
+        @JoinColumn(name=Constants.COLUMN_CERTIFICATION_ID)
         private Certification certification;
 
         public UserCertPair(User user, Certification certification) {

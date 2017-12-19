@@ -1,28 +1,35 @@
 package io.revlearners.model.bean;
 
 import javax.persistence.*;
+
+import io.revlearners.util.commons.configs.Constants;
+
 import java.io.Serializable;
 
 @Entity
-@Table(name="MESSAGE_STATUS")
+@Table(name=Constants.TABLE_MESSAGE_STATUS)
 public class MessageStatus implements Serializable {
-    @Id
-    @Column(name = "STATUS_ID")
-    @SequenceGenerator(name = "SEQ_GEN_MESSAGE_STATUS", sequenceName = "SEQ_MESSAGE_STATUS", initialValue = 1, allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.AUTO, generator = "SEQ_GEN_MESSAGE_STATUS")
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = -7382897656952549192L;
+
+	@Id
+    @Column(name = Constants.COLUMN_STATUS_ID)
     private Long id;
 
-    @Column(name = "MESSAGE_STATUS_NAME")
+    @Column(name = Constants.COLUMN_MESSAGE_STATUS_NAME)
     private String name;
 
     public MessageStatus() {
     }
 
-    public MessageStatus(String name) {
-        this.name = name;
-    }
+    public MessageStatus(Long valueOf, String string) {
+		id = valueOf;
+		name = string;
+	}
 
-    public Long getId() {
+	public Long getId() {
         return id;
     }
 

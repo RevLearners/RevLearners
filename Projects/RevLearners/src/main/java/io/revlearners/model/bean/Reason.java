@@ -10,23 +10,41 @@ import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import io.revlearners.util.commons.configs.Constants;
+
 @Entity
-@Table(name = "REASON")
+@Table(name = Constants.TABLE_REASON)
 public class Reason implements Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -3010188115386046059L;
+
 	@Id
-	@Column (name="REASON_ID")
+	@Column (name=Constants.COLUMN_REASON_ID)
 	@SequenceGenerator(sequenceName="REASON_SEQ", name="REASON_SEQ")
 	@GeneratedValue(generator="REASON_SEQ", strategy=GenerationType.SEQUENCE)
 	private Long reasonId;
 	
-	@Column(name="NAME")
+	@Column(name=Constants.COLUMN_REASON)
 	private String name;
 	
-	@Column(name="TYPE_ID")
+	@Column(name=Constants.COLUMN_TYPE_ID)
 	private int type;
+	
+	@Column(name=Constants.COLUMN_DESCRIPTION)
+	private String description;
 
 	public Reason() {
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
 	public Reason(String name) {
@@ -56,6 +74,4 @@ public class Reason implements Serializable {
 	public void setType(int type) {
 		this.type = type;
 	}
-	
-	
 }

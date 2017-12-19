@@ -1,38 +1,46 @@
 package io.revlearners.model.bean;
 
 import javax.persistence.*;
+
+import io.revlearners.util.commons.configs.Constants;
+
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name="NOTIFICATION")
+@Table(name=Constants.TABLE_NOTIFICATION)
 public class Notification implements Serializable {
 
-    @Id
-    @Column(name = "NOTIFICATION_ID")
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 6295517192344156314L;
+
+	@Id
+    @Column(name = Constants.COLUMN_NOTIFICATION_ID)
     @SequenceGenerator(name = "SEQ_GEN_NOTIFICATION", sequenceName = "SEQ_NOTIFICATION", initialValue = 1, allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "SEQ_GEN_NOTIFICATION")
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name="SENDER_ID", referencedColumnName="USER_ID")
+    @JoinColumn(name=Constants.COLUMN_SENDER_ID, referencedColumnName=Constants.COLUMN_USER_ID)
     private User sender;
 
     @ManyToOne
-    @JoinColumn(name="RECEIVER_ID", referencedColumnName="USER_ID")
+    @JoinColumn(name=Constants.COLUMN_RECEIVER_ID, referencedColumnName=Constants.COLUMN_USER_ID)
     private User receiver;
 
-    @Column(name="NOTIFICATION_TITLE")
+    @Column(name=Constants.COLUMN_NOTIFICATION_TITLE)
     private String title;
 
-    @Column(name="NOTIFICATION_CONTENTS")
+    @Column(name=Constants.COLUMN_NOTIFICATION_CONTENTS)
     private String contents;
 
-    @Column(name="NOTIFICATION_TIME")
+    @Column(name=Constants.COLUMN_NOTIFICATION_TIME)
     private LocalDateTime time;
 
     @ManyToOne
-    @JoinColumn(name="STATUS_ID")
+    @JoinColumn(name=Constants.COLUMN_STATUS_ID)
     private MessageStatus status;
 
     public Notification() {

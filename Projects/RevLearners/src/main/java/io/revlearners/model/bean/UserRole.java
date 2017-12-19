@@ -1,33 +1,28 @@
 package io.revlearners.model.bean;
 
 import java.io.Serializable;
-
+import io.revlearners.util.commons.configs.Constants;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="USER_ROLE")
+@Table(name=Constants.TABLE_USER_ROLE)
 public class UserRole implements Serializable {
 
 	private static final long serialVersionUID = 4523050103926297436L;
 
 	@Id
-	@Column(name="ROLE_ID")
+	@Column(name=Constants.COLUMN_ROLE_ID)
 	private Long id;
 	
-	@Column(name="ROLE_NAME")
+	@Column(name=Constants.COLUMN_ROLE_NAME)
 	private String name;
-
-
-    public UserRole(String name) {
-        this.name = name;
-    }
-
-    public UserRole(Long id) {
-        this.id = id;
-    }
+	
+	public UserRole() {
+		
+	}
 
     public UserRole(Long id, String name) {
         this.id = id;
