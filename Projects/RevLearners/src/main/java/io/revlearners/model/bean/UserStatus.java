@@ -25,6 +25,15 @@ public class UserStatus implements Serializable {
         this.name = name;
     }
 
+    public UserStatus(Long id) {
+        this.id = id;
+    }
+
+    public UserStatus(Long id, String name) {
+        this.id = id;
+        this.name = name;
+    }
+
     public UserStatus() {}
 
     public Long getId() {

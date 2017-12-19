@@ -1,5 +1,5 @@
 
-import io.revlearners.model.bean.Topic;
+import io.revlearners.model.bean.*;
 import io.revlearners.model.services.dao.hibernate.injectors.TopicService;
 import io.revlearners.util.commons.configs.PersistenceConfig;
 import io.revlearners.util.persistence.AbstractService;
@@ -8,42 +8,44 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.SharedSessionContract;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 public class TestDriver {
+    private static ApplicationContext springContext = new AnnotationConfigApplicationContext(PersistenceConfig.class);
+    private static SessionFactory sf;
 
-	@Autowired
-	private static SessionFactory sf;
+    static {
+        sf = springContext.getBean(SessionFactory.class);
+    }
 
-	@Autowired
-	private static AbstractService<Topic> topicService;
+    private AbstractService<Topic> topicService;
 
-	private static Session session;
+    public static void main(String[] args) {
 
-	public static void main(String[] args) {
-		ApplicationContext springContext = new AnnotationConfigApplicationContext(PersistenceConfig.class);
+        try (Session session = sf.openSession()) {
+            session.beginTransaction();
 
-		session = sf.openSession();
 
-		try {
+            Long regularRoleId = (Long) session.save(new UserRole(1L,"Regular"));
+            Long pendingStatusId = (Long) session.save(new UserStatus(1L,"Pending"));
 
-			// topicService = springContext.getBean(TopicService.class);
-			// Topic topic = new Topic();
-			// topic.setTopicName("Topic1");
-			// topicService.save(topic);
 
-		} finally {
-			((AnnotationConfigApplicationContext) springContext).close();
-		}
-		//
-		// try (Session session = sessionFactory.openSession()){
-		// session.beginTransaction();
-		// Topic item = new Topic();
-		// item.setTopicName("whatever");
-		//
-		// session.save(item);
-		// session.getTransaction().commit();
-		// }
-	}
+            UserStatus status = new UserStatus("Pending");
+            User user = new User(
+                    "John",
+                    null,
+                    "Doe",
+                    new UserStatus(pendingStatusId),
+                    new UserRole(regularRoleId)
+            );
+            Credentials credentials = new Credentials(user, "mail@email.com","password", "this is a salt, a really bad salt, but a salt none the less");
+            session.save(credentials);
+
+            session.getTransaction().commit();
+        } finally {
+        }
+
+    }
 }

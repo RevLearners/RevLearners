@@ -14,7 +14,7 @@ public class User implements Serializable {
     @Column(name = "USER_ID")
     @SequenceGenerator(sequenceName = "USER_SEQ", name = "USER_SEQ")
     @GeneratedValue(generator = "USER_SEQ", strategy = GenerationType.SEQUENCE)
-    private Long userId;
+    private Long id;
 
     @Column(name = "FNAME")
     private String firstName;
@@ -37,6 +37,9 @@ public class User implements Serializable {
     @JoinTable(name = "FRIEND", joinColumns = @JoinColumn(name = "USER1_ID"), inverseJoinColumns = @JoinColumn(name = "USER2_ID"))
     private List<User> friends;
 
+    @OneToOne(mappedBy = "user")
+    private Credentials credentials;
+
     public User() {
     }
 
@@ -49,11 +52,11 @@ public class User implements Serializable {
     }
 
     public Long getId() {
-        return userId;
+        return id;
     }
 
-    public void setUserId(Long userId) {
-        this.userId = userId;
+    public void setId(Long userId) {
+        this.id= userId;
     }
 
     public String getFirstName() {
@@ -94,6 +97,14 @@ public class User implements Serializable {
 
     public void setRole(UserRole role) {
         this.role = role;
+    }
+
+    public Credentials getCredentials() {
+        return credentials;
+    }
+
+    public void setCredentials(Credentials credentials) {
+        this.credentials = credentials;
     }
 
     public List<User> getFriends() {

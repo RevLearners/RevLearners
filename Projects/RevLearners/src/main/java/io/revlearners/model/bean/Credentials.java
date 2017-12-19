@@ -5,7 +5,7 @@ import java.io.Serializable;
 import javax.persistence.*;
 
 @Entity
-@Table(name="CREDENTIALS")
+@Table(name="USER_CREDENTIALS")
 public class Credentials implements Serializable {
 
 	private static final long serialVersionUID = -4553263186684526703L;
@@ -15,6 +15,7 @@ public class Credentials implements Serializable {
 	private Long userId;
 
 	@MapsId
+    @OneToOne
 	@JoinColumn(name="USER_ID")
 	private User user;
 	

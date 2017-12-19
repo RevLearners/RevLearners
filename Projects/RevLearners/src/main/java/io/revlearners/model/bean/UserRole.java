@@ -20,7 +20,21 @@ public class UserRole implements Serializable {
 	@Column(name="ROLE_NAME")
 	private String name;
 
-	public Long getId() {
+
+    public UserRole(String name) {
+        this.name = name;
+    }
+
+    public UserRole(Long id) {
+        this.id = id;
+    }
+
+    public UserRole(Long id, String name) {
+        this.id = id;
+        this.name = name;
+    }
+
+    public Long getId() {
 		return id;
 	}
 
