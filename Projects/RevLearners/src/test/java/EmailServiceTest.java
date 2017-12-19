@@ -45,7 +45,7 @@ public class EmailServiceTest {
         Session mailSession = Session.getDefaultInstance(smtpProperties, new Authenticator() {
             @Override
             protected PasswordAuthentication getPasswordAuthentication() {
-                return new PasswordAuthentication(senderEmail, senderPassword);  // todo: password
+                return new PasswordAuthentication(senderEmail, senderPassword);
             }
         });
         Transport transport = null;
