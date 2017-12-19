@@ -1,13 +1,12 @@
 import static org.junit.Assert.*;
 
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
+import org.hibernate.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.support.AnnotationConfigContextLoader;
 
-import io.revlearners.model.bean.Topic;
+import io.revlearners.model.bean.*;
 import io.revlearners.model.services.dao.interfaces.contracts.ITopicService;
 import io.revlearners.util.commons.configs.PersistenceConfig;
 
@@ -39,8 +38,21 @@ public class PersistenceLayerTest {
 	}
 	
 	@Test
-	public void test() {
+	public void topicInsertTest() {
 		topicService.create(new Topic("Topic 1"));
+	}
+	
+	@Test
+	public void userInsertTest() {
+		User user = new User();
+		user.setFirstName("fName");
+		user.setMiddleName("mName");
+		user.setLastName("lName");
+		user.setRole(1);
+		user.setStatus(1);
+		user.setUsername("User1");
+		user.
+		topicService.create();
 	}
 
 }
