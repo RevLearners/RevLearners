@@ -223,12 +223,17 @@ public final class Constants {
 	public static Map<Integer, String> getQuestiontypes() {
 		return questionTypes;
 	}
+	
+	public static Map<Integer, String> getQuestionDifficulties(){
+		return questionDifficulties;
+		
+	}
 
-	public static Map<Integer, String> getUserroles() {
+	public static Map<Integer, String> getUserRoles() {
 		return userRoles;
 	}
 
-	public static Map<Integer, String> getUserstatuses() {
+	public static Map<Integer, String> getUserStatuses() {
 		return userStatuses;
 	}
 
