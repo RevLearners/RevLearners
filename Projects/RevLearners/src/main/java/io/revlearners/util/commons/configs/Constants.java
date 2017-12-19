@@ -1,30 +1,11 @@
 package io.revlearners.util.commons.configs;
 
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 public final class Constants {
 	private Constants() {
-		javaRanks.put(JRANKS_BEGINNER, JRANKS_BEGINNER_STR);
-		javaRanks.put(JRANKS_INTERMEDIATE, ANG4RANKS_INTERMEDIATE_STR);
-		javaRanks.put(JRANKS_EXPERT, JRANKS_EXPERT_STR);
-		javaRanks.put(JRANKS_JGURU, JRANKS_JGURU_STR);
-		
-		angular4Ranks.put(ANG4RANKS_BEGINNER, ANG4RANKS_BEGINNER_STR);
-		angular4Ranks.put(ANG4RANKS_INTERMEDIATE, ANG4RANKS_INTERMEDIATE_STR);
-		angular4Ranks.put(ANG4RANKS_EXPERT, ANG4RANKS_EXPERT_STR);
-		angular4Ranks.put(ANG4RANKS_NGACE, ANG4RANKS_NGACE_STR);
-		
-		devOpsRanks.put(DVOPSRANKS_BEGINNER, DVOPSRANKS_BEGINNER_STR);
-		devOpsRanks.put(DVOPSRANKS_BEGINNER, DVOPSRANKS_INTERMEDIATE_STR);
-		devOpsRanks.put(DVOPSRANKS_EXPERT, DVOPSRANKS_EXPERT_STR);
-		devOpsRanks.put(DVOPSRANKS_SCRUM_LORD, DVOPSRANKS_SCRUM_LORD_STR);
-		
-		hibernateRanks.put(HBMRANKS_BEGINNER, HBMRANKS_BEGINNER_STR);
-		hibernateRanks.put(HBMRANKS_INTERMEDIATE, HBMRANKS_INTERMEDIATE_STR);
-		hibernateRanks.put(HBMRANKS_EXPERT, HBMRANKS_EXPERT_STR);
-		hibernateRanks.put(HBMRANKS_HBMASTER, HBMRANKS_HBMASTER_STR);
-		
 	}
 	
 	public static final String FROM = " from ";
@@ -43,16 +24,21 @@ public final class Constants {
 	public static final String QUALIFY_USER_DAO_INJECTOR = "userHibernateService";
 	
 	// map constants
-	private static final Map<Integer, String> questionTypes = new HashMap<Integer, String>();
-	private static final Map<Integer, String> userRoles = new HashMap<Integer, String>();
-	private static final Map<Integer, String> userStatuses = new HashMap<Integer, String>();
-	private static final Map<Integer, String> reasonTypes = new HashMap<Integer, String>();
-	private static final Map<Integer, String> topics = new HashMap<Integer, String>();
-	private static final Map<Integer, String> certifications = new HashMap<Integer, String>();
-	private static final Map<Integer, String> javaRanks = new HashMap<Integer, String>();
-	private static final Map<Integer, String> angular4Ranks = new HashMap<Integer, String>();
-	private static final Map<Integer, String> hibernateRanks = new HashMap<Integer, String>();
-	private static final Map<Integer, String> devOpsRanks = new HashMap<Integer, String>();
+	private static final Map<Integer, String> questionTypes = new LinkedHashMap<Integer, String>();
+	private static final Map<Integer, String> questionDifficulties = new LinkedHashMap<Integer, String>();
+	private static final Map<Integer, String> userRoles = new LinkedHashMap<Integer, String>();
+	private static final Map<Integer, String> userStatuses = new LinkedHashMap<Integer, String>();
+	private static final Map<Integer, String> reasonTypes = new LinkedHashMap<Integer, String>();
+	private static final Map<Integer, String> topics = new LinkedHashMap<Integer, String>();
+	private static final Map<Integer, String> certifications = new LinkedHashMap<Integer, String>();
+	private static final Map<Integer, String> javaRanks = new LinkedHashMap<Integer, String>();
+	private static final Map<Integer, String> angular4Ranks = new LinkedHashMap<Integer, String>();
+	private static final Map<Integer, String> hibernateRanks = new LinkedHashMap<Integer, String>();
+	private static final Map<Integer, String> devOpsRanks = new LinkedHashMap<Integer, String>();
+	private static final Map<Integer, String> questionReasons = new LinkedHashMap<Integer, String>();
+	private static final Map<Integer, String> userReasons = new LinkedHashMap<Integer, String>();
+	private static final Map<Integer, String> designPatterns = new LinkedHashMap<Integer, String>();
+	private static final Map<Integer, String> mimeTypes = new LinkedHashMap<Integer, String>();
 	
 	// map key/values
 	public static final Integer QUESTION_TRUE_FALSE = 1;
@@ -174,6 +160,46 @@ public final class Constants {
 	public static final Integer HBMRANKS_HBMASTER = 4;
 	public static final String HBMRANKS_HBMASTER_STR = "HBMaster";
 	
+	public static final Integer DPRANKS_BEGINNER = 1;
+	public static final String DPRANKS_BEGINNER_STR = "Beginner";
+	public static final Integer DPRANKS_INTERMEDIATE = 2;
+	public static final String DPRANKS_INTERMEDIATE_STR = "Intermediate";
+	public static final Integer DPRANKS_EXPERT = 3;
+	public static final String DPRANKS_EXPERT_STR = "Expert";
+	public static final Integer DPRANKS_HBMASTER = 4;
+	public static final String DPRANKS_GOF_KING_STR = "GoF King";
+	
+    public static final Integer QREASON_WRONG = 1;
+    public static final String QREASON_WRONG_STR = "The question is wrong";
+    public static final Integer QREASON_OFF_TOPIC = 2;
+    public static final String QREASON_OFF_TOPIC_STR = "The question is off-topic";
+    public static final Integer QREASON_NOT_A_QUESTION = 3;
+    public static final String QREASON_NOT_A_QUESTION_STR = "The question is not really a question";
+    public static final Integer QREASON_TOO_VAGUE = 4;
+    public static final String QREASON_TOO_VAGUE_STR = "The question is too vague";
+    public static final Integer QREASON_CONFUSING = 5;
+    public static final String QREASON_CONFUSING_STR = "The question is too confusing";
+    public static final Integer QREASON_WRONG_DIFFICULTY = 6;
+    public static final String QREASON_WRONG_DIFFICULTY_STR = "The question should be a different difficulty";
+    public static final Integer QREASON_OTHER = 7;
+    public static final String QREASON_OTHER_STR = "Please specify:";
+    
+    public static final Integer USER_REASON_ABUSIVE = 1;
+    public static final String USER_REASON_ABUSIVE_STR = "The user exercised abusive behavior";
+    public static final Integer USER_REASON_FAKE_ACCOUNT = 2;
+    public static final String USER_REASON_FAKE_ACCOUNT_STR = "I suspect this user is a fake account";
+    public static final Integer USER_REASON_STOLEN_INTELLECTUAL_PROPERTY = 3;
+    public static final String USER_REASON_STOLEN_INTELLECTUAL_PROPERTY_STR = "This account is using my intellectual property or identity";
+    public static final Integer USER_REASON_SPAMMER = 4;
+    public static final String USER_REASON_SPAMMER_STR = "This user is spamming";
+    public static final Integer USER_REASON_OTHER = 5;
+    public static final String USER_REASON_OTHER_STR = "Please specify:";
+	
+    public static final Integer MIME_PDF= 1;
+    public static final String MIME_PDF_STR = ".pdf";
+    public static final Integer MIME_JPG= 2;
+    public static final String MIME_JPG_STR = ".jpg";
+    
 	// point values
 	public static final double EASY_MULT = 1;
 	public static final double MEDIUM_MULT = 4;
@@ -194,12 +220,48 @@ public final class Constants {
 		return angular4Ranks;
 	}
 	
+	public static Map<Integer, String> getQuestiontypes() {
+		return questionTypes;
+	}
+
+	public static Map<Integer, String> getUserroles() {
+		return userRoles;
+	}
+
+	public static Map<Integer, String> getUserstatuses() {
+		return userStatuses;
+	}
+
+	public static Map<Integer, String> getReasontypes() {
+		return reasonTypes;
+	}
+
+	public static Map<Integer, String> getTopics() {
+		return topics;
+	}
+
+	public static Map<Integer, String> getCertifications() {
+		return certifications;
+	}
+
 	public Map<Integer, String> getDevOpsRanks(){
 		return devOpsRanks;
 	}
 	
 	public Map<Integer, String> getHibernateRanks(){
 		return hibernateRanks;
+	}
+	
+	public Map<Integer, String> getQuestionReasons(){
+		return questionReasons;
+	}
+	
+	public Map<Integer, String> getDesignPatterns(){
+		return designPatterns;
+	}
+	
+	public Map<Integer, String> getUserReasons(){
+		return userReasons;
 	}
 
 	public static final String TRANSACTION_HIBERNATE_MANAGER = "hibernateTransactionManager";
