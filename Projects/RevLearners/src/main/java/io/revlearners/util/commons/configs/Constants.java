@@ -195,9 +195,9 @@ public final class Constants {
     public static final Integer MIME_PDF= 1;
     public static final String MIME_PDF_STR = "application/pdf";
     public static final Integer MIME_JPG= 2;
-    public static final String MIME_JPG_STR = "image/jpg";
+    public static final String MIME_JPG_STR = "image/jpeg";
     public static final Integer MIME_PNG= 3;
-    public static final String MIME_PNG_STR = "image/jpg";
+    public static final String MIME_PNG_STR = "image/png";
 
 	// point values
 	public static final double EASY_MULT = 1;
@@ -262,6 +262,14 @@ public final class Constants {
 
     public Map<Integer, String> getUserReasons(){
         return new HashMap<>(userReasons);
+    }
+
+    public Map<Integer, String> getQuestionDifficulties(){
+        return new HashMap<>(questionDifficulties);
+    }
+
+    public Map<Integer, String> getMimeTypes(){
+        return new HashMap<>(mimeTypes);
     }
 
     static {
