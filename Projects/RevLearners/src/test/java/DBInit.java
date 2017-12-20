@@ -26,21 +26,10 @@ public class DBInit {
 
         try (Session session = sf.openSession()) {
             session.beginTransaction();
-<<<<<<< HEAD
-            Map<Integer, String> map;
-            String[] arr;
-            Integer[] arr2;
-            int i, j;
-            
-            map = Constants.getUserRoles();
-            for(Integer key : map.keySet()) {
-            		session.save(new UserRole(Long.valueOf(key.longValue()), map.get(key)));
-=======
 
             Map<Long, String> map = Constants.getUserRoles();
             for (Long id : map.keySet()) {
                 session.save(new UserRole(id, map.get(id)));
->>>>>>> 3f6ae845eb739d30e4cfbe01b5e9107e14c8ab1b
             }
 
             map = Constants.getUserStatuses();
@@ -59,27 +48,7 @@ public class DBInit {
             }
 
             map = Constants.getReasonTypes();
-<<<<<<< HEAD
-            for(Integer key : map.keySet()) {
-            		session.save(new ReasonType(Long.valueOf(key.longValue()), map.get(key)));
-            }
-            
-            map = Constants.getJRanks();
-//            arr = {}
-            for(Integer key : map.keySet()) {
-//            		session.save(new );
-            }
-            
-            map = Constants.getAngular4Ranks();
-            for(Integer key : map.keySet()) {
-//            		session.save()
-            }
-            
 
-            
-            
-//            session.save();
-=======
             for (Long id : map.keySet())
                 session.save(new ReasonType(id, map.get(id)));
 
@@ -100,7 +69,6 @@ public class DBInit {
 
             saveEntities(Constants.getCertifications(), session);
             saveEntities(Constants.getQuestionDifficulties(), session);
->>>>>>> 3f6ae845eb739d30e4cfbe01b5e9107e14c8ab1b
 
             session.getTransaction().commit();
         } finally {
