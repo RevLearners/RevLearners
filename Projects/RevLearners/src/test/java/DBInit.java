@@ -13,72 +13,75 @@ import io.revlearners.util.persistence.AbstractService;
 
 public class DBInit {
 
-    private static ApplicationContext springContext = new AnnotationConfigApplicationContext(PersistenceConfig.class);
-    private static SessionFactory sf;
+	public static void main(String[] args) {
 
-    static {
-        sf = springContext.getBean(SessionFactory.class);
-    }
+		ApplicationContext springContext = new AnnotationConfigApplicationContext(PersistenceConfig.class);
+		SessionFactory sf;
 
-    private AbstractService<Topic> topicService;
+		sf = springContext.getBean(SessionFactory.class);
 
-    public static void main(String[] args) {
+		try {
+			create(sf);
+		} finally {
+			((AnnotationConfigApplicationContext) springContext).close();
+		}
+	}
 
-        try (Session session = sf.openSession()) {
-            session.beginTransaction();
+	public static void create(SessionFactory sf) {
 
-            Map<Long, String> map = Constants.getUserRoles();
-            for (Long id : map.keySet()) {
-                session.save(new UserRole(id, map.get(id)));
-            }
+		try (Session session = sf.openSession()) {
+			session.beginTransaction();
 
-            map = Constants.getUserStatuses();
-            for (Long id : map.keySet()) {
-                session.save(new UserStatus(id, map.get(id)));
-            }
+			Map<Long, String> map = Constants.getUserRoles();
+			for (Long id : map.keySet()) {
+				session.save(new UserRole(id, map.get(id)));
+			}
 
-            map = Constants.getMessageStatuses();
-            for (Long id : map.keySet()) {
-                session.save(new MessageStatus(id, map.get(id)));
-            }
+			map = Constants.getUserStatuses();
+			for (Long id : map.keySet()) {
+				session.save(new UserStatus(id, map.get(id)));
+			}
 
-            map = Constants.getMimeTypes();
-            for (Long id : map.keySet()) {
-                session.save(new MimeType(id, map.get(id)));
-            }
+			map = Constants.getMessageStatuses();
+			for (Long id : map.keySet()) {
+				session.save(new MessageStatus(id, map.get(id)));
+			}
 
-            map = Constants.getReasonTypes();
+			map = Constants.getMimeTypes();
+			for (Long id : map.keySet()) {
+				session.save(new MimeType(id, map.get(id)));
+			}
 
-            for (Long id : map.keySet())
-                session.save(new ReasonType(id, map.get(id)));
+			map = Constants.getReasonTypes();
 
-            saveEntities(Constants.getQuestionReasons(), session);
-            saveEntities(Constants.getUserReasons(), session);
+			for (Long id : map.keySet())
+				session.save(new ReasonType(id, map.get(id)));
 
-            map = Constants.getTopics();
-            for (Long id : map.keySet())
-                session.save(new Topic(id, map.get(id)));
+			saveEntities(Constants.getQuestionReasons(), session);
+			saveEntities(Constants.getUserReasons(), session);
 
-            saveEntities(Constants.getQuestionTypes(), session);
+			map = Constants.getTopics();
+			for (Long id : map.keySet())
+				session.save(new Topic(id, map.get(id)));
 
-            saveEntities(Constants.getJRanks(), session);
-            saveEntities(Constants.getAngular4Ranks(), session);
-            saveEntities(Constants.getDevOpsRanks(), session);
-            saveEntities(Constants.getHibernateRanks(), session);
-            saveEntities(Constants.getDesignPatternRanks(), session);
+			saveEntities(Constants.getQuestionTypes(), session);
 
-            saveEntities(Constants.getCertifications(), session);
-            saveEntities(Constants.getQuestionDifficulties(), session);
+			saveEntities(Constants.getJRanks(), session);
+			saveEntities(Constants.getAngular4Ranks(), session);
+			saveEntities(Constants.getDevOpsRanks(), session);
+			saveEntities(Constants.getHibernateRanks(), session);
+			saveEntities(Constants.getDesignPatternRanks(), session);
 
-            session.getTransaction().commit();
-        } finally {
-            ((AnnotationConfigApplicationContext) springContext).close();
-        }
-    }
+			saveEntities(Constants.getCertifications(), session);
+			saveEntities(Constants.getQuestionDifficulties(), session);
 
-    public static void saveEntities(Map<Long, ? extends Serializable> ranks, Session session) {
-        for (Long id : ranks.keySet()) {
-            session.save(ranks.get(id));
-        }
-    }
+			session.getTransaction().commit();
+		}
+	}
+
+	public static void saveEntities(Map<Long, ? extends Serializable> ranks, Session session) {
+		for (Long id : ranks.keySet()) {
+			session.save(ranks.get(id));
+		}
+	}
 }
