@@ -1,41 +1,49 @@
 package io.revlearners.model.bean;
 
 import javax.persistence.*;
+
+import io.revlearners.util.commons.configs.Constants;
+
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name="MESSAGE")
+@Table(name=Constants.TABLE_MESSAGE)
 public class Message implements Serializable {
-    @Id
-    @Column(name = "MESSAGE_ID")
+    /**
+	 *
+	 */
+	private static final long serialVersionUID = -1952814977786579674L;
+
+	@Id
+    @Column(name = Constants.COLUMN_MESSAGE_ID)
     @SequenceGenerator(name = "SEQ_GEN_MESSAGE", sequenceName = "SEQ_MESSAGE", initialValue = 1, allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "SEQ_GEN_MESSAGE")
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name="SENDER_ID", referencedColumnName="USER_ID")
+    @JoinColumn(name=Constants.COLUMN_SENDER_ID, referencedColumnName=Constants.COLUMN_USER_ID)
     private User sender;
 
     @ManyToOne
-    @JoinColumn(name="RECEIVER_ID", referencedColumnName="USER_ID")
+    @JoinColumn(name=Constants.COLUMN_RECEIVER_ID, referencedColumnName=Constants.COLUMN_USER_ID)
     private User receiver;
 
-    @Column(name="MESSAGE_TITLE")
+    @Column(name=Constants.COLUMN_MESSAGE_TITLE)
     private String title;
 
-    @Column(name="MESSAGE_CONTENTS")
+    @Column(name=Constants.COLUMN_MESSAGE_CONTENTS)
     private String contents;
 
     @OneToOne
-    @JoinColumn(name="BLOB_ID")
+    @JoinColumn(name=Constants.COLUMN_BLOB_ID)
     private FileBlob blob;
 
-    @Column(name="MESSAGE_TIME")
+    @Column(name=Constants.COLUMN_MESSAGE_TIME)
     private LocalDateTime time;
 
     @ManyToOne
-    @JoinColumn(name="STATUS_ID")
+    @JoinColumn(name=Constants.COLUMN_STATUS_ID)
     private MessageStatus status;
 
 

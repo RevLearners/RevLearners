@@ -1,5 +1,6 @@
 import static org.junit.Assert.*;
 
+import io.revlearners.util.commons.configs.Constants;
 import org.hibernate.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
@@ -19,40 +20,61 @@ import org.junit.runner.RunWith;
 @ContextConfiguration(classes = {PersistenceConfig.class}, loader = AnnotationConfigContextLoader.class)
 public class PersistenceLayerTest {
 
-	@Autowired
-	private SessionFactory sf;
-	
-	@Autowired
-	private ITopicService topicService;
-	
-	private Session session;
-		
-	@Before
-	public final void before() {
-		session = sf.openSession();
-	}
-	
-	@After
-	public final void after() {
-		session.close();
-	}
-	
-	@Test
-	public void topicInsertTest() {
-		topicService.create(new Topic("Topic 1"));
-	}
-	
-	@Test
-	public void userInsertTest() {
-		User user = new User();
-		user.setFirstName("fName");
-		user.setMiddleName("mName");
-		user.setLastName("lName");
-		user.setRole(1);
-		user.setStatus(1);
-		user.setUsername("User1");
-		user.
-		topicService.create();
-	}
+    @Autowired
+    private SessionFactory sf;
 
+    @Autowired
+    private ITopicService topicService;
+
+    private Session session;
+
+    @Before
+    public final void before() {
+        session = sf.openSession();
+    }
+
+    @After
+    public final void after() {
+        session.close();
+    }
+
+    @Test
+    public void userInsertTest() {
+
+        UserStatus status = new UserStatus("Pending");
+        User user = new User(
+                "John",
+                null,
+                "Doe",
+                session.load(UserStatus.class, Constants.STATUS_PENDING),
+                session.load(UserRole.class, Constants.ROLE_BASIC)
+        );
+        Credentials credentials = new Credentials(user, "mail@email.com", "aUsername", "password", "this is a salt, a really bad salt, but a salt none the less");
+        session.beginTransaction();
+        session.save(credentials);
+        session.getTransaction().commit();
+    }
+
+    @Test
+    public void questionInsertTest() {
+        session.beginTransaction();
+        Question quest = new Question(
+                session.load(Topic.class, Constants.TOPIC_CORE_JAVA),
+                session.load(QuestionType.class, Constants.QUESTION_TRUE_FALSE),
+                session.load(QuestionDifficulty.class, Constants.DIFFICULTY_EASY),
+                "Is the answer to life 42?"
+        );
+        session.save(quest);
+        session.save(new QuestionOption(
+                quest,
+                "True",
+                true
+        ));
+        session.save(new QuestionOption(
+                quest,
+                "False",
+               false
+        ));
+        session.getTransaction().commit();
+    }
 }

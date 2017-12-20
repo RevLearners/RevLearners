@@ -4,31 +4,45 @@ import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import io.revlearners.util.commons.configs.Constants;
+
 @Entity
-@Table (name="QUESTION_DIFFICULTY")
-public class QuestionDifficulty implements Serializable{
+@Table (name=Constants.TABLE_QUESTION_DIFFICULTY)
+public class QuestionDifficulty implements Serializable {
 	private static final long serialVersionUID = -8771743210310047839L;
-	
+
 	@Id
-	@Column (name="DIFFICULTY_ID")
-	@SequenceGenerator(sequenceName="DIFFICULTY_SEQ", name="DIFFICULTY_SEQ")
-	@GeneratedValue(generator="DIFFICULTY_SEQ", strategy=GenerationType.SEQUENCE)
+	@Column (name=Constants.COLUMN_DIFFICULTY_ID)
 	private Long id;
 
-	@Column(name="DIFFICULTY_NAME")
+	@Column(name=Constants.COLUMN_DIFFICULTY_NAME)
 	private String name;
 
-	public QuestionDifficulty(String name) {
-		this.name = name;
-	}
-	
+	@Column(name=Constants.COLUMN_MULTIPLIER)
+	private Double multiplier;
+
+    public QuestionDifficulty(Long id, String name, Double multiplier) {
+        this.id = id;
+        this.name = name;
+        this.multiplier = multiplier;
+    }
+
+    public QuestionDifficulty(Long id) {
+        this.id = id;
+    }
+
 	public QuestionDifficulty() {
+	}
+
+    public Double getMultiplier() {
+		return multiplier;
+	}
+
+	public void setMultiplier(Double multiplier) {
+		this.multiplier = multiplier;
 	}
 
 	public Long getId() {

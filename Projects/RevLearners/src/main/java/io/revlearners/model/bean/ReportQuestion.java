@@ -15,29 +15,36 @@ import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import io.revlearners.util.commons.configs.Constants;
+
 @Entity
-@Table(name = "REPORT_QUESTION")
+@Table(name = Constants.TABLE_REPORT_QUESTION)
 public class ReportQuestion implements Serializable{
-	
+
+	/**
+	 *
+	 */
+	private static final long serialVersionUID = -2629022365581051748L;
+
 	@Id
-	@Column (name="REPORT_ID")
+	@Column (name=Constants.COLUMN_REPORT_ID)
 	@SequenceGenerator(sequenceName="REPORT_SEQ", name="REPORT_SEQ")
 	@GeneratedValue(generator="REPORT_SEQ", strategy=GenerationType.SEQUENCE)
 	private Long reportId;
-	
+
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	@JoinColumn(name = "QUESTION_ID")
+	@JoinColumn(name = Constants.COLUMN_QUESTION_ID)
 	private Question question;
-	
+
 	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	@JoinColumn(name = "REASON_ID")
+	@JoinColumn(name = Constants.COLUMN_REASON_ID)
     private Reason reason;
 
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	@JoinColumn(name="USER_ID")
+	@JoinColumn(name=Constants.COLUMN_USER_ID)
     private User reporter;
 
-	
+
 	public ReportQuestion() {
 	}
 

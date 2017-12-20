@@ -1,30 +1,38 @@
 package io.revlearners.model.bean;
 
 import javax.persistence.*;
+
+import io.revlearners.util.commons.configs.Constants;
+
 import java.io.Serializable;
 
 @Entity
-@Table(name = "FILE_BLOB")
+@Table(name = Constants.TABLE_FILE_BLOB)
 public class FileBlob implements Serializable {
 
-    @Id
-    @Column(name = "BLOB_ID")
+    /**
+	 *
+	 */
+	private static final long serialVersionUID = 5115254825153861311L;
+
+	@Id
+    @Column(name = Constants.COLUMN_BLOB_ID)
     @SequenceGenerator(name = "SEQ_GEN_BLOB", sequenceName = "SEQ_BLOB")
     @GeneratedValue(generator = "SEQ_GEN_BLOB", strategy = GenerationType.AUTO)
     private Long id;
 
-    @Column(name = "FILE_NAME")
+    @Column(name = Constants.COLUMN_FILE_NAME)
     private String name;
 
-    @Column(name = "FILESIZE")
+    @Column(name = Constants.COLUMN_FILESIZE)
     private Long size;
 
     @Lob
-    @Column(name = "BLOB_CONTENTS")
+    @Column(name = Constants.COLUMN_BLOB_CONTENTS)
     private Byte[] contents;
 
     @ManyToOne
-    @JoinColumn(name = "MIME_ID")
+    @JoinColumn(name = Constants.COLUMN_MIME_ID)
     private MimeType mimeType;
 
     public FileBlob() {}

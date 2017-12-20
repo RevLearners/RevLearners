@@ -5,38 +5,41 @@ import java.io.Serializable;
 import java.util.List;
 import javax.persistence.*;
 
+import io.revlearners.util.commons.configs.Constants;
+
 @Entity
-@Table(name = "APP_USER")
+@Table(name = Constants.TABLE_APP_USER)
 public class User implements Serializable {
     private static final long serialVersionUID = 8799966307722508679L;
 
     @Id
-    @Column(name = "USER_ID")
+    @Column(name = Constants.COLUMN_USER_ID)
     @SequenceGenerator(sequenceName = "USER_SEQ", name = "USER_SEQ")
     @GeneratedValue(generator = "USER_SEQ", strategy = GenerationType.SEQUENCE)
     private Long id;
 
-    @Column(name = "FNAME")
+    @Column(name = Constants.COlUMN_FNAME)
     private String firstName;
 
-    @Column(name = "MNAME")
+    @Column(name = Constants.COLUMN_MNAME)
     private String middleName;
 
-    @Column(name = "LNAME")
+    @Column(name = Constants.COLUMN_LNAME)
     private String lastName;
 
     @ManyToOne
-    @JoinColumn(name = "STATUS_ID")
+    @JoinColumn(name = Constants.COLUMN_STATUS_ID)
     private UserStatus status;
 
     @ManyToOne
-    @JoinColumn(name = "ROLE_ID")
+    @JoinColumn(name = Constants.COLUMN_ROLE_ID)
     private UserRole role;
 
     @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "FRIEND", joinColumns = @JoinColumn(name = "USER1_ID"), inverseJoinColumns = @JoinColumn(name = "USER2_ID"))
+    @JoinTable(name = Constants.TABLE_FRIEND, joinColumns = @JoinColumn(name = Constants.COLUMN_USER1_ID), inverseJoinColumns = @JoinColumn(name = Constants.COLUMN_USER2_ID))
     private List<User> friends;
 
+//    "user" working??
     @OneToOne(mappedBy = "user")
     private Credentials credentials;
 

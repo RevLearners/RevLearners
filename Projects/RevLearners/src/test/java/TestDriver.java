@@ -28,19 +28,14 @@ public class TestDriver {
             session.beginTransaction();
 
 
-            Long regularRoleId = (Long) session.save(new UserRole(1L,"Regular"));
-            Long pendingStatusId = (Long) session.save(new UserStatus(1L,"Pending"));
-
-
-            UserStatus status = new UserStatus("Pending");
             User user = new User(
                     "John",
                     null,
                     "Doe",
-                    new UserStatus(pendingStatusId),
-                    new UserRole(regularRoleId)
+                    new UserStatus(1L),
+                    new UserRole(1L)
             );
-            Credentials credentials = new Credentials(user, "mail@email.com","password", "this is a salt, a really bad salt, but a salt none the less");
+            Credentials credentials = new Credentials(user, "mail@email.com", "aUsername", "password", "this is a salt, a really bad salt, but a salt none the less");
             session.save(credentials);
 
             session.getTransaction().commit();

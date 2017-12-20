@@ -18,30 +18,32 @@ import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import io.revlearners.util.commons.configs.Constants;
+
 @Entity
-@Table (name="QUIZ")
+@Table (name=Constants.TABLE_QUIZ)
 public class Quiz implements Serializable{
 	private static final long serialVersionUID = 4858112442645949427L;
 
 	@Id
-	@Column(name="QUIZ_ID")
+	@Column(name=Constants.COLUMN_QUIZ_ID)
 	@SequenceGenerator(sequenceName="QUIZ_SEQ", name="QUIZ_SEQ")
     @GeneratedValue(generator="QUIZ_SEQ", strategy=GenerationType.SEQUENCE)
 	private Long id;
-	
+
 	@ManyToOne( cascade=CascadeType.ALL, fetch=FetchType.EAGER)
-    @JoinColumn(name="USER_RECEIVER")
+    @JoinColumn(name=Constants.COLUMN_USER_RECEIVER)
 	private User receiver;
-	
+
 	@ManyToOne( cascade=CascadeType.ALL, fetch=FetchType.EAGER)
-    @JoinColumn(name="USER_SENDER")
+    @JoinColumn(name=Constants.COLUMN_USER_SENDER)
 	private User sender;
-	
-	@Column(name="QUIZ_TIME")
+
+	@Column(name=Constants.COLUMN_QUIZ_TIME)
 	private Date time;
-	
+
 	@ManyToMany(targetEntity=Question.class, cascade=CascadeType.ALL, fetch=FetchType.EAGER)
-	@JoinTable(name="QUIZ_QUESTION", joinColumns=@JoinColumn(name="QUIZ_ID"), inverseJoinColumns=@JoinColumn(name="QUESTION_ID"))
+	@JoinTable(name=Constants.TABLE_QUIZ_QUESTION, joinColumns=@JoinColumn(name=Constants.COLUMN_QUIZ_ID), inverseJoinColumns=@JoinColumn(name=Constants.COLUMN_QUESTION_ID))
 	private Set<Question> questions;
 
 	public Quiz(Long id, User receiver, User sender, Date time) {
@@ -51,11 +53,11 @@ public class Quiz implements Serializable{
 		this.sender = sender;
 		this.time = time;
 	}
-	
+
 	public Quiz() {
 
 	}
-	
+
 	public Quiz(Long id) {
 		this.id = id;
 	}
@@ -103,6 +105,6 @@ public class Quiz implements Serializable{
 	@Override
 	public String toString() {
 		return "Quiz [id=" + id + ", receiver=" + receiver + ", sender=" + sender + ", time=" + time + "]";
-	}	
-	
+	}
+
 }

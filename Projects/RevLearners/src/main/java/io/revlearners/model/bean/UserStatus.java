@@ -8,17 +8,19 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import io.revlearners.util.commons.configs.Constants;
+
 @Entity
-@Table(name="USER_STATUS")
+@Table(name=Constants.TABLE_USER_STATUS)
 public class UserStatus implements Serializable {
 
 	private static final long serialVersionUID = 1582847082129648664L;
 
 	@Id
-	@Column(name="STATUS_ID")
+	@Column(name=Constants.COLUMN_STATUS_ID)
 	private Long id;
-	
-	@Column(name="STATUS_NAME")
+
+	@Column(name=Constants.COLUMN_STATUS_NAME)
 	private String name;
 
     public UserStatus(String name) {
