@@ -6,6 +6,8 @@ import javax.persistence.*;
 
 import io.revlearners.util.commons.configs.Constants;
 
+import io.revlearners.util.commons.configs.Constants;
+
 @Entity
 @Table(name = Constants.TABLE_REASON)
 public class Reason implements Serializable {

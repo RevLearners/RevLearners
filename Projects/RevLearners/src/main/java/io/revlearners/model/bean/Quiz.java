@@ -55,7 +55,6 @@ public class Quiz implements Serializable{
 	}
 
 	public Quiz() {
-
 	}
 
 	public Quiz(Long id) {

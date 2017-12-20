@@ -10,9 +10,6 @@ import java.io.Serializable;
 @Table(name=Constants.TABLE_USER_RANK)
 public class UserTopicRank implements Serializable {
 
-    /**
-	 *
-	 */
 	private static final long serialVersionUID = -3402953668398433930L;
 
 	@EmbeddedId
@@ -47,9 +44,7 @@ public class UserTopicRank implements Serializable {
 
     @Embeddable
     public static class UserTopicRankTrio implements Serializable {
-        /**
-		 *
-		 */
+
 		private static final long serialVersionUID = -3420765176964284918L;
 
 		@ManyToOne

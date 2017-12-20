@@ -12,6 +12,7 @@ import io.revlearners.util.commons.configs.Constants;
 @Entity
 @Table (name=Constants.TABLE_QUESTION_DIFFICULTY)
 public class QuestionDifficulty implements Serializable {
+
 	private static final long serialVersionUID = -8771743210310047839L;
 
 	@Id
@@ -20,11 +21,11 @@ public class QuestionDifficulty implements Serializable {
 
 	@Column(name=Constants.COLUMN_DIFFICULTY_NAME)
 	private String name;
-
+	
 	@Column(name=Constants.COLUMN_MULTIPLIER)
-	private Double multiplier;
+	private Float multiplier;
 
-    public QuestionDifficulty(Long id, String name, Double multiplier) {
+    public QuestionDifficulty(Long id, String name, Float multiplier) {
         this.id = id;
         this.name = name;
         this.multiplier = multiplier;
@@ -37,11 +38,11 @@ public class QuestionDifficulty implements Serializable {
 	public QuestionDifficulty() {
 	}
 
-    public Double getMultiplier() {
+    public Float getMultiplier() {
 		return multiplier;
 	}
 
-	public void setMultiplier(Double multiplier) {
+	public void setMultiplier(Float multiplier) {
 		this.multiplier = multiplier;
 	}
 

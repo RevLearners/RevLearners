@@ -11,7 +11,11 @@ import java.io.Serializable;
 public class Rank implements Serializable {
 
     /**
+<<<<<<< HEAD
 	 *
+=======
+	 * 
+>>>>>>> 68f4fa4c00e837e64051e08dc2cfd6b1ed71c68a
 	 */
 	private static final long serialVersionUID = -5410626868066784809L;
 

@@ -9,9 +9,7 @@ import java.io.Serializable;
 @Entity
 @Table(name = Constants.TABLE_MIME_TYPE)
 public class MimeType implements Serializable {
-	/**
-	 *
-	 */
+
 	private static final long serialVersionUID = -2378392009368245684L;
 
 	@Id
@@ -24,8 +22,8 @@ public class MimeType implements Serializable {
 	public MimeType() {
 	}
 
-	public MimeType(Long long1, String name) {
-		this.id = long1;
+	public MimeType(Long id, String name) {
+		this.id = id;
 		this.name = name;
 	}
 

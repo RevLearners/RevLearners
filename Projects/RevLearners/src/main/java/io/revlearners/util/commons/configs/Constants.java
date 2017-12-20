@@ -2,7 +2,6 @@ package io.revlearners.util.commons.configs;
 
 import io.revlearners.model.bean.*;
 
-import java.io.Serializable;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -32,7 +31,7 @@ public final class Constants {
     public static final String QUALIFY_USER_DAO_INJECTOR = "userHibernateService";
 
     // map constants
-    private static final Map<Long, String> questionTypes = new LinkedHashMap<>();
+    private static final Map<Long, QuestionType> questionTypes = new LinkedHashMap<>();
     private static final Map<Long, QuestionDifficulty> questionDifficulties = new LinkedHashMap<>();
     private static final Map<Long, String> userRoles = new LinkedHashMap<>();
     private static final Map<Long, String> userStatuses = new LinkedHashMap<>();
@@ -59,16 +58,16 @@ public final class Constants {
 
     public static final Long DIFFICULTY_EASY = 1L;
     public static final String DIFFICULTY_EASY_STR = "Easy";
-    public static final Double DIFFICULTY_EASY_MULTIPLIER = 1.0;
+    public static final Float DIFFICULTY_EASY_MULTIPLIER = 1.f;
     public static final Long DIFFICULTY_MEDIUM = 2L;
     public static final String DIFFICULTY_MEDIUM_STR = "Medium";
-    public static final Double DIFFICULTY_MEDIUM_MULTIPLIER = 2.0;
+    public static final Float DIFFICULTY_MEDIUM_MULTIPLIER = 2.f;
     public static final Long DIFFICULTY_HARD = 3L;
     public static final String DIFFICULTY_HARD_STR = "Hard";
-    public static final Double DIFFICULTY_HARD_MULTIPLIER = 4.0;
+    public static final Float DIFFICULTY_HARD_MULTIPLIER = 4.f;
     public static final Long DIFFICULTY_VERY_HARD = 4L;
     public static final String DIFFICULTY_VERY_HARD_STR = "Very Hard";
-    public static final Double DIFFICULTY_VERY_HARD_MULTIPLIER = 8.0;
+    public static final Float DIFFICULTY_VERY_HARD_MULTIPLIER = 8.f;
 
     public static final Long ROLE_BASIC = 1L;
     public static final String ROLE_BASIC_STR = "Basic Account";
@@ -286,15 +285,9 @@ public final class Constants {
     public static final Long MESSAGE_STATUS_RECEIVED = 6L;
     public static final String MESSAGE_STATUS_RECEIVED_STR = "Received";
 
-    // point values
-    public static final double EASY_MULT = 1L;
-    public static final double MEDIUM_MULT = 4L;
-    public static final double HARD_MULT = 10L;
-    public static final double VERY_HARD_MULT = 40L;
-
-    public static final long BASE_TF = 10L;
-    public static final long BASE_MULT = 15L;
-    public static final long BASE_CODE = 100L;
+    public static final Float BASE_TF = 10.f;
+    public static final Float BASE_MULT = 15.f;
+    public static final Float BASE_CODE = 100.f;
 
     public static final long ADV_USER_PTS = 1000L;
 
@@ -303,7 +296,7 @@ public final class Constants {
         return new LinkedHashMap<>(angular4Ranks);
     }
 
-    public static Map<Long, String> getQuestionTypes() {
+    public static Map<Long, QuestionType> getQuestionTypes() {
         return new LinkedHashMap<>(questionTypes);
     }
 
@@ -394,9 +387,9 @@ public final class Constants {
         certifications.put(ORACLE_CERTIFIED_PROFESSIONAL, new Certification(ORACLE_CERTIFIED_PROFESSIONAL, ORACLE_CERTIFIED_PROFESSIONAL_STR, new Topic(TOPIC_CORE_JAVA)));
         certifications.put(ORACLE_CERTIFIED_MASTER, new Certification(ORACLE_CERTIFIED_MASTER, ORACLE_CERTIFIED_MASTER_STR, new Topic(TOPIC_CORE_JAVA)));
 
-        questionTypes.put(QUESTION_TRUE_FALSE, QUESTION_TRUE_FALSE_STR);
-        questionTypes.put(QUESTION_MULTI_CHOICE, QUESTION_MULTI_CHOICE_STR);
-        questionTypes.put(QUESTION_CODE, QUESTION_CODE_STR);
+        questionTypes.put(QUESTION_TRUE_FALSE, new QuestionType(QUESTION_TRUE_FALSE, QUESTION_TRUE_FALSE_STR, BASE_TF));
+        questionTypes.put(QUESTION_MULTI_CHOICE,new QuestionType(QUESTION_MULTI_CHOICE, QUESTION_MULTI_CHOICE_STR, BASE_MULT));
+        questionTypes.put(QUESTION_CODE, new QuestionType(QUESTION_CODE, QUESTION_CODE_STR, BASE_CODE));
 
         questionDifficulties.put(DIFFICULTY_EASY, new QuestionDifficulty(DIFFICULTY_EASY, DIFFICULTY_EASY_STR, DIFFICULTY_EASY_MULTIPLIER));
         questionDifficulties.put(DIFFICULTY_MEDIUM, new QuestionDifficulty(DIFFICULTY_MEDIUM, DIFFICULTY_MEDIUM_STR, DIFFICULTY_MEDIUM_MULTIPLIER));

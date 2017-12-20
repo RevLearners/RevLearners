@@ -19,52 +19,52 @@ import io.revlearners.util.commons.configs.Constants;
 
 @Entity
 @Table(name = Constants.TABLE_REPORT_QUESTION)
-public class ReportQuestion implements Serializable{
-
-	private static final long serialVersionUID = -2629022365581051748L;
+public class ReportUser implements Serializable{
+	
+	private static final long serialVersionUID = 951458230310561236L;
 
 	@Id
 	@Column (name=Constants.COLUMN_REPORT_ID)
 	@SequenceGenerator(sequenceName="REPORT_SEQ", name="REPORT_SEQ")
 	@GeneratedValue(generator="REPORT_SEQ", strategy=GenerationType.SEQUENCE)
-	private Long reportId;
-
+	private Long id;
+	
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	@JoinColumn(name = Constants.COLUMN_QUESTION_ID)
-	private Question question;
-
+	@JoinColumn(name = Constants.COLUMN_REPORTED_ID, referencedColumnName=Constants.COLUMN_USER_ID)
+	private User reported;
+	
 	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinColumn(name = Constants.COLUMN_REASON_ID)
     private Reason reason;
 
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	@JoinColumn(name=Constants.COLUMN_USER_ID)
+	@JoinColumn(name=Constants.COLUMN_REPORTER_ID, referencedColumnName=Constants.COLUMN_USER_ID)
     private User reporter;
 
-
-	public ReportQuestion() {
+	
+	public ReportUser() {
 	}
 
-    public ReportQuestion(Question question, Reason reason, User reporter) {
-        this.question = question;
+    public ReportUser(User reported, Reason reason, User reporter) {
+        this.reported = reported;
         this.reason = reason;
         this.reporter = reporter;
     }
 
-    public Long getReportId() {
-        return reportId;
+    public Long getId() {
+        return id;
     }
 
-    public void setReportId(Long reportId) {
-        this.reportId = reportId;
+    public void setId(Long id) {
+        this.id = id;
     }
 
-    public Question getQuestion() {
-        return question;
+    public User getReported() {
+        return reported;
     }
 
-    public void setQuestion(Question question) {
-        this.question = question;
+    public void setReported(User user) {
+        this.reported = user;
     }
 
     public Reason getReason() {

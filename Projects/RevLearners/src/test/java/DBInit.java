@@ -58,9 +58,7 @@ public class DBInit {
             for (Long id : map.keySet())
                 session.save(new Topic(id, map.get(id)));
 
-            map = Constants.getQuestionTypes();
-            for (Long id : map.keySet())
-                session.save(new QuestionType(id, map.get(id)));
+            saveEntities(Constants.getQuestionTypes(), session);
 
             saveEntities(Constants.getJRanks(), session);
             saveEntities(Constants.getAngular4Ranks(), session);

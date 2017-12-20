@@ -14,7 +14,7 @@ public class Credentials implements Serializable {
 
     @Id
     @Column(name=Constants.COLUMN_USER_ID)
-	private Long userId;
+	private Long id;
 
 	@MapsId
     @OneToOne
@@ -52,12 +52,12 @@ public class Credentials implements Serializable {
 		this.salt = salt;
 	}
 
-    public Long getUserId() {
-        return userId;
+    public Long getId() {
+        return id;
     }
 
-    public void setUserId(Long userId) {
-        this.userId = userId;
+    public void setId(Long id) {
+        this.id = id;
     }
 
 	public User getUser() {

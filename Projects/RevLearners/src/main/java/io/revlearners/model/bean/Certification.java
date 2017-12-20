@@ -10,9 +10,7 @@ import java.io.Serializable;
 @Table(name=Constants.TABLE_CERTIFICATION)
 public class Certification implements Serializable {
 
-    /**
-	 *
-	 */
+
 	private static final long serialVersionUID = 6064749272111879848L;
 
 	@Id

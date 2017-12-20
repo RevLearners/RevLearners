@@ -39,7 +39,6 @@ public class User implements Serializable {
     @JoinTable(name = Constants.TABLE_FRIEND, joinColumns = @JoinColumn(name = Constants.COLUMN_USER1_ID), inverseJoinColumns = @JoinColumn(name = Constants.COLUMN_USER2_ID))
     private List<User> friends;
 
-//    "user" working??
     @OneToOne(mappedBy = "user")
     private Credentials credentials;
 
