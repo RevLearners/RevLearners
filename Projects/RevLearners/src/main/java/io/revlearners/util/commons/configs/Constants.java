@@ -523,4 +523,6 @@ public final class Constants {
 	
 	public static final String TRANSACTION_HIBERNATE_MANAGER = "hibernateTransactionManager";
 
+	public static final String FILE_DIR = "/tmp";
+
 }

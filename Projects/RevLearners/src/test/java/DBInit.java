@@ -29,7 +29,8 @@ public class DBInit {
         try (Session session = sf.openSession()) {
             session.beginTransaction();
             Map<Integer, String> map;
-            String[] arr, arr2;
+            String[] arr;
+            Integer[] arr2;
             int i, j;
             
             map = Constants.getUserRoles();
@@ -58,9 +59,17 @@ public class DBInit {
             }
             
             map = Constants.getJRanks();
+//            arr = {}
             for(Integer key : map.keySet()) {
-            		session.save(new UserTopicRank());
+//            		session.save(new );
             }
+            
+            map = Constants.getAngular4Ranks();
+            for(Integer key : map.keySet()) {
+//            		session.save()
+            }
+            
+
             
             
 //            session.save();
