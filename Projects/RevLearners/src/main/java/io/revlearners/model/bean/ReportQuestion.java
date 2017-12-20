@@ -20,10 +20,7 @@ import io.revlearners.util.commons.configs.Constants;
 @Entity
 @Table(name = Constants.TABLE_REPORT_QUESTION)
 public class ReportQuestion implements Serializable{
-	
-	/**
-	 * 
-	 */
+
 	private static final long serialVersionUID = -2629022365581051748L;
 
 	@Id
@@ -31,11 +28,11 @@ public class ReportQuestion implements Serializable{
 	@SequenceGenerator(sequenceName="REPORT_SEQ", name="REPORT_SEQ")
 	@GeneratedValue(generator="REPORT_SEQ", strategy=GenerationType.SEQUENCE)
 	private Long reportId;
-	
+
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinColumn(name = Constants.COLUMN_QUESTION_ID)
 	private Question question;
-	
+
 	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinColumn(name = Constants.COLUMN_REASON_ID)
     private Reason reason;
@@ -44,7 +41,7 @@ public class ReportQuestion implements Serializable{
 	@JoinColumn(name=Constants.COLUMN_USER_ID)
     private User reporter;
 
-	
+
 	public ReportQuestion() {
 	}
 

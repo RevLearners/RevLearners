@@ -19,7 +19,7 @@ public class UserStatus implements Serializable {
 	@Id
 	@Column(name=Constants.COLUMN_STATUS_ID)
 	private Long id;
-	
+
 	@Column(name=Constants.COLUMN_STATUS_NAME)
 	private String name;
 

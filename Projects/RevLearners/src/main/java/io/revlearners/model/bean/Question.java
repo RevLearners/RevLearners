@@ -43,6 +43,10 @@ public class Question implements Serializable {
 		this.text = text;
 	}
 
+	public Question(Long id) {
+	    this.id = id;
+    }
+
 	public Question() {
 	}
 

@@ -9,9 +9,7 @@ import java.io.Serializable;
 @Entity
 @Table(name=Constants.TABLE_MESSAGE_STATUS)
 public class MessageStatus implements Serializable {
-    /**
-	 * 
-	 */
+
 	private static final long serialVersionUID = -7382897656952549192L;
 
 	@Id
@@ -24,8 +22,8 @@ public class MessageStatus implements Serializable {
     public MessageStatus() {
     }
 
-    public MessageStatus(Long valueOf, String string) {
-		id = valueOf;
+    public MessageStatus(Long id, String string) {
+		this.id = id;
 		name = string;
 	}
 

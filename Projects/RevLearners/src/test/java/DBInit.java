@@ -1,6 +1,4 @@
-import java.util.Collection;
-import java.util.LinkedHashMap;
-import java.util.LinkedList;
+import java.io.Serializable;
 import java.util.Map;
 
 import org.hibernate.Session;
@@ -28,6 +26,7 @@ public class DBInit {
 
         try (Session session = sf.openSession()) {
             session.beginTransaction();
+<<<<<<< HEAD
             Map<Integer, String> map;
             String[] arr;
             Integer[] arr2;
@@ -36,24 +35,31 @@ public class DBInit {
             map = Constants.getUserRoles();
             for(Integer key : map.keySet()) {
             		session.save(new UserRole(Long.valueOf(key.longValue()), map.get(key)));
+=======
+
+            Map<Long, String> map = Constants.getUserRoles();
+            for (Long id : map.keySet()) {
+                session.save(new UserRole(id, map.get(id)));
+>>>>>>> 3f6ae845eb739d30e4cfbe01b5e9107e14c8ab1b
             }
-            
+
             map = Constants.getUserStatuses();
-            for(Integer key : map.keySet()) {
-            		session.save(new UserStatus(Long.valueOf(key.longValue()), map.get(key)));
+            for (Long id : map.keySet()) {
+                session.save(new UserStatus(id, map.get(id)));
             }
-            
+
             map = Constants.getMessageStatuses();
-            for(Integer key : map.keySet()) {
-            		session.save(new MessageStatus(Long.valueOf(key.longValue()), map.get(key)));
+            for (Long id : map.keySet()) {
+                session.save(new MessageStatus(id, map.get(id)));
             }
-            
+
             map = Constants.getMimeTypes();
-            for(Integer key : map.keySet()) {
-            		session.save(new MimeType(Long.valueOf(key.longValue()), map.get(key)));
+            for (Long id : map.keySet()) {
+                session.save(new MimeType(id, map.get(id)));
             }
-            
+
             map = Constants.getReasonTypes();
+<<<<<<< HEAD
             for(Integer key : map.keySet()) {
             		session.save(new ReasonType(Long.valueOf(key.longValue()), map.get(key)));
             }
@@ -73,11 +79,38 @@ public class DBInit {
             
             
 //            session.save();
+=======
+            for (Long id : map.keySet())
+                session.save(new ReasonType(id, map.get(id)));
+
+            saveEntities(Constants.getQuestionReasons(), session);
+            saveEntities(Constants.getUserReasons(), session);
+
+            map = Constants.getTopics();
+            for (Long id : map.keySet())
+                session.save(new Topic(id, map.get(id)));
+
+            saveEntities(Constants.getQuestionTypes(), session);
+
+            saveEntities(Constants.getJRanks(), session);
+            saveEntities(Constants.getAngular4Ranks(), session);
+            saveEntities(Constants.getDevOpsRanks(), session);
+            saveEntities(Constants.getHibernateRanks(), session);
+            saveEntities(Constants.getDesignPatternRanks(), session);
+
+            saveEntities(Constants.getCertifications(), session);
+            saveEntities(Constants.getQuestionDifficulties(), session);
+>>>>>>> 3f6ae845eb739d30e4cfbe01b5e9107e14c8ab1b
 
             session.getTransaction().commit();
         } finally {
-        	((AnnotationConfigApplicationContext) springContext).close();
+            ((AnnotationConfigApplicationContext) springContext).close();
         }
+    }
 
+    public static void saveEntities(Map<Long, ? extends Serializable> ranks, Session session) {
+        for (Long id : ranks.keySet()) {
+            session.save(ranks.get(id));
+        }
     }
 }

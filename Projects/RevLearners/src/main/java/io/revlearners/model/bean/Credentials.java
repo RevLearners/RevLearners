@@ -14,22 +14,22 @@ public class Credentials implements Serializable {
 
     @Id
     @Column(name=Constants.COLUMN_USER_ID)
-	private Long userId;
+	private Long id;
 
 	@MapsId
     @OneToOne
 	@JoinColumn(name=Constants.COLUMN_USER_ID)
 	private User user;
-	
+
 	@Column(name=Constants.COLUMN_EMAIL)
 	private String email;
-	
+
 	@Column(name=Constants.COLUMN_USERNAME)
 	private String username;
-	
+
 	@Column(name=Constants.COLUMN_PASSWORD)
 	private String password;
-	
+
 	@Column(name=Constants.COLUMN_SALT)
 	private String salt;
 
@@ -44,19 +44,20 @@ public class Credentials implements Serializable {
 	public Credentials() {
 	}
 
-	public Credentials(User user, String email, String password, String salt) {
+	public Credentials(User user, String email, String username, String password, String salt) {
 		this.user = user;
 		this.email = email;
+		this.username = username;
 		this.password = password;
 		this.salt = salt;
 	}
 
-    public Long getUserId() {
-        return userId;
+    public Long getId() {
+        return id;
     }
 
-    public void setUserId(Long userId) {
-        this.userId = userId;
+    public void setId(Long id) {
+        this.id = id;
     }
 
 	public User getUser() {
@@ -90,6 +91,6 @@ public class Credentials implements Serializable {
 	public void setSalt(String salt) {
 		this.salt = salt;
 	}
-	
-	
+
+
 }

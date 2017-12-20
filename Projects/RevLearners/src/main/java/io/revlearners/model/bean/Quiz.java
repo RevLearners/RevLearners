@@ -30,18 +30,18 @@ public class Quiz implements Serializable{
 	@SequenceGenerator(sequenceName="QUIZ_SEQ", name="QUIZ_SEQ")
     @GeneratedValue(generator="QUIZ_SEQ", strategy=GenerationType.SEQUENCE)
 	private Long id;
-	
+
 	@ManyToOne( cascade=CascadeType.ALL, fetch=FetchType.EAGER)
     @JoinColumn(name=Constants.COLUMN_USER_RECEIVER)
 	private User receiver;
-	
+
 	@ManyToOne( cascade=CascadeType.ALL, fetch=FetchType.EAGER)
     @JoinColumn(name=Constants.COLUMN_USER_SENDER)
 	private User sender;
-	
+
 	@Column(name=Constants.COLUMN_QUIZ_TIME)
 	private Date time;
-	
+
 	@ManyToMany(targetEntity=Question.class, cascade=CascadeType.ALL, fetch=FetchType.EAGER)
 	@JoinTable(name=Constants.TABLE_QUIZ_QUESTION, joinColumns=@JoinColumn(name=Constants.COLUMN_QUIZ_ID), inverseJoinColumns=@JoinColumn(name=Constants.COLUMN_QUESTION_ID))
 	private Set<Question> questions;
@@ -53,11 +53,10 @@ public class Quiz implements Serializable{
 		this.sender = sender;
 		this.time = time;
 	}
-	
-	public Quiz() {
 
+	public Quiz() {
 	}
-	
+
 	public Quiz(Long id) {
 		this.id = id;
 	}
@@ -105,6 +104,6 @@ public class Quiz implements Serializable{
 	@Override
 	public String toString() {
 		return "Quiz [id=" + id + ", receiver=" + receiver + ", sender=" + sender + ", time=" + time + "]";
-	}	
-	
+	}
+
 }

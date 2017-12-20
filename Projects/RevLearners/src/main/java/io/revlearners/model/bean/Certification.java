@@ -10,15 +10,11 @@ import java.io.Serializable;
 @Table(name=Constants.TABLE_CERTIFICATION)
 public class Certification implements Serializable {
 
-    /**
-	 * 
-	 */
+
 	private static final long serialVersionUID = 6064749272111879848L;
 
 	@Id
     @Column(name = Constants.COLUMN_CERTIFICATION_ID)
-    @SequenceGenerator(name = "SEQ_GEN_CERTIFICATION", sequenceName = "SEQ_CERTIFICATION", initialValue = 1, allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.AUTO, generator = "SEQ_GEN_CERTIFICATION")
     private Long id;
 
     @Column(name=Constants.COLUMN_CERTIFICATION_NAME)
@@ -31,7 +27,12 @@ public class Certification implements Serializable {
     public Certification() {
     }
 
-    public Certification(String name, Topic topic) {
+    public Certification(Long id) {
+        this.id = id;
+    }
+
+    public Certification(Long id, String name, Topic topic) {
+        this.id = id;
         this.name = name;
         this.topic = topic;
     }

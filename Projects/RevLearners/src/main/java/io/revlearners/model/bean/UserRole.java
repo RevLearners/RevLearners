@@ -16,13 +16,16 @@ public class UserRole implements Serializable {
 	@Id
 	@Column(name=Constants.COLUMN_ROLE_ID)
 	private Long id;
-	
+
 	@Column(name=Constants.COLUMN_ROLE_NAME)
 	private String name;
-	
+
 	public UserRole() {
-		
 	}
+
+    public UserRole(Long id) {
+        this.id = id;
+    }
 
     public UserRole(Long id, String name) {
         this.id = id;
@@ -44,5 +47,5 @@ public class UserRole implements Serializable {
 	public void setName(String name) {
 		this.name = name;
 	}
-	
+
 }

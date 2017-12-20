@@ -16,31 +16,33 @@ import io.revlearners.util.commons.configs.Constants;
 @Table (name=Constants.TABLE_TOPIC)
 public class Topic implements Serializable{
 	private static final long serialVersionUID = -7336698542678175301L;
-	
+
 	@Id
 	@Column (name=Constants.COLUMN_TOPIC_ID)
-	@SequenceGenerator(sequenceName="TOPIC_SEQ", name="TOPIC_SEQ")
-	@GeneratedValue(generator="TOPIC_SEQ", strategy=GenerationType.SEQUENCE)
-	private int topicId;
-	
+	private Long id;
+
 	@Column(name=Constants.COLUMN_TOPIC_NAME)
 	private String topicName;
 
-	public Topic(String topicName) {
-		super();
-		this.topicName = topicName;
-	}
-	
-	public Topic() {
+    public Topic(Long id, String topicName) {
+        this.id = id;
+        this.topicName = topicName;
+    }
+
+    public Topic(Long id) {
+        this.id = id;
+    }
+
+    public Topic() {
 		super();
 	}
 
-	public int getTopicId() {
-		return topicId;
+	public Long getId() {
+		return id;
 	}
 
-	public void setTopicId(int topicId) {
-		this.topicId = topicId;
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 	public String getTopicName() {
@@ -53,6 +55,6 @@ public class Topic implements Serializable{
 
 	@Override
 	public String toString() {
-		return "Topic [topicId=" + topicId + ", topicName=" + topicName + "]";
-	}	
+		return "Topic [id=" + id + ", topicName=" + topicName + "]";
+	}
 }

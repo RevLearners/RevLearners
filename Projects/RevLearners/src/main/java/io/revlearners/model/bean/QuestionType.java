@@ -4,10 +4,7 @@ import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 import io.revlearners.util.commons.configs.Constants;
@@ -19,32 +16,33 @@ public class QuestionType implements Serializable{
 
 	@Id
 	@Column (name=Constants.COLUMN_QUESTION_TYPE_ID)
-	@SequenceGenerator(sequenceName="QUESTION_TYPE_SEQ", name="QUESTION_TYPE_SEQ")
-	@GeneratedValue(generator="QUESTION_TYPE_SEQ", strategy=GenerationType.SEQUENCE)
 	private Long id;
-	
+
 	@Column(name=Constants.COLUMN_QUESTION_TYPE_NAME)
 	private String name;
 	
 	@Column(name=Constants.COLUMN_BASE_VALUE)
-	private double baseVal;
+	private Float baseVal;
 
-	public double getBaseVal() {
+	public Float getBaseVal() {
 		return baseVal;
 	}
 
-	public void setBaseVal(double baseVal) {
+	public void setBaseVal(Float baseVal) {
 		this.baseVal = baseVal;
 	}
 
-	public QuestionType(Long id, String name) {
-		super();
+	public QuestionType(Long id, String name, Float baseVal) {
 		this.id = id;
 		this.name = name;
+		this.baseVal = baseVal;  // todo: use baseval in constants
 	}
-	
-	public QuestionType() {
 
+    public QuestionType(Long id) {
+        this.id = id;
+    }
+
+    public QuestionType() {
 	}
 
 	public Long getId() {
@@ -67,5 +65,5 @@ public class QuestionType implements Serializable{
 	public String toString() {
 		return "QuestionType [id=" + id + ", name=" + name + "]";
 	}
-		
+
 }

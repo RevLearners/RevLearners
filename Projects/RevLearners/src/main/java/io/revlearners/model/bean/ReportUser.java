@@ -21,16 +21,13 @@ import io.revlearners.util.commons.configs.Constants;
 @Table(name = Constants.TABLE_REPORT_QUESTION)
 public class ReportUser implements Serializable{
 	
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 951458230310561236L;
 
 	@Id
 	@Column (name=Constants.COLUMN_REPORT_ID)
 	@SequenceGenerator(sequenceName="REPORT_SEQ", name="REPORT_SEQ")
 	@GeneratedValue(generator="REPORT_SEQ", strategy=GenerationType.SEQUENCE)
-	private Long reportId;
+	private Long id;
 	
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinColumn(name = Constants.COLUMN_REPORTED_ID, referencedColumnName=Constants.COLUMN_USER_ID)
@@ -54,12 +51,12 @@ public class ReportUser implements Serializable{
         this.reporter = reporter;
     }
 
-    public Long getReportId() {
-        return reportId;
+    public Long getId() {
+        return id;
     }
 
-    public void setReportId(Long reportId) {
-        this.reportId = reportId;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public User getReported() {

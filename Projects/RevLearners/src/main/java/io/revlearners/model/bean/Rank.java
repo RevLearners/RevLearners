@@ -11,26 +11,33 @@ import java.io.Serializable;
 public class Rank implements Serializable {
 
     /**
+<<<<<<< HEAD
+	 *
+=======
 	 * 
+>>>>>>> 68f4fa4c00e837e64051e08dc2cfd6b1ed71c68a
 	 */
 	private static final long serialVersionUID = -5410626868066784809L;
 
 	@Id
     @Column(name = Constants.COLUMN_RANK_ID)
-    @SequenceGenerator(name = "SEQ_GEN_RANK", sequenceName = "SEQ_RANK", initialValue = 1, allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.AUTO, generator = "SEQ_GEN_RANK")
     private Long id;
 
     @Column(name=Constants.COLUMN_RANK_NAME)
     private String name;
 
+    @Column(name=Constants.COLUMN_RANK_IN_HEIRARCHY)
+    private Long rank;
+
     @Column(name=Constants.COLUMN_MERIT_THRESHOLD)
     private Long meritThreshold;
 
 
-    public Rank(String name, Long meritThreshold) {
+    public Rank(Long id, String name, Long meritThreshold, Long rankInHeirarchy) {
+        this.id = id;
         this.name = name;
         this.meritThreshold = meritThreshold;
+        this.rank = rankInHeirarchy;
     }
 
     public Rank() {
@@ -50,6 +57,14 @@ public class Rank implements Serializable {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Long getRank() {
+        return rank;
+    }
+
+    public void setRank(Long rank) {
+        this.rank = rank;
     }
 
     public Long getMeritThreshold() {

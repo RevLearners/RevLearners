@@ -17,22 +17,22 @@ import javax.persistence.Table;
 import io.revlearners.util.commons.configs.Constants;
 
 @Entity
-@Table (name=Constants.TABLE_QUESTION_POINTS)
+@Table (name=Constants.TABLE_QUESTION_OPTIONS)
 public class QuestionOption implements Serializable{
 	private static final long serialVersionUID = 8295215015097184041L;
-	
+
 	@Id
 	@Column(name=Constants.COLUMN_OPTION_ID)
 	@SequenceGenerator(sequenceName="Q_OPTION_SEQ", name="Q_OPTION_SEQ")
 	@GeneratedValue(generator="Q_OPTION_SEQ", strategy=GenerationType.SEQUENCE)
 	private Long id;
-	
-	@ManyToOne(cascade=CascadeType.ALL, fetch=FetchType.EAGER)
-	@JoinColumn(name=Constants.COLUMN_OPTION_ID)
-	private Question question;
-	
+
 	@Column(name=Constants.COLUMN_OPTION_TEXT)
 	private String text;
+
+	@ManyToOne(cascade=CascadeType.ALL, fetch=FetchType.EAGER)
+	@JoinColumn(name=Constants.COLUMN_QUESTION_ID)
+	private Question question;
 
 	@Column(name=Constants.COLUMN_IS_CORRECT)
 	private boolean isCorrect;
@@ -42,10 +42,10 @@ public class QuestionOption implements Serializable{
 		this.text = text;
 		this.isCorrect = isCorrect;
 	}
-	
+
 	public QuestionOption() {
 	}
-	
+
 	public QuestionOption(Question question) {
 		this.question = question;
 	}

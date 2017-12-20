@@ -10,30 +10,27 @@ import java.io.Serializable;
 @Table(name=Constants.TABLE_USER_RANK)
 public class UserTopicRank implements Serializable {
 
-    /**
-	 * 
-	 */
 	private static final long serialVersionUID = -3402953668398433930L;
 
 	@EmbeddedId
-    private UserOptionRankTrio id;
+    private UserTopicRankTrio id;
 
     @Column(name=Constants.COLUMN_MERIT)
     private Long merit;
 
-    public UserTopicRank(User user, Rank rank, QuestionOption option, Long merit) {
-        this.id = new UserOptionRankTrio(user, rank, option);
+    public UserTopicRank(User user, Rank rank, Topic topic, Long merit) {
+        this.id = new UserTopicRankTrio(user, rank, topic);
         this.merit = merit;
     }
 
     public UserTopicRank() {
     }
 
-    public UserOptionRankTrio getId() {
+    public UserTopicRankTrio getId() {
         return id;
     }
 
-    public void setId(UserOptionRankTrio id) {
+    public void setId(UserTopicRankTrio id) {
         this.id = id;
     }
 
@@ -46,10 +43,8 @@ public class UserTopicRank implements Serializable {
     }
 
     @Embeddable
-    public static class UserOptionRankTrio implements Serializable {
-        /**
-		 * 
-		 */
+    public static class UserTopicRankTrio implements Serializable {
+
 		private static final long serialVersionUID = -3420765176964284918L;
 
 		@ManyToOne
@@ -62,15 +57,15 @@ public class UserTopicRank implements Serializable {
 
         @ManyToOne
         @JoinColumn(name=Constants.COLUMN_OPTION_ID)
-        private QuestionOption option;
+        private Topic topic;
 
-        public UserOptionRankTrio(User user, Rank rank, QuestionOption option) {
+        public UserTopicRankTrio(User user, Rank rank, Topic topic) {
             this.user = user;
             this.rank = rank;
-            this.option = option;
+            this.topic = topic;
         }
 
-        public UserOptionRankTrio() {
+        public UserTopicRankTrio() {
         }
 
         public User getUser() {
@@ -89,31 +84,31 @@ public class UserTopicRank implements Serializable {
             this.rank = rank;
         }
 
-        public QuestionOption getOption() {
-            return option;
+        public Topic getOption() {
+            return topic;
         }
 
-        public void setOption(QuestionOption option) {
-            this.option = option;
+        public void setOption(Topic option) {
+            this.topic = option;
         }
 
         @Override
         public boolean equals(Object o) {
             if (this == o) return true;
-            if (!(o instanceof UserOptionRankTrio)) return false;
+            if (!(o instanceof UserTopicRankTrio)) return false;
 
-            UserOptionRankTrio that = (UserOptionRankTrio) o;
+            UserTopicRankTrio that = (UserTopicRankTrio) o;
 
             return that.rank.getId().equals(this.rank.getId()) &&
                     that.user.getId().equals(this.user.getId()) &&
-                    that.option.getId().equals(this.option.getId());
+                    that.topic.getId().equals(this.topic.getId());
         }
 
         @Override
         public int hashCode() {
             int result = user != null ? user.hashCode() : 0;
             result = 31 * result + (rank != null ? rank.hashCode() : 0);
-            result = 31 * result + (this.option != null ? this.option.hashCode() : 0);
+            result = 31 * result + (this.topic != null ? this.topic.hashCode() : 0);
             return result;
         }
     }

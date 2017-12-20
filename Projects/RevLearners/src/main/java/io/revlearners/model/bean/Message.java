@@ -10,9 +10,7 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name=Constants.TABLE_MESSAGE)
 public class Message implements Serializable {
-    /**
-	 * 
-	 */
+
 	private static final long serialVersionUID = -1952814977786579674L;
 
 	@Id

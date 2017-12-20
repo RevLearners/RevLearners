@@ -11,9 +11,6 @@ import java.time.LocalDateTime;
 @Table(name=Constants.TABLE_NOTIFICATION)
 public class Notification implements Serializable {
 
-    /**
-	 * 
-	 */
 	private static final long serialVersionUID = 6295517192344156314L;
 
 	@Id
