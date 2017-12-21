@@ -1,3 +1,4 @@
+package testNGUnitTests;
 import javax.activation.DataHandler;
 import javax.activation.DataSource;
 import javax.activation.FileDataSource;

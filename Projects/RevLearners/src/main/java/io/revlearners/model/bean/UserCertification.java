@@ -6,88 +6,88 @@ import javax.persistence.*;
 import io.revlearners.util.commons.configs.Constants;
 
 import java.io.Serializable;
+import java.util.Set;
 
 @Entity
 @Table(name = Constants.TABLE_USER_CERTIFICATION)
+@AssociationOverrides({
+		@AssociationOverride(name = Constants.PK_USER, joinColumns = @JoinColumn(name = Constants.COLUMN_USER_ID)),
+		@AssociationOverride(name = Constants.PK_CERTIFICATION, joinColumns = @JoinColumn(name = Constants.COLUMN_CERTIFICATION_ID)) })
 public class UserCertification implements Serializable {
 
-    private static final long serialVersionUID = -5568090599034834224L;
+	private static final long serialVersionUID = -5568090599034834224L;
 
-    @EmbeddedId
-    private UserCertPair id;
+	@EmbeddedId
+	private UserCertPair pk = new UserCertPair();
+	
+	public UserCertification(User user, Certification certification) {
+		setUser(user);
+		setCertification(certification);
+	}
 
-    @OneToOne
-    @JoinColumn(name = Constants.COLUMN_BLOB_ID)
-    private FileBlob file;
+	public UserCertification() {
+	}
 
-    public UserCertification(User user, Certification certification, FileBlob file) {
-        this.id = new UserCertPair(user, certification);
-        this.file = file;
-    }
+	public UserCertPair getId() {
+		return pk;
+	}
 
-    public UserCertification(User user, Certification certification) {
-        this.id = new UserCertPair(user, certification);
-        this.file = file;
-    }
+	public void setId(UserCertPair userCertKey) {
+		this.pk = userCertKey;
+	}
 
-    public UserCertification() {
-    }
+	@Transient
+	public User getUser() {
+		return pk.user;
+	}
 
-    public UserCertPair getId() {
-        return id;
-    }
+	public void setUser(User user) {
+		pk.user = user;
+	}
 
-    public void setId(UserCertPair userCertKey) {
-        this.id = userCertKey;
-    }
+	@Transient
+	public Certification getCertification() {
+		return pk.certification;
+	}
+	
+	public void setCertification(Certification cert) {
+		pk.certification = cert;
+	}
 
-    public FileBlob getFile() {
-        return file;
-    }
+	@Embeddable
+	private static class UserCertPair implements Serializable {
 
-    public void setFile(FileBlob file) {
-        this.file = file;
-    }
+		private static final long serialVersionUID = 4724550790684214251L;
 
+		@ManyToOne
+		@JoinColumn(name = Constants.COLUMN_USER_ID)
+		private User user;
 
-    @Embeddable
-    public static class UserCertPair implements Serializable {
+		@ManyToOne
+		@JoinColumn(name = Constants.COLUMN_CERTIFICATION_ID)
+		private Certification certification;
 
-        private static final long serialVersionUID = 4724550790684214251L;
+		public UserCertPair() {
+		}
 
-        @ManyToOne
-        @JoinColumn(name = Constants.COLUMN_USER_ID)
-        private User user;
+		@Override
+		public boolean equals(Object o) {
+			if (this == o)
+				return true;
+			if (!(o instanceof UserCertPair))
+				return false;
 
-        @ManyToOne
-        @JoinColumn(name = Constants.COLUMN_CERTIFICATION_ID)
-        private Certification certification;
+			UserCertPair that = (UserCertPair) o;
 
-        public UserCertPair(User user, Certification certification) {
-            this.user = user;
-            this.certification = certification;
-        }
+			return this.user.getId().equals(that.user.getId())
+					&& this.certification.getId().equals(that.certification.getId());
+		}
 
-        public UserCertPair() {
-        }
-
-        @Override
-        public boolean equals(Object o) {
-            if (this == o) return true;
-            if (!(o instanceof UserCertPair)) return false;
-
-            UserCertPair that = (UserCertPair) o;
-
-            return this.user.getId().equals(that.user.getId()) &&
-                    this.certification.getId().equals(that.certification.getId());
-        }
-
-        @Override
-        public int hashCode() {
-            int result = user != null ? user.hashCode() : 0;
-            result = 31 * result + (certification != null ? certification.hashCode() : 0);
-            return result;
-        }
-    }
+		@Override
+		public int hashCode() {
+			int result = user != null ? user.hashCode() : 0;
+			result = 31 * result + (certification != null ? certification.hashCode() : 0);
+			return result;
+		}
+	}
 }
-

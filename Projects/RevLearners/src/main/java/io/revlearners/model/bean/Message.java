@@ -6,6 +6,8 @@ import io.revlearners.util.commons.configs.Constants;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 @Entity
 @Table(name=Constants.TABLE_MESSAGE)
@@ -33,9 +35,8 @@ public class Message implements Serializable {
     @Column(name=Constants.COLUMN_MESSAGE_CONTENTS)
     private String contents;
 
-    @OneToOne
-    @JoinColumn(name=Constants.COLUMN_BLOB_ID)
-    private FileBlob blob;
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = Constants.PK_MESSAGE)
+    private Set<FileBlob> blobs = new LinkedHashSet<FileBlob>();
 
     @Column(name=Constants.COLUMN_MESSAGE_TIME)
     private LocalDateTime time;
@@ -45,12 +46,12 @@ public class Message implements Serializable {
     private MessageStatus status;
 
 
-    public Message(User sender, User receiver, String title, String contents, FileBlob blob, LocalDateTime time, MessageStatus status) {
+    public Message(User sender, User receiver, String title, String contents, Set<FileBlob> blobs, LocalDateTime time, MessageStatus status) {
         this.sender = sender;
         this.receiver = receiver;
         this.title = title;
         this.contents = contents;
-        this.blob = blob;
+        this.blobs = blobs;
         this.time = time;
         this.status = status;
     }
@@ -107,12 +108,12 @@ public class Message implements Serializable {
         this.contents = contents;
     }
 
-    public FileBlob getBlob() {
-        return blob;
+    public Set<FileBlob> getBlobs() {
+        return blobs;
     }
 
-    public void setBlob(FileBlob blob) {
-        this.blob = blob;
+    public void setBlob(Set<FileBlob> blobs) {
+        this.blobs = blobs;
     }
 
     public LocalDateTime getTime() {

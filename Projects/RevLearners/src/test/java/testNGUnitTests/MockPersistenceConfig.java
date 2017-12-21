@@ -1,4 +1,5 @@
-package io.revlearners.util.commons.configs;
+package testNGUnitTests;
+
 
 import java.sql.Connection;
 import java.util.Properties;
@@ -32,7 +33,7 @@ import io.revlearners.model.services.dao.interfaces.contracts.*;
 @EnableAsync
 @EnableTransactionManagement
 @ComponentScan("io.revlearners.model")
-public class PersistenceConfig {
+public class MockPersistenceConfig {
 
 	@Bean
 	public DataSource dataSource() {
@@ -51,7 +52,7 @@ public class PersistenceConfig {
 		factoryBean.setPackagesToScan("io.revlearner.model"); // varargs method
 
 		Properties props = new Properties();
-		props.setProperty("hibernate.hbm2ddl.auto", "update");
+		props.setProperty("hibernate.hbm2ddl.auto", "create");
 		props.setProperty("hibernate.show_sql", "true");
 		props.setProperty("hibernate.dialect", "org.hibernate.dialect.Oracle10gDialect");
 		props.setProperty("hibernate.connection.isolation", String.valueOf(Connection.TRANSACTION_READ_COMMITTED));

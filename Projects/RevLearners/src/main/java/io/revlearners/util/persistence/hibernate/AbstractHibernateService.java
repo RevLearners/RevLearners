@@ -3,6 +3,7 @@ package io.revlearners.util.persistence.hibernate;
 import java.io.Serializable;
 import java.util.List;
 
+import org.hibernate.Session;
 import org.springframework.transaction.annotation.Transactional;
 
 import io.revlearners.util.persistence.AbstractService;
@@ -13,33 +14,33 @@ import io.revlearners.util.commons.configs.Constants;
 public abstract class AbstractHibernateService<T extends Serializable> extends AbstractService<T> implements IGenericDao<T> {
 
 	@Override
-	public T fetchById(long id) {
-		return super.fetchById(id);
+	public T fetchById(long id, Object session) {
+		return super.fetchById(id, session);
 	}
 
 	@Override
-	public List<T> fetchAll() {
-		return super.fetchAll();
+	public List<T> fetchAll(Object session) {
+		return super.fetchAll(session);
 	}
 
 	@Override
-	public void create(T entity) {
-		super.create(entity);
+	public Serializable create(T entity, Object session) {
+		return super.create(entity, session);
 	}
 
 	@Override
-	public T update(T entity) {
-		return super.update(entity);
+	public T update(T entity, Object session) {
+		return super.update(entity, session);
 	}
 
 	@Override
-	public void delete(T entity) {
-		super.delete(entity);
+	public void delete(T entity, Object session) {
+		super.delete(entity, session);
 	}
 
 	@Override
-	public void deleteById(long id) {
-		super.deleteById(id);		
+	public void deleteById(long id, Object session) {
+		super.deleteById(id, session);		
 	}
 	
 }

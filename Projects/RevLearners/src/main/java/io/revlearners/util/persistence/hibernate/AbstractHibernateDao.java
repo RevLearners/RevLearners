@@ -16,53 +16,70 @@ import org.springframework.beans.factory.annotation.Autowired;
 /**
  * Spring loaded parameterized generic dao implementation
  *
- * Uses Spring annotations and Java reflections to create a single 
- * Dao implement to be used across all entities
+ * Uses Spring annotations and Java reflections to create a single Dao implement
+ * to be used across all entities
  *
  * This class was made in conjunction with Spring best practices
  */
 public class AbstractHibernateDao<T extends Serializable> extends AbstractDao<T> implements IGenericDao<T> {
-	
+
 	@Autowired
 	private SessionFactory sf;
 
-	protected final Session getSession() {
-		return sf.getCurrentSession();
+	public AbstractHibernateDao() {
+
 	}
-	
+
 	@Override
-	public T fetchById(long id) {
-        return clazz.cast(sf.getCurrentSession().get(clazz, id));
+	public T fetchById(long id, Object session) {
+		if (session == null) {
+			return sf.getCurrentSession().get(clazz, id);
+		}
+		return clazz.cast(((Session) session).get(clazz, id));
 	}
 
 	@Override
 	@SuppressWarnings("unchecked")
-	public List<T> fetchAll(){
-		return sf.getCurrentSession().createQuery(Constants.FROM + clazz.getName()).list();
+	public List<T> fetchAll(Object session) {
+		if (session == null) {
+			return sf.getCurrentSession().createQuery(Constants.FROM + clazz.getName()).list();
+		}
+		return ((Session) session).createQuery(Constants.FROM + clazz.getName()).list();
 	}
 
-//	public List<T> findByEntity(T entity) {
-//		return null;
-//	}
-	
+	// public List<T> findByEntity(T entity) {
+	// return null;
+	// }
+
 	@Override
-	public void create(final T entity) {
-		sf.getCurrentSession().persist(entity);
+	public Serializable create(final T entity, Object session) {
+		if (session == null) {
+			return sf.getCurrentSession().save(entity);
+		}
+		return ((Session) session).save(entity);
 	}
-	
+
 	@Override
-	public T update(final T entity) {
-		return clazz.cast(sf.getCurrentSession().merge(entity));
+	public T update(final T entity, Object session) {
+		if (session == null) {
+			return clazz.cast(sf.getCurrentSession().merge(entity));
+		}
+		return clazz.cast(((Session) session).merge(entity));
+
 	}
-	
+
 	@Override
-	public void delete(final T entity) {
-		sf.getCurrentSession().delete(entity);
+	public void delete(final T entity, Object session) {
+		if (session == null) {
+			sf.getCurrentSession().delete(entity);
+		} else {
+			((Session) session).delete(entity);
+		}
 	}
-	
+
 	@Override
-	public void deleteById(final long id) {
-		final T entity = fetchById(id);
-		delete(entity);
+	public void deleteById(final long id, Object session) {
+		final T entity = fetchById(id, session);
+		delete(entity, session);
 	}
 }
