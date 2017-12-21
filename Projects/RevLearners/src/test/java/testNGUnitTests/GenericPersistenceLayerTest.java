@@ -23,7 +23,7 @@ public class GenericPersistenceLayerTest extends PersistenceLayerTest {
 
 	private Session session;
 
-	private Long blobId;
+	private Long msgId;
 
 	private Long userId;
 	private Long receiverId;
@@ -94,10 +94,10 @@ public class GenericPersistenceLayerTest extends PersistenceLayerTest {
 	}
 
 	@Test(dependsOnMethods = { "userInsertTest", "insertReceiverTest" })
-	public void insertMessageWithAttachmentTest() {
-		String filePath = Constants.PROJECT_DIR + "/img/imgUpload.jpg";
+	public void insertMessageWithAttachmentsTest() {
+		String filePath = Constants.PROJECT_DIR + "/testFiles/";
 		Set<FileBlob> blobs = new HashSet<FileBlob>();
-		byte[] bytes;
+		byte[] bytes = null;
 		Message msg;
 		MessageStatus stat;
 		User sender, receiver;
@@ -108,44 +108,45 @@ public class GenericPersistenceLayerTest extends PersistenceLayerTest {
 
 		File file = new File(filePath);
 		String fileName = file.getName();
-		
 
 		try {
 			// write files to blobs
-			bytes = BlobWriter.writeToBlob(session, filePath);
-			blobs.add(new FileBlob(fileName, file.length(), bytes,
-					new MimeType(Constants.MIME_JPG, Constants.MIME_JPG_STR)));
-			
+			for (String s : file.list()) {
+				bytes = BlobWriter.writeToBlob(session, filePath + "/" + s);
+				blobs.add(new FileBlob(fileName, file.length(), bytes,
+						new MimeType(Constants.MIME_JPG, Constants.MIME_JPG_STR)));
+			}
+
 			session.beginTransaction();
-			
+
 			// load sender and receiver users
 			sender = session.load(User.class, senderId);
 			receiver = session.load(User.class, receiverId);
 			stat = session.load(MessageStatus.class, Constants.MESSAGE_STATUS_UNREAD);
-			
 
 			// generate message
-			msg = new Message(sender, receiver, "This is the title", "This is the message", blobs, LocalDateTime.now(), stat);
+			msg = new Message(sender, receiver, "This is the title", "This is the message", blobs, LocalDateTime.now(),
+					stat);
 
 			// save message
-			session.save(msg);
-			
+			msgId = (Long) session.save(msg);
+
 			session.getTransaction().commit();
-			
+
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			Assert.fail();
 		}
 
 	}
 
-	@Test(enabled = false, dependsOnMethods = "certificationUploadTest")
+	@Test(dependsOnMethods = "insertMessageWithAttachmentsTest")
 	public void certificationViewTest() {
-		FileBlob fb;
-		fb = session.load(FileBlob.class, blobId);
+		Message msg;
+		msg = session.load(Message.class, msgId);
 		try {
-			BlobWriter.writeToFile(fb.getName(), fb.getSize(), fb.getContents());
+			for (FileBlob fb : msg.getBlobs())
+				BlobWriter.writeToFile(fb.getName(), fb.getSize(), fb.getContents());
 		} catch (IOException | SQLException e) {
 			System.err.println(e);
 

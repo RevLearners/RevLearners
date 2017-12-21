@@ -35,7 +35,7 @@ public class Message implements Serializable {
     @Column(name=Constants.COLUMN_MESSAGE_CONTENTS)
     private String contents;
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinTable(
     		name=Constants.TABLE_MESSAGE_ATTACHMENT,
     		joinColumns = @JoinColumn(name = Constants.COLUMN_MESSAGE_ID),
@@ -46,12 +46,16 @@ public class Message implements Serializable {
     @Column(name=Constants.COLUMN_MESSAGE_TIME)
     private LocalDateTime time;
 
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToOne
     @JoinColumn(name=Constants.COLUMN_STATUS_ID)
     private MessageStatus status;
 
 
-    public Message(User sender, User receiver, String title, String contents, Set<FileBlob> blobs, LocalDateTime time, MessageStatus status) {
+    public void setBlobs(Set<FileBlob> blobs) {
+		this.blobs = blobs;
+	}
+
+	public Message(User sender, User receiver, String title, String contents, Set<FileBlob> blobs, LocalDateTime time, MessageStatus status) {
         this.sender = sender;
         this.receiver = receiver;
         this.title = title;
