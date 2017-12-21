@@ -5,12 +5,14 @@ import javax.persistence.*;
 import io.revlearners.util.commons.configs.Constants;
 
 import java.io.Serializable;
-import java.sql.Blob;
 
 @Entity
 @Table(name = Constants.TABLE_FILE_BLOB)
 public class FileBlob implements Serializable {
 
+    /**
+	 * 
+	 */
 	private static final long serialVersionUID = 5115254825153861311L;
 
 	@Id
@@ -27,7 +29,7 @@ public class FileBlob implements Serializable {
 
     @Lob
     @Column(name = Constants.COLUMN_BLOB_CONTENTS)
-    private Blob contents;
+    private byte[] contents;
 
     @ManyToOne
     @JoinColumn(name = Constants.COLUMN_MIME_ID)
@@ -41,7 +43,7 @@ public class FileBlob implements Serializable {
         this.mimeType = mimeType;
     }
 
-    public FileBlob(String name, Long size, Blob contents, MimeType mimeType) {
+    public FileBlob(String name, Long size, byte[] contents, MimeType mimeType) {
         this.name = name;
         this.size = size;
         this.contents = contents;
@@ -73,11 +75,11 @@ public class FileBlob implements Serializable {
         this.size = size;
     }
 
-    public Blob getContents() {
+    public byte[] getContents() {
         return contents;
     }
 
-    public void setContents(Blob contents) {
+    public void setContents(byte[] contents) {
         this.contents = contents;
     }
 

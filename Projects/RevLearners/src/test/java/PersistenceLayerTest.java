@@ -3,6 +3,7 @@ import static org.junit.Assert.fail;
 import java.io.File;
 import java.io.IOException;
 import java.sql.Blob;
+import java.sql.SQLException;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -28,17 +29,17 @@ import io.revlearners.util.persistence.BlobWriter;
 
 @ContextConfiguration(classes = { PersistenceConfig.class }, loader = AnnotationConfigContextLoader.class)
 public class PersistenceLayerTest extends AbstractTestNGSpringContextTests {
-
+	
 	@Autowired
 	private SessionFactory sf;
 
-	@Autowired
-	private static ITopicService topicService;
-
 	private Session session;
+	
+	private Long blobId;
 
 	@BeforeClass
 	public final void before() {
+		DBInit.create(sf);
 		session = sf.openSession();
 	}
 
@@ -47,9 +48,11 @@ public class PersistenceLayerTest extends AbstractTestNGSpringContextTests {
 		session.close();
 	}
 
-	@Test
+	@Test()
 	public void userInsertTest() {
 
+		
+		
 		User user = new User("John", null, "Doe", session.load(UserStatus.class, Constants.STATUS_PENDING),
 				session.load(UserRole.class, Constants.ROLE_BASIC));
 		Credentials credentials = new Credentials(user, "mail@email.com", "aUsername", "password",
@@ -59,7 +62,7 @@ public class PersistenceLayerTest extends AbstractTestNGSpringContextTests {
 		session.getTransaction().commit();
 	}
 
-	@Test
+	@Test()
 	public void questionInsertTest() {
 		session.beginTransaction();
 		Question quest = new Question(session.load(Topic.class, Constants.TOPIC_CORE_JAVA),
@@ -72,20 +75,37 @@ public class PersistenceLayerTest extends AbstractTestNGSpringContextTests {
 	}
 
 	@Test
-	public void ceritificationUploadTest() {
+	public void certificationUploadTest() {
 		session.beginTransaction();
-		String filePath = "/img/imgUpload.jpg";
-		Blob blob;
+		String filePath =  Constants.PROJECT_DIR + "/img/imgUpload.jpg";
+		byte[] bytes;
 
 		File file = new File(filePath);
 		String fileName = file.getName();
 		try {
-			blob = BlobWriter.writeToBlob(session, filePath);
-			FileBlob fb = new FileBlob(fileName, file.length(), blob, new MimeType(Constants.MIME_JPG, Constants.MIME_JPG_STR));
-			session.save(fb);
+			bytes = BlobWriter.writeToBlob(session, filePath);
+			FileBlob fb = new FileBlob(fileName, file.length(), bytes, new MimeType(Constants.MIME_JPG, Constants.MIME_JPG_STR));
+			blobId = (Long) session.save(fb);
+			session.getTransaction().commit();
+		
 		} catch (IOException e) {
-			Assert.fail(e.getMessage());
+			System.err.println(e);
 			e.printStackTrace();
+			Assert.fail();
+		}
+	}
+	
+	@Test(dependsOnMethods="certificationUploadTest")
+	public void certificationViewTest() {
+		FileBlob fb;
+		fb = session.load(FileBlob.class, blobId);
+		try {
+			BlobWriter.writeToFile(fb.getName(), fb.getSize(), fb.getContents());
+		} catch (IOException | SQLException e) {
+			System.err.println(e);
+
+			e.printStackTrace();
+			Assert.fail();
 		}
 	}
 }

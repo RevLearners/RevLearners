@@ -5,13 +5,15 @@
     <classes>
       <class name="PersistenceLayerTest">
         <methods>
-          <include name="questionInsertTest"/>
+          <include name="certificationUploadTest"/>
           <include name="springTestContextBeforeTestClass"/>
-          <include name="ceritificationUploadTest"/>
+          <include name="before"/>
           <include name="springTestContextPrepareTestInstance"/>
           <include name="springTestContextAfterTestClass"/>
+          <include name="springTestContextBeforeTestMethod"/>
           <include name="springTestContextAfterTestMethod"/>
-          <include name="userInsertTest"/>
+          <include name="after"/>
+          <include name="certificationViewTest"/>
         </methods>
       </class> <!-- PersistenceLayerTest -->
     </classes>
