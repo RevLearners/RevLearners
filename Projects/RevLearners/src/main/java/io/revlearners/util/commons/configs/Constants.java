@@ -521,6 +521,7 @@ public final class Constants {
 	public static final String TABLE_CERTIFICATION = "CERTIFICATION";
 	public static final String TABLE_USER_RANK = "USER_RANK";
 	public static final String TABLE_QUIZ_QUESTION = "QUIZ_QUESTION";
+	public static final String TABLE_MESSAGE_ATTACHMENT = "MESSAGE_ATTACHMENT";
 
 	// Columns
 	public static final String COLUMN_RANK_ID = "RANK_ID";

@@ -35,13 +35,18 @@ public class Message implements Serializable {
     @Column(name=Constants.COLUMN_MESSAGE_CONTENTS)
     private String contents;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = Constants.PK_MESSAGE)
+    @OneToMany
+    @JoinTable(
+    		name=Constants.TABLE_MESSAGE_ATTACHMENT,
+    		joinColumns = @JoinColumn(name = Constants.COLUMN_MESSAGE_ID),
+    		inverseJoinColumns = @JoinColumn(name = Constants.COLUMN_BLOB_ID)
+    		)
     private Set<FileBlob> blobs = new LinkedHashSet<FileBlob>();
 
     @Column(name=Constants.COLUMN_MESSAGE_TIME)
     private LocalDateTime time;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name=Constants.COLUMN_STATUS_ID)
     private MessageStatus status;
 

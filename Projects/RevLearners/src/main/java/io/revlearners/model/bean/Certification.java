@@ -27,6 +27,7 @@ public class Certification implements Serializable {
 	@OneToMany(fetch = FetchType.EAGER, mappedBy = Constants.PK_CERTIFICATION)
 	private Set<UserCertification> users;
 	
+	// implement to include icon
 //	@OneToOne
 //	@JoinColumn(name = Constants.COLUMN_BLOB_ID)
 //	private FileBlob file;

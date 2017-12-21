@@ -4,6 +4,7 @@ import java.io.File;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -25,6 +26,7 @@ public class GenericPersistenceLayerTest extends PersistenceLayerTest {
 	private Long blobId;
 
 	private Long userId;
+	private Long receiverId;
 
 	@BeforeClass
 	public final void before() {
@@ -45,6 +47,17 @@ public class GenericPersistenceLayerTest extends PersistenceLayerTest {
 				"this is a salt, a really bad salt, but a salt none the less");
 		session.beginTransaction();
 		userId = (Long) userService.create(user, session);
+		session.getTransaction().commit();
+	}
+
+	@Test
+	public void insertReceiverTest() {
+
+		User user = new User("Jane", null, "Bobbert", session.load(UserStatus.class, Constants.STATUS_PENDING),
+				session.load(UserRole.class, Constants.ROLE_BASIC), "mail@email.com", "aUsername", "password",
+				"this is a salt, a really bad salt, but a salt none the less");
+		session.beginTransaction();
+		receiverId = (Long) userService.create(user, session);
 		session.getTransaction().commit();
 	}
 
@@ -79,32 +92,52 @@ public class GenericPersistenceLayerTest extends PersistenceLayerTest {
 		// blobId = (Long) session.save(blobs);
 		session.getTransaction().commit();
 	}
-	
-	@Test(dependsOnMethods = "userInsertTests")
+
+	@Test(dependsOnMethods = { "userInsertTest", "insertReceiverTest" })
 	public void insertMessageWithAttachmentTest() {
 		String filePath = Constants.PROJECT_DIR + "/img/imgUpload.jpg";
 		Set<FileBlob> blobs = new HashSet<FileBlob>();
 		byte[] bytes;
-		FileBlob fb;
-		
+		Message msg;
+		MessageStatus stat;
+		User sender, receiver;
+
 		// get users
 		Long senderId = userId;
-		userInsertTest();
-		Long receiverId = userId;
-		
+		Long receiverId = this.receiverId;
+
 		File file = new File(filePath);
 		String fileName = file.getName();
-		// write files to blobs
+		
 
+		try {
+			// write files to blobs
+			bytes = BlobWriter.writeToBlob(session, filePath);
+			blobs.add(new FileBlob(fileName, file.length(), bytes,
+					new MimeType(Constants.MIME_JPG, Constants.MIME_JPG_STR)));
+			
+			session.beginTransaction();
+			
+			// load sender and receiver users
+			sender = session.load(User.class, senderId);
+			receiver = session.load(User.class, receiverId);
+			stat = session.load(MessageStatus.class, Constants.MESSAGE_STATUS_UNREAD);
+			
 
-		// bytes = BlobWriter.writeToBlob(session, filePath);
-		// fb = new FileBlob(fileName, file.length(), bytes, new
-		// MimeType(Constants.MIME_JPG, Constants.MIME_JPG_STR));
-		
-		// generate message
-		
-		// save message
-		
+			// generate message
+			msg = new Message(sender, receiver, "This is the title", "This is the message", blobs, LocalDateTime.now(), stat);
+
+			// save message
+			session.save(msg);
+			
+			session.getTransaction().commit();
+			
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			Assert.fail();
+		}
+
 	}
 
 	@Test(enabled = false, dependsOnMethods = "certificationUploadTest")

@@ -34,7 +34,7 @@ public class FileBlob implements Serializable {
     @ManyToOne
     @JoinColumn(name = Constants.COLUMN_MIME_ID)
     private MimeType mimeType;
-
+    
     public FileBlob() {}
 
     public FileBlob(String name, Long size, MimeType mimeType) {
