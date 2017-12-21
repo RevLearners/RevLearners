@@ -25,6 +25,7 @@ public final class Constants {
 
 	public static final String QUALIFY_TOPIC_DAO_INJECTOR = "topicHibernateService";
 	public static final String QUALIFY_MESSAGE_DAO_INJECTOR = "messageHibernateService";
+	public static final String QUALIFY_NOTIFICATION_DAO = "notificationHibernateService";
 	public static final String QUALIFY_QUESTION_DAO_INJECTOR = "questionHibernateService";
 	public static final String QUALIFY_RANK_DAO_INJECTOR = "rankHibernateService";
 	public static final String QUALIFY_USER_DAO_INJECTOR = "userHibernateService";
