@@ -5,12 +5,9 @@ import java.util.Properties;
 
 import javax.sql.DataSource;
 
-import org.hibernate.SessionFactory;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.config.BeanPostProcessor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.ComponentScans;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
@@ -37,10 +34,17 @@ public class PersistenceConfig {
 	@Bean
 	public DataSource dataSource() {
 		DriverManagerDataSource ds = new DriverManagerDataSource();
+		ds.setDriverClassName(System.getenv("DBDC"));
+		ds.setUrl(System.getenv("DBUR"));
+		ds.setUsername(System.getenv("DBTESTU"));
+		ds.setPassword(System.getenv("DBTESTP"));
+
+		/*
 		ds.setDriverClassName(System.getenv("RDS_DRIVER_CLASS"));
 		ds.setUrl(System.getenv("RDS_URL"));
 		ds.setUsername(System.getenv("RDS_USERNAME"));
 		ds.setPassword(System.getenv("RDS_PASSWORD"));
+		*/
 		return ds;
 	}
 
