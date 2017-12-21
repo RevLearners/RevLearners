@@ -35,7 +35,7 @@ public class QuestionType implements Serializable{
 	public QuestionType(Long id, String name, Float baseVal) {
 		this.id = id;
 		this.name = name;
-		this.baseVal = baseVal;  // todo: use baseval in constants
+		this.baseVal = baseVal;
 	}
 
     public QuestionType(Long id) {
