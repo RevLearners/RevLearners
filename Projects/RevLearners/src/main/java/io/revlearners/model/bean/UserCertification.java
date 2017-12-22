@@ -11,83 +11,123 @@ import java.util.Set;
 @Entity
 @Table(name = Constants.TABLE_USER_CERTIFICATION)
 @AssociationOverrides({
-		@AssociationOverride(name = Constants.PK_USER, joinColumns = @JoinColumn(name = Constants.COLUMN_USER_ID)),
-		@AssociationOverride(name = Constants.PK_CERTIFICATION, joinColumns = @JoinColumn(name = Constants.COLUMN_CERTIFICATION_ID)) })
+        @AssociationOverride(name = Constants.PK_USER, joinColumns = @JoinColumn(name = Constants.COLUMN_USER_ID)),
+        @AssociationOverride(name = Constants.PK_CERTIFICATION, joinColumns = @JoinColumn(name = Constants.COLUMN_CERTIFICATION_ID))})
 public class UserCertification implements Serializable {
 
-	private static final long serialVersionUID = -5568090599034834224L;
+    private static final long serialVersionUID = -5568090599034834224L;
 
-	@EmbeddedId
-	private UserCertPair pk = new UserCertPair();
-	
-	public UserCertification(User user, Certification certification) {
-		setUser(user);
-		setCertification(certification);
-	}
+    @EmbeddedId
+    private UserCertPair pk = new UserCertPair();
 
-	public UserCertification() {
-	}
+    @OneToOne
+    @JoinColumn(name = Constants.COLUMN_BLOB_ID)
+    private FileBlob blob;
 
-	public UserCertPair getId() {
-		return pk;
-	}
+    @ManyToOne
+    @JoinColumn(name = Constants.COLUMN_STATUS_ID)
+    private RequestStatus status;
 
-	public void setId(UserCertPair userCertKey) {
-		this.pk = userCertKey;
-	}
 
-	@Transient
-	public User getUser() {
-		return pk.user;
-	}
+    public UserCertification() {
+    }
 
-	public void setUser(User user) {
-		pk.user = user;
-	}
+    public UserCertification(User user, Certification certification) {
+        setUser(user);
+        setCertification(certification);
+    }
 
-	@Transient
-	public Certification getCertification() {
-		return pk.certification;
-	}
-	
-	public void setCertification(Certification cert) {
-		pk.certification = cert;
-	}
+    public UserCertification(User user, Certification certification, RequestStatus status, FileBlob blob) {
+        this.pk.user = user;
+        this.pk.certification = certification;
+        this.blob = blob;
+        this.status = status;
+    }
 
-	@Embeddable
-	private static class UserCertPair implements Serializable {
+    public UserCertPair getId() {
+        return pk;
+    }
 
-		private static final long serialVersionUID = 4724550790684214251L;
+    public void setId(UserCertPair userCertKey) {
+        this.pk = userCertKey;
+    }
 
-		@ManyToOne
-		@JoinColumn(name = Constants.COLUMN_USER_ID)
-		private User user;
+    @Transient
+    public User getUser() {
+        return pk.user;
+    }
 
-		@ManyToOne
-		@JoinColumn(name = Constants.COLUMN_CERTIFICATION_ID)
-		private Certification certification;
+    public void setUser(User user) {
+        pk.user = user;
+    }
 
-		public UserCertPair() {
-		}
+    @Transient
+    public Certification getCertification() {
+        return pk.certification;
+    }
 
-		@Override
-		public boolean equals(Object o) {
-			if (this == o)
-				return true;
-			if (!(o instanceof UserCertPair))
-				return false;
+    public void setCertification(Certification cert) {
+        pk.certification = cert;
+    }
 
-			UserCertPair that = (UserCertPair) o;
+    public UserCertPair getPk() {
+        return pk;
+    }
 
-			return this.user.getId().equals(that.user.getId())
-					&& this.certification.getId().equals(that.certification.getId());
-		}
+    public void setPk(UserCertPair pk) {
+        this.pk = pk;
+    }
 
-		@Override
-		public int hashCode() {
-			int result = user != null ? user.hashCode() : 0;
-			result = 31 * result + (certification != null ? certification.hashCode() : 0);
-			return result;
-		}
-	}
+    public FileBlob getBlob() {
+        return blob;
+    }
+
+    public void setBlob(FileBlob blob) {
+        this.blob = blob;
+    }
+
+    public RequestStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(RequestStatus status) {
+        this.status = status;
+    }
+
+    @Embeddable
+    private static class UserCertPair implements Serializable {
+
+        private static final long serialVersionUID = 4724550790684214251L;
+
+        @ManyToOne
+        @JoinColumn(name = Constants.COLUMN_USER_ID)
+        private User user;
+
+        @ManyToOne
+        @JoinColumn(name = Constants.COLUMN_CERTIFICATION_ID)
+        private Certification certification;
+
+        public UserCertPair() {
+        }
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o)
+                return true;
+            if (!(o instanceof UserCertPair))
+                return false;
+
+            UserCertPair that = (UserCertPair) o;
+
+            return this.user.getId().equals(that.user.getId())
+                    && this.certification.getId().equals(that.certification.getId());
+        }
+
+        @Override
+        public int hashCode() {
+            int result = user != null ? user.hashCode() : 0;
+            result = 31 * result + (certification != null ? certification.hashCode() : 0);
+            return result;
+        }
+    }
 }

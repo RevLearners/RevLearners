@@ -1,5 +1,6 @@
 package testNGUnitTests;
 
+import config.MockPersistenceConfig;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;

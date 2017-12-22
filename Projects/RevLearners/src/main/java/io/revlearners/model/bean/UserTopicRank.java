@@ -42,6 +42,8 @@ public class UserTopicRank implements Serializable {
         this.merit = merit;
     }
 
+
+
     @Embeddable
     public static class UserTopicRankTrio implements Serializable {
 
@@ -66,30 +68,6 @@ public class UserTopicRank implements Serializable {
         }
 
         public UserTopicRankTrio() {
-        }
-
-        public User getUser() {
-            return user;
-        }
-
-        public void setUser(User user) {
-            this.user = user;
-        }
-
-        public Rank getRank() {
-            return rank;
-        }
-
-        public void setRank(Rank rank) {
-            this.rank = rank;
-        }
-
-        public Topic getOption() {
-            return topic;
-        }
-
-        public void setOption(Topic option) {
-            this.topic = option;
         }
 
         @Override

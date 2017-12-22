@@ -48,6 +48,7 @@ public final class Constants {
 	private static final Map<Long, Reason> userReasons = new LinkedHashMap<>();
 	private static final Map<Long, String> mimeTypes = new LinkedHashMap<>();
 	private static final Map<Long, String> messageStatuses = new LinkedHashMap<>();
+    private static final Map<Long, String> requestStatuses = new LinkedHashMap<>();
 
 	// map key/values
 	public static final Long QUESTION_TRUE_FALSE = 1L;
@@ -286,13 +287,22 @@ public final class Constants {
 	public static final Long MESSAGE_STATUS_RECEIVED = 6L;
 	public static final String MESSAGE_STATUS_RECEIVED_STR = "Received";
 
+	public static final Long REQUEST_STATUS_PENDING = 1L;
+    public static final String REQUEST_STATUS_PENDING_STR = "Pending";
+
+    public static final Long REQUEST_STATUS_APPROVED = 2L;
+    public static final String REQUEST_STATUS_APPROVED_STR = "Approved";
+
+    public static final Long REQUEST_STATUS_DENIED = 3L;
+    public static final String REQUEST_STATUS_DENIED_STR = "Denied";
+
 	public static final Float BASE_TF = 10.f;
 	public static final Float BASE_MULT = 15.f;
 	public static final Float BASE_CODE = 100.f;
 
 	public static final long ADV_USER_PTS = 1000L;
 
-	public static Map<Long, Rank> getAngular4Ranks() {
+    public static Map<Long, Rank> getAngular4Ranks() {
 		return new LinkedHashMap<>(angular4Ranks);
 	}
 
@@ -355,6 +365,10 @@ public final class Constants {
 	public static Map<Long, String> getMessageStatuses() {
 		return new LinkedHashMap<>(messageStatuses);
 	}
+
+    public static Map<Long, String> getRequestStatuses() {
+        return new LinkedHashMap<>(requestStatuses);
+    }
 
 	static {
 		javaRanks.put(JRANKS_BEGINNER,
@@ -493,6 +507,10 @@ public final class Constants {
 		messageStatuses.put(MESSAGE_STATUS_DELIVERED, MESSAGE_STATUS_DELIVERED_STR);
 		messageStatuses.put(MESSAGE_STATUS_RECEIVED, MESSAGE_STATUS_RECEIVED_STR);
 
+        requestStatuses.put(REQUEST_STATUS_PENDING, REQUEST_STATUS_PENDING_STR);
+		requestStatuses.put(REQUEST_STATUS_APPROVED, REQUEST_STATUS_APPROVED_STR);
+        requestStatuses.put(REQUEST_STATUS_DENIED, REQUEST_STATUS_DENIED_STR);
+
 	}
 
 	// Tables
@@ -519,6 +537,7 @@ public final class Constants {
 	public static final String TABLE_FILE_BLOB = "FILE_BLOB";
 	public static final String TABLE_USER_CREDENTIALS = "USER_CREDENTIALS";
 	public static final String TABLE_CERTIFICATION = "CERTIFICATION";
+    public static final String TABLE_REQUEST_STATUS = "REQUEST_STATUS";
 	public static final String TABLE_USER_RANK = "USER_RANK";
 	public static final String TABLE_QUIZ_QUESTION = "QUIZ_QUESTION";
 	public static final String TABLE_MESSAGE_ATTACHMENT = "MESSAGE_ATTACHMENT";
