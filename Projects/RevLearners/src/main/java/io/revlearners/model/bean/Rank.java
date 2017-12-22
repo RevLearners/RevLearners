@@ -24,6 +24,15 @@ public class Rank implements Serializable {
 	@JoinColumn(name = Constants.COLUMN_TOPIC_ID, referencedColumnName = Constants.COLUMN_TOPIC_ID)
     private Topic topic;
 
+    @Column(name=Constants.COLUMN_RANK_IN_HEIRARCHY)
+    private Long relativeWeight;
+
+    @Column(name=Constants.COLUMN_MERIT_THRESHOLD)
+    private Long meritThreshold;
+
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = Constants.PK_RANK)
+    private Set<UserRank> users;
+
     public Topic getTopic() {
 		return topic;
 	}
@@ -32,20 +41,11 @@ public class Rank implements Serializable {
 		this.topic = topic;
 	}
 
-	@Column(name=Constants.COLUMN_RANK_IN_HEIRARCHY)
-    private Long rank;
-
-    @Column(name=Constants.COLUMN_MERIT_THRESHOLD)
-    private Long meritThreshold;
-    
-	@OneToMany(fetch = FetchType.EAGER, mappedBy = Constants.PK_RANK)
-	private Set<UserRank> users;
-
     public Rank(Long id, String name, Long rankInHeirarchy, Long meritThreshold) {
         this.id = id;
         this.name = name;
         this.meritThreshold = meritThreshold;
-        this.rank = rankInHeirarchy;
+        this.relativeWeight = rankInHeirarchy;
     }
 
     public Rank() {
@@ -67,12 +67,12 @@ public class Rank implements Serializable {
         this.name = name;
     }
 
-    public Long getRank() {
-        return rank;
+    public Long getRelativeWeight() {
+        return relativeWeight;
     }
 
-    public void setRank(Long rank) {
-        this.rank = rank;
+    public void setRelativeWeight(Long relativeWeight) {
+        this.relativeWeight = relativeWeight;
     }
 
     public Long getMeritThreshold() {

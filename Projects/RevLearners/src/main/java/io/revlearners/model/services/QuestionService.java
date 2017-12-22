@@ -10,9 +10,9 @@ import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 public class QuestionService {
     @Autowired
@@ -24,13 +24,21 @@ public class QuestionService {
 
 
     /**
-     * each question will contain
-     * @param questions
+     * Each question will contain a Set<QuestionOption> which will
+     * contain exactly one option denoting the option selected by
+     * the user
+     *
+     * should match the one in the database except for the fact that
+     * the its optoin
+     *
+     * @param quiz
      * @return
      */
-	public Long SubmitQuestion(List<Question> questions) {
+	public double scoreQuiz(Quiz quiz) {
 	    Transaction tx = null;
+
 	    try(Session session = sf.openSession()) {
+            double score = scoreQuestions(quiz.getQuestions(), session);
             tx = session.beginTransaction();
 
 
@@ -41,13 +49,38 @@ public class QuestionService {
 	            tx.rollback();
         }
 
-        return null;
+        return -1;
 	}
+
+    /**
+     * calculates the score given a set answered questions
+     * assumes only one question is correct per question
+     *
+     * @param questions
+     * @return
+     */
+    private double scoreQuestions(Set<Question> questions, Session session) {
+        double score = 0;
+	    for (Question q: questions) {
+            QuestionOption selected = (QuestionOption)(q.getOptions().toArray()[0]);
+            Question poolQuestion = beanService.fetchSubTypeById(Question.class, q.getId(), session);
+
+            boolean answeredCorrectly = poolQuestion.getOptions().stream()
+                    .anyMatch(option -> option.isCorrect() && option.getId().equals(selected.getId()));
+
+            if (answeredCorrectly) {
+                score += q.getDifficulty().getMultiplier() * q.getType().getBaseVal();
+            }
+        }
+        return score;
+    }
 
     public List<Question> generateQuestions(Long n, Topic category) {
 	    Transaction tx = null;
 	    try(Session session = sf.openSession()) {
             tx = session.beginTransaction();
+
+
 
 
             session.getTransaction().commit();
