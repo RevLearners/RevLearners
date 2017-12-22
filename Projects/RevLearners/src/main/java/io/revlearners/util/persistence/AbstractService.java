@@ -8,43 +8,38 @@ import org.hibernate.Session;
 import io.revlearners.util.persistence.interfaces.IGenericDao;
 
 // Persistence layer injector to inject bean into dao
-public abstract class AbstractService<T extends Serializable> implements IGenericDao<T> {
+public abstract class AbstractService implements IGenericDao {
 
 	@Override
-	public T fetchById(long id, Object session) {
-		return getDao().fetchById(id, session);
+	public <T extends Serializable> T fetchSubTypeById(Class<T> clazz, long id, Object session) {
+		return getDao().fetchSubTypeById(clazz, id, session);
 	}
 
 	@Override
-	public List<T> fetchAll(Object session) {
-		return getDao().fetchAll(session);
-	}
-	
-	@Override
-	public <U> U fetchDependencyById(Class<U> clazz, long id, Object session) {
-		return getDao().fetchDependencyById(clazz, id, session);
+	public <T extends Serializable> List<T> fetchAllSubTypes(Class<T> clazz, Object session) {
+		return getDao().fetchAllSubTypes(clazz, session);
 	}
 
 	@Override
-	public Serializable create(T entity, Object session) {
+	public <T extends Serializable> Serializable create(T entity, Object session) {
 		return getDao().create(entity, session);
 	}
 
 	@Override
-	public T update(T entity, Object session) {
-		return getDao().update(entity, session);
+	public <T extends Serializable> T update(Class<T> clazz, T entity, Object session) {
+		return getDao().update(clazz, entity, session);
 	}
 
 	@Override
-	public void delete(T entity, Object session) {
+	public <T extends Serializable> void delete(T entity, Object session) {
 		getDao().delete(entity, session);
 	}
 
 	@Override
-	public void deleteById(long id, Object session) {
-		getDao().deleteById(id, session);		
+	public <T extends Serializable> void deleteById(Class<T> clazz, long id, Object session) {
+		getDao().deleteById(clazz, id, session);		
 	}
 	
-	protected abstract IGenericDao<T> getDao();
+	protected abstract IGenericDao getDao();
 
 }

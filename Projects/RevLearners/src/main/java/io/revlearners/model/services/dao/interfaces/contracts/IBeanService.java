@@ -1,8 +1,11 @@
 package io.revlearners.model.services.dao.interfaces.contracts;
 
-import io.revlearners.model.bean.Topic;
+import org.springframework.beans.factory.config.ConfigurableBeanFactory;
+import org.springframework.context.annotation.Scope;
+
 import io.revlearners.util.persistence.interfaces.IGenericDao;
 
-public interface IBeanService extends IGenericDao<Topic> {
+@Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)
+public interface IBeanService extends IGenericDao {
 
 }

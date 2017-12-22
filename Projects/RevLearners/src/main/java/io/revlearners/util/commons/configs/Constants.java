@@ -2,8 +2,11 @@ package io.revlearners.util.commons.configs;
 
 import io.revlearners.model.bean.*;
 
+import java.io.Serializable;
 import java.util.LinkedHashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * This holds all the constants through the app, the most important being the
@@ -22,13 +25,12 @@ public final class Constants {
 	public static final String QUALIFY_MESSAGE_DAO = "messageHibernateDao";
 	public static final String QUALIFY_QUESTION_DAO = "questionHibernateDao";
 	public static final String QUALIFY_HIBERNATE_BEAN_DAO = "hibernateBeanDao";
-	
+
 	public static final String QUALIFY_BEAN_DAO_INJECTOR = "hibernateBeanService";
 	public static final String QUALIFY_MESSAGE_DAO_INJECTOR = "messageHibernateService";
 	public static final String QUALIFY_QUESTION_DAO_INJECTOR = "questionHibernateService";
 	public static final String QUALIFY_RANK_DAO_INJECTOR = "rankHibernateService";
 	public static final String QUALIFY_USER_DAO_INJECTOR = "userHibernateService";
-	
 
 	public static final String TRANSACTION_HIBERNATE_MANAGER = "hibernateTransactionManager";
 
@@ -38,18 +40,30 @@ public final class Constants {
 	private static final Map<Long, String> userRoles = new LinkedHashMap<>();
 	private static final Map<Long, String> userStatuses = new LinkedHashMap<>();
 	private static final Map<Long, String> reasonTypes = new LinkedHashMap<>();
-	private static final Map<Long, String> topics = new LinkedHashMap<>();
+	private static final Map<Long, Topic> topics = new LinkedHashMap<>();
 	private static final Map<Long, Certification> certifications = new LinkedHashMap<>();
 	private static final Map<Long, Rank> javaRanks = new LinkedHashMap<>();
+	private static final Map<Long, Rank> j2eeRanks = new LinkedHashMap<>();
+	private static final Map<Long, Rank> jtaRanks = new LinkedHashMap<>();
+	private static final Map<Long, Rank> jpaRanks = new LinkedHashMap<>();
+	private static final Map<Long, Rank> springRanks = new LinkedHashMap<>();
+	private static final Map<Long, Rank> plSQLRanks = new LinkedHashMap<>();
+	private static final Map<Long, Rank> tSQLRanks = new LinkedHashMap<>();
+	private static final Map<Long, Rank> mySQLRanks = new LinkedHashMap<>();
+	private static final Map<Long, Rank> postGreSQLRanks = new LinkedHashMap<>();
+	private static final Map<Long, Rank> webRanks = new LinkedHashMap<>();
+	private static final Map<Long, Rank> jQueryRanks = new LinkedHashMap<>();
+	private static final Map<Long, Rank> angularJSRanks = new LinkedHashMap<>();
 	private static final Map<Long, Rank> angular4Ranks = new LinkedHashMap<>();
 	private static final Map<Long, Rank> hibernateRanks = new LinkedHashMap<>();
 	private static final Map<Long, Rank> devOpsRanks = new LinkedHashMap<>();
+	private static final Map<Long, Rank> microsRanks = new LinkedHashMap<>();
 	private static final Map<Long, Rank> designPatternRanks = new LinkedHashMap<>();
 	private static final Map<Long, Reason> questionReasons = new LinkedHashMap<>();
 	private static final Map<Long, Reason> userReasons = new LinkedHashMap<>();
 	private static final Map<Long, String> mimeTypes = new LinkedHashMap<>();
 	private static final Map<Long, String> messageStatuses = new LinkedHashMap<>();
-    private static final Map<Long, String> requestStatuses = new LinkedHashMap<>();
+	private static final Map<Long, String> requestStatuses = new LinkedHashMap<>();
 
 	// map key/values
 	public static final Long QUESTION_TRUE_FALSE = 1L;
@@ -99,37 +113,35 @@ public final class Constants {
 	public static final String TOPIC_CORE_JAVA_STR = "Core Java";
 	public static final Long TOPIC_J2EE = 2L;
 	public static final String TOPIC_J2EE_STR = "Java Enterprise Edition(J2EE)";
-	public static final Long TOPIC_SELENIUM = 3L;
-	public static final String TOPIC_SELENIUM_STR = "Selenium for Java";
-	public static final Long TOPIC_CUCUMBER = 4L;
-	public static final String TOPIC_CUCUMBER_STR = "Cucumber for Java";
-	public static final Long TOPIC_HIBERNATE = 5L;
+	public static final Long TOPIC_JTA = 3L;
+	public static final String TOPIC_JTA_STR = "Java Test Automation(including Selenium, testNG, Cucumber)";
+	public static final Long TOPIC_HIBERNATE = 4L;
 	public static final String TOPIC_HIBERNATE_STR = "Hibernate Framework for Java";
-	public static final Long TOPIC_JPA = 6L;
+	public static final Long TOPIC_JPA = 5L;
 	public static final String TOPIC_JPA_STR = "Java Persistence API(JPA)";
-	public static final Long TOPIC_SPRING = 7L;
+	public static final Long TOPIC_SPRING = 6L;
 	public static final String TOPIC_SPRING_STR = "Spring Framework for Java";
-	public static final Long TOPIC_PLSQL = 8L;
+	public static final Long TOPIC_PLSQL = 7L;
 	public static final String TOPIC_PLSQL_STR = "PLSQL";
-	public static final Long TOPIC_TSQL = 9L;
+	public static final Long TOPIC_TSQL = 8L;
 	public static final String TOPIC_TSQL_STR = "Transact SQL";
-	public static final Long TOPIC_MYSQL = 10L;
+	public static final Long TOPIC_MYSQL = 9L;
 	public static final String TOPIC_MYSQL_STR = "mySQL";
-	public static final Long TOPIC_POSTGRESQL = 11L;
+	public static final Long TOPIC_POSTGRESQL = 10L;
 	public static final String TOPIC_POSTGRESQL_STR = "PostgreSQL";
-	public static final Long TOPIC_WEB_DEV = 12L;
+	public static final Long TOPIC_WEB_DEV = 11L;
 	public static final String TOPIC_WEB_DEV_STR = "Basic Web Development(HTML/CSS/JS/PHP)";
-	public static final Long TOPIC_JQUERY = 13L;
-	public static final String TOPIC_JQUERY_STR = "JQUERY";
-	public static final Long TOPIC_ANGULARJS = 14L;
+	public static final Long TOPIC_JQUERY = 12L;
+	public static final String TOPIC_JQUERY_STR = "jQuery";
+	public static final Long TOPIC_ANGULARJS = 13L;
 	public static final String TOPIC_ANGULARJS_STR = "AngularJS";
-	public static final Long TOPIC_ANGULAR4 = 13L;
+	public static final Long TOPIC_ANGULAR4 = 14L;
 	public static final String TOPIC_ANGULAR4_STR = "Angular4";
-	public static final Long TOPIC_DEVOPS = 14L;
+	public static final Long TOPIC_DEVOPS = 15L;
 	public static final String TOPIC_DEVOPS_STR = "DevOps (includes Jenkins and AWS)";
-	public static final Long TOPIC_MICROSERVICES = 15L;
+	public static final Long TOPIC_MICROSERVICES = 16L;
 	public static final String TOPIC_MICROSERVICES_STR = "Microservices";
-	public static final Long TOPIC_DESIGN_PATTERNS = 16L;
+	public static final Long TOPIC_DESIGN_PATTERNS = 17L;
 	public static final String TOPIC_DESIGN_PATTERNS_STR = "Design Patterns";
 
 	// java certifications
@@ -289,13 +301,13 @@ public final class Constants {
 	public static final String MESSAGE_STATUS_RECEIVED_STR = "Received";
 
 	public static final Long REQUEST_STATUS_PENDING = 1L;
-    public static final String REQUEST_STATUS_PENDING_STR = "Pending";
+	public static final String REQUEST_STATUS_PENDING_STR = "Pending";
 
-    public static final Long REQUEST_STATUS_APPROVED = 2L;
-    public static final String REQUEST_STATUS_APPROVED_STR = "Approved";
+	public static final Long REQUEST_STATUS_APPROVED = 2L;
+	public static final String REQUEST_STATUS_APPROVED_STR = "Approved";
 
-    public static final Long REQUEST_STATUS_DENIED = 3L;
-    public static final String REQUEST_STATUS_DENIED_STR = "Denied";
+	public static final Long REQUEST_STATUS_DENIED = 3L;
+	public static final String REQUEST_STATUS_DENIED_STR = "Denied";
 
 	public static final Float BASE_TF = 10.f;
 	public static final Float BASE_MULT = 15.f;
@@ -303,7 +315,7 @@ public final class Constants {
 
 	public static final long ADV_USER_PTS = 1000L;
 
-    public static Map<Long, Rank> getAngular4Ranks() {
+	public static Map<Long, Rank> getAngular4Ranks() {
 		return new LinkedHashMap<>(angular4Ranks);
 	}
 
@@ -321,10 +333,6 @@ public final class Constants {
 
 	public static Map<Long, String> getReasonTypes() {
 		return new LinkedHashMap<>(reasonTypes);
-	}
-
-	public static Map<Long, String> getTopics() {
-		return new LinkedHashMap<>(topics);
 	}
 
 	public static Map<Long, Certification> getCertifications() {
@@ -367,11 +375,13 @@ public final class Constants {
 		return new LinkedHashMap<>(messageStatuses);
 	}
 
-    public static Map<Long, String> getRequestStatuses() {
-        return new LinkedHashMap<>(requestStatuses);
-    }
+	public static Map<Long, String> getRequestStatuses() {
+		return new LinkedHashMap<>(requestStatuses);
+	}
 
 	static {
+
+		// implemented for demo
 		javaRanks.put(JRANKS_BEGINNER,
 				new Rank(JRANKS_BEGINNER, JRANKS_BEGINNER_STR, JRANKS_BEGINNER_RANK, JRANKS_BEGINNER_THRESHOLD));
 		javaRanks.put(JRANKS_INTERMEDIATE, new Rank(JRANKS_INTERMEDIATE, JRANKS_INTERMEDIATE_STR,
@@ -380,7 +390,7 @@ public final class Constants {
 				new Rank(JRANKS_EXPERT, JRANKS_EXPERT_STR, JRANKS_EXPERT_RANK, JRANKS_EXPERT_THRESHOLD));
 		javaRanks.put(JRANKS_JGURU,
 				new Rank(JRANKS_JGURU, JRANKS_JGURU_STR, JRANKS_JGURU_RANK, JRANKS_JGURU_THRESHOLD));
-
+		
 		angular4Ranks.put(ANG4RANKS_BEGINNER, new Rank(ANG4RANKS_BEGINNER, ANG4RANKS_BEGINNER_STR,
 				ANG4RANKS_BEGINNER_RANK, ANG4RANKS_BEGINNER_THRESHOLD));
 		angular4Ranks.put(ANG4RANKS_INTERMEDIATE, new Rank(ANG4RANKS_INTERMEDIATE, ANG4RANKS_INTERMEDIATE_STR,
@@ -417,6 +427,112 @@ public final class Constants {
 		designPatternRanks.put(DPRANKS_MASTER,
 				new Rank(DPRANKS_MASTER, DPRANKS_MASTER_STR, DPRANKS_MASTER_RANK, DPRANKS_MASTER_THRESHOLD));
 
+		// not yet implemented
+		j2eeRanks.put(JRANKS_BEGINNER,
+				new Rank(JRANKS_BEGINNER, JRANKS_BEGINNER_STR, JRANKS_BEGINNER_RANK, JRANKS_BEGINNER_THRESHOLD));
+		j2eeRanks.put(JRANKS_INTERMEDIATE, new Rank(JRANKS_INTERMEDIATE, JRANKS_INTERMEDIATE_STR,
+				JRANKS_INTERMEDIATE_RANK, JRANKS_INTERMEDIATE_THRESHOLD));
+		j2eeRanks.put(JRANKS_EXPERT,
+				new Rank(JRANKS_EXPERT, JRANKS_EXPERT_STR, JRANKS_EXPERT_RANK, JRANKS_EXPERT_THRESHOLD));
+		j2eeRanks.put(JRANKS_JGURU,
+				new Rank(JRANKS_JGURU, JRANKS_JGURU_STR, JRANKS_JGURU_RANK, JRANKS_JGURU_THRESHOLD));
+
+		jpaRanks.put(JRANKS_BEGINNER,
+				new Rank(JRANKS_BEGINNER, JRANKS_BEGINNER_STR, JRANKS_BEGINNER_RANK, JRANKS_BEGINNER_THRESHOLD));
+		jpaRanks.put(JRANKS_INTERMEDIATE, new Rank(JRANKS_INTERMEDIATE, JRANKS_INTERMEDIATE_STR,
+				JRANKS_INTERMEDIATE_RANK, JRANKS_INTERMEDIATE_THRESHOLD));
+		jpaRanks.put(JRANKS_EXPERT,
+				new Rank(JRANKS_EXPERT, JRANKS_EXPERT_STR, JRANKS_EXPERT_RANK, JRANKS_EXPERT_THRESHOLD));
+		jpaRanks.put(JRANKS_JGURU, new Rank(JRANKS_JGURU, JRANKS_JGURU_STR, JRANKS_JGURU_RANK, JRANKS_JGURU_THRESHOLD));
+
+		jtaRanks.put(JRANKS_BEGINNER,
+				new Rank(JRANKS_BEGINNER, JRANKS_BEGINNER_STR, JRANKS_BEGINNER_RANK, JRANKS_BEGINNER_THRESHOLD));
+		jtaRanks.put(JRANKS_INTERMEDIATE, new Rank(JRANKS_INTERMEDIATE, JRANKS_INTERMEDIATE_STR,
+				JRANKS_INTERMEDIATE_RANK, JRANKS_INTERMEDIATE_THRESHOLD));
+		jtaRanks.put(JRANKS_EXPERT,
+				new Rank(JRANKS_EXPERT, JRANKS_EXPERT_STR, JRANKS_EXPERT_RANK, JRANKS_EXPERT_THRESHOLD));
+		jtaRanks.put(JRANKS_JGURU, new Rank(JRANKS_JGURU, JRANKS_JGURU_STR, JRANKS_JGURU_RANK, JRANKS_JGURU_THRESHOLD));
+
+		springRanks.put(JRANKS_BEGINNER,
+				new Rank(JRANKS_BEGINNER, JRANKS_BEGINNER_STR, JRANKS_BEGINNER_RANK, JRANKS_BEGINNER_THRESHOLD));
+		springRanks.put(JRANKS_INTERMEDIATE, new Rank(JRANKS_INTERMEDIATE, JRANKS_INTERMEDIATE_STR,
+				JRANKS_INTERMEDIATE_RANK, JRANKS_INTERMEDIATE_THRESHOLD));
+		springRanks.put(JRANKS_EXPERT,
+				new Rank(JRANKS_EXPERT, JRANKS_EXPERT_STR, JRANKS_EXPERT_RANK, JRANKS_EXPERT_THRESHOLD));
+		springRanks.put(JRANKS_JGURU,
+				new Rank(JRANKS_JGURU, JRANKS_JGURU_STR, JRANKS_JGURU_RANK, JRANKS_JGURU_THRESHOLD));
+
+		plSQLRanks.put(JRANKS_BEGINNER,
+				new Rank(JRANKS_BEGINNER, JRANKS_BEGINNER_STR, JRANKS_BEGINNER_RANK, JRANKS_BEGINNER_THRESHOLD));
+		plSQLRanks.put(JRANKS_INTERMEDIATE, new Rank(JRANKS_INTERMEDIATE, JRANKS_INTERMEDIATE_STR,
+				JRANKS_INTERMEDIATE_RANK, JRANKS_INTERMEDIATE_THRESHOLD));
+		plSQLRanks.put(JRANKS_EXPERT,
+				new Rank(JRANKS_EXPERT, JRANKS_EXPERT_STR, JRANKS_EXPERT_RANK, JRANKS_EXPERT_THRESHOLD));
+		plSQLRanks.put(JRANKS_JGURU,
+				new Rank(JRANKS_JGURU, JRANKS_JGURU_STR, JRANKS_JGURU_RANK, JRANKS_JGURU_THRESHOLD));
+
+		tSQLRanks.put(JRANKS_BEGINNER,
+				new Rank(JRANKS_BEGINNER, JRANKS_BEGINNER_STR, JRANKS_BEGINNER_RANK, JRANKS_BEGINNER_THRESHOLD));
+		tSQLRanks.put(JRANKS_INTERMEDIATE, new Rank(JRANKS_INTERMEDIATE, JRANKS_INTERMEDIATE_STR,
+				JRANKS_INTERMEDIATE_RANK, JRANKS_INTERMEDIATE_THRESHOLD));
+		tSQLRanks.put(JRANKS_EXPERT,
+				new Rank(JRANKS_EXPERT, JRANKS_EXPERT_STR, JRANKS_EXPERT_RANK, JRANKS_EXPERT_THRESHOLD));
+		tSQLRanks.put(JRANKS_JGURU,
+				new Rank(JRANKS_JGURU, JRANKS_JGURU_STR, JRANKS_JGURU_RANK, JRANKS_JGURU_THRESHOLD));
+
+		mySQLRanks.put(JRANKS_BEGINNER,
+				new Rank(JRANKS_BEGINNER, JRANKS_BEGINNER_STR, JRANKS_BEGINNER_RANK, JRANKS_BEGINNER_THRESHOLD));
+		mySQLRanks.put(JRANKS_INTERMEDIATE, new Rank(JRANKS_INTERMEDIATE, JRANKS_INTERMEDIATE_STR,
+				JRANKS_INTERMEDIATE_RANK, JRANKS_INTERMEDIATE_THRESHOLD));
+		mySQLRanks.put(JRANKS_EXPERT,
+				new Rank(JRANKS_EXPERT, JRANKS_EXPERT_STR, JRANKS_EXPERT_RANK, JRANKS_EXPERT_THRESHOLD));
+		mySQLRanks.put(JRANKS_JGURU,
+				new Rank(JRANKS_JGURU, JRANKS_JGURU_STR, JRANKS_JGURU_RANK, JRANKS_JGURU_THRESHOLD));
+
+		postGreSQLRanks.put(JRANKS_BEGINNER,
+				new Rank(JRANKS_BEGINNER, JRANKS_BEGINNER_STR, JRANKS_BEGINNER_RANK, JRANKS_BEGINNER_THRESHOLD));
+		postGreSQLRanks.put(JRANKS_INTERMEDIATE, new Rank(JRANKS_INTERMEDIATE, JRANKS_INTERMEDIATE_STR,
+				JRANKS_INTERMEDIATE_RANK, JRANKS_INTERMEDIATE_THRESHOLD));
+		postGreSQLRanks.put(JRANKS_EXPERT,
+				new Rank(JRANKS_EXPERT, JRANKS_EXPERT_STR, JRANKS_EXPERT_RANK, JRANKS_EXPERT_THRESHOLD));
+		postGreSQLRanks.put(JRANKS_JGURU,
+				new Rank(JRANKS_JGURU, JRANKS_JGURU_STR, JRANKS_JGURU_RANK, JRANKS_JGURU_THRESHOLD));
+
+		webRanks.put(JRANKS_BEGINNER,
+				new Rank(JRANKS_BEGINNER, JRANKS_BEGINNER_STR, JRANKS_BEGINNER_RANK, JRANKS_BEGINNER_THRESHOLD));
+		webRanks.put(JRANKS_INTERMEDIATE, new Rank(JRANKS_INTERMEDIATE, JRANKS_INTERMEDIATE_STR,
+				JRANKS_INTERMEDIATE_RANK, JRANKS_INTERMEDIATE_THRESHOLD));
+		webRanks.put(JRANKS_EXPERT,
+				new Rank(JRANKS_EXPERT, JRANKS_EXPERT_STR, JRANKS_EXPERT_RANK, JRANKS_EXPERT_THRESHOLD));
+		webRanks.put(JRANKS_JGURU, new Rank(JRANKS_JGURU, JRANKS_JGURU_STR, JRANKS_JGURU_RANK, JRANKS_JGURU_THRESHOLD));
+
+		jQueryRanks.put(JRANKS_BEGINNER,
+				new Rank(JRANKS_BEGINNER, JRANKS_BEGINNER_STR, JRANKS_BEGINNER_RANK, JRANKS_BEGINNER_THRESHOLD));
+		jQueryRanks.put(JRANKS_INTERMEDIATE, new Rank(JRANKS_INTERMEDIATE, JRANKS_INTERMEDIATE_STR,
+				JRANKS_INTERMEDIATE_RANK, JRANKS_INTERMEDIATE_THRESHOLD));
+		jQueryRanks.put(JRANKS_EXPERT,
+				new Rank(JRANKS_EXPERT, JRANKS_EXPERT_STR, JRANKS_EXPERT_RANK, JRANKS_EXPERT_THRESHOLD));
+		jQueryRanks.put(JRANKS_JGURU,
+				new Rank(JRANKS_JGURU, JRANKS_JGURU_STR, JRANKS_JGURU_RANK, JRANKS_JGURU_THRESHOLD));
+
+		angularJSRanks.put(JRANKS_BEGINNER,
+				new Rank(JRANKS_BEGINNER, JRANKS_BEGINNER_STR, JRANKS_BEGINNER_RANK, JRANKS_BEGINNER_THRESHOLD));
+		angularJSRanks.put(JRANKS_INTERMEDIATE, new Rank(JRANKS_INTERMEDIATE, JRANKS_INTERMEDIATE_STR,
+				JRANKS_INTERMEDIATE_RANK, JRANKS_INTERMEDIATE_THRESHOLD));
+		angularJSRanks.put(JRANKS_EXPERT,
+				new Rank(JRANKS_EXPERT, JRANKS_EXPERT_STR, JRANKS_EXPERT_RANK, JRANKS_EXPERT_THRESHOLD));
+		angularJSRanks.put(JRANKS_JGURU,
+				new Rank(JRANKS_JGURU, JRANKS_JGURU_STR, JRANKS_JGURU_RANK, JRANKS_JGURU_THRESHOLD));
+
+		microsRanks.put(JRANKS_BEGINNER,
+				new Rank(JRANKS_BEGINNER, JRANKS_BEGINNER_STR, JRANKS_BEGINNER_RANK, JRANKS_BEGINNER_THRESHOLD));
+		microsRanks.put(JRANKS_INTERMEDIATE, new Rank(JRANKS_INTERMEDIATE, JRANKS_INTERMEDIATE_STR,
+				JRANKS_INTERMEDIATE_RANK, JRANKS_INTERMEDIATE_THRESHOLD));
+		microsRanks.put(JRANKS_EXPERT,
+				new Rank(JRANKS_EXPERT, JRANKS_EXPERT_STR, JRANKS_EXPERT_RANK, JRANKS_EXPERT_THRESHOLD));
+		microsRanks.put(JRANKS_JGURU,
+				new Rank(JRANKS_JGURU, JRANKS_JGURU_STR, JRANKS_JGURU_RANK, JRANKS_JGURU_THRESHOLD));
+
 		certifications.put(ORACLE_CERTIFIED_ASSOCIATE, new Certification(ORACLE_CERTIFIED_ASSOCIATE,
 				ORACLE_CERTIFIED_ASSOCIATE_STR, new Topic(TOPIC_CORE_JAVA)));
 		certifications.put(ORACLE_CERTIFIED_PROFESSIONAL, new Certification(ORACLE_CERTIFIED_PROFESSIONAL,
@@ -451,24 +567,101 @@ public final class Constants {
 		reasonTypes.put(REASON_TYPE_QUESTION, REASON_TYPE_QUESTION_STR);
 		reasonTypes.put(REASON_TYPE_USER, REASON_TYPE_USER_STR);
 
-		topics.put(TOPIC_CORE_JAVA, TOPIC_CORE_JAVA_STR);
-		topics.put(TOPIC_J2EE, TOPIC_J2EE_STR);
-		topics.put(TOPIC_SELENIUM, TOPIC_SELENIUM_STR);
-		topics.put(TOPIC_CUCUMBER, TOPIC_CUCUMBER_STR);
-		topics.put(TOPIC_HIBERNATE, TOPIC_HIBERNATE_STR);
-		topics.put(TOPIC_JPA, TOPIC_JPA_STR);
-		topics.put(TOPIC_SPRING, TOPIC_SPRING_STR);
-		topics.put(TOPIC_PLSQL, TOPIC_PLSQL_STR);
-		topics.put(TOPIC_TSQL, TOPIC_TSQL_STR);
-		topics.put(TOPIC_MYSQL, TOPIC_MYSQL_STR);
-		topics.put(TOPIC_POSTGRESQL, TOPIC_POSTGRESQL_STR);
-		topics.put(TOPIC_WEB_DEV, TOPIC_WEB_DEV_STR);
-		topics.put(TOPIC_JQUERY, TOPIC_JQUERY_STR);
-		topics.put(TOPIC_ANGULARJS, TOPIC_ANGULARJS_STR);
-		topics.put(TOPIC_ANGULAR4, TOPIC_ANGULAR4_STR);
-		topics.put(TOPIC_DEVOPS, TOPIC_DEVOPS_STR);
-		topics.put(TOPIC_MICROSERVICES, TOPIC_MICROSERVICES_STR);
-		topics.put(TOPIC_DESIGN_PATTERNS, TOPIC_DESIGN_PATTERNS_STR);
+		topics.put(TOPIC_CORE_JAVA,
+				new Topic(TOPIC_CORE_JAVA, TOPIC_CORE_JAVA_STR, new HashSet<Rank>(javaRanks.values())));
+		for(Rank r : javaRanks.values()) {
+			r.setTopic(topics.get(TOPIC_CORE_JAVA));
+		}
+		
+		topics.put(TOPIC_J2EE, new Topic(TOPIC_J2EE, TOPIC_J2EE_STR, new HashSet<Rank>(j2eeRanks.values())));
+		for(Rank r : j2eeRanks.values()) {
+			r.setTopic(topics.get(TOPIC_J2EE));
+		}
+		
+		topics.put(TOPIC_JTA, new Topic(TOPIC_JTA, TOPIC_JTA_STR, new HashSet<Rank>(jtaRanks.values())));
+		for(Rank r : jtaRanks.values()) {
+			r.setTopic(topics.get(TOPIC_JTA));
+		}
+		
+		topics.put(TOPIC_HIBERNATE,
+				new Topic(TOPIC_HIBERNATE, TOPIC_HIBERNATE_STR, new HashSet<Rank>(hibernateRanks.values())));
+		for(Rank r : hibernateRanks.values()) {
+			r.setTopic(topics.get(TOPIC_HIBERNATE));
+		}
+		
+		topics.put(TOPIC_JPA, new Topic(TOPIC_JPA, TOPIC_JPA_STR, new HashSet<Rank>(jpaRanks.values())));
+		for(Rank r : jpaRanks.values()) {
+			r.setTopic(topics.get(TOPIC_JPA));
+		}
+		
+		topics.put(TOPIC_SPRING,
+				new Topic(TOPIC_SPRING, TOPIC_SPRING_STR, new HashSet<Rank>(springRanks.values())));
+		for(Rank r : springRanks.values()) {
+			r.setTopic(topics.get(TOPIC_SPRING));
+		}
+		
+		topics.put(TOPIC_PLSQL, new Topic(TOPIC_PLSQL, TOPIC_PLSQL_STR, new HashSet<Rank>(plSQLRanks.values())));
+		for(Rank r : plSQLRanks.values()) {
+			r.setTopic(topics.get(TOPIC_PLSQL));
+		}
+		
+		topics.put(TOPIC_TSQL, new Topic(TOPIC_TSQL, TOPIC_TSQL_STR, new HashSet<Rank>(tSQLRanks.values())));
+		for(Rank r : tSQLRanks.values()) {
+			r.setTopic(topics.get(TOPIC_TSQL));
+		}
+		
+		topics.put(TOPIC_MYSQL, new Topic(TOPIC_MYSQL, TOPIC_MYSQL_STR, new HashSet<Rank>(mySQLRanks.values())));
+		for(Rank r : mySQLRanks.values()) {
+			r.setTopic(topics.get(TOPIC_MYSQL));
+		}
+		
+		topics.put(TOPIC_POSTGRESQL,
+				new Topic(TOPIC_POSTGRESQL, TOPIC_POSTGRESQL_STR, new HashSet<Rank>(postGreSQLRanks.values())));
+		for(Rank r : postGreSQLRanks.values()) {
+			r.setTopic(topics.get(TOPIC_POSTGRESQL));
+		}
+
+		topics.put(TOPIC_WEB_DEV,
+				new Topic(TOPIC_WEB_DEV, TOPIC_WEB_DEV_STR, new HashSet<Rank>(webRanks.values())));
+		for(Rank r : webRanks.values()) {
+			r.setTopic(topics.get(TOPIC_WEB_DEV));
+		}
+		
+		topics.put(TOPIC_JQUERY,
+				new Topic(TOPIC_JQUERY, TOPIC_JQUERY_STR, new HashSet<Rank>(jQueryRanks.values())));
+		for(Rank r : jQueryRanks.values()) {
+			r.setTopic(topics.get(TOPIC_JQUERY));
+		}
+		
+		topics.put(TOPIC_ANGULARJS,
+				new Topic(TOPIC_ANGULARJS, TOPIC_ANGULARJS_STR, new HashSet<Rank>(angularJSRanks.values())));
+		for(Rank r : angularJSRanks.values()) {
+			r.setTopic(topics.get(TOPIC_ANGULARJS));
+		}
+		
+		topics.put(TOPIC_ANGULAR4,
+				new Topic(TOPIC_ANGULAR4, TOPIC_ANGULAR4_STR, new HashSet<Rank>(angular4Ranks.values())));
+		for(Rank r : angular4Ranks.values()) {
+			r.setTopic(topics.get(TOPIC_ANGULAR4));
+		}
+		
+		topics.put(TOPIC_DEVOPS,
+				new Topic(TOPIC_DEVOPS, TOPIC_DEVOPS_STR, new HashSet<Rank>(devOpsRanks.values())));
+		for(Rank r : devOpsRanks.values()) {
+			r.setTopic(topics.get(TOPIC_DEVOPS));
+		}
+		
+		topics.put(TOPIC_MICROSERVICES,
+				new Topic(TOPIC_MICROSERVICES, TOPIC_MICROSERVICES_STR, new HashSet<Rank>(microsRanks.values())));
+		for(Rank r : microsRanks.values()) {
+			r.setTopic(topics.get(TOPIC_MICROSERVICES));
+		}
+		
+		topics.put(TOPIC_DESIGN_PATTERNS, new Topic(TOPIC_DESIGN_PATTERNS, TOPIC_DESIGN_PATTERNS_STR,
+				new HashSet<Rank>(designPatternRanks.values())));
+		for(Rank r : designPatternRanks.values()) {
+			r.setTopic(topics.get(TOPIC_DESIGN_PATTERNS));
+		}		
 
 		questionReasons.put(QREASON_WRONG, new Reason(QREASON_WRONG, QREASON_WRONG_STR, "Todo: insert description",
 				new ReasonType(REASON_TYPE_QUESTION)));
@@ -508,10 +701,122 @@ public final class Constants {
 		messageStatuses.put(MESSAGE_STATUS_DELIVERED, MESSAGE_STATUS_DELIVERED_STR);
 		messageStatuses.put(MESSAGE_STATUS_RECEIVED, MESSAGE_STATUS_RECEIVED_STR);
 
-        requestStatuses.put(REQUEST_STATUS_PENDING, REQUEST_STATUS_PENDING_STR);
+		requestStatuses.put(REQUEST_STATUS_PENDING, REQUEST_STATUS_PENDING_STR);
 		requestStatuses.put(REQUEST_STATUS_APPROVED, REQUEST_STATUS_APPROVED_STR);
-        requestStatuses.put(REQUEST_STATUS_DENIED, REQUEST_STATUS_DENIED_STR);
+		requestStatuses.put(REQUEST_STATUS_DENIED, REQUEST_STATUS_DENIED_STR);
 
+	}
+
+	public static Map<Long, QuestionType> getQuestiontypes() {
+		return questionTypes;
+	}
+
+	public static Map<Long, QuestionDifficulty> getQuestiondifficulties() {
+		return questionDifficulties;
+	}
+
+	public static Map<Long, String> getUserroles() {
+		return userRoles;
+	}
+
+	public static Map<Long, String> getUserstatuses() {
+		return userStatuses;
+	}
+
+	public static Map<Long, String> getReasontypes() {
+		return reasonTypes;
+	}
+
+	public static Map<Long, Rank> getJavaranks() {
+		return javaRanks;
+	}
+
+	public static Map<Long, Rank> getJ2eeranks() {
+		return j2eeRanks;
+	}
+
+	public static Map<Long, Rank> getJtaranks() {
+		return jtaRanks;
+	}
+
+	public static Map<Long, Rank> getJparanks() {
+		return jpaRanks;
+	}
+
+	public static Map<Long, Rank> getSpringranks() {
+		return springRanks;
+	}
+
+	public static Map<Long, Rank> getPlsqlranks() {
+		return plSQLRanks;
+	}
+
+	public static Map<Long, Rank> getTsqlranks() {
+		return tSQLRanks;
+	}
+
+	public static Map<Long, Rank> getMysqlranks() {
+		return mySQLRanks;
+	}
+
+	public static Map<Long, Rank> getPostgresqlranks() {
+		return postGreSQLRanks;
+	}
+
+	public static Map<Long, Rank> getWebranks() {
+		return webRanks;
+	}
+
+	public static Map<Long, Rank> getJqueryranks() {
+		return jQueryRanks;
+	}
+
+	public static Map<Long, Rank> getAngularjsranks() {
+		return angularJSRanks;
+	}
+
+	public static Map<Long, Rank> getAngular4ranks() {
+		return angular4Ranks;
+	}
+
+	public static Map<Long, Rank> getHibernateranks() {
+		return hibernateRanks;
+	}
+
+	public static Map<Long, Rank> getDevopsranks() {
+		return devOpsRanks;
+	}
+
+	public static Map<Long, Rank> getMicrosranks() {
+		return microsRanks;
+	}
+
+	public static Map<Long, Rank> getDesignpatternranks() {
+		return designPatternRanks;
+	}
+
+	public static Map<Long, Reason> getQuestionreasons() {
+		return questionReasons;
+	}
+
+	public static Map<Long, Reason> getUserreasons() {
+		return userReasons;
+	}
+
+	public static Map<Long, String> getMimetypes() {
+		return mimeTypes;
+	}
+
+	public static Map<Long, String> getMessagestatuses() {
+		return messageStatuses;
+	}
+
+	public static Map<Long, String> getRequeststatuses() {
+		return requestStatuses;
+	}
+
+	public static Map<Long, Topic> getTopics() {
+		return topics;
 	}
 
 	// Tables
@@ -538,7 +843,7 @@ public final class Constants {
 	public static final String TABLE_FILE_BLOB = "FILE_BLOB";
 	public static final String TABLE_USER_CREDENTIALS = "USER_CREDENTIALS";
 	public static final String TABLE_CERTIFICATION = "CERTIFICATION";
-    public static final String TABLE_REQUEST_STATUS = "REQUEST_STATUS";
+	public static final String TABLE_REQUEST_STATUS = "REQUEST_STATUS";
 	public static final String TABLE_USER_RANK = "USER_RANK";
 	public static final String TABLE_QUIZ_QUESTION = "QUIZ_QUESTION";
 	public static final String TABLE_MESSAGE_ATTACHMENT = "MESSAGE_ATTACHMENT";
@@ -616,6 +921,10 @@ public final class Constants {
 	public static final String PK_QUIZ = "pk.quiz";
 	public static final String PK_MESSAGE = "pk.message";
 	public static final String PK_BLOB = "pk.blob";
+	public static final String PK_TOPIC = "pk.topic";
+	public static final String PK_RANK = "pk.rank";
+	
+	public static final String FK_TOPIC = "topic";
 
 	// get current working directory
 	public static final String PROJECT_DIR = System.getProperty("user.dir");

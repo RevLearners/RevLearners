@@ -62,7 +62,7 @@ public class PersistenceConfig {
 				Certification.class, FileBlob.class, Message.class, MessageStatus.class,
 				MimeType.class, Notification.class, Question.class, QuestionDifficulty.class, QuestionOption.class,
 				QuestionType.class, Quiz.class, Rank.class, Topic.class, User.class,
-				UserCertification.class, UserTopicRank.class, UserRole.class, UserStatus.class, Reason.class,
+				UserCertification.class, UserRank.class, UserRole.class, UserStatus.class, Reason.class,
 				ReportQuestion.class, ReasonType.class, RequestStatus.class);
 		return factoryBean;
 	}
@@ -96,52 +96,12 @@ public class PersistenceConfig {
 	}
 	
 	@Bean
-	public IMessageDao messageHibernateDao() {
-		return new MessageDao();
-	}
-
-	@Bean
-	public IQuestionDao questionHibernateDao() {
-		return new QuestionDao();
-	}
-
-	@Bean
-	public IRankDao rankHibernateDao() {
-		return new RankDao();
-	}
-
-	@Bean
 	public IBeanDao hibernateBeanDao() {
 		return new BeanDao();
-	}
-
-	@Bean
-	public IUserDao userHibernateDao() {
-		return new UserDao();
 	}
 	
 	@Bean
 	public IBeanService hibernateBeanService() {
 		return new BeanService();
-	}
-
-	@Bean
-	public IMessageService messageHibernateService() {
-		return new MessageService();
-	}
-
-	@Bean
-	public IQuestionService questionHibernateService() {
-		return new QuestionService();
-	}
-
-	@Bean
-	public IRankService rankHibernateService() {
-		return new RankService();
-	}
-
-	@Bean
-	public IUserService userHibernateService() {
-		return new UserService();
 	}
 }

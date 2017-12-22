@@ -1,35 +1,54 @@
 package io.revlearners.model.bean;
 
+import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import io.revlearners.util.commons.configs.Constants;
 
 @Entity
-@Table (name=Constants.TABLE_TOPIC)
-public class Topic extends AbstractBean{
+@Table(name = Constants.TABLE_TOPIC)
+public class Topic implements Serializable {
 	private static final long serialVersionUID = -7336698542678175301L;
 
 	@Id
-	@Column (name=Constants.COLUMN_TOPIC_ID)
+	@Column(name = Constants.COLUMN_TOPIC_ID)
 	private Long id;
 
-	@Column(name=Constants.COLUMN_TOPIC_NAME)
+	@Column(name = Constants.COLUMN_TOPIC_NAME)
 	private String topicName;
 
-    public Topic(Long id, String topicName) {
-        this.id = id;
-        this.topicName = topicName;
-    }
+//	@OneToMany(cascade = CascadeType.ALL, mappedBy = Constants.PK_TOPIC, fetch = FetchType.EAGER)
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = Constants.FK_TOPIC)
+	private Set<Rank> ranks = new HashSet<Rank>();
 
-    public Topic(Long id) {
-        this.id = id;
-    }
+	public Topic(Long id, String topicName, Set<Rank> ranks) {
+		this.id = id;
+		this.topicName = topicName;
+	}
 
-    public Topic() {
+	public Set<Rank> getRanks() {
+		return ranks;
+	}
+
+	public void setRanks(Set<Rank> ranks) {
+		this.ranks = ranks;
+	}
+
+	public Topic(Long id) {
+		this.id = id;
+	}
+
+	public Topic() {
 		super();
 	}
 
@@ -52,5 +71,13 @@ public class Topic extends AbstractBean{
 	@Override
 	public String toString() {
 		return "Topic [id=" + id + ", topicName=" + topicName + "]";
+	}
+
+	public Rank getRankByWeight(int i) {
+		for (Rank r : ranks) {
+			if (r.getRank() == i)
+				return r;
+		}
+		return null;
 	}
 }
