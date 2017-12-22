@@ -31,7 +31,7 @@ public abstract class AbstractHibernateDao extends AbstractDao implements IGener
 	}
 
 	@Override
-	public <T extends Serializable> T fetchSubTypeById(Class<T> clazz, long id, Object session) {
+	public <T extends Serializable> T fetchSubTypeById(Class<T> clazz, Serializable id, Object session) {
 		if (session == null) {
 			return sf.getCurrentSession().get(clazz, id);
 		}
@@ -74,7 +74,7 @@ public abstract class AbstractHibernateDao extends AbstractDao implements IGener
 	}
 
 	@Override
-	public <T extends Serializable> void deleteById(Class<T> clazz, final long id, Object session) {
+	public <T extends Serializable> void deleteById(Class<T> clazz, final Serializable id, Object session) {
 		final T entity = fetchSubTypeById(clazz, id, session);
 		delete(entity, session);
 	}
