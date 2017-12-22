@@ -1,4 +1,4 @@
-package testNGUnitTests;
+package config;
 
 
 import java.sql.Connection;
@@ -6,12 +6,9 @@ import java.util.Properties;
 
 import javax.sql.DataSource;
 
-import org.hibernate.SessionFactory;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.config.BeanPostProcessor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.ComponentScans;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
@@ -65,8 +62,8 @@ public class MockPersistenceConfig {
 				Certification.class, FileBlob.class, Message.class, MessageStatus.class,
 				MimeType.class, Notification.class, Question.class, QuestionDifficulty.class, QuestionOption.class,
 				QuestionType.class, Quiz.class, Rank.class, Topic.class, User.class,
-				UserCertification.class, UserTopicRank.class, UserRole.class, UserStatus.class, Reason.class,
-				ReportQuestion.class, ReasonType.class);
+				UserCertification.class, UserRank.class, UserRole.class, UserStatus.class, Reason.class,
+				ReportQuestion.class, ReasonType.class, RequestStatus.class, QuizQuestion.class);
 		return factoryBean;
 	}
 
@@ -99,52 +96,12 @@ public class MockPersistenceConfig {
 	}
 
 	@Bean
-	public IMessageDao messageHibernateDao() {
-		return new MessageDao();
+	public IBeanDao hibernateBeanDao() {
+		return new BeanDao();
 	}
 
 	@Bean
-	public IQuestionDao questionHibernateDao() {
-		return new QuestionDao();
-	}
-
-	@Bean
-	public IRankDao rankHibernateDao() {
-		return new RankDao();
-	}
-
-	@Bean
-	public ITopicDao topicHibernateDao() {
-		return new TopicDao();
-	}
-
-	@Bean
-	public IUserDao userHibernateDao() {
-		return new UserDao();
-	}
-
-	@Bean
-	public ITopicService topicHibernateService() {
-		return new TopicService();
-	}
-
-	@Bean
-	public IMessageService messageHibernateService() {
-		return new MessageService();
-	}
-
-	@Bean
-	public IQuestionService questionHibernateService() {
-		return new QuestionService();
-	}
-
-	@Bean
-	public IRankService rankHibernateService() {
-		return new RankService();
-	}
-
-	@Bean
-	public IUserService userHibernateService() {
-		return new UserService();
+	public IBeanService hibernateBeanService() {
+		return new BeanService();
 	}
 }

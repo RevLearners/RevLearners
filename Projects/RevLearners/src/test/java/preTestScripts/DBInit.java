@@ -49,6 +49,11 @@ public class DBInit {
 				session.save(new MessageStatus(id, map.get(id)));
 			}
 
+			map = Constants.getRequestStatuses();
+			for (Long id : map.keySet()) {
+				session.save(new RequestStatus(id, map.get(id)));
+			}
+
 			map = Constants.getMimeTypes();
 			for (Long id : map.keySet()) {
 				session.save(new MimeType(id, map.get(id)));
@@ -59,18 +64,27 @@ public class DBInit {
 			for (Long id : map.keySet())
 				session.save(new ReasonType(id, map.get(id)));
 
+			saveEntities(Constants.getTopics(), session);
 			saveEntities(Constants.getQuestionReasons(), session);
 			saveEntities(Constants.getUserReasons(), session);
 
-			map = Constants.getTopics();
-			for (Long id : map.keySet())
-				session.save(new Topic(id, map.get(id)));
-
 			saveEntities(Constants.getQuestionTypes(), session);
 
-			saveEntities(Constants.getJRanks(), session);
-			saveEntities(Constants.getAngular4Ranks(), session);
-			saveEntities(Constants.getDevOpsRanks(), session);
+			saveEntities(Constants.getJavaranks(), session);
+//			saveEntities(Constants.getJ2eeranks(), session);
+//			saveEntities(Constants.getJtaranks(), session);
+//			saveEntities(Constants.getJparanks(), session);
+//			saveEntities(Constants.getSpringranks(), session);
+//			saveEntities(Constants.getPlsqlranks(), session);
+//			saveEntities(Constants.getTsqlranks(), session);
+//			saveEntities(Constants.getMysqlranks(), session);
+//			saveEntities(Constants.getPostgresqlranks(), session);
+//			saveEntities(Constants.getWebranks(), session);
+//			saveEntities(Constants.getJqueryranks(), session);
+//			saveEntities(Constants.getAngularjsranks(), session);
+			saveEntities(Constants.getAngular4ranks(), session);
+			saveEntities(Constants.getDevopsranks(), session);
+//			saveEntities(Constants.getMicrosranks(), session);
 			saveEntities(Constants.getHibernateRanks(), session);
 			saveEntities(Constants.getDesignPatternRanks(), session);
 

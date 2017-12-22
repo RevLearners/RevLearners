@@ -5,18 +5,12 @@ import javax.persistence.*;
 import io.revlearners.util.commons.configs.Constants;
 
 import java.io.Serializable;
+import java.util.Set;
 
 @Entity
 @Table(name=Constants.TABLE_RANK)
 public class Rank implements Serializable {
 
-    /**
-<<<<<<< HEAD
-	 *
-=======
-	 * 
->>>>>>> 68f4fa4c00e837e64051e08dc2cfd6b1ed71c68a
-	 */
 	private static final long serialVersionUID = -5410626868066784809L;
 
 	@Id
@@ -25,15 +19,29 @@ public class Rank implements Serializable {
 
     @Column(name=Constants.COLUMN_RANK_NAME)
     private String name;
+    
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@JoinColumn(name = Constants.COLUMN_TOPIC_ID, referencedColumnName = Constants.COLUMN_TOPIC_ID)
+    private Topic topic;
 
-    @Column(name=Constants.COLUMN_RANK_IN_HEIRARCHY)
+    public Topic getTopic() {
+		return topic;
+	}
+
+	public void setTopic(Topic topic) {
+		this.topic = topic;
+	}
+
+	@Column(name=Constants.COLUMN_RANK_IN_HEIRARCHY)
     private Long rank;
 
     @Column(name=Constants.COLUMN_MERIT_THRESHOLD)
     private Long meritThreshold;
+    
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = Constants.PK_RANK)
+	private Set<UserRank> users;
 
-
-    public Rank(Long id, String name, Long meritThreshold, Long rankInHeirarchy) {
+    public Rank(Long id, String name, Long rankInHeirarchy, Long meritThreshold) {
         this.id = id;
         this.name = name;
         this.meritThreshold = meritThreshold;

@@ -31,8 +31,7 @@ public class Question implements Serializable {
 	@JoinColumn(name = Constants.COLUMN_DIFFICULTY_ID)
 	private QuestionDifficulty difficulty;
 
-	@OneToMany(cascade=CascadeType.ALL, fetch = FetchType.EAGER)
-	@JoinColumn(name = Constants.COLUMN_QUESTION_ID)
+	@OneToMany(cascade=CascadeType.ALL, mappedBy = "question", fetch = FetchType.EAGER)
 	private Set<QuestionOption> options = new HashSet<QuestionOption>();
 
 	@Column(name = Constants.COLUMN_QTEXT)
