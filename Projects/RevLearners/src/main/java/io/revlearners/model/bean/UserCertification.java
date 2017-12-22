@@ -6,52 +6,96 @@ import javax.persistence.*;
 import io.revlearners.util.commons.configs.Constants;
 
 import java.io.Serializable;
+import java.util.Set;
 
 @Entity
 @Table(name = Constants.TABLE_USER_CERTIFICATION)
+@AssociationOverrides({
+        @AssociationOverride(name = Constants.PK_USER, joinColumns = @JoinColumn(name = Constants.COLUMN_USER_ID)),
+        @AssociationOverride(name = Constants.PK_CERTIFICATION, joinColumns = @JoinColumn(name = Constants.COLUMN_CERTIFICATION_ID))})
 public class UserCertification implements Serializable {
 
     private static final long serialVersionUID = -5568090599034834224L;
 
     @EmbeddedId
-    private UserCertPair id;
+    private UserCertPair pk = new UserCertPair();
 
     @OneToOne
     @JoinColumn(name = Constants.COLUMN_BLOB_ID)
-    private FileBlob file;
+    private FileBlob blob;
 
-    public UserCertification(User user, Certification certification, FileBlob file) {
-        this.id = new UserCertPair(user, certification);
-        this.file = file;
-    }
+    @ManyToOne
+    @JoinColumn(name = Constants.COLUMN_STATUS_ID)
+    private RequestStatus status;
 
-    public UserCertification(User user, Certification certification) {
-        this.id = new UserCertPair(user, certification);
-        this.file = file;
-    }
 
     public UserCertification() {
     }
 
+    public UserCertification(User user, Certification certification) {
+        setUser(user);
+        setCertification(certification);
+    }
+
+    public UserCertification(User user, Certification certification, RequestStatus status, FileBlob blob) {
+        this.pk.user = user;
+        this.pk.certification = certification;
+        this.blob = blob;
+        this.status = status;
+    }
+
     public UserCertPair getId() {
-        return id;
+        return pk;
     }
 
     public void setId(UserCertPair userCertKey) {
-        this.id = userCertKey;
+        this.pk = userCertKey;
     }
 
-    public FileBlob getFile() {
-        return file;
+    @Transient
+    public User getUser() {
+        return pk.user;
     }
 
-    public void setFile(FileBlob file) {
-        this.file = file;
+    public void setUser(User user) {
+        pk.user = user;
     }
 
+    @Transient
+    public Certification getCertification() {
+        return pk.certification;
+    }
+
+    public void setCertification(Certification cert) {
+        pk.certification = cert;
+    }
+
+    public UserCertPair getPk() {
+        return pk;
+    }
+
+    public void setPk(UserCertPair pk) {
+        this.pk = pk;
+    }
+
+    public FileBlob getBlob() {
+        return blob;
+    }
+
+    public void setBlob(FileBlob blob) {
+        this.blob = blob;
+    }
+
+    public RequestStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(RequestStatus status) {
+        this.status = status;
+    }
 
     @Embeddable
-    public static class UserCertPair implements Serializable {
+    private static class UserCertPair implements Serializable {
 
         private static final long serialVersionUID = 4724550790684214251L;
 
@@ -63,23 +107,20 @@ public class UserCertification implements Serializable {
         @JoinColumn(name = Constants.COLUMN_CERTIFICATION_ID)
         private Certification certification;
 
-        public UserCertPair(User user, Certification certification) {
-            this.user = user;
-            this.certification = certification;
-        }
-
         public UserCertPair() {
         }
 
         @Override
         public boolean equals(Object o) {
-            if (this == o) return true;
-            if (!(o instanceof UserCertPair)) return false;
+            if (this == o)
+                return true;
+            if (!(o instanceof UserCertPair))
+                return false;
 
             UserCertPair that = (UserCertPair) o;
 
-            return this.user.getId().equals(that.user.getId()) &&
-                    this.certification.getId().equals(that.certification.getId());
+            return this.user.getId().equals(that.user.getId())
+                    && this.certification.getId().equals(that.certification.getId());
         }
 
         @Override
@@ -90,4 +131,3 @@ public class UserCertification implements Serializable {
         }
     }
 }
-

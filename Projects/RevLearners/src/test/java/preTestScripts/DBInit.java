@@ -1,3 +1,5 @@
+package preTestScripts;
+
 import java.io.Serializable;
 import java.util.Map;
 
@@ -45,6 +47,11 @@ public class DBInit {
 			map = Constants.getMessageStatuses();
 			for (Long id : map.keySet()) {
 				session.save(new MessageStatus(id, map.get(id)));
+			}
+
+			map = Constants.getRequestStatuses();
+			for (Long id : map.keySet()) {
+				session.save(new RequestStatus(id, map.get(id)));
 			}
 
 			map = Constants.getMimeTypes();

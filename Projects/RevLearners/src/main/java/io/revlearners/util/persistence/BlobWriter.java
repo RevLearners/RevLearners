@@ -9,8 +9,6 @@ import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
 import org.hibernate.Session;
 
-import io.revlearners.util.commons.configs.Constants;
-
 public class BlobWriter {
 
 	public static byte[] writeToBlob(Session session, String filePath) throws IOException {
@@ -19,7 +17,7 @@ public class BlobWriter {
 	}
 
 	public static void writeToFile(String fileName, long fileSize, byte[] bytes) throws IOException, SQLException {
-		File file, dir;
+		File file;
 		String base, ext;
 		
 		ext = FilenameUtils.getExtension(fileName);

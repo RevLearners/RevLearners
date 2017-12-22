@@ -30,15 +30,15 @@ public class QuestionOption implements Serializable{
 	@Column(name=Constants.COLUMN_OPTION_TEXT)
 	private String text;
 
-	@ManyToOne(cascade=CascadeType.ALL, fetch=FetchType.EAGER)
-	@JoinColumn(name=Constants.COLUMN_QUESTION_ID)
-	private Question question;
+//	@ManyToOne(cascade=CascadeType.ALL, fetch=FetchType.EAGER)
+//	@JoinColumn(name=Constants.COLUMN_QUESTION_ID)
+//	private Question question;
 
 	@Column(name=Constants.COLUMN_IS_CORRECT)
 	private boolean isCorrect;
 
 	public QuestionOption(Question question, String text, boolean isCorrect) {
-		this.question = question;
+//		this.question = question;
 		this.text = text;
 		this.isCorrect = isCorrect;
 	}
@@ -46,8 +46,13 @@ public class QuestionOption implements Serializable{
 	public QuestionOption() {
 	}
 
-	public QuestionOption(Question question) {
-		this.question = question;
+//	public QuestionOption(Question question) {
+//		this.question = question;
+//	}
+
+	public QuestionOption(String string, boolean b) {
+		this.text = string;
+		this.isCorrect = b;
 	}
 
 	public Long getId() {
@@ -58,13 +63,13 @@ public class QuestionOption implements Serializable{
 		this.id = id;
 	}
 
-	public Question getQuestion() {
-		return question;
-	}
-
-	public void setQuestion(Question question) {
-		this.question = question;
-	}
+//	public Question getQuestion() {
+//		return question;
+//	}
+//
+//	public void setQuestion(Question question) {
+//		this.question = question;
+//	}
 
 	public String getText() {
 		return text;
@@ -84,7 +89,7 @@ public class QuestionOption implements Serializable{
 
 	@Override
 	public String toString() {
-		return "QuestionOption [id=" + id + ", question=" + question + ", text=" + text
+		return "QuestionOption [id=" + id + ", text=" + text
 				+ ", isCorrect=" + isCorrect + "]";
 	}
 

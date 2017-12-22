@@ -1,4 +1,5 @@
-package io.revlearners.util.commons.configs;
+package config;
+
 
 import java.sql.Connection;
 import java.util.Properties;
@@ -29,7 +30,7 @@ import io.revlearners.model.services.dao.interfaces.contracts.*;
 @EnableAsync
 @EnableTransactionManagement
 @ComponentScan("io.revlearners.model")
-public class PersistenceConfig {
+public class MockPersistenceConfig {
 
 	@Bean
 	public DataSource dataSource() {

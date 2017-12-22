@@ -1,6 +1,7 @@
 package io.revlearners.model.bean;
 
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.*;
@@ -30,8 +31,9 @@ public class Question implements Serializable {
 	@JoinColumn(name = Constants.COLUMN_DIFFICULTY_ID)
 	private QuestionDifficulty difficulty;
 
-	@OneToMany(mappedBy="question", cascade=CascadeType.ALL)
-	private Set<QuestionOption> options;
+	@OneToMany(cascade=CascadeType.ALL, fetch = FetchType.EAGER)
+	@JoinColumn(name = Constants.COLUMN_QUESTION_ID)
+	private Set<QuestionOption> options = new HashSet<QuestionOption>();
 
 	@Column(name = Constants.COLUMN_QTEXT)
 	private String text;
@@ -46,6 +48,22 @@ public class Question implements Serializable {
 	public Question(Long id) {
 	    this.id = id;
     }
+	
+	public boolean addOptions(Set<QuestionOption> opts) {
+		return options.addAll(opts);
+	}
+	
+	public boolean deleteOptions(Set<QuestionOption> opts) {
+		return options.removeAll(opts);
+	}
+
+	public Set<QuestionOption> getOptions() {
+		return options;
+	}
+
+	public void setOptions(Set<QuestionOption> options) {
+		this.options = options;
+	}
 
 	public Question() {
 	}
