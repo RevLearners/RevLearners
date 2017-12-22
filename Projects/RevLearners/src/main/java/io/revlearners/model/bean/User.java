@@ -54,8 +54,51 @@ public class User implements Serializable {
 	@Column(table = Constants.TABLE_USER_CREDENTIALS, name = Constants.COLUMN_SALT)
 	private String salt;
 	
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public String getSalt() {
+		return salt;
+	}
+
+	public void setSalt(String salt) {
+		this.salt = salt;
+	}
+
+	public Set<UserRank> getRanks() {
+		return ranks;
+	}
+
+	public void setRanks(Set<UserRank> ranks) {
+		this.ranks = ranks;
+	}
+
 	@OneToMany(cascade=CascadeType.ALL, mappedBy = Constants.PK_USER, fetch = FetchType.EAGER)
 	private Set<UserCertification> certifications = new HashSet<UserCertification>();
+	
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = Constants.PK_USER, fetch = FetchType.EAGER)
+	private Set<UserRank> ranks = new HashSet<UserRank>();
 
 	public boolean addCertification(Set<UserCertification> certs) {
 		return certifications.addAll(certs);

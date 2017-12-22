@@ -21,7 +21,7 @@ import org.springframework.beans.factory.annotation.Autowired;
  *
  * This class was made in conjunction with Spring best practices
  */
-public class AbstractHibernateDao<T extends Serializable> extends AbstractDao<T> implements IGenericDao<T> {
+public abstract class AbstractHibernateDao extends AbstractDao implements IGenericDao {
 
 	@Autowired
 	private SessionFactory sf;
@@ -31,7 +31,7 @@ public class AbstractHibernateDao<T extends Serializable> extends AbstractDao<T>
 	}
 
 	@Override
-	public T fetchById(long id, Object session) {
+	public <T extends Serializable> T fetchSubTypeById(Class<T> clazz, long id, Object session) {
 		if (session == null) {
 			return sf.getCurrentSession().get(clazz, id);
 		}
@@ -40,19 +40,15 @@ public class AbstractHibernateDao<T extends Serializable> extends AbstractDao<T>
 
 	@Override
 	@SuppressWarnings("unchecked")
-	public List<T> fetchAll(Object session) {
+	public <T extends Serializable> List<T> fetchAllSubTypes(Class<T> clazz, Object session) {
 		if (session == null) {
 			return sf.getCurrentSession().createQuery(Constants.FROM + clazz.getName()).list();
 		}
 		return ((Session) session).createQuery(Constants.FROM + clazz.getName()).list();
 	}
 
-	// public List<T> findByEntity(T entity) {
-	// return null;
-	// }
-
 	@Override
-	public Serializable create(final T entity, Object session) {
+	public <T extends Serializable> Serializable create(final T entity, Object session) {
 		if (session == null) {
 			return sf.getCurrentSession().save(entity);
 		}
@@ -60,7 +56,7 @@ public class AbstractHibernateDao<T extends Serializable> extends AbstractDao<T>
 	}
 
 	@Override
-	public T update(final T entity, Object session) {
+	public <T extends Serializable> T update(Class<T> clazz, final T entity, Object session) {
 		if (session == null) {
 			return clazz.cast(sf.getCurrentSession().merge(entity));
 		}
@@ -69,7 +65,7 @@ public class AbstractHibernateDao<T extends Serializable> extends AbstractDao<T>
 	}
 
 	@Override
-	public void delete(final T entity, Object session) {
+	public <T extends Serializable> void delete(final T entity, Object session) {
 		if (session == null) {
 			sf.getCurrentSession().delete(entity);
 		} else {
@@ -78,8 +74,8 @@ public class AbstractHibernateDao<T extends Serializable> extends AbstractDao<T>
 	}
 
 	@Override
-	public void deleteById(final long id, Object session) {
-		final T entity = fetchById(id, session);
+	public <T extends Serializable> void deleteById(Class<T> clazz, final long id, Object session) {
+		final T entity = fetchSubTypeById(clazz, id, session);
 		delete(entity, session);
 	}
 }
