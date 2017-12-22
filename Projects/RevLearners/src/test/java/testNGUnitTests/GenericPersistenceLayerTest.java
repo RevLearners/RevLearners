@@ -38,23 +38,30 @@ public class GenericPersistenceLayerTest extends PersistenceLayerTest {
 	public final void after() {
 		session.close();
 	}
+	
+	@Test(priority = 1)
+	public void insertTopicTest() {
+		
+	}
 
-	@Test
+	@Test(priority = 1)
 	public void userInsertTest() {
 
-		User user = new User("John", null, "Doe", session.load(UserStatus.class, Constants.STATUS_PENDING),
-				session.load(UserRole.class, Constants.ROLE_BASIC), "mail@email.com", "aUsername", "password",
+		UserStatus us = userService.fetchDependencyById(UserStatus.class, Constants.STATUS_PENDING, session);
+		UserRole ur = userService.fetchDependencyById(UserRole.class, Constants.ROLE_BASIC, session);
+		User user = new User("John", null, "Doe", us, ur, "mail@email.com", "aUsername", "password",
 				"this is a salt, a really bad salt, but a salt none the less");
 		session.beginTransaction();
 		userId = (Long) userService.create(user, session);
 		session.getTransaction().commit();
 	}
 
-	@Test
+	@Test(priority = 1)
 	public void insertReceiverTest() {
 
-		User user = new User("Jane", null, "Bobbert", session.load(UserStatus.class, Constants.STATUS_PENDING),
-				session.load(UserRole.class, Constants.ROLE_BASIC), "mail@email.com", "aUsername", "password",
+		UserStatus us = userService.fetchDependencyById(UserStatus.class, Constants.STATUS_PENDING, session);
+		UserRole ur = userService.fetchDependencyById(UserRole.class, Constants.ROLE_BASIC, session);
+		User user = new User("Jane", null, "Bobbert", us, ur, "mail@email.com", "aUsername", "password",
 				"this is a salt, a really bad salt, but a salt none the less");
 		session.beginTransaction();
 		receiverId = (Long) userService.create(user, session);
@@ -64,9 +71,11 @@ public class GenericPersistenceLayerTest extends PersistenceLayerTest {
 	@Test
 	public void questionInsertTest() {
 		session.beginTransaction();
-		Question quest = new Question(session.load(Topic.class, Constants.TOPIC_CORE_JAVA),
-				session.load(QuestionType.class, Constants.QUESTION_TRUE_FALSE),
-				session.load(QuestionDifficulty.class, Constants.DIFFICULTY_EASY), "Is the answer to life 42?");
+		
+		Topic topic = questionService.fetchDependencyById(Topic.class, Constants.TOPIC_CORE_JAVA, session);
+		QuestionType type = questionService.fetchDependencyById(QuestionType.class, Constants.QUESTION_TRUE_FALSE, session);
+		QuestionDifficulty diff = questionService.fetchDependencyById(QuestionDifficulty.class, Constants.DIFFICULTY_EASY, session);
+		Question quest = new Question(topic, type, diff, "Is the answer to life 42?");
 
 		Set<QuestionOption> opts = new HashSet<QuestionOption>();
 		opts.add(new QuestionOption("True", true));
@@ -81,19 +90,19 @@ public class GenericPersistenceLayerTest extends PersistenceLayerTest {
 		session.beginTransaction();
 
 		// Create certification associated to user
-		Certification cert = session.load(Certification.class, Constants.ORACLE_CERTIFIED_ASSOCIATE);
-		User user = session.load(User.class, userId);
+		Certification cert = userService.fetchDependencyById(Certification.class, Constants.ORACLE_CERTIFIED_ASSOCIATE, session);
+		User user = userService.fetchDependencyById(User.class, userId, session);
 		UserCertification uc = new UserCertification(user, cert);
 
 		// Save the certification to the user
 		user.getCertifications().add(uc);
-		session.save(user);
+		userService.create(user, session);
 
 		// blobId = (Long) session.save(blobs);
 		session.getTransaction().commit();
 	}
 
-	@Test(dependsOnMethods = { "userInsertTest", "insertReceiverTest" })
+	@Test(priority = 2, dependsOnMethods = { "userInsertTest", "insertReceiverTest" })
 	public void insertMessageWithAttachmentsTest() {
 		String filePath = Constants.PROJECT_DIR + "/testFiles/";
 		Set<FileBlob> blobs = new HashSet<FileBlob>();
@@ -101,10 +110,6 @@ public class GenericPersistenceLayerTest extends PersistenceLayerTest {
 		Message msg;
 		MessageStatus stat;
 		User sender, receiver;
-
-		// get users
-		Long senderId = userId;
-		Long receiverId = this.receiverId;
 
 		File file = new File(filePath);
 		String fileName = file.getName();
@@ -117,18 +122,17 @@ public class GenericPersistenceLayerTest extends PersistenceLayerTest {
 						new MimeType(Constants.MIME_JPG, Constants.MIME_JPG_STR)));
 			}
 
-			session.beginTransaction();
-
 			// load sender and receiver users
-			sender = session.load(User.class, senderId);
-			receiver = session.load(User.class, receiverId);
-			stat = session.load(MessageStatus.class, Constants.MESSAGE_STATUS_UNREAD);
+			sender = userService.fetchDependencyById(User.class, userId, session);
+			receiver = userService.fetchDependencyById(User.class, receiverId, session);
+			stat = messageService.fetchDependencyById(MessageStatus.class, Constants.MESSAGE_STATUS_UNREAD, session);
 
 			// generate message
 			msg = new Message(sender, receiver, "This is the title", "This is the message", blobs, LocalDateTime.now(),
 					stat);
 
 			// save message
+			session.beginTransaction();
 			msgId = (Long) session.save(msg);
 
 			session.getTransaction().commit();
@@ -143,7 +147,7 @@ public class GenericPersistenceLayerTest extends PersistenceLayerTest {
 	@Test(dependsOnMethods = "insertMessageWithAttachmentsTest")
 	public void certificationViewTest() {
 		Message msg;
-		msg = session.load(Message.class, msgId);
+		msg = messageService.fetchDependencyById(Message.class, msgId, session);
 		try {
 			for (FileBlob fb : msg.getBlobs())
 				BlobWriter.writeToFile(fb.getName(), fb.getSize(), fb.getContents());

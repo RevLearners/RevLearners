@@ -16,6 +16,8 @@ public interface IGenericDao<T extends Serializable> {
 	
 	public T fetchById(final long id, Object object);
 	
+	public <U> U fetchDependencyById(Class<U> clazz, final long id, Object object);
+	
 	public List<T> fetchAll(Object object);
 	
 	public Serializable create(final T entity, Object object);

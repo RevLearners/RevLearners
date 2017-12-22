@@ -1,16 +1,14 @@
 package io.revlearners.util.commons.configs;
 
+import java.io.Serializable;
+
 import java.sql.Connection;
 import java.util.Properties;
-
 import javax.sql.DataSource;
 
-import org.hibernate.SessionFactory;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.config.BeanPostProcessor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.ComponentScans;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
@@ -96,7 +94,7 @@ public class PersistenceConfig {
 		tm.setSessionFactory(sessionFactory().getObject());
 		return tm;
 	}
-
+	
 	@Bean
 	public IMessageDao messageHibernateDao() {
 		return new MessageDao();
@@ -113,18 +111,18 @@ public class PersistenceConfig {
 	}
 
 	@Bean
-	public ITopicDao topicHibernateDao() {
-		return new TopicDao();
+	public IBeanDao hibernateBeanDao() {
+		return new BeanDao();
 	}
 
 	@Bean
 	public IUserDao userHibernateDao() {
 		return new UserDao();
 	}
-
+	
 	@Bean
-	public ITopicService topicHibernateService() {
-		return new TopicService();
+	public IBeanService hibernateBeanService() {
+		return new BeanService();
 	}
 
 	@Bean

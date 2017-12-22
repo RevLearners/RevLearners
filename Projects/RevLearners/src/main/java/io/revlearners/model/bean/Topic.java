@@ -1,20 +1,16 @@
 package io.revlearners.model.bean;
 
-import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 import io.revlearners.util.commons.configs.Constants;
 
 @Entity
 @Table (name=Constants.TABLE_TOPIC)
-public class Topic implements Serializable{
+public class Topic extends AbstractBean{
 	private static final long serialVersionUID = -7336698542678175301L;
 
 	@Id

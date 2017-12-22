@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.util.List;
 
 import org.hibernate.Session;
+import org.springframework.beans.factory.config.BeanDefinition;
+import org.springframework.context.annotation.Scope;
 import org.springframework.transaction.annotation.Transactional;
 
 import io.revlearners.util.persistence.AbstractService;
@@ -21,6 +23,12 @@ public abstract class AbstractHibernateService<T extends Serializable> extends A
 	@Override
 	public List<T> fetchAll(Object session) {
 		return super.fetchAll(session);
+	}
+	
+	@Override
+	public <U> U fetchDependencyById(Class<U> clazz, long id, Object session) {
+		return super.fetchDependencyById(clazz, id, session);
+		
 	}
 
 	@Override

@@ -114,8 +114,8 @@ public class MockPersistenceConfig {
 	}
 
 	@Bean
-	public ITopicDao topicHibernateDao() {
-		return new TopicDao();
+	public IBeanDao topicHibernateDao() {
+		return new BeanDao();
 	}
 
 	@Bean
@@ -124,8 +124,8 @@ public class MockPersistenceConfig {
 	}
 
 	@Bean
-	public ITopicService topicHibernateService() {
-		return new TopicService();
+	public IBeanService topicHibernateService() {
+		return new BeanService();
 	}
 
 	@Bean

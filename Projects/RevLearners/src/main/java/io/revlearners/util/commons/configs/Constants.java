@@ -21,13 +21,14 @@ public final class Constants {
 	public static final String QUALIFY_RANK_DAO = "rankHibernateDao";
 	public static final String QUALIFY_MESSAGE_DAO = "messageHibernateDao";
 	public static final String QUALIFY_QUESTION_DAO = "questionHibernateDao";
-	public static final String QUALIFY_TOPIC_DAO = "topicHibernateDao";
-
-	public static final String QUALIFY_TOPIC_DAO_INJECTOR = "topicHibernateService";
+	public static final String QUALIFY_HIBERNATE_BEAN_DAO = "hibernateBeanDao";
+	
+	public static final String QUALIFY_BEAN_DAO_INJECTOR = "hibernateBeanService";
 	public static final String QUALIFY_MESSAGE_DAO_INJECTOR = "messageHibernateService";
 	public static final String QUALIFY_QUESTION_DAO_INJECTOR = "questionHibernateService";
 	public static final String QUALIFY_RANK_DAO_INJECTOR = "rankHibernateService";
 	public static final String QUALIFY_USER_DAO_INJECTOR = "userHibernateService";
+	
 
 	public static final String TRANSACTION_HIBERNATE_MANAGER = "hibernateTransactionManager";
 

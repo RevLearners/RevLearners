@@ -4,16 +4,16 @@ import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Repository;
 
-import io.revlearners.model.bean.Message;
-import io.revlearners.model.dao.interfaces.IMessageDao;
+import io.revlearners.model.bean.Topic;
+import io.revlearners.model.dao.interfaces.IBeanDao;
 import io.revlearners.util.persistence.hibernate.AbstractHibernateDao;
 
 @Repository
 @Scope( BeanDefinition.SCOPE_PROTOTYPE )
-public class MessageDao extends AbstractHibernateDao<Message> implements IMessageDao{
-
-	public MessageDao() {
+public class BeanDao extends AbstractHibernateDao<Topic> implements IBeanDao {
+	
+	public BeanDao() {
 		super();
-		setClazz(Message.class);
+		setClazz(Topic.class);
 	}
 }

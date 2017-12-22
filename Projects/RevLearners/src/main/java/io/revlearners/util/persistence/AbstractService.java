@@ -19,6 +19,11 @@ public abstract class AbstractService<T extends Serializable> implements IGeneri
 	public List<T> fetchAll(Object session) {
 		return getDao().fetchAll(session);
 	}
+	
+	@Override
+	public <U> U fetchDependencyById(Class<U> clazz, long id, Object session) {
+		return getDao().fetchDependencyById(clazz, id, session);
+	}
 
 	@Override
 	public Serializable create(T entity, Object session) {

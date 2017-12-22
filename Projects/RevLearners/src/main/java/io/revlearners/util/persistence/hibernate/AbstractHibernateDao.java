@@ -21,7 +21,7 @@ import org.springframework.beans.factory.annotation.Autowired;
  *
  * This class was made in conjunction with Spring best practices
  */
-public class AbstractHibernateDao<T extends Serializable> extends AbstractDao<T> implements IGenericDao<T> {
+public abstract class AbstractHibernateDao<T extends Serializable> extends AbstractDao<T> implements IGenericDao<T> {
 
 	@Autowired
 	private SessionFactory sf;
@@ -47,9 +47,13 @@ public class AbstractHibernateDao<T extends Serializable> extends AbstractDao<T>
 		return ((Session) session).createQuery(Constants.FROM + clazz.getName()).list();
 	}
 
-	// public List<T> findByEntity(T entity) {
-	// return null;
-	// }
+	@Override
+	public <U> U fetchDependencyById(Class<U> clazz, long id, Object session) {
+		if(session == null) {
+			return sf.getCurrentSession().get(clazz, id);
+		}
+		return ((Session) session).get(clazz, id);
+	}
 
 	@Override
 	public Serializable create(final T entity, Object session) {
