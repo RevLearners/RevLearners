@@ -1,7 +1,10 @@
 package io.revlearners.model.bean;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -15,6 +18,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
@@ -31,26 +35,26 @@ public class Quiz implements Serializable{
     @GeneratedValue(generator="QUIZ_SEQ", strategy=GenerationType.SEQUENCE)
 	private Long id;
 
-	@ManyToOne( cascade=CascadeType.ALL, fetch=FetchType.EAGER)
-    @JoinColumn(name=Constants.COLUMN_USER_RECEIVER)
-	private User receiver;
-
-	@ManyToOne( cascade=CascadeType.ALL, fetch=FetchType.EAGER)
-    @JoinColumn(name=Constants.COLUMN_USER_SENDER)
-	private User sender;
+//	@ManyToOne( cascade=CascadeType.ALL, fetch=FetchType.EAGER)
+//    @JoinColumn(name=Constants.COLUMN_USER_RECEIVER)
+//	private User receiver;
+//
+//	@ManyToOne( cascade=CascadeType.ALL, fetch=FetchType.EAGER)
+//    @JoinColumn(name=Constants.COLUMN_USER_SENDER)
+//	private User sender;
 
 	@Column(name=Constants.COLUMN_QUIZ_TIME)
-	private Date time;
+	private LocalDateTime time;
 
 	@ManyToMany(targetEntity=Question.class, cascade=CascadeType.ALL, fetch=FetchType.EAGER)
 	@JoinTable(name=Constants.TABLE_QUIZ_QUESTION, joinColumns=@JoinColumn(name=Constants.COLUMN_QUIZ_ID), inverseJoinColumns=@JoinColumn(name=Constants.COLUMN_QUESTION_ID))
 	private Set<Question> questions;
+	
+	
 
-	public Quiz(Long id, User receiver, User sender, Date time) {
+	public Quiz(Set<Question> questions, LocalDateTime time) {
 		super();
-		this.id = id;
-		this.receiver = receiver;
-		this.sender = sender;
+		this.questions = questions;
 		this.time = time;
 	}
 
@@ -69,27 +73,27 @@ public class Quiz implements Serializable{
 		this.id = id;
 	}
 
-	public User getReceiver() {
-		return receiver;
-	}
+//	public User getReceiver() {
+//		return receiver;
+//	}
+//
+//	public void setReceiver(User receiver) {
+//		this.receiver = receiver;
+//	}
+//
+//	public User getSender() {
+//		return sender;
+//	}
+//
+//	public void setSender(User sender) {
+//		this.sender = sender;
+//	}
 
-	public void setReceiver(User receiver) {
-		this.receiver = receiver;
-	}
-
-	public User getSender() {
-		return sender;
-	}
-
-	public void setSender(User sender) {
-		this.sender = sender;
-	}
-
-	public Date getTime() {
+	public LocalDateTime getTime() {
 		return time;
 	}
 
-	public void setTime(Date time) {
+	public void setTime(LocalDateTime time) {
 		this.time = time;
 	}
 
@@ -103,7 +107,7 @@ public class Quiz implements Serializable{
 
 	@Override
 	public String toString() {
-		return "Quiz [id=" + id + ", receiver=" + receiver + ", sender=" + sender + ", time=" + time + "]";
+		return "Quiz [id=" + id + ", time=" + time + "]";
 	}
 
 }

@@ -12,18 +12,18 @@ import org.hibernate.Session;
 // Object allows user to pass in their persistence manager's
 // session handler. This allows for JPA or Hibernate sessions
 // to be persisted to the database
-public interface IGenericDao<T extends Serializable> {
+public interface IGenericDao {
 	
-	public T fetchById(final long id, Object object);
+	public <T extends Serializable> T fetchSubTypeById(Class<T> clazz, final long id, Object object);
 	
-	public List<T> fetchAll(Object object);
+	public <T extends Serializable> List<T> fetchAllSubTypes(Class<T> clazz, Object object);
 	
-	public Serializable create(final T entity, Object object);
+	public <T extends Serializable> Serializable create(final T entity, Object object);
 	
-	public T update(final T entity, Object object);
+	public <T extends Serializable> T update(Class<T> clazz, final T entity, Object object);
 	
-	public void delete(final T entity, Object object);
+	public <T extends Serializable> void delete(final T entity, Object object);
 	
-	public void deleteById(final long id, Object object);
+	public<T extends Serializable> void deleteById(Class<T> clazz, final long id, Object object);
 
 }
