@@ -1,7 +1,10 @@
 package io.revlearners.model.bean;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -15,94 +18,82 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import io.revlearners.util.commons.configs.Constants;
+
 @Entity
-@Table (name="QUIZ")
+@Table (name=Constants.TABLE_QUIZ)
 public class Quiz implements Serializable{
 	private static final long serialVersionUID = 4858112442645949427L;
 
 	@Id
-	@Column(name="QUIZ_ID")
-	@SequenceGenerator(
-			sequenceName="QUIZ_SEQ", 
-			name="QUIZ_SEQ")
-	@GeneratedValue(
-			generator="QUIZ_SEQ", 
-			strategy=GenerationType.SEQUENCE)
-	private int quizId;
-	
-	@ManyToOne(
-			cascade=CascadeType.ALL, 
-			fetch=FetchType.EAGER)
-	@JoinColumn(name="TO_USER_ID")
-	private User toUser;
-	
-	@ManyToOne(
-			cascade=CascadeType.ALL, 
-			fetch=FetchType.EAGER)
-	@JoinColumn(name="FROM_USER_ID")
-	private User fromUser;
-	
-	@Column(name="QUIZ_TIME")
-	private Date time;
-	
-	@ManyToMany(
-			targetEntity=Question.class,
-			cascade=CascadeType.ALL,
-			fetch=FetchType.EAGER)
-	@JoinTable(
-			name="QUIZ_QUESTION",
-			joinColumns=@JoinColumn(name="BEAR_ID"), 
-			inverseJoinColumns=@JoinColumn(name="CUB_ID"))
-	private Set<Question> questions;
+	@Column(name=Constants.COLUMN_QUIZ_ID)
+	@SequenceGenerator(sequenceName="QUIZ_SEQ", name="QUIZ_SEQ")
+    @GeneratedValue(generator="QUIZ_SEQ", strategy=GenerationType.SEQUENCE)
+	private Long id;
 
-	public Quiz(int quizId, User toUser, User fromUser, Date time) {
+//	@ManyToOne( cascade=CascadeType.ALL, fetch=FetchType.EAGER)
+//    @JoinColumn(name=Constants.COLUMN_USER_RECEIVER)
+//	private User receiver;
+//
+//	@ManyToOne( cascade=CascadeType.ALL, fetch=FetchType.EAGER)
+//    @JoinColumn(name=Constants.COLUMN_USER_SENDER)
+//	private User sender;
+
+	@Column(name=Constants.COLUMN_QUIZ_TIME)
+	private LocalDateTime time;
+
+	@ManyToMany(targetEntity=Question.class, cascade=CascadeType.ALL, fetch=FetchType.EAGER)
+	@JoinTable(name=Constants.TABLE_QUIZ_QUESTION, joinColumns=@JoinColumn(name=Constants.COLUMN_QUIZ_ID), inverseJoinColumns=@JoinColumn(name=Constants.COLUMN_QUESTION_ID))
+	private Set<Question> questions;
+	
+	
+
+	public Quiz(Set<Question> questions, LocalDateTime time) {
 		super();
-		this.quizId = quizId;
-		this.toUser = toUser;
-		this.fromUser = fromUser;
+		this.questions = questions;
 		this.time = time;
 	}
-	
+
 	public Quiz() {
-
-	}
-	
-	public Quiz(int quizId) {
-		this.quizId = quizId;
 	}
 
-	public int getQuizId() {
-		return quizId;
+	public Quiz(Long id) {
+		this.id = id;
 	}
 
-	public void setQuizId(int quizId) {
-		this.quizId = quizId;
+	public Long getId() {
+		return id;
 	}
 
-	public User getToUser() {
-		return toUser;
+	public void setId(Long id) {
+		this.id = id;
 	}
 
-	public void setToUser(User toUser) {
-		this.toUser = toUser;
-	}
+//	public User getReceiver() {
+//		return receiver;
+//	}
+//
+//	public void setReceiver(User receiver) {
+//		this.receiver = receiver;
+//	}
+//
+//	public User getSender() {
+//		return sender;
+//	}
+//
+//	public void setSender(User sender) {
+//		this.sender = sender;
+//	}
 
-	public User getFromUser() {
-		return fromUser;
-	}
-
-	public void setFromUser(User fromUser) {
-		this.fromUser = fromUser;
-	}
-
-	public Date getTime() {
+	public LocalDateTime getTime() {
 		return time;
 	}
 
-	public void setTime(Date time) {
+	public void setTime(LocalDateTime time) {
 		this.time = time;
 	}
 
@@ -116,7 +107,7 @@ public class Quiz implements Serializable{
 
 	@Override
 	public String toString() {
-		return "Quiz [quizId=" + quizId + ", toUser=" + toUser + ", fromUser=" + fromUser + ", time=" + time + "]";
-	}	
-	
+		return "Quiz [id=" + id + ", time=" + time + "]";
+	}
+
 }

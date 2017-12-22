@@ -6,19 +6,17 @@ import io.revlearners.util.commons.configs.Constants;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.util.LinkedHashSet;
-import java.util.Set;
 
 @Entity
-@Table(name=Constants.TABLE_MESSAGE)
-public class Message implements Serializable {
+@Table(name=Constants.TABLE_NOTIFICATION)
+public class Notification implements Serializable {
 
-	private static final long serialVersionUID = -1952814977786579674L;
+	private static final long serialVersionUID = 6295517192344156314L;
 
 	@Id
-    @Column(name = Constants.COLUMN_MESSAGE_ID)
-    @SequenceGenerator(name = "SEQ_GEN_MESSAGE", sequenceName = "SEQ_MESSAGE", initialValue = 1, allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.AUTO, generator = "SEQ_GEN_MESSAGE")
+    @Column(name = Constants.COLUMN_NOTIFICATION_ID)
+    @SequenceGenerator(name = "SEQ_GEN_NOTIFICATION", sequenceName = "SEQ_NOTIFICATION", initialValue = 1, allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.AUTO, generator = "SEQ_GEN_NOTIFICATION")
     private Long id;
 
     @ManyToOne
@@ -29,52 +27,29 @@ public class Message implements Serializable {
     @JoinColumn(name=Constants.COLUMN_RECEIVER_ID, referencedColumnName=Constants.COLUMN_USER_ID)
     private User receiver;
 
-    @Column(name=Constants.COLUMN_MESSAGE_TITLE)
+    @Column(name=Constants.COLUMN_NOTIFICATION_TITLE)
     private String title;
 
-    @Column(name=Constants.COLUMN_MESSAGE_CONTENTS)
+    @Column(name=Constants.COLUMN_NOTIFICATION_CONTENTS)
     private String contents;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinTable(
-    		name=Constants.TABLE_MESSAGE_ATTACHMENT,
-    		joinColumns = @JoinColumn(name = Constants.COLUMN_MESSAGE_ID),
-    		inverseJoinColumns = @JoinColumn(name = Constants.COLUMN_BLOB_ID)
-    		)
-    private Set<FileBlob> blobs = new LinkedHashSet<FileBlob>();
-
-    @Column(name=Constants.COLUMN_MESSAGE_TIME)
+    @Column(name=Constants.COLUMN_NOTIFICATION_TIME)
     private LocalDateTime time;
 
     @ManyToOne
     @JoinColumn(name=Constants.COLUMN_STATUS_ID)
     private MessageStatus status;
 
+    public Notification() {
+    }
 
-    public void setBlobs(Set<FileBlob> blobs) {
-		this.blobs = blobs;
-	}
-
-	public Message(User sender, User receiver, String title, String contents, Set<FileBlob> blobs, LocalDateTime time, MessageStatus status) {
+    public Notification(User sender, User receiver, String title, String contents, LocalDateTime time, MessageStatus status) {
         this.sender = sender;
         this.receiver = receiver;
         this.title = title;
         this.contents = contents;
-        this.blobs = blobs;
         this.time = time;
         this.status = status;
-    }
-
-    public Message(User sender, User receiver, String title, String content, LocalDateTime time, MessageStatus status) {
-        this.sender = sender;
-        this.receiver = receiver;
-        this.title = title;
-        this.contents = content;
-        this.time = time;
-        this.status = status;
-    }
-
-    public Message() {
     }
 
     public Long getId() {
@@ -117,14 +92,6 @@ public class Message implements Serializable {
         this.contents = contents;
     }
 
-    public Set<FileBlob> getBlobs() {
-        return blobs;
-    }
-
-    public void setBlob(Set<FileBlob> blobs) {
-        this.blobs = blobs;
-    }
-
     public LocalDateTime getTime() {
         return time;
     }
@@ -140,5 +107,4 @@ public class Message implements Serializable {
     public void setStatus(MessageStatus status) {
         this.status = status;
     }
-
 }

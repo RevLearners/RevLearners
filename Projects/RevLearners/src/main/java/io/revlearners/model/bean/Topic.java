@@ -1,44 +1,63 @@
 package io.revlearners.model.bean;
 
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
-import javax.persistence.SequenceGenerator;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import io.revlearners.util.commons.configs.Constants;
+
 @Entity
-@Table (name="TOPIC")
-public class Topic implements Serializable{
+@Table(name = Constants.TABLE_TOPIC)
+public class Topic implements Serializable {
 	private static final long serialVersionUID = -7336698542678175301L;
-	
+
 	@Id
-	@Column (name="TOPIC_ID")
-	@SequenceGenerator(sequenceName="TOPIC_SEQ", name="TOPIC_SEQ")
-	@GeneratedValue(generator="TOPIC_SEQ", strategy=GenerationType.SEQUENCE)
-	private int topicId;
-	
-	@Column(name="TOPIC_NAME")
+	@Column(name = Constants.COLUMN_TOPIC_ID)
+	private Long id;
+
+	@Column(name = Constants.COLUMN_TOPIC_NAME)
 	private String topicName;
 
-	public Topic(String topicName) {
-		super();
+//	@OneToMany(cascade = CascadeType.ALL, mappedBy = Constants.PK_TOPIC, fetch = FetchType.EAGER)
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = Constants.FK_TOPIC)
+	private Set<Rank> ranks = new HashSet<Rank>();
+
+	public Topic(Long id, String topicName, Set<Rank> ranks) {
+		this.id = id;
 		this.topicName = topicName;
 	}
-	
+
+	public Set<Rank> getRanks() {
+		return ranks;
+	}
+
+	public void setRanks(Set<Rank> ranks) {
+		this.ranks = ranks;
+	}
+
+	public Topic(Long id) {
+		this.id = id;
+	}
+
 	public Topic() {
-
+		super();
 	}
 
-	public int getTopicId() {
-		return topicId;
+	public Long getId() {
+		return id;
 	}
 
-	public void setTopicId(int topicId) {
-		this.topicId = topicId;
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 	public String getTopicName() {
@@ -51,8 +70,14 @@ public class Topic implements Serializable{
 
 	@Override
 	public String toString() {
-		return "Topic [topicId=" + topicId + ", topicName=" + topicName + "]";
-	}	
+		return "Topic [id=" + id + ", topicName=" + topicName + "]";
+	}
 
-
+	public Rank getRankByWeight(int i) {
+		for (Rank r : ranks) {
+			if (r.getRank() == i)
+				return r;
+		}
+		return null;
+	}
 }
