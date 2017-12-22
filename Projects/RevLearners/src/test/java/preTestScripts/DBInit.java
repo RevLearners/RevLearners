@@ -49,6 +49,11 @@ public class DBInit {
 				session.save(new MessageStatus(id, map.get(id)));
 			}
 
+			map = Constants.getRequestStatuses();
+			for (Long id : map.keySet()) {
+				session.save(new RequestStatus(id, map.get(id)));
+			}
+
 			map = Constants.getMimeTypes();
 			for (Long id : map.keySet()) {
 				session.save(new MimeType(id, map.get(id)));

@@ -1,4 +1,4 @@
-package testNGUnitTests;
+package config;
 
 
 import java.sql.Connection;
@@ -6,12 +6,9 @@ import java.util.Properties;
 
 import javax.sql.DataSource;
 
-import org.hibernate.SessionFactory;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.config.BeanPostProcessor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.ComponentScans;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
@@ -66,7 +63,7 @@ public class MockPersistenceConfig {
 				MimeType.class, Notification.class, Question.class, QuestionDifficulty.class, QuestionOption.class,
 				QuestionType.class, Quiz.class, Rank.class, Topic.class, User.class,
 				UserCertification.class, UserTopicRank.class, UserRole.class, UserStatus.class, Reason.class,
-				ReportQuestion.class, ReasonType.class);
+				ReportQuestion.class, ReasonType.class, RequestStatus.class);
 		return factoryBean;
 	}
 
