@@ -12,9 +12,44 @@
 		<spring-framework.version>5.0.0.RELEASE</spring-framework.version>
 		<hibernate.version>5.2.12.Final</hibernate.version>
 		<testng.version>6.8.7</testng.version>
+		<jersey.version>2.26</jersey.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
+	
+	<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+	<dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.glassfish.jersey</groupId>
+                <artifactId>jersey-bom</artifactId>
+                <version>${jersey.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+    <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
 
 	<dependencies>
+	
+	    <!-- - - - - - - - - - - Jersey - - - - - - - - - - - - - - -->
+		<dependency>
+            <groupId>org.glassfish.jersey.containers</groupId>
+            <artifactId>jersey-container-servlet-core</artifactId>
+            <!-- use the following artifactId if you don't need servlet 2.x compatibility -->
+            <!-- artifactId>jersey-container-servlet</artifactId -->
+        </dependency>
+
+        <dependency>
+            <groupId>org.glassfish.jersey.inject</groupId>
+            <artifactId>jersey-hk2</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.glassfish.jersey.media</groupId>
+            <artifactId>jersey-media-json-binding</artifactId>
+        </dependency>
+	
 		<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
 
 		<dependency>

@@ -1,137 +1,85 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testng-results skipped="0" failed="0" total="4" passed="4">
+<testng-results skipped="0" failed="0" total="2" passed="2">
   <reporter-output>
   </reporter-output>
-  <suite name="Default suite" duration-ms="47846" started-at="2017-12-20T21:27:36Z" finished-at="2017-12-20T21:28:23Z">
+  <suite name="Default suite" duration-ms="21465" started-at="2017-12-21T17:14:00Z" finished-at="2017-12-21T17:14:22Z">
     <groups>
     </groups>
-    <test name="Default test" duration-ms="47846" started-at="2017-12-20T21:27:36Z" finished-at="2017-12-20T21:28:23Z">
-      <class name="PersistenceLayerTest">
-        <test-method status="PASS" signature="springTestContextBeforeTestClass()[pri:0, instance:PersistenceLayerTest@140e5a13]" name="springTestContextBeforeTestClass" is-config="true" duration-ms="10" started-at="2017-12-20T16:27:36Z" finished-at="2017-12-20T16:27:36Z">
+    <test name="Default test" duration-ms="21465" started-at="2017-12-21T17:14:00Z" finished-at="2017-12-21T17:14:22Z">
+      <class name="DummyDataUsers">
+        <test-method status="PASS" signature="springTestContextBeforeTestClass()[pri:0, instance:DummyDataUsers@d6da883]" name="springTestContextBeforeTestClass" is-config="true" duration-ms="16" started-at="2017-12-21T12:14:00Z" finished-at="2017-12-21T12:14:00Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- springTestContextBeforeTestClass -->
-        <test-method status="PASS" signature="springTestContextPrepareTestInstance()[pri:0, instance:PersistenceLayerTest@140e5a13]" name="springTestContextPrepareTestInstance" is-config="true" duration-ms="30607" started-at="2017-12-20T16:27:36Z" depends-on-methods="org.springframework.test.context.testng.AbstractTestNGSpringContextTests.springTestContextBeforeTestClass" finished-at="2017-12-20T16:28:06Z">
+        <test-method status="PASS" signature="springTestContextPrepareTestInstance()[pri:0, instance:DummyDataUsers@d6da883]" name="springTestContextPrepareTestInstance" is-config="true" duration-ms="10470" started-at="2017-12-21T12:14:00Z" depends-on-methods="org.springframework.test.context.testng.AbstractTestNGSpringContextTests.springTestContextBeforeTestClass" finished-at="2017-12-21T12:14:11Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- springTestContextPrepareTestInstance -->
-        <test-method status="PASS" signature="before()[pri:0, instance:PersistenceLayerTest@140e5a13]" name="before" is-config="true" duration-ms="7850" started-at="2017-12-20T16:28:06Z" finished-at="2017-12-20T16:28:14Z">
+        <test-method status="PASS" signature="before()[pri:0, instance:DummyDataUsers@d6da883]" name="before" is-config="true" duration-ms="10619" started-at="2017-12-21T12:14:11Z" finished-at="2017-12-21T12:14:21Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- before -->
-        <test-method status="PASS" signature="springTestContextBeforeTestMethod(java.lang.reflect.Method)[pri:0, instance:PersistenceLayerTest@140e5a13]" name="springTestContextBeforeTestMethod" is-config="true" duration-ms="1" started-at="2017-12-20T16:28:14Z" finished-at="2017-12-20T16:28:14Z">
+        <test-method status="PASS" signature="springTestContextBeforeTestMethod(java.lang.reflect.Method)[pri:0, instance:DummyDataUsers@d6da883]" name="springTestContextBeforeTestMethod" is-config="true" duration-ms="15" started-at="2017-12-21T12:14:21Z" finished-at="2017-12-21T12:14:21Z">
           <params>
             <param index="0">
               <value>
-                <![CDATA[public void PersistenceLayerTest.certificationUploadTest()]]>
+                <![CDATA[public void DummyDataUsers.userInsertTest()]]>
               </value>
             </param>
           </params>
           <reporter-output>
           </reporter-output>
         </test-method> <!-- springTestContextBeforeTestMethod -->
-        <test-method status="PASS" signature="certificationUploadTest()[pri:0, instance:PersistenceLayerTest@140e5a13]" name="certificationUploadTest" duration-ms="6985" started-at="2017-12-20T16:28:14Z" finished-at="2017-12-20T16:28:21Z">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- certificationUploadTest -->
-        <test-method status="PASS" signature="springTestContextAfterTestMethod(java.lang.reflect.Method)[pri:0, instance:PersistenceLayerTest@140e5a13]" name="springTestContextAfterTestMethod" is-config="true" duration-ms="0" started-at="2017-12-20T16:28:21Z" finished-at="2017-12-20T16:28:21Z">
-          <params>
-            <param index="0">
-              <value>
-                <![CDATA[public void PersistenceLayerTest.certificationUploadTest()]]>
-              </value>
-            </param>
-          </params>
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- springTestContextAfterTestMethod -->
-        <test-method status="PASS" signature="questionInsertTest()[pri:0, instance:PersistenceLayerTest@140e5a13]" name="questionInsertTest" duration-ms="849" started-at="2017-12-20T16:28:21Z" finished-at="2017-12-20T16:28:22Z">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- questionInsertTest -->
-        <test-method status="PASS" signature="springTestContextBeforeTestMethod(java.lang.reflect.Method)[pri:0, instance:PersistenceLayerTest@140e5a13]" name="springTestContextBeforeTestMethod" is-config="true" duration-ms="0" started-at="2017-12-20T16:28:21Z" finished-at="2017-12-20T16:28:21Z">
-          <params>
-            <param index="0">
-              <value>
-                <![CDATA[public void PersistenceLayerTest.questionInsertTest()]]>
-              </value>
-            </param>
-          </params>
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- springTestContextBeforeTestMethod -->
-        <test-method status="PASS" signature="springTestContextAfterTestMethod(java.lang.reflect.Method)[pri:0, instance:PersistenceLayerTest@140e5a13]" name="springTestContextAfterTestMethod" is-config="true" duration-ms="0" started-at="2017-12-20T16:28:22Z" finished-at="2017-12-20T16:28:22Z">
-          <params>
-            <param index="0">
-              <value>
-                <![CDATA[public void PersistenceLayerTest.questionInsertTest()]]>
-              </value>
-            </param>
-          </params>
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- springTestContextAfterTestMethod -->
-        <test-method status="PASS" signature="userInsertTest()[pri:0, instance:PersistenceLayerTest@140e5a13]" name="userInsertTest" duration-ms="379" started-at="2017-12-20T16:28:22Z" finished-at="2017-12-20T16:28:22Z">
+        <test-method status="PASS" signature="userInsertTest()[pri:0, instance:DummyDataUsers@d6da883]" name="userInsertTest" duration-ms="313" started-at="2017-12-21T12:14:21Z" finished-at="2017-12-21T12:14:22Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- userInsertTest -->
-        <test-method status="PASS" signature="springTestContextBeforeTestMethod(java.lang.reflect.Method)[pri:0, instance:PersistenceLayerTest@140e5a13]" name="springTestContextBeforeTestMethod" is-config="true" duration-ms="0" started-at="2017-12-20T16:28:22Z" finished-at="2017-12-20T16:28:22Z">
-          <params>
-            <param index="0">
-              <value>
-                <![CDATA[public void PersistenceLayerTest.userInsertTest()]]>
-              </value>
-            </param>
-          </params>
+        <test-method status="PASS" signature="userLoadTest()[pri:0, instance:DummyDataUsers@d6da883]" name="userLoadTest" duration-ms="16" started-at="2017-12-21T12:14:22Z" depends-on-methods="DummyDataUsers.userInsertTest" finished-at="2017-12-21T12:14:22Z">
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- springTestContextBeforeTestMethod -->
-        <test-method status="PASS" signature="springTestContextAfterTestMethod(java.lang.reflect.Method)[pri:0, instance:PersistenceLayerTest@140e5a13]" name="springTestContextAfterTestMethod" is-config="true" duration-ms="3" started-at="2017-12-20T16:28:22Z" finished-at="2017-12-20T16:28:22Z">
+        </test-method> <!-- userLoadTest -->
+        <test-method status="PASS" signature="springTestContextAfterTestMethod(java.lang.reflect.Method)[pri:0, instance:DummyDataUsers@d6da883]" name="springTestContextAfterTestMethod" is-config="true" duration-ms="0" started-at="2017-12-21T12:14:22Z" finished-at="2017-12-21T12:14:22Z">
           <params>
             <param index="0">
               <value>
-                <![CDATA[public void PersistenceLayerTest.userInsertTest()]]>
+                <![CDATA[public void DummyDataUsers.userInsertTest()]]>
               </value>
             </param>
           </params>
           <reporter-output>
           </reporter-output>
         </test-method> <!-- springTestContextAfterTestMethod -->
-        <test-method status="PASS" signature="certificationViewTest()[pri:0, instance:PersistenceLayerTest@140e5a13]" name="certificationViewTest" duration-ms="867" started-at="2017-12-20T16:28:22Z" depends-on-methods="PersistenceLayerTest.certificationUploadTest" finished-at="2017-12-20T16:28:23Z">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- certificationViewTest -->
-        <test-method status="PASS" signature="springTestContextBeforeTestMethod(java.lang.reflect.Method)[pri:0, instance:PersistenceLayerTest@140e5a13]" name="springTestContextBeforeTestMethod" is-config="true" duration-ms="0" started-at="2017-12-20T16:28:22Z" finished-at="2017-12-20T16:28:22Z">
+        <test-method status="PASS" signature="springTestContextBeforeTestMethod(java.lang.reflect.Method)[pri:0, instance:DummyDataUsers@d6da883]" name="springTestContextBeforeTestMethod" is-config="true" duration-ms="0" started-at="2017-12-21T12:14:22Z" finished-at="2017-12-21T12:14:22Z">
           <params>
             <param index="0">
               <value>
-                <![CDATA[public void PersistenceLayerTest.certificationViewTest()]]>
+                <![CDATA[public void DummyDataUsers.userLoadTest()]]>
               </value>
             </param>
           </params>
           <reporter-output>
           </reporter-output>
         </test-method> <!-- springTestContextBeforeTestMethod -->
-        <test-method status="PASS" signature="springTestContextAfterTestMethod(java.lang.reflect.Method)[pri:0, instance:PersistenceLayerTest@140e5a13]" name="springTestContextAfterTestMethod" is-config="true" duration-ms="6" started-at="2017-12-20T16:28:23Z" finished-at="2017-12-20T16:28:23Z">
-          <params>
-            <param index="0">
-              <value>
-                <![CDATA[public void PersistenceLayerTest.certificationViewTest()]]>
-              </value>
-            </param>
-          </params>
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- springTestContextAfterTestMethod -->
-        <test-method status="PASS" signature="after()[pri:0, instance:PersistenceLayerTest@140e5a13]" name="after" is-config="true" duration-ms="200" started-at="2017-12-20T16:28:23Z" finished-at="2017-12-20T16:28:23Z">
+        <test-method status="PASS" signature="after()[pri:0, instance:DummyDataUsers@d6da883]" name="after" is-config="true" duration-ms="0" started-at="2017-12-21T12:14:22Z" finished-at="2017-12-21T12:14:22Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- after -->
-        <test-method status="PASS" signature="springTestContextAfterTestClass()[pri:0, instance:PersistenceLayerTest@140e5a13]" name="springTestContextAfterTestClass" is-config="true" duration-ms="1" started-at="2017-12-20T16:28:23Z" finished-at="2017-12-20T16:28:23Z">
+        <test-method status="PASS" signature="springTestContextAfterTestMethod(java.lang.reflect.Method)[pri:0, instance:DummyDataUsers@d6da883]" name="springTestContextAfterTestMethod" is-config="true" duration-ms="0" started-at="2017-12-21T12:14:22Z" finished-at="2017-12-21T12:14:22Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[public void DummyDataUsers.userLoadTest()]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- springTestContextAfterTestMethod -->
+        <test-method status="PASS" signature="springTestContextAfterTestClass()[pri:0, instance:DummyDataUsers@d6da883]" name="springTestContextAfterTestClass" is-config="true" duration-ms="0" started-at="2017-12-21T12:14:22Z" finished-at="2017-12-21T12:14:22Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- springTestContextAfterTestClass -->
-      </class> <!-- PersistenceLayerTest -->
+      </class> <!-- DummyDataUsers -->
     </test> <!-- Default test -->
   </suite> <!-- Default suite -->
 </testng-results>

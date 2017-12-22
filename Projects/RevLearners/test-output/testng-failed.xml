@@ -3,19 +3,19 @@
 <suite name="Failed suite [Default suite]">
   <test name="Default test(failed)">
     <classes>
-      <class name="PersistenceLayerTest">
+      <class name="DummyDataUsers">
         <methods>
-          <include name="certificationUploadTest"/>
           <include name="springTestContextBeforeTestClass"/>
           <include name="before"/>
           <include name="springTestContextPrepareTestInstance"/>
           <include name="springTestContextAfterTestClass"/>
           <include name="springTestContextBeforeTestMethod"/>
+          <include name="userLoadTest"/>
           <include name="springTestContextAfterTestMethod"/>
           <include name="after"/>
-          <include name="certificationViewTest"/>
+          <include name="userInsertTest"/>
         </methods>
-      </class> <!-- PersistenceLayerTest -->
+      </class> <!-- DummyDataUsers -->
     </classes>
   </test> <!-- Default test(failed) -->
 </suite> <!-- Failed suite [Default suite] -->
