@@ -14,7 +14,7 @@ import org.hibernate.Session;
 // to be persisted to the database
 public interface IGenericDao {
 	
-	public <T extends Serializable> T fetchSubTypeById(Class<T> clazz, final long id, Object object);
+	public <T extends Serializable> T fetchSubTypeById(Class<T> clazz, final Serializable id, Object object);
 	
 	public <T extends Serializable> List<T> fetchAllSubTypes(Class<T> clazz, Object object);
 	
@@ -24,6 +24,6 @@ public interface IGenericDao {
 	
 	public <T extends Serializable> void delete(final T entity, Object object);
 	
-	public<T extends Serializable> void deleteById(Class<T> clazz, final long id, Object object);
+	public<T extends Serializable> void deleteById(Class<T> clazz, final Serializable id, Object object);
 
 }
