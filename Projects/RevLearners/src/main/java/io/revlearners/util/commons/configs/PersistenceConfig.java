@@ -99,7 +99,12 @@ public class PersistenceConfig {
 	public IBeanDao hibernateBeanDao() {
 		return new BeanDao();
 	}
-	
+
+	@Bean
+	public IQuestionDao hibernateQuestionDao() {
+		return new QuestionDao();
+	}
+
 	@Bean
 	public IBeanService hibernateBeanService() {
 		return new BeanService();

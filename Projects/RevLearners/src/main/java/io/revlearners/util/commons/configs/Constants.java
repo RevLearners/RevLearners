@@ -315,7 +315,7 @@ public final class Constants {
 
 	public static final long ADV_USER_PTS = 1000L;
 
-	public static Map<Long, Rank> getAngular4Ranks() {
+    public static Map<Long, Rank> getAngular4Ranks() {
 		return new LinkedHashMap<>(angular4Ranks);
 	}
 
@@ -880,6 +880,7 @@ public final class Constants {
 	public static final String COLUMN_QUESTION_ID = "QUESTION_ID";
 	public static final String COLUMN_QUESTION_TYPE_ID = "QUESTION_TYPE_ID";
 	public static final String COLUMN_QUESTION_TYPE_NAME = "QUESTION_TYPE_NAME";
+    public static final String COLUMN_QUESTION_EXPLANATION = "QUESTION_EXPLANATION";
 	public static final String COLUMN_DIFFICULTY_ID = "DIFFICULTY_ID";
 	public static final String COLUMN_OPTION_TEXT = "OPTION_TEXT";
 	public static final String COLUMN_IS_CORRECT = "IS_CORRECT";

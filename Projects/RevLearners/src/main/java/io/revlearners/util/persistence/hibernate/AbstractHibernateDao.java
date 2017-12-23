@@ -31,7 +31,7 @@ public abstract class AbstractHibernateDao extends AbstractDao implements IGener
 	}
 
 	@Override
-	public <T extends Serializable> T fetchSubTypeById(Class<T> clazz, Serializable id, Object session) {
+	public <T extends Serializable> T fetchSubTypeById(Class<T> clazz, Serializable id, Session session) {
 		if (session == null) {
 			return sf.getCurrentSession().get(clazz, id);
 		}
@@ -40,7 +40,7 @@ public abstract class AbstractHibernateDao extends AbstractDao implements IGener
 
 	@Override
 	@SuppressWarnings("unchecked")
-	public <T extends Serializable> List<T> fetchAllSubTypes(Class<T> clazz, Object session) {
+	public <T extends Serializable> List<T> fetchAllSubTypes(Class<T> clazz, Session session) {
 		if (session == null) {
 			return sf.getCurrentSession().createQuery(Constants.FROM + clazz.getName()).list();
 		}
@@ -48,7 +48,7 @@ public abstract class AbstractHibernateDao extends AbstractDao implements IGener
 	}
 
 	@Override
-	public <T extends Serializable> Serializable create(final T entity, Object session) {
+	public <T extends Serializable> Serializable create(final T entity, Session session) {
 		if (session == null) {
 			return sf.getCurrentSession().save(entity);
 		}
@@ -56,7 +56,7 @@ public abstract class AbstractHibernateDao extends AbstractDao implements IGener
 	}
 
 	@Override
-	public <T extends Serializable> T update(Class<T> clazz, final T entity, Object session) {
+	public <T extends Serializable> T update(Class<T> clazz, final T entity, Session session) {
 		if (session == null) {
 			return clazz.cast(sf.getCurrentSession().merge(entity));
 		}
@@ -65,7 +65,7 @@ public abstract class AbstractHibernateDao extends AbstractDao implements IGener
 	}
 
 	@Override
-	public <T extends Serializable> void delete(final T entity, Object session) {
+	public <T extends Serializable> void delete(final T entity, Session session) {
 		if (session == null) {
 			sf.getCurrentSession().delete(entity);
 		} else {
@@ -74,8 +74,22 @@ public abstract class AbstractHibernateDao extends AbstractDao implements IGener
 	}
 
 	@Override
-	public <T extends Serializable> void deleteById(Class<T> clazz, final Serializable id, Object session) {
+	public <T extends Serializable> void deleteById(Class<T> clazz, final Serializable id, Session session) {
 		final T entity = fetchSubTypeById(clazz, id, session);
 		delete(entity, session);
 	}
+
+
+    /**
+     * if we wanted to maintain full jpa compatibility, we could accepts EntityManager instead of
+     * Hibernate Session, and use this function to unwrap it into a Hibernate Session
+     *
+     * @param entityManager
+     * @return
+     */
+    /*
+    public Session unwrap(EntityManager entityManager) {
+        return entityManager.unwrap(org.hibernate.Session.class);
+    }
+    */
 }

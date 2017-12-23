@@ -16,32 +16,32 @@ import io.revlearners.util.commons.configs.Constants;
 public abstract class AbstractHibernateService extends AbstractService implements IGenericDao {
 
 	@Override
-	public <T extends Serializable> T fetchSubTypeById(Class<T> clazz, long id, Object session) {
+	public <T extends Serializable> T fetchSubTypeById(Class<T> clazz, Serializable id, Session session) {
 		return super.fetchSubTypeById(clazz, id, session);
 	}
 
 	@Override
-	public <T extends Serializable> List<T> fetchAllSubTypes(Class<T> clazz, Object session) {
+	public <T extends Serializable> List<T> fetchAllSubTypes(Class<T> clazz, Session session) {
 		return super.fetchAllSubTypes(clazz, session);
 	}
 
 	@Override
-	public <T extends Serializable> Serializable create(T entity, Object session) {
+	public <T extends Serializable> Serializable create(T entity, Session session) {
 		return super.create(entity, session);
 	}
 
 	@Override
-	public <T extends Serializable> T update(Class<T> clazz, T entity, Object session) {
+	public <T extends Serializable> T update(Class<T> clazz, T entity, Session session) {
 		return super.update(clazz, entity, session);
 	}
 
 	@Override
-	public <T extends Serializable> void delete(T entity, Object session) {
+	public <T extends Serializable> void delete(T entity, Session session) {
 		super.delete(entity, session);
 	}
 
 	@Override
-	public <T extends Serializable> void deleteById(Class<T> clazz, long id, Object session) {
+	public <T extends Serializable> void deleteById(Class<T> clazz, Serializable id, Session session) {
 		super.deleteById(clazz, id, session);		
 	}
 	

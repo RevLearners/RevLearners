@@ -6,6 +6,7 @@ import java.io.File;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -60,7 +61,7 @@ public class GenericPersistenceLayerTest extends PersistenceLayerTest {
 				"this is a salt, a really bad salt, but a salt none the less");
 				
 		for (Topic t : topics) {
-			rank = t.getRankByWeight(1);
+			rank = t.getRankByWeight(1L);
 			
 			// Not all the topics have been implemented yet
 			if (rank != null) {
@@ -87,7 +88,7 @@ public class GenericPersistenceLayerTest extends PersistenceLayerTest {
 				"salt2");
 				
 		for (Topic t : topics) {
-			rank = t.getRankByWeight(1);
+			rank = t.getRankByWeight(1L);
 			
 			// Not all the topics have been implemented yet
 			if (rank != null) {
@@ -109,9 +110,9 @@ public class GenericPersistenceLayerTest extends PersistenceLayerTest {
 		QuestionType type = service.fetchSubTypeById(QuestionType.class, Constants.QUESTION_TRUE_FALSE, session);
 		QuestionDifficulty diff = service.fetchSubTypeById(QuestionDifficulty.class, Constants.DIFFICULTY_EASY,
 				session);
-		Question quest = new Question(topic, type, diff, "Is the answer to life 42?");
+		Question quest = new Question(topic, type, diff, "Is the answer to life 42?", null);
 
-		Set<QuestionOption> opts = new HashSet<QuestionOption>();
+		List<QuestionOption> opts = new ArrayList<>();
 		opts.add(new QuestionOption(quest, "True", true));
 		opts.add(new QuestionOption(quest, "False", false));
 		quest.addOptions(opts);
