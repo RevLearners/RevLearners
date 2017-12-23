@@ -60,7 +60,7 @@ public class GenericPersistenceLayerTest extends PersistenceLayerTest {
 				"this is a salt, a really bad salt, but a salt none the less");
 				
 		for (Topic t : topics) {
-			rank = t.getRankByWeight(1);
+			rank = t.getRankByWeight(1L);
 			
 			// Not all the topics have been implemented yet
 			if (rank != null) {
@@ -87,7 +87,7 @@ public class GenericPersistenceLayerTest extends PersistenceLayerTest {
 				"salt2");
 				
 		for (Topic t : topics) {
-			rank = t.getRankByWeight(1);
+			rank = t.getRankByWeight(1L);
 			
 			// Not all the topics have been implemented yet
 			if (rank != null) {
