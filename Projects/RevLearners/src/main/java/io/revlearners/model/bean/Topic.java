@@ -25,8 +25,7 @@ public class Topic implements Serializable {
 	@Column(name = Constants.COLUMN_TOPIC_NAME)
 	private String topicName;
 
-//	@OneToMany(cascade = CascadeType.ALL, mappedBy = Constants.PK_TOPIC, fetch = FetchType.EAGER)
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = Constants.FK_TOPIC)
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = Constants.FK_TOPIC, fetch = FetchType.EAGER)
 	private Set<Rank> ranks = new HashSet<Rank>();
 
 	public Topic(Long id, String topicName, Set<Rank> ranks) {
