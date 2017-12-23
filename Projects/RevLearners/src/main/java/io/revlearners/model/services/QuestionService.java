@@ -1,6 +1,7 @@
 package io.revlearners.model.services;
 
 import io.revlearners.model.bean.*;
+
 import io.revlearners.model.services.dao.interfaces.contracts.IBeanService;
 import io.revlearners.util.commons.configs.Constants;
 import org.hibernate.HibernateException;
@@ -63,7 +64,7 @@ public class QuestionService {
         double score = 0;
 	    for (Question q: questions) {
             QuestionOption selected = (QuestionOption)(q.getOptions().toArray()[0]);
-            Question poolQuestion = beanService.fetchSubTypeById(Question.class, q.getId(), session);
+            Question poolQuestion = beanService.fetchSubTypeById(Question.class, q.getId());
 
             boolean answeredCorrectly = poolQuestion.getOptions().stream()
                     .anyMatch(option -> option.isCorrect() && option.getId().equals(selected.getId()));
