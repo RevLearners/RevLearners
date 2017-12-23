@@ -16,7 +16,7 @@ public class UserRank implements Serializable {
 	private static final long serialVersionUID = -3402953668398433930L;
 
 	@EmbeddedId
-	private UserTopicRankPair pk;
+	private UserRankPair pk;
 
 	@Column(name = Constants.COLUMN_MERIT)
 	private Long merit;
@@ -26,15 +26,15 @@ public class UserRank implements Serializable {
 	}
 
 	public UserRank(User user, Rank rank, Long merit) {
-		this.pk = new UserTopicRankPair(user, rank);
+		this.pk = new UserRankPair(user, rank);
 		this.merit = merit;
 	}
 
-	public UserTopicRankPair getPk() {
+	public UserRankPair getPk() {
 		return pk;
 	}
 
-	public void setPk(UserTopicRankPair id) {
+	public void setPk(UserRankPair id) {
 		this.pk = id;
 	}
 
@@ -65,7 +65,7 @@ public class UserRank implements Serializable {
 	}
 
 	@Embeddable
-	public static class UserTopicRankPair implements Serializable {
+	public static class UserRankPair implements Serializable {
 
 		private static final long serialVersionUID = -3420765176964284918L;
 
@@ -77,22 +77,22 @@ public class UserRank implements Serializable {
 		@JoinColumn(name = Constants.COLUMN_RANK_ID)
 		private Rank rank;
 
-		public UserTopicRankPair(User user, Rank rank) {
+		public UserRankPair(User user, Rank rank) {
 			this.user = user;
 			this.rank = rank;
 		}
 
-		public UserTopicRankPair() {
+		public UserRankPair() {
 		}
 
 		@Override
 		public boolean equals(Object o) {
 			if (this == o)
 				return true;
-			if (!(o instanceof UserTopicRankPair))
+			if (!(o instanceof UserRankPair))
 				return false;
 
-			UserTopicRankPair that = (UserTopicRankPair) o;
+			UserRankPair that = (UserRankPair) o;
 
 			return that.rank.getId().equals(this.rank.getId()) && that.user.getId().equals(this.user.getId());
 		}
