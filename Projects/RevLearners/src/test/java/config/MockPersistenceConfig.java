@@ -35,10 +35,10 @@ public class MockPersistenceConfig {
     @Bean
     public DataSource dataSource() {
         DriverManagerDataSource ds = new DriverManagerDataSource();
-        ds.setDriverClassName(System.getenv("DBDC"));
-        ds.setUrl(System.getenv("DBUR"));
-        ds.setUsername(System.getenv("DBTESTU"));
-        ds.setPassword(System.getenv("DBTESTP"));
+        ds.setDriverClassName(System.getenv("RDS_DRIVER_CLASS"));
+        ds.setUrl(System.getenv("RDS_URL"));
+        ds.setUsername(System.getenv("RDS_USERNAME"));
+        ds.setPassword(System.getenv("RDS_PASSWORD"));
         return ds;
     }
 
@@ -49,7 +49,7 @@ public class MockPersistenceConfig {
         factoryBean.setPackagesToScan("io.revlearner.model"); // varargs method
 
         Properties props = new Properties();
-        props.setProperty("hibernate.hbm2ddl.auto", "update");
+        props.setProperty("hibernate.hbm2ddl.auto", "create");
         props.setProperty("hibernate.show_sql", "true");
         props.setProperty("hibernate.dialect", "org.hibernate.dialect.Oracle10gDialect");
         props.setProperty("hibernate.connection.isolation", String.valueOf(Connection.TRANSACTION_READ_COMMITTED));
