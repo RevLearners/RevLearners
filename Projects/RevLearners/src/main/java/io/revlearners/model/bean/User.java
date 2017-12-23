@@ -39,8 +39,8 @@ public class User implements Serializable {
 	private UserRole role;
 
 	@ManyToMany(fetch = FetchType.LAZY)
-	@JoinTable(name = Constants.TABLE_FRIEND, joinColumns = @JoinColumn(name = Constants.COLUMN_USER1_ID), inverseJoinColumns = @JoinColumn(name = Constants.COLUMN_USER2_ID))
-	private List<User> friends;
+	@JoinTable(name = Constants.TABLE_FRIEND, joinColumns = @JoinColumn(name = Constants.COLUMN_USER_ID), inverseJoinColumns = @JoinColumn(name = Constants.COLUMN_FRIEND_ID))
+	private Set<User> friends = new HashSet<User>();
 	
 	@Column(table = Constants.TABLE_USER_CREDENTIALS, name = Constants.COLUMN_EMAIL)
 	private String email;
@@ -53,6 +53,19 @@ public class User implements Serializable {
 
 	@Column(table = Constants.TABLE_USER_CREDENTIALS, name = Constants.COLUMN_SALT)
 	private String salt;
+	
+	@OneToMany(cascade=CascadeType.ALL, mappedBy = Constants.PK_USER, fetch = FetchType.EAGER)
+	private Set<UserCertification> certifications = new HashSet<UserCertification>();
+	
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = Constants.PK_USER, fetch = FetchType.EAGER)
+	private Set<UserRank> ranks = new HashSet<UserRank>();
+	
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = Constants.USER)
+	private Set<QuizAttempt> quizzes;
+	
+	@ManyToMany(fetch = FetchType.LAZY)
+	@JoinTable(name = Constants.TABLE_USER_CHALLENGE_ATTEMPT, joinColumns = @JoinColumn(name = Constants.COLUMN_USER_ID), inverseJoinColumns = @JoinColumn(name = Constants.COLUMN_ATTEMPT_ID))
+	private List<ChallengeAttempt> challenges;
 	
 	public String getEmail() {
 		return email;
@@ -93,12 +106,6 @@ public class User implements Serializable {
 	public void setRanks(Set<UserRank> ranks) {
 		this.ranks = ranks;
 	}
-
-	@OneToMany(cascade=CascadeType.ALL, mappedBy = Constants.PK_USER, fetch = FetchType.EAGER)
-	private Set<UserCertification> certifications = new HashSet<UserCertification>();
-	
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = Constants.PK_USER, fetch = FetchType.EAGER)
-	private Set<UserRank> ranks = new HashSet<UserRank>();
 
 	public boolean addCertification(Set<UserCertification> certs) {
 		return certifications.addAll(certs);
@@ -180,11 +187,11 @@ public class User implements Serializable {
 		this.role = role;
 	}
 
-	public List<User> getFriends() {
+	public Set<User> getFriends() {
 		return friends;
 	}
 
-	public void setFriends(List<User> friends) {
+	public void setFriends(Set<User> friends) {
 		this.friends = friends;
 	}
 }

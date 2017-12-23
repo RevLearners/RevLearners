@@ -6,6 +6,7 @@ import io.revlearners.util.commons.configs.Constants;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
@@ -25,9 +26,9 @@ public class Message implements Serializable {
     @JoinColumn(name=Constants.COLUMN_SENDER_ID, referencedColumnName=Constants.COLUMN_USER_ID)
     private User sender;
 
-    @ManyToOne
-    @JoinColumn(name=Constants.COLUMN_RECEIVER_ID, referencedColumnName=Constants.COLUMN_USER_ID)
-    private User receiver;
+    @ManyToMany
+	@JoinTable(name=Constants.TABLE_MESSAGE_RECEIVER, joinColumns=@JoinColumn(name=Constants.COLUMN_MESSAGE_ID), inverseJoinColumns=@JoinColumn(name=Constants.COLUMN_USER_ID))
+    private Set<User> receivers = new HashSet<User>();
 
     @Column(name=Constants.COLUMN_MESSAGE_TITLE)
     private String title;
@@ -46,7 +47,7 @@ public class Message implements Serializable {
     @Column(name=Constants.COLUMN_MESSAGE_TIME)
     private LocalDateTime time;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name=Constants.COLUMN_STATUS_ID)
     private MessageStatus status;
 
@@ -55,9 +56,9 @@ public class Message implements Serializable {
 		this.blobs = blobs;
 	}
 
-	public Message(User sender, User receiver, String title, String contents, Set<FileBlob> blobs, LocalDateTime time, MessageStatus status) {
+	public Message(User sender, Set<User> receivers, String title, String contents, Set<FileBlob> blobs, LocalDateTime time, MessageStatus status) {
         this.sender = sender;
-        this.receiver = receiver;
+        this.receivers = receivers;
         this.title = title;
         this.contents = contents;
         this.blobs = blobs;
@@ -65,9 +66,9 @@ public class Message implements Serializable {
         this.status = status;
     }
 
-    public Message(User sender, User receiver, String title, String content, LocalDateTime time, MessageStatus status) {
+    public Message(User sender, Set<User> receivers, String title, String content, LocalDateTime time, MessageStatus status) {
         this.sender = sender;
-        this.receiver = receiver;
+        this.receivers = receivers;
         this.title = title;
         this.contents = content;
         this.time = time;
@@ -93,12 +94,12 @@ public class Message implements Serializable {
         this.sender = sender;
     }
 
-    public User getReceiver() {
-        return receiver;
+    public Set<User> getReceivers() {
+        return receivers;
     }
 
-    public void setReceiver(User receiver) {
-        this.receiver = receiver;
+    public void setReceivers(Set<User> receivers) {
+        this.receivers = receivers;
     }
 
     public String getTitle() {

@@ -24,6 +24,10 @@ public class ReasonType implements Serializable {
 		type = string;
 	}
 
+	public ReasonType() {
+		
+	}
+	
 	public ReasonType(long id) {
         this.id = id;
     }

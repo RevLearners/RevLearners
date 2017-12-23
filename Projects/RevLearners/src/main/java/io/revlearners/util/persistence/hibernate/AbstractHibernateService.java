@@ -16,33 +16,37 @@ import io.revlearners.util.commons.configs.Constants;
 public abstract class AbstractHibernateService extends AbstractService implements IGenericDao {
 
 	@Override
-	public <T extends Serializable> T fetchSubTypeById(Class<T> clazz, long id, Object session) {
-		return super.fetchSubTypeById(clazz, id, session);
+	public <T extends Serializable> T fetchSubTypeById(Class<T> clazz, long id) {
+		return super.fetchSubTypeById(clazz, id);
 	}
 
 	@Override
-	public <T extends Serializable> List<T> fetchAllSubTypes(Class<T> clazz, Object session) {
-		return super.fetchAllSubTypes(clazz, session);
+	public <T extends Serializable> List<T> fetchAllSubTypes(Class<T> clazz) {
+		return super.fetchAllSubTypes(clazz);
 	}
 
 	@Override
-	public <T extends Serializable> Serializable create(T entity, Object session) {
-		return super.create(entity, session);
+	public <T extends Serializable> Serializable create(T entity) {
+		return super.create(entity);
 	}
 
 	@Override
-	public <T extends Serializable> T update(Class<T> clazz, T entity, Object session) {
-		return super.update(clazz, entity, session);
+	public <T extends Serializable> T update(Class<T> clazz, T entity) {
+		return super.update(clazz, entity);
 	}
 
 	@Override
-	public <T extends Serializable> void delete(T entity, Object session) {
-		super.delete(entity, session);
+	public <T extends Serializable> void delete(T entity) {
+		super.delete(entity);
 	}
 
 	@Override
-	public <T extends Serializable> void deleteById(Class<T> clazz, long id, Object session) {
-		super.deleteById(clazz, id, session);		
+	public <T extends Serializable> void deleteById(Class<T> clazz, long id) {
+		super.deleteById(clazz, id);		
+	}
+	
+	public Session getSession() {
+		return ((AbstractHibernateDao) getDao()).getSession();
 	}
 	
 }

@@ -63,7 +63,8 @@ public class MockPersistenceConfig {
 				MimeType.class, Notification.class, Question.class, QuestionDifficulty.class, QuestionOption.class,
 				QuestionType.class, Quiz.class, Rank.class, Topic.class, User.class,
 				UserCertification.class, UserRank.class, UserRole.class, UserStatus.class, Reason.class,
-				ReportQuestion.class, ReasonType.class, RequestStatus.class, QuizQuestion.class);
+				ReportQuestion.class, ReportUser.class, ReasonType.class, RequestStatus.class, Challenge.class,
+				ChallengeAttempt.class, QuizAttempt.class);
 		return factoryBean;
 	}
 

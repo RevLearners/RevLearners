@@ -2,6 +2,8 @@ package io.revlearners.model.bean;
 
 import io.revlearners.util.commons.configs.Constants;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -9,9 +11,14 @@ import javax.persistence.Table;
 
 @Table
 @Entity(name= Constants.TABLE_REQUEST_STATUS)
-public class RequestStatus {
+public class RequestStatus implements Serializable {
 
-    @Id
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 3270050480653921428L;
+
+	@Id
     @Column(name=Constants.COLUMN_STATUS_ID)
     private Long id;
 

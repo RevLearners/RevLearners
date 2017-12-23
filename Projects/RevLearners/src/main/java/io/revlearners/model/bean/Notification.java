@@ -6,6 +6,8 @@ import io.revlearners.util.commons.configs.Constants;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name=Constants.TABLE_NOTIFICATION)
@@ -23,9 +25,9 @@ public class Notification implements Serializable {
     @JoinColumn(name=Constants.COLUMN_SENDER_ID, referencedColumnName=Constants.COLUMN_USER_ID)
     private User sender;
 
-    @ManyToOne
-    @JoinColumn(name=Constants.COLUMN_RECEIVER_ID, referencedColumnName=Constants.COLUMN_USER_ID)
-    private User receiver;
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@JoinTable(name=Constants.TABLE_NOTIFICATION_RECEIVER, joinColumns=@JoinColumn(name=Constants.COLUMN_NOTIFICATION_ID), inverseJoinColumns=@JoinColumn(name=Constants.COLUMN_USER_ID))
+    private Set<User> receivers = new HashSet<User>();
 
     @Column(name=Constants.COLUMN_NOTIFICATION_TITLE)
     private String title;
@@ -43,9 +45,9 @@ public class Notification implements Serializable {
     public Notification() {
     }
 
-    public Notification(User sender, User receiver, String title, String contents, LocalDateTime time, MessageStatus status) {
+    public Notification(User sender, Set<User> receivers, String title, String contents, LocalDateTime time, MessageStatus status) {
         this.sender = sender;
-        this.receiver = receiver;
+        this.receivers = receivers;
         this.title = title;
         this.contents = contents;
         this.time = time;
@@ -68,12 +70,12 @@ public class Notification implements Serializable {
         this.sender = sender;
     }
 
-    public User getReceiver() {
-        return receiver;
+    public Set<User> getReceivers() {
+        return receivers;
     }
 
-    public void setReceiver(User receiver) {
-        this.receiver = receiver;
+    public void setReceivers(Set<User> receivers) {
+        this.receivers = receivers;
     }
 
     public String getTitle() {
