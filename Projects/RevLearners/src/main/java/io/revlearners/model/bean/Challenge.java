@@ -22,17 +22,22 @@ public class Challenge implements Serializable {
 	@OneToOne
     @JoinColumn(name=Constants.COLUMN_QUIZ_ID)
 	private Quiz quiz;
+
+    @ManyToMany
+    @JoinTable(name=Constants.COLUMN_CHALLENGE_USERS, joinColumns=@JoinColumn(name=Constants.COLUMN_CHALLENGE_ID), inverseJoinColumns=@JoinColumn(name=Constants.COLUMN_USER_ID))
+	private Set<User> users;
 	
 	@OneToMany(mappedBy="challenge", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	private List<ChallengeAttempt> attempts;
+	private Set<ChallengeAttempt> attempts;
 
 	public Challenge() {
 		
 	}
 	
-	public Challenge(Quiz quiz) {
+	public Challenge(Quiz quiz, Set<User> users) {
 		this.quiz = quiz;
-	}
+        this.users = users;
+    }
 	
 	public Long getId() {
 		return id;
@@ -50,14 +55,20 @@ public class Challenge implements Serializable {
 		this.quiz = quiz;
 	}
 
-	public List<ChallengeAttempt> getAttempts() {
+	public Set<ChallengeAttempt> getAttempts() {
 		return attempts;
 	}
 
-	public void setAttempts(List<ChallengeAttempt> attempts) {
+	public void setAttempts(Set<ChallengeAttempt> attempts) {
 		this.attempts = attempts;
 	}
-	
-	
+
+    public Set<User> getUsers() {
+        return users;
+    }
+
+    public void setUsers(Set<User> users) {
+        this.users = users;
+    }
 
 }

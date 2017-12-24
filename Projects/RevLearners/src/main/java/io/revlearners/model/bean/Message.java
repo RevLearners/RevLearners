@@ -11,52 +11,52 @@ import java.util.LinkedHashSet;
 import java.util.Set;
 
 @Entity
-@Table(name=Constants.TABLE_MESSAGE)
+@Table(name = Constants.TABLE_MESSAGE)
 public class Message implements Serializable {
 
-	private static final long serialVersionUID = -1952814977786579674L;
+    private static final long serialVersionUID = -1952814977786579674L;
 
-	@Id
+    @Id
     @Column(name = Constants.COLUMN_MESSAGE_ID)
     @SequenceGenerator(name = "SEQ_GEN_MESSAGE", sequenceName = "SEQ_MESSAGE", initialValue = 1, allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "SEQ_GEN_MESSAGE")
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name=Constants.COLUMN_SENDER_ID, referencedColumnName=Constants.COLUMN_USER_ID)
+    @JoinColumn(name = Constants.COLUMN_SENDER_ID, referencedColumnName = Constants.COLUMN_USER_ID)
     private User sender;
 
     @ManyToMany
-	@JoinTable(name=Constants.TABLE_MESSAGE_RECEIVER, joinColumns=@JoinColumn(name=Constants.COLUMN_MESSAGE_ID), inverseJoinColumns=@JoinColumn(name=Constants.COLUMN_USER_ID))
+    @JoinTable(name = Constants.TABLE_MESSAGE_RECEIVER, joinColumns = @JoinColumn(name = Constants.COLUMN_MESSAGE_ID), inverseJoinColumns = @JoinColumn(name = Constants.COLUMN_USER_ID))
     private Set<User> receivers = new HashSet<User>();
 
-    @Column(name=Constants.COLUMN_MESSAGE_TITLE)
+    @Column(name = Constants.COLUMN_MESSAGE_TITLE)
     private String title;
 
-    @Column(name=Constants.COLUMN_MESSAGE_CONTENTS)
+    @Column(name = Constants.COLUMN_MESSAGE_CONTENTS)
     private String contents;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
     @JoinTable(
-    		name=Constants.TABLE_MESSAGE_ATTACHMENT,
-    		joinColumns = @JoinColumn(name = Constants.COLUMN_MESSAGE_ID),
-    		inverseJoinColumns = @JoinColumn(name = Constants.COLUMN_BLOB_ID)
-    		)
+            name = Constants.TABLE_MESSAGE_ATTACHMENT,
+            joinColumns = @JoinColumn(name = Constants.COLUMN_MESSAGE_ID),
+            inverseJoinColumns = @JoinColumn(name = Constants.COLUMN_BLOB_ID)
+    )
     private Set<FileBlob> blobs = new LinkedHashSet<FileBlob>();
 
-    @Column(name=Constants.COLUMN_MESSAGE_TIME)
+    @Column(name = Constants.COLUMN_MESSAGE_TIME)
     private LocalDateTime time;
 
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinColumn(name=Constants.COLUMN_STATUS_ID)
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = Constants.COLUMN_STATUS_ID)
     private MessageStatus status;
 
 
     public void setBlobs(Set<FileBlob> blobs) {
-		this.blobs = blobs;
-	}
+        this.blobs = blobs;
+    }
 
-	public Message(User sender, Set<User> receivers, String title, String contents, Set<FileBlob> blobs, LocalDateTime time, MessageStatus status) {
+    public Message(User sender, Set<User> receivers, String title, String contents, Set<FileBlob> blobs, LocalDateTime time, MessageStatus status) {
         this.sender = sender;
         this.receivers = receivers;
         this.title = title;

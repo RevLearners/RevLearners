@@ -2,11 +2,10 @@ package io.revlearners.model.dao.interfaces;
 
 import io.revlearners.model.bean.Question;
 import io.revlearners.model.bean.Topic;
-import org.hibernate.Session;
 
-import java.util.List;
+import java.util.Set;
 
 public interface IQuestionDao extends IBeanDao {
 
-    List<Question> fetchRandomQuestionsByTopic(int amt, Topic topic);
+    Set<Question> fetchRandomQuestionsByTopic(int amt, Topic topic);
 }

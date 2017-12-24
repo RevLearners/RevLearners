@@ -1,7 +1,7 @@
 package io.revlearners.model.bean;
 
 import java.io.Serializable;
-import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -34,22 +34,22 @@ public class ChallengeAttempt implements Serializable {
 	@Column(name=Constants.COLUMN_ATTEMPT_SCORE)
     private Float score;
 
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	@JoinColumn(name = Constants.COLUMN_CHALLENGE_ID, referencedColumnName = Constants.COLUMN_CHALLENGE_ID)
+    @ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+	@JoinColumn(name = Constants.COLUMN_CHALLENGE_ID)
 	private Challenge challenge;
-
-	@ManyToMany(targetEntity=QuestionOption.class, cascade=CascadeType.ALL, fetch=FetchType.EAGER)
-	@JoinTable(name=Constants.TABLE_CHALLENGE_ATTEMPT_ANSWERS, joinColumns=@JoinColumn(name=Constants.COLUMN_ATTEMPT_ID), inverseJoinColumns=@JoinColumn(name=Constants.COLUMN_OPTION_ID))
-	private List<QuestionOption> answers;
 
 	@ManyToOne(targetEntity=User.class, fetch=FetchType.EAGER)
 	@JoinColumn(name=Constants.COLUMN_USER_ID)
 	private User user;
 
+	@ManyToMany(targetEntity=QuestionOption.class, cascade=CascadeType.PERSIST, fetch=FetchType.EAGER)
+	@JoinTable(name=Constants.TABLE_CHALLENGE_ATTEMPT_ANSWERS, joinColumns=@JoinColumn(name=Constants.COLUMN_ATTEMPT_ID), inverseJoinColumns=@JoinColumn(name=Constants.COLUMN_OPTION_ID))
+	private Set<QuestionOption> answers;
+
     public ChallengeAttempt() {
 	}
 	
-	public ChallengeAttempt(Challenge challenge, User user, List<QuestionOption> answers, Float score) {
+	public ChallengeAttempt(Challenge challenge, User user, Set<QuestionOption> answers, Float score) {
 	    this.challenge = challenge;
 		this.answers = answers;
 		this.user = user;
@@ -64,11 +64,11 @@ public class ChallengeAttempt implements Serializable {
 		this.challenge = challenge;
 	}
 
-	public List<QuestionOption> getAnswers() {
+	public Set<QuestionOption> getAnswers() {
 		return answers;
 	}
 
-	public void setAnswers(List<QuestionOption> answers) {
+	public void setAnswers(Set<QuestionOption> answers) {
 		this.answers = answers;
 	}
 

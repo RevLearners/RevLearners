@@ -11,10 +11,7 @@ import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class QuestionService {
     @Autowired
@@ -30,18 +27,21 @@ public class QuestionService {
     /**
      * answers map maps question id to the list of selected answers for said id
      *
-     * @param
+     * @param user
+     * @param challenge
+     * @param selectedAnswers
      * @return
      */
-	public QuizAttempt scoreQuiz(Quiz quiz, User user, List<Question> questions, Map<Long, List<QuestionOption>> selectedAnswers)  {
+	public ChallengeAttempt scoreQuiz(User user, Challenge challenge, Map<Long, Set<QuestionOption>> selectedAnswers)  {
 	    Transaction tx = null;
-	    QuizAttempt attempt = null;
+	    ChallengeAttempt attempt = null;
 
 	    try(Session session = sf.openSession()) {
+	        Set<Question> questions = challenge.getQuiz().getQuestions();
             tx = session.beginTransaction();
             float score = scoreAll(questions, selectedAnswers);
-            List<QuestionOption> flattened = flattenOptions(selectedAnswers);
-            attempt = new QuizAttempt(quiz, user, flattened, score);
+            Set<QuestionOption> flattened = flattenOptions(selectedAnswers);
+            attempt = new ChallengeAttempt(challenge, user, flattened, score);
             session.save(attempt);
             session.getTransaction().commit();
         }
@@ -52,9 +52,9 @@ public class QuestionService {
         return attempt;
 	}
 
-	private List<QuestionOption> flattenOptions(Map<Long, List<QuestionOption>> options) {
-        List<QuestionOption> flattenedOptions = new ArrayList<>();
-        for (List<QuestionOption> o: options.values())
+	private Set<QuestionOption> flattenOptions(Map<Long, Set<QuestionOption>> options) {
+        Set<QuestionOption> flattenedOptions = new HashSet<>();
+        for (Set<QuestionOption> o: options.values())
             flattenedOptions.addAll(o);
         return flattenedOptions;
     }
@@ -66,10 +66,10 @@ public class QuestionService {
      * @param questions
      * @return
      */
-    private float scoreAll(List <Question> questions, Map<Long, List<QuestionOption>> selected) {
+    private float scoreAll(Set <Question> questions, Map<Long, Set<QuestionOption>> selected) {
         float score = 0;
 	    for (Question q: questions) {
-            List<QuestionOption> selectedForQ = selected.get(q.getId());
+            Set<QuestionOption> selectedForQ = selected.get(q.getId());
             Question referenceQ = beanService.fetchSubTypeById(Question.class, q.getId());
             score += scoreOne(q, selectedForQ, referenceQ);
 
@@ -84,8 +84,8 @@ public class QuestionService {
      * @param reference
      * @return
      */
-    private float scoreOne(Question question, List<QuestionOption> selectedOptions, Question reference) {
-            QuestionOption selected = selectedOptions.get(0);
+    private float scoreOne(Question question, Set<QuestionOption> selectedOptions, Question reference) {
+            QuestionOption selected = new ArrayList<>(selectedOptions).get(0);
             boolean answeredCorrectly = reference.getOptions().stream()
                     .anyMatch(option -> option.isCorrect() && option.getId().equals(selected.getId()));
 
@@ -98,20 +98,17 @@ public class QuestionService {
 
     /**
      * generates a random list of questions in the specified topic;
-     * options are shuffled for each question
+     * <d>options are shuffled for each question</d> can't shuffle sets
      *
      * @param n
      * @param topic
      * @return
      */
-    public List<Question> generateQuestions(int n, Topic topic) {
+    public Set<Question> generateQuestions(int n, Topic topic) {
 	    Transaction tx = null;
 	    try(Session session = sf.openSession()) {
             tx = session.beginTransaction();
-            List<Question> questions = questionDao.fetchRandomQuestionsByTopic(n, topic);
-
-            for (Question q: questions)
-                Collections.shuffle(q.getOptions());
+            Set<Question> questions = questionDao.fetchRandomQuestionsByTopic(n, topic);
 
             session.getTransaction().commit();
             return questions;
@@ -130,7 +127,7 @@ public class QuestionService {
      * @param question
      * @param options
      */
-    public void addQuestion(Question question, List<QuestionOption> options) {
+    public void addQuestion(Question question, Set<QuestionOption> options) {
  	    Transaction tx = null;
 	    try(Session session = sf.openSession()) {
             tx = session.beginTransaction();

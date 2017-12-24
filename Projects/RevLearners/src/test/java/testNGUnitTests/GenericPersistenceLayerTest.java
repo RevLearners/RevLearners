@@ -2,11 +2,7 @@
 package testNGUnitTests;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Random;
-import java.util.Set;
+import java.util.*;
 
 import org.hibernate.Session;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,196 +17,137 @@ import preTestScripts.DBInit;
 // Tests are enabled and disabled as needed to improve performance 
 public class GenericPersistenceLayerTest extends PersistenceLayerTest {
 
-	private Session session = null;
+    private Session session = null;
 
-	private Long quizId;
-	private Long questId;
-	private Long userId;
-	private Long receiverId;
+    private Long quizId;
+    private Long questId;
+    private Long userId;
+    private Long receiverId;
 
-	@BeforeClass
-	public final void before() {
-		DBInit.create(sf);
+    @BeforeClass
+    public final void before() {
+        DBInit.create(sf);
         session = sf.openSession();
-	}
+    }
 
-	@AfterClass
-	public final void after() {
-		session.close();
-	}
+    @AfterClass
+    public final void after() {
+        session.close();
+    }
 
-	@Test(priority = 1)
-	@Transactional
-	public void readTopicTest() {
-		Topic topic = service.fetchSubTypeById(Topic.class, Constants.TOPIC_CORE_JAVA);
-		System.out.println(topic);
-	}
+    @Test(priority = 1)
+    @Transactional
+    public void readTopicTest() {
+        Topic topic = service.fetchSubTypeById(Topic.class, Constants.TOPIC_CORE_JAVA);
+        System.out.println(topic);
+    }
 
-	@Test(priority = 1)
-	@Transactional
-	public void userInsertTest() {
-		Set<Topic> topics;
-		Rank rank;
-		UserRank utr;
+    @Test(priority = 1)
+    @Transactional
+    public void userInsertTest() {
+        session.beginTransaction();
+        UserStatus us = service.fetchSubTypeById(UserStatus.class, Constants.STATUS_PENDING);
+        UserRole ur = service.fetchSubTypeById(UserRole.class, Constants.ROLE_BASIC);
+        User user = new User("John", null, "Doe", us, ur, "mail@email.com", "aUsername", "password",
+                "this is a salt, a really bad salt, but a salt none the less");
+        initUserRanks(user);
+        userId = (Long) service.create(user);
+        session.getTransaction().commit();
 
-		topics = new HashSet<Topic>(service.fetchAllSubTypes(Topic.class));
-		UserStatus us = service.fetchSubTypeById(UserStatus.class, Constants.STATUS_PENDING);
-		UserRole ur = service.fetchSubTypeById(UserRole.class, Constants.ROLE_BASIC);
-		User user = new User("John", null, "Doe", us, ur, "mail@email.com", "aUsername", "password",
-				"this is a salt, a really bad salt, but a salt none the less");
+    }
 
-		for (Topic t : topics) {
-			rank = t.getRankByWeight(1L);
+    @Test(priority = 1)
+    @Transactional
+    public void insertReceiverTest() {
+        session.beginTransaction();
+        UserStatus us = service.fetchSubTypeById(UserStatus.class, Constants.STATUS_PENDING);
+        UserRole ur = service.fetchSubTypeById(UserRole.class, Constants.ROLE_BASIC);
+        User user = new User("Jane", null, "Bobbert", us, ur, "mail2@email2.com", "aU2se2rname", "password2", "salt2");
+        initUserRanks(user);
+        receiverId = (Long) service.create(user);
+        session.getTransaction().commit();
+    }
 
-			// Not all the topics have been implemented yet
-			if (rank != null) {
-				utr = new UserRank(user, rank, rank.getMeritThreshold());
-				user.getRanks().add(utr);
-			}
-		}
-		
-		session.beginTransaction();
-		userId = (Long) service.create(user);
-		session.getTransaction().commit();
+    public void initUserRanks(User user) {  // todo: add to user service
+        Set<Topic> topics = new HashSet<>(service.fetchAllSubTypes(Topic.class));
+        for (Topic t : topics) {
+            Rank rank = t.getRankByWeight(1L);
 
-	}
+            // Not all the topics have been implemented yet
+            Set<UserRank> userRanks = new HashSet<>();
+            if (rank != null) {
+                UserRank utr = new UserRank(user, rank, rank.getMeritThreshold());
+                userRanks.add(utr);
+            }
+            user.setRanks(userRanks);
+        }
+    }
 
-	@Test(priority = 1)
-	@Transactional
-	public void insertReceiverTest() {
-		Set<Topic> topics;
-		Rank rank;
-		UserRank utr;
+    @Test()
+    @Transactional
+    public void questionInsertTest() {
+        session.beginTransaction();
+        Topic topic = service.fetchSubTypeById(Topic.class, Constants.TOPIC_CORE_JAVA);
+        QuestionType type = service.fetchSubTypeById(QuestionType.class, Constants.QUESTION_TRUE_FALSE);
+        QuestionDifficulty diff = service.fetchSubTypeById(QuestionDifficulty.class, Constants.DIFFICULTY_EASY);
+        Question quest = new Question(topic, type, diff, "Is the answer to life 42?", null);
 
-		session.beginTransaction();
-		topics = new HashSet<Topic>(service.fetchAllSubTypes(Topic.class));
-		UserStatus us = service.fetchSubTypeById(UserStatus.class, Constants.STATUS_PENDING);
-		UserRole ur = service.fetchSubTypeById(UserRole.class, Constants.ROLE_BASIC);
-		User user = new User("Jane", null, "Bobbert", us, ur, "mail2@email2.com", "aU2se2rname", "password2", "salt2");
+        Set<QuestionOption> opts = new HashSet<>();
+        opts.add(new QuestionOption(quest, "True", true));
+        opts.add(new QuestionOption(quest, "False", false));
+        quest.setOptions(opts);
 
-		for (Topic t : topics) {
-			rank = t.getRankByWeight(1L);
-			
-			// Not all the topics have been implemented yet
-			if (rank != null) {
-				utr = new UserRank(user, rank, rank.getMeritThreshold());
-				user.getRanks().add(utr);
-			}
-		}
+        questId = (Long) service.create(quest);
+        session.getTransaction().commit();
+    }
 
-		receiverId = (Long) service.create(user);
-		session.getTransaction().commit();
-	}
+    @Test(dependsOnMethods = "questionInsertTest")
+    @Transactional
+    public void quizInsertTest() {
+        Set<Question> quests;
+        Quiz quiz, quiz2;
 
-	@Test()
-	@Transactional
-	public void questionInsertTest() {
+        session.beginTransaction();
+        quests = new HashSet<>(service.fetchAllSubTypes(Question.class));
+        quiz = new Quiz(quests, LocalDateTime.now());
 
-		Topic topic = service.fetchSubTypeById(Topic.class, Constants.TOPIC_CORE_JAVA);
-		QuestionType type = service.fetchSubTypeById(QuestionType.class, Constants.QUESTION_TRUE_FALSE);
-		QuestionDifficulty diff = service.fetchSubTypeById(QuestionDifficulty.class, Constants.DIFFICULTY_EASY);
-		Question quest = new Question(topic, type, diff, "Is the answer to life 42?", null);
+        quests = new HashSet<>(service.fetchAllSubTypes(Question.class));
+        quiz2 = new Quiz(quests, LocalDateTime.now());
 
-		List<QuestionOption> opts = new ArrayList<>();
-		opts.add(new QuestionOption(quest, "True", true));
-		opts.add(new QuestionOption(quest, "False", false));
-		quest.addOptions(opts);
+        quizId = (Long) service.create(quiz);
+        service.create(quiz2);
+        session.getTransaction().commit();
+    }
 
-		questId = (Long) service.create(quest);
-		session.getTransaction().commit();
-	}
 
-	@Test(dependsOnMethods = "questionInsertTest")
-	@Transactional
-	public void quizInsertTest() {
-		Set<Question> quests;
-		Quiz quiz, quiz2;
+    @Test(dependsOnMethods = {"quizInsertTest", "userInsertTest"})
+    @Transactional
+    public void challengeAttemptTest() {
+        session.beginTransaction();
+        Random rand = new Random();
+        Challenge challenge;
 
-		session.beginTransaction();
-		quests = new HashSet<Question>(service.fetchAllSubTypes(Question.class));
-		quiz = new Quiz(quests, LocalDateTime.now());
+        // Get quiz
+        Quiz quiz = service.fetchSubTypeById(Quiz.class, quizId);
+        Set<QuestionOption> answers = new HashSet<>();
 
-		quests = new HashSet<Question>(service.fetchAllSubTypes(Question.class));
-		quiz2 = new Quiz(quests, LocalDateTime.now());
+        // Add user answers
+        for (Question q : quiz.getQuestions()) {
+            List<QuestionOption> options = new ArrayList<>(q.getOptions());
+            long randId = options.get(rand.nextInt(options.size() - 1)).getId();
+            answers.add(service.fetchSubTypeById(QuestionOption.class, randId));
+        }
 
-		quizId = (Long) service.create(quiz);
-		service.create(quiz2);
-		session.getTransaction().commit();
-	}
+        // Get Users
+        Set<User> users = new HashSet<>(service.fetchAllSubTypes(User.class));
+        challenge = new Challenge(quiz, users);
+        service.create(challenge);
 
-	@Test(dependsOnMethods = { "quizInsertTest", "userInsertTest" })
-	@Transactional
-	public void quizAttemptTest() {
-		Random rand = new Random();
-		QuizAttempt attempt;
-		List<QuestionOption> options;
-		Set<QuestionOption> answers = new HashSet<QuestionOption>();
-		User user;
-		Long randId;
-		Quiz quiz;
-
-		session.beginTransaction();
-		
-		// Get quiz
-		quiz = service.fetchSubTypeById(Quiz.class, quizId);
-
-		// Add user answers
-		for (Question q : quiz.getQuestions()) {
-			options = new ArrayList<QuestionOption>(q.getOptions());
-			randId = options.get(rand.nextInt(options.size() - 1)).getId();
-			answers.add(service.fetchSubTypeById(QuestionOption.class, randId));
-		}
-
-		// Get User
-		user = service.fetchSubTypeById(User.class, userId);
-
-		// create attempt
-		// attempt = new QuizAttempt(quiz, user, answers);
-
-		// quiz.getAttempts().add(attempt);
-
-		// persist attempt
-		service.create(quiz);
-		session.getTransaction().commit();
-
-	}
-
-	@Test(dependsOnMethods = { "quizInsertTest", "userInsertTest" })
-	@Transactional
-	public void challengeAttemptTest() {
-		Random rand = new Random();
-		ChallengeAttempt attempt;
-		Challenge chal;
-		List<QuestionOption> options;
-		Set<QuestionOption> answers = new HashSet<QuestionOption>();
-		Set<User> users;
-		Long randId;
-		Quiz quiz;
-
-		// persist attempt
-		session.beginTransaction();
-		
-		// Get quiz
-		quiz = service.fetchSubTypeById(Quiz.class, quizId);
-
-		// Add user answers
-		for (Question q : quiz.getQuestions()) {
-			options = new ArrayList<>(q.getOptions());
-			randId = options.get(rand.nextInt(options.size() - 1)).getId();
-			answers.add(service.fetchSubTypeById(QuestionOption.class, randId));
-		}
-
-		// Get Users
-		users = new HashSet<>(service.fetchAllSubTypes(User.class));
-
-		// create attempt
-		// attempt = new ChallengeAttempt(null, users, answers, null);
-
-		chal = new Challenge(quiz);
-		// chal.getAttempts().add(attempt);
-
-		service.create(chal);
-		session.getTransaction().commit();
-	}
+        // create attempt
+        User user = new ArrayList<>(users).get(0);
+        ChallengeAttempt attempt = new ChallengeAttempt(challenge, user, answers, null);
+        service.create(attempt);
+        session.getTransaction().commit();
+    }
 
 }

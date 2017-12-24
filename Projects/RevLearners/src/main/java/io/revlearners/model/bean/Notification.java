@@ -25,7 +25,7 @@ public class Notification implements Serializable {
     @JoinColumn(name=Constants.COLUMN_SENDER_ID, referencedColumnName=Constants.COLUMN_USER_ID)
     private User sender;
 
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(name=Constants.TABLE_NOTIFICATION_RECEIVER, joinColumns=@JoinColumn(name=Constants.COLUMN_NOTIFICATION_ID), inverseJoinColumns=@JoinColumn(name=Constants.COLUMN_USER_ID))
     private Set<User> receivers = new HashSet<User>();
 

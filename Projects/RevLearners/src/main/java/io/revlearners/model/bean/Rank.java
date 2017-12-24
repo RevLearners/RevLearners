@@ -20,7 +20,7 @@ public class Rank implements Serializable {
     @Column(name=Constants.COLUMN_RANK_NAME)
     private String name;
     
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = Constants.COLUMN_TOPIC_ID, referencedColumnName = Constants.COLUMN_TOPIC_ID)
     private Topic topic;
 

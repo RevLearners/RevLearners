@@ -16,13 +16,12 @@ public class UserRank implements Serializable {
 	private static final long serialVersionUID = -3402953668398433930L;
 
 	@EmbeddedId
-	private UserRankPair pk;
+	private UserRankPair pk = new UserRankPair();
 
 	@Column(name = Constants.COLUMN_MERIT)
 	private Long merit;
 	
 	public UserRank() {
-		
 	}
 
 	public UserRank(User user, Rank rank, Long merit) {

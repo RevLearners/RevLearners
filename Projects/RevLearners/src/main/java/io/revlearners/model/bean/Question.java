@@ -1,8 +1,7 @@
 package io.revlearners.model.bean;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Set;
 
 import javax.persistence.*;
 
@@ -29,20 +28,20 @@ public class Question implements Serializable {
     @GeneratedValue(generator = "QUESTION_SEQ", strategy = GenerationType.SEQUENCE)
     private Long id;
 
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = Constants.COLUMN_TOPIC_ID)
     private Topic topic;
 
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = Constants.COLUMN_QUESTION_TYPE_ID)
     private QuestionType type;
 
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = Constants.COLUMN_DIFFICULTY_ID)
     private QuestionDifficulty difficulty;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "question", fetch = FetchType.EAGER)
-    private List<QuestionOption> options = new ArrayList<QuestionOption>();
+    private Set<QuestionOption> options;
 
     @Column(name = Constants.COLUMN_QTEXT)
     private String text;
@@ -62,19 +61,11 @@ public class Question implements Serializable {
         this.id = id;
     }
 
-    public boolean addOptions(List<QuestionOption> opts) {
-        return options.addAll(opts);
-    }
-
-    public boolean deleteOptions(List<QuestionOption> opts) {
-        return options.removeAll(opts);
-    }
-
-    public List<QuestionOption> getOptions() {
+    public Set<QuestionOption> getOptions() {
         return options;
     }
 
-    public void setOptions(List<QuestionOption> options) {
+    public void setOptions(Set<QuestionOption> options) {
         this.options = options;
     }
 

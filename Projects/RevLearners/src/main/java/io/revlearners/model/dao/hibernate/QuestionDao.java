@@ -7,18 +7,20 @@ import org.hibernate.Session;
 
 import javax.persistence.Query;
 import javax.persistence.criteria.*;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class QuestionDao extends BeanDao implements IQuestionDao {
 
     @Override
-    public List<Question> fetchRandomQuestionsByTopic(int amt, Topic topic) {
+    public Set<Question> fetchRandomQuestionsByTopic(int amt, Topic topic) {
         Session session = sf.getCurrentSession();
         Query hql = session.createNamedQuery("fetchRandomQuestions", Question.class)   // todo: use constants
                 .setMaxResults(amt);
         hql.setParameter("topicId", topic.getId());
         List<Question> randomQs = hql.getResultList();
-        return randomQs;
+        return new HashSet<>(randomQs);
     }
 
     private Path<Topic> getQTopicPath(Root<Question> questionsRoot) {

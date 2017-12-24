@@ -10,6 +10,7 @@ import org.testng.annotations.Test;
 import testNGUnitTests.TestNGSpringTests;
 
 import java.util.List;
+import java.util.Set;
 
 public class QuestionDaoTest extends TestNGSpringTests {
 
@@ -23,7 +24,7 @@ public class QuestionDaoTest extends TestNGSpringTests {
 		try(Session session = sf.openSession()) {
             session.beginTransaction();
 
-            List<Question> questions = questionDao.fetchRandomQuestionsByTopic(
+            Set<Question> questions = questionDao.fetchRandomQuestionsByTopic(
                     5,
                     session.load(Topic.class, Constants.TOPIC_CORE_JAVA)
             );

@@ -925,10 +925,10 @@ public final class Constants {
 	public static final String COLUMN_ATTEMPT_ID = "ATTEMPT_ID";
     public static final String COLUMN_ATTEMPT_SCORE = "ATTEMPT_SCORE";
 	public static final String COLUMN_CHALLENGE_ID = "CHALLENGE_ID";
+    public static final String COLUMN_CHALLENGE_USERS = "CHALLENGE_USERS";
 	public static final String COLUMN_RESULT_ID = "RESULT_ID";
 	public static final String TABLE_NOTIFICATION_RECEIVER = "NOTIFICATION_RECEIVER";
 	public static final String TABLE_MESSAGE_RECEIVER = "MESSAGE_RECEIVER";
-	public static final String TABLE_USER_CERTIFICATION_BLOB = "USER_CERTIFICATION_BLOB";
 	public static final String TABLE_CERTIFICATION_BLOB = "CERTIFICATION_BLOB";
 
 	// Overridden Primary keys (for join tables using @mappedBy)
