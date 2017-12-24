@@ -47,7 +47,7 @@ public class Message implements Serializable {
     @Column(name=Constants.COLUMN_MESSAGE_TIME)
     private LocalDateTime time;
 
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name=Constants.COLUMN_STATUS_ID)
     private MessageStatus status;
 

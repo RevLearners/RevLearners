@@ -175,7 +175,7 @@ public class GenericPersistenceLayerTest extends PersistenceLayerTest {
 		user = service.fetchSubTypeById(User.class, userId);
 
 		// create attempt
-		attempt = new QuizAttempt(user, answers);
+		attempt = new QuizAttempt(user, answers, quiz);
 
 		quiz.getAttempts().add(attempt);
 

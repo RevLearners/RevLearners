@@ -44,13 +44,34 @@ public class QuizAttempt implements Serializable {
 	@JoinColumn(name = Constants.COLUMN_USER_ID)
 	private User user;
 	
+	@ManyToOne
+	@JoinColumn(name = Constants.COLUMN_QUIZ_ID)
+	private Quiz quiz;
+	
 	public QuizAttempt() {
 		
 	}
 	
-	public QuizAttempt(User user, Set<QuestionOption> answers) {	
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+	public Quiz getQuiz() {
+		return quiz;
+	}
+
+	public void setQuiz(Quiz quiz) {
+		this.quiz = quiz;
+	}
+
+	public QuizAttempt(User user, Set<QuestionOption> answers, Quiz quiz) {	
 		this.user = user;
 		this.answers = answers;
+		this.quiz = quiz;
 	}
 
 	public Long getId() {

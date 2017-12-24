@@ -22,7 +22,7 @@ import org.springframework.transaction.annotation.Transactional;
  *
  * This class was made in conjunction with Spring best practices
  */
-@Transactional(value = Constants.TRANSACTION_HIBERNATE_MANAGER)
+
 public abstract class AbstractHibernateDao extends AbstractDao implements IGenericDao {
 
 	@Autowired
