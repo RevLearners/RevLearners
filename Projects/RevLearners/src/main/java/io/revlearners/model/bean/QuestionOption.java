@@ -30,7 +30,7 @@ public class QuestionOption implements Serializable{
 	@Column(name=Constants.COLUMN_OPTION_TEXT)
 	private String text;
 
-	@ManyToOne(cascade=CascadeType.ALL, fetch=FetchType.EAGER)
+	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name=Constants.COLUMN_QUESTION_ID)
 	private Question question;
 

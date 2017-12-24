@@ -315,7 +315,7 @@ public final class Constants {
 
 	public static final long ADV_USER_PTS = 1000L;
 
-	public static Map<Long, Rank> getAngular4Ranks() {
+    public static Map<Long, Rank> getAngular4Ranks() {
 		return new LinkedHashMap<>(angular4Ranks);
 	}
 
@@ -889,6 +889,7 @@ public final class Constants {
 	public static final String COLUMN_QUESTION_ID = "QUESTION_ID";
 	public static final String COLUMN_QUESTION_TYPE_ID = "QUESTION_TYPE_ID";
 	public static final String COLUMN_QUESTION_TYPE_NAME = "QUESTION_TYPE_NAME";
+    public static final String COLUMN_QUESTION_EXPLANATION = "QUESTION_EXPLANATION";
 	public static final String COLUMN_DIFFICULTY_ID = "DIFFICULTY_ID";
 	public static final String COLUMN_OPTION_TEXT = "OPTION_TEXT";
 	public static final String COLUMN_IS_CORRECT = "IS_CORRECT";
@@ -922,11 +923,12 @@ public final class Constants {
 	public static final String COLUMN_BASE_VALUE = "BASE_VALUE";
 	public static final String COLUMN_DESCRIPTION = "DESCRIPTION";
 	public static final String COLUMN_ATTEMPT_ID = "ATTEMPT_ID";
+    public static final String COLUMN_ATTEMPT_SCORE = "ATTEMPT_SCORE";
 	public static final String COLUMN_CHALLENGE_ID = "CHALLENGE_ID";
+    public static final String COLUMN_CHALLENGE_USERS = "CHALLENGE_USERS";
 	public static final String COLUMN_RESULT_ID = "RESULT_ID";
 	public static final String TABLE_NOTIFICATION_RECEIVER = "NOTIFICATION_RECEIVER";
 	public static final String TABLE_MESSAGE_RECEIVER = "MESSAGE_RECEIVER";
-	public static final String TABLE_USER_CERTIFICATION_BLOB = "USER_CERTIFICATION_BLOB";
 	public static final String TABLE_CERTIFICATION_BLOB = "CERTIFICATION_BLOB";
 
 	// Overridden Primary keys (for join tables using @mappedBy)

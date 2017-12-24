@@ -24,21 +24,9 @@ public class Certification implements Serializable {
 	@JoinColumn(name = Constants.COLUMN_TOPIC_ID)
 	private Topic topic;
 
-	@OneToMany(fetch = FetchType.EAGER, mappedBy = Constants.PK_CERTIFICATION)
+	@OneToMany(mappedBy = Constants.PK_CERTIFICATION)
 	private Set<UserCertification> users;
 	
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	@JoinTable(name=Constants.TABLE_CERTIFICATION_BLOB, joinColumns=@JoinColumn(name=Constants.COLUMN_CERTIFICATION_ID), inverseJoinColumns=@JoinColumn(name=Constants.COLUMN_BLOB_ID))
-	private FileBlob file;
-	
-	public FileBlob getFile() {
-		return file;
-	}
-	
-	public void setFile(FileBlob file) {
-		this.file = file;
-	}
-
 	public boolean addUsers(Set<UserCertification> users) {
 		return this.users.addAll(users);
 	}

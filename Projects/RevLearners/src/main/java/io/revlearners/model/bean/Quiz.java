@@ -2,9 +2,6 @@ package io.revlearners.model.bean;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.LinkedHashSet;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -17,12 +14,11 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 import io.revlearners.util.commons.configs.Constants;
+import org.hibernate.annotations.Fetch;
 
 @Entity
 @Table (name=Constants.TABLE_QUIZ)
@@ -35,27 +31,14 @@ public class Quiz implements Serializable{
     @GeneratedValue(generator="QUIZ_SEQ", strategy=GenerationType.SEQUENCE)
 	private Long id;
 	
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	@JoinColumn(name = Constants.COLUMN_QUIZ_ID)
-	private Set<QuizAttempt> attempts;
-
-	public Set<QuizAttempt> getAttempts() {
-		return attempts = new HashSet<QuizAttempt>();
-	}
-
-	public void setAttempts(Set<QuizAttempt> attempts) {
-		this.attempts = attempts;
-	}
-
 	@Column(name=Constants.COLUMN_QUIZ_TIME)
 	private LocalDateTime time;
 
-	@ManyToMany(targetEntity=Question.class, cascade=CascadeType.ALL, fetch=FetchType.EAGER)
+	@ManyToMany(cascade=CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinTable(name=Constants.TABLE_QUIZ_QUESTION, joinColumns=@JoinColumn(name=Constants.COLUMN_QUIZ_ID), inverseJoinColumns=@JoinColumn(name=Constants.COLUMN_QUESTION_ID))
 	private Set<Question> questions;
 
 	public Quiz(Set<Question> questions, LocalDateTime time) {
-		super();
 		this.questions = questions;
 		this.time = time;
 	}

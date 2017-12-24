@@ -1,7 +1,6 @@
 package io.revlearners.model.bean;
 
 import java.io.Serializable;
-import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -15,11 +14,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
-import javax.persistence.UniqueConstraint;
 
 import io.revlearners.util.commons.configs.Constants;
 
@@ -27,9 +23,6 @@ import io.revlearners.util.commons.configs.Constants;
 @Table(name = Constants.TABLE_CHALLENGE_ATTEMPT)
 public class ChallengeAttempt implements Serializable {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -460168171956593784L;
 
 	@Id
@@ -37,33 +30,38 @@ public class ChallengeAttempt implements Serializable {
 	@SequenceGenerator(sequenceName="CATT_SEQ", name="CATT_SEQ")
     @GeneratedValue(generator="CATT_SEQ", strategy=GenerationType.SEQUENCE)	
 	private Long id;
-	
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	@JoinColumn(name = Constants.COLUMN_CHALLENGE_ID, referencedColumnName = Constants.COLUMN_CHALLENGE_ID)
-	private Challenge chal;
-    
-	@ManyToMany(targetEntity=QuestionOption.class, cascade=CascadeType.ALL, fetch=FetchType.EAGER)
+
+	@Column(name=Constants.COLUMN_ATTEMPT_SCORE)
+    private Float score;
+
+    @ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+	@JoinColumn(name = Constants.COLUMN_CHALLENGE_ID)
+	private Challenge challenge;
+
+	@ManyToOne(targetEntity=User.class, fetch=FetchType.EAGER)
+	@JoinColumn(name=Constants.COLUMN_USER_ID)
+	private User user;
+
+	@ManyToMany(targetEntity=QuestionOption.class, fetch=FetchType.EAGER)
 	@JoinTable(name=Constants.TABLE_CHALLENGE_ATTEMPT_ANSWERS, joinColumns=@JoinColumn(name=Constants.COLUMN_ATTEMPT_ID), inverseJoinColumns=@JoinColumn(name=Constants.COLUMN_OPTION_ID))
-	private Set<QuestionOption> answers = new HashSet<QuestionOption>();
-	
-	@ManyToMany(targetEntity=User.class, cascade=CascadeType.ALL, fetch=FetchType.EAGER)
-	@JoinTable(name=Constants.TABLE_USER_CHALLENGE_ATTEMPT, joinColumns=@JoinColumn(name=Constants.COLUMN_ATTEMPT_ID), inverseJoinColumns=@JoinColumn(name=Constants.COLUMN_USER_ID))
-	private Set<User> users = new HashSet<User>();
-	
-	public ChallengeAttempt() {	
+	private Set<QuestionOption> answers;
+
+    public ChallengeAttempt() {
 	}
 	
-	public ChallengeAttempt(Set<User> users, Set<QuestionOption> answers) {
+	public ChallengeAttempt(Challenge challenge, User user, Set<QuestionOption> answers, Float score) {
+	    this.challenge = challenge;
 		this.answers = answers;
-		this.users = users;
+		this.user = user;
+		this.score = score;
 	}
 
-	public Challenge getChal() {
-		return chal;
+	public Challenge getChallenge() {
+		return challenge;
 	}
 
-	public void setChal(Challenge chal) {
-		this.chal = chal;
+	public void setChallenge(Challenge challenge) {
+		this.challenge = challenge;
 	}
 
 	public Set<QuestionOption> getAnswers() {
@@ -74,14 +72,6 @@ public class ChallengeAttempt implements Serializable {
 		this.answers = answers;
 	}
 
-	public Set<User> getUsers() {
-		return users;
-	}
-
-	public void setUsers(Set<User> users) {
-		this.users = users;
-	}
-
 	public Long getId() {
 		return id;
 	}
@@ -89,4 +79,20 @@ public class ChallengeAttempt implements Serializable {
 	public void setId(Long id) {
 		this.id = id;
 	}
+
+    public Float getScore() {
+        return score;
+    }
+
+    public void setScore(Float score) {
+        this.score = score;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
 }

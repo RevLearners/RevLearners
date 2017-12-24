@@ -10,9 +10,6 @@ import java.io.Serializable;
 @Table(name = Constants.TABLE_FILE_BLOB)
 public class FileBlob implements Serializable {
 
-    /**
-	 * 
-	 */
 	private static final long serialVersionUID = 5115254825153861311L;
 
 	@Id

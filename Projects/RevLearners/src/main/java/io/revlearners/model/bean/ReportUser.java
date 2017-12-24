@@ -29,7 +29,7 @@ public class ReportUser implements Serializable{
 	@GeneratedValue(generator="REPORT_SEQ", strategy=GenerationType.SEQUENCE)
 	private Long id;
 	
-	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = Constants.COLUMN_REPORTED_ID, referencedColumnName=Constants.COLUMN_USER_ID)
 	private User reported;
 	
@@ -37,7 +37,7 @@ public class ReportUser implements Serializable{
 	@JoinColumn(name = Constants.COLUMN_REASON_ID)
     private Reason reason;
 
-	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name=Constants.COLUMN_REPORTER_ID, referencedColumnName=Constants.COLUMN_USER_ID)
     private User reporter;
 

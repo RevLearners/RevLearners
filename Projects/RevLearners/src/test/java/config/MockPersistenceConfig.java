@@ -32,77 +32,88 @@ import io.revlearners.model.services.dao.interfaces.contracts.*;
 @ComponentScan("io.revlearners.model")
 public class MockPersistenceConfig {
 
-	@Bean
-	public DataSource dataSource() {
-		DriverManagerDataSource ds = new DriverManagerDataSource();
-		ds.setDriverClassName(System.getenv("RDS_DRIVER_CLASS"));
-		ds.setUrl(System.getenv("RDS_URL"));
-		ds.setUsername(System.getenv("RDS_USERNAME"));
-		ds.setPassword(System.getenv("RDS_PASSWORD"));
-		return ds;
-	}
+    @Bean
+    public DataSource dataSource() {
+        DriverManagerDataSource ds = new DriverManagerDataSource();
+        ds.setDriverClassName(System.getenv("RDS_DRIVER_CLASS"));
+        ds.setUrl(System.getenv("RDS_URL"));
+        ds.setUsername(System.getenv("RDS_USERNAME"));
+        ds.setPassword(System.getenv("RDS_PASSWORD"));
 
-	@Bean
-	public LocalSessionFactoryBean sessionFactory()  {
-		LocalSessionFactoryBean factoryBean = new LocalSessionFactoryBean();
-		factoryBean.setDataSource(dataSource());
-		factoryBean.setPackagesToScan("io.revlearner.model"); // varargs method
+        ds.setDriverClassName(System.getenv("DBDC"));
+        ds.setUrl(System.getenv("DBUR"));
+        ds.setUsername(System.getenv("DBTESTU"));
+        ds.setPassword(System.getenv("DBTESTP"));
+        return ds;
+    }
 
-		Properties props = new Properties();
-		props.setProperty("hibernate.hbm2ddl.auto", "create");
-		props.setProperty("hibernate.show_sql", "true");
-		props.setProperty("hibernate.dialect", "org.hibernate.dialect.Oracle10gDialect");
-		props.setProperty("hibernate.connection.isolation", String.valueOf(Connection.TRANSACTION_READ_COMMITTED));
+    @Bean
+    public LocalSessionFactoryBean sessionFactory() {
+        LocalSessionFactoryBean factoryBean = new LocalSessionFactoryBean();
+        factoryBean.setDataSource(dataSource());
+        factoryBean.setPackagesToScan("io.revlearner.model"); // varargs method
 
-		// user hibernate default connection pool; not for production
-		props.setProperty("hibernate.connection.pool_size", "10");
+        Properties props = new Properties();
+        props.setProperty("hibernate.hbm2ddl.auto", "create");
+        props.setProperty("hibernate.show_sql", "true");
+        props.setProperty("hibernate.dialect", "org.hibernate.dialect.Oracle10gDialect");
+        props.setProperty("hibernate.connection.isolation", String.valueOf(Connection.TRANSACTION_READ_COMMITTED));
 
-		factoryBean.setHibernateProperties(props);
-		factoryBean.setAnnotatedClasses( // register @Entity classes
-				Certification.class, FileBlob.class, Message.class, MessageStatus.class,
-				MimeType.class, Notification.class, Question.class, QuestionDifficulty.class, QuestionOption.class,
-				QuestionType.class, Quiz.class, Rank.class, Topic.class, User.class,
-				UserCertification.class, UserRank.class, UserRole.class, UserStatus.class, Reason.class,
-				ReportQuestion.class, ReportUser.class, ReasonType.class, RequestStatus.class, Challenge.class,
-				ChallengeAttempt.class, QuizAttempt.class);
-		return factoryBean;
-	}
+        // user hibernate default connection pool; not for production
+        props.setProperty("hibernate.connection.pool_size", "10");
 
-	@Bean
-	public PasswordEncoder passwordEncoder() {
-		return new BCryptPasswordEncoder();
-	}
+        factoryBean.setHibernateProperties(props);
+        factoryBean.setAnnotatedClasses( // register @Entity classes
+                Certification.class, FileBlob.class, Message.class, MessageStatus.class,
+                MimeType.class, Notification.class, Question.class, QuestionDifficulty.class, QuestionOption.class,
+                QuestionType.class, Quiz.class, Rank.class, Topic.class, User.class,
+                UserCertification.class, UserRank.class, UserRole.class, UserStatus.class, Reason.class,
+                ReportQuestion.class, ReportUser.class, ReasonType.class, RequestStatus.class, Challenge.class, ChallengeAttempt.class
+        );
+        return factoryBean;
+    }
 
-	/**
-	 * BeanPostProcessor bean
-	 *
-	 * @return
-	 */
-	@Bean
-	public BeanPostProcessor persistenceTranslation() {
-		// to translate hibernate exceptions to spring exceptions (for whatever reason)
-		return new PersistenceExceptionTranslationPostProcessor();
-	}
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
 
-	/**
-	 * Hibernate Transaction Manager
-	 * 
-	 * @return
-	 */
-	@Bean
-	public PlatformTransactionManager hibernateTransactionManager() {
-		final HibernateTransactionManager tm = new HibernateTransactionManager();
-		tm.setSessionFactory(sessionFactory().getObject());
-		return tm;
-	}
+    /**
+     * BeanPostProcessor bean
+     *
+     * @return
+     */
+    @Bean
+    public BeanPostProcessor persistenceTranslation() {
+        // to translate hibernate exceptions to spring exceptions (for whatever reason)
+        return new PersistenceExceptionTranslationPostProcessor();
+    }
 
-	@Bean
-	public IBeanDao hibernateBeanDao() {
-		return new BeanDao();
-	}
+    /**
+     * Hibernate Transaction Manager
+     *
+     * @return
+     */
+    @Bean
+    public PlatformTransactionManager hibernateTransactionManager() {
+        final HibernateTransactionManager tm = new HibernateTransactionManager();
+        tm.setSessionFactory(sessionFactory().getObject());
+        return tm;
+    }
 
-	@Bean
-	public IBeanService hibernateBeanService() {
-		return new BeanService();
-	}
+    @Bean
+    public IBeanDao hibernateBeanDao() {
+        return new BeanDao();
+    }
+
+    @Bean
+    public IBeanService hibernateBeanService() {
+        return new BeanService();
+    }
+
+    @Bean
+    public IQuestionDao hibernateQuestionDao() {
+        return new QuestionDao();
+    }
+
 }

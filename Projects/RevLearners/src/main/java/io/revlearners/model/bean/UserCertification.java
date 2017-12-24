@@ -20,9 +20,13 @@ public class UserCertification implements Serializable {
     @EmbeddedId
     private UserCertPair pk = new UserCertPair();
 
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	@JoinTable(name=Constants.TABLE_USER_CERTIFICATION_BLOB, joinColumns= {@JoinColumn(name=Constants.COLUMN_USER_ID), @JoinColumn(name = Constants.COLUMN_CERTIFICATION_ID)}, inverseJoinColumns=@JoinColumn(name=Constants.COLUMN_BLOB_ID))
-    private FileBlob blob;
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinTable(
+            name = Constants.TABLE_CERTIFICATION_BLOB,
+            joinColumns = {@JoinColumn(name = Constants.COLUMN_CERTIFICATION_ID), @JoinColumn(name=Constants.COLUMN_USER_ID)},
+            inverseJoinColumns = @JoinColumn(name = Constants.COLUMN_BLOB_ID)
+    )
+    private Set<FileBlob> blobs;
 
     @ManyToOne
     @JoinColumn(name = Constants.COLUMN_STATUS_ID)
@@ -37,10 +41,9 @@ public class UserCertification implements Serializable {
         setCertification(certification);
     }
 
-    public UserCertification(User user, Certification certification, FileBlob fb, RequestStatus requestStatus) {
+    public UserCertification(User user, Certification certification, RequestStatus requestStatus) {
         this.pk.user = user;
         this.pk.certification = certification;
-        this.blob = fb;
         this.status = requestStatus;
     }
 
@@ -78,12 +81,12 @@ public class UserCertification implements Serializable {
         this.pk = pk;
     }
 
-    public FileBlob getBlob() {
-        return blob;
+    public Set<FileBlob> getBlobs() {
+        return blobs;
     }
 
-    public void setBlob(FileBlob blob) {
-        this.blob = blob;
+    public void setBlobs(Set<FileBlob> blob) {
+        this.blobs = blob;
     }
 
     public RequestStatus getStatus() {

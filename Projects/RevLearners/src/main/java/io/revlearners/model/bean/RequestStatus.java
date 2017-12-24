@@ -13,9 +13,6 @@ import javax.persistence.Table;
 @Entity(name= Constants.TABLE_REQUEST_STATUS)
 public class RequestStatus implements Serializable {
 
-    /**
-	 * 
-	 */
 	private static final long serialVersionUID = 3270050480653921428L;
 
 	@Id

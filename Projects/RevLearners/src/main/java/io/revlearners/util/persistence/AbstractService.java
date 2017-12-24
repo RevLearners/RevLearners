@@ -5,14 +5,13 @@ import java.util.List;
 
 import org.hibernate.Session;
 
-import io.revlearners.util.persistence.hibernate.AbstractHibernateDao;
 import io.revlearners.util.persistence.interfaces.IGenericDao;
 
 // Persistence layer injector to inject bean into dao
 public abstract class AbstractService implements IGenericDao {
 
 	@Override
-	public <T extends Serializable> T fetchSubTypeById(Class<T> clazz, long id) {
+	public <T extends Serializable> T fetchSubTypeById(Class<T> clazz, Serializable id) {
 		return getDao().fetchSubTypeById(clazz, id);
 	}
 
@@ -37,8 +36,8 @@ public abstract class AbstractService implements IGenericDao {
 	}
 
 	@Override
-	public <T extends Serializable> void deleteById(Class<T> clazz, long id) {
-		getDao().deleteById(clazz, id);		
+	public <T extends Serializable> void deleteById(Class<T> clazz, Serializable id) {
+		getDao().deleteById(clazz, id);
 	}
 	
 	protected abstract IGenericDao getDao();
