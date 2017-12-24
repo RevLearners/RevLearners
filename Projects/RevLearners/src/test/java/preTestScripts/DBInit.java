@@ -6,12 +6,20 @@ import java.util.Map;
 import config.MockPersistenceConfig;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
+import org.springframework.transaction.annotation.Transactional;
 
+import config.MockPersistenceConfig;
 import io.revlearners.model.bean.*;
+import io.revlearners.model.services.dao.hibernate.injectors.BeanService;
+import io.revlearners.model.services.dao.interfaces.contracts.IBeanService;
 import io.revlearners.util.commons.configs.Constants;
 
+@Transactional(value = Constants.TRANSACTION_HIBERNATE_MANAGER)
 public class DBInit {
     private static ApplicationContext springContext = new AnnotationConfigApplicationContext(MockPersistenceConfig.class);
     private static SessionFactory sf;
@@ -28,6 +36,30 @@ public class DBInit {
         }
     }
 
+    /**
+     * create test data
+     *      Question creation template is below
+     *  <@code>
+     *      persistQuestion(
+     *              " ",
+     *              Constants.TOPIC_CORE_JAVA,
+     *              Constants.QUESTION_MULTI_CHOICE,
+     *              Constants.DIFFICULTY_EASY,
+     *              new String[]{
+     *                      " ",
+     *                      " ",
+     *                      " ",
+     *                      " "
+     *              },
+     *              -1,
+     *              " ",
+     *              session
+     *      );
+     * </@code>
+     *
+     *
+     * @param sf
+     */
     public static void create(SessionFactory sf) {
 
         try (Session session = sf.openSession()) {
@@ -70,20 +102,8 @@ public class DBInit {
             saveEntities(Constants.getQuestionTypes(), session);
 
             saveEntities(Constants.getJavaranks(), session);
-//			saveEntities(Constants.getJ2eeranks(), session);
-//			saveEntities(Constants.getJtaranks(), session);
-//			saveEntities(Constants.getJparanks(), session);
-//			saveEntities(Constants.getSpringranks(), session);
-//			saveEntities(Constants.getPlsqlranks(), session);
-//			saveEntities(Constants.getTsqlranks(), session);
-//			saveEntities(Constants.getMysqlranks(), session);
-//			saveEntities(Constants.getPostgresqlranks(), session);
-//			saveEntities(Constants.getWebranks(), session);
-//			saveEntities(Constants.getJqueryranks(), session);
-//			saveEntities(Constants.getAngularjsranks(), session);
             saveEntities(Constants.getAngular4ranks(), session);
             saveEntities(Constants.getDevopsranks(), session);
-//			saveEntities(Constants.getMicrosranks(), session);
             saveEntities(Constants.getHibernateRanks(), session);
             saveEntities(Constants.getDesignPatternRanks(), session);
 
@@ -236,23 +256,6 @@ public class DBInit {
                 "Only one copy of static variables is created when a class is loaded. Each object instantiated has its own copy of instance variables.",
                 session
         );
-            /*
-            persistQuestion(
-                    " ",
-                    Constants.TOPIC_CORE_JAVA,
-                    Constants.QUESTION_MULTI_CHOICE,
-                    Constants.DIFFICULTY_EASY,
-                    new String[]{
-                            " ",
-                            " ",
-                            " ",
-                            " "
-                    },
-                    -1,
-                    " ",
-                    session
-            );
-            */
     }
 
 }

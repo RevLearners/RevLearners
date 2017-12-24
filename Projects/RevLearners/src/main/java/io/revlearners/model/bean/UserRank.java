@@ -20,6 +20,10 @@ public class UserRank implements Serializable {
 
 	@Column(name = Constants.COLUMN_MERIT)
 	private Long merit;
+	
+	public UserRank() {
+		
+	}
 
 	public UserRank(User user, Rank rank, Long merit) {
 		this.pk = new UserRankPair(user, rank);

@@ -20,8 +20,8 @@ public class UserCertification implements Serializable {
     @EmbeddedId
     private UserCertPair pk = new UserCertPair();
 
-    @OneToOne
-    @JoinColumn(name = Constants.COLUMN_BLOB_ID)
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@JoinTable(name=Constants.TABLE_USER_CERTIFICATION_BLOB, joinColumns= {@JoinColumn(name=Constants.COLUMN_USER_ID), @JoinColumn(name = Constants.COLUMN_CERTIFICATION_ID)}, inverseJoinColumns=@JoinColumn(name=Constants.COLUMN_BLOB_ID))
     private FileBlob blob;
 
     @ManyToOne
@@ -37,11 +37,11 @@ public class UserCertification implements Serializable {
         setCertification(certification);
     }
 
-    public UserCertification(User user, Certification certification, RequestStatus status, FileBlob blob) {
+    public UserCertification(User user, Certification certification, FileBlob fb, RequestStatus requestStatus) {
         this.pk.user = user;
         this.pk.certification = certification;
-        this.blob = blob;
-        this.status = status;
+        this.blob = fb;
+        this.status = requestStatus;
     }
 
     public UserCertPair getId() {

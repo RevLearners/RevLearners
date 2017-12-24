@@ -17,7 +17,6 @@ public class QuestionDaoTest extends TestNGSpringTests {
     IQuestionDao questionDao;
 
 
-    // todo add dummy questions
 	@Test
 	public void questionInsertTest() {
 
@@ -26,8 +25,7 @@ public class QuestionDaoTest extends TestNGSpringTests {
 
             List<Question> questions = questionDao.fetchRandomQuestionsByTopic(
                     5,
-                    session.load(Topic.class, Constants.TOPIC_CORE_JAVA),
-                    session
+                    session.load(Topic.class, Constants.TOPIC_CORE_JAVA)
             );
 
             System.out.println(questions);

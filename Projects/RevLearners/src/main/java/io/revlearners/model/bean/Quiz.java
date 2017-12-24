@@ -2,9 +2,7 @@ package io.revlearners.model.bean;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.util.Date;
 import java.util.HashSet;
-import java.util.LinkedHashSet;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -17,7 +15,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
@@ -28,20 +25,15 @@ import io.revlearners.util.commons.configs.Constants;
 @Table (name=Constants.TABLE_QUIZ)
 public class Quiz implements Serializable{
 	private static final long serialVersionUID = 4858112442645949427L;
-
+	
 	@Id
 	@Column(name=Constants.COLUMN_QUIZ_ID)
 	@SequenceGenerator(sequenceName="QUIZ_SEQ", name="QUIZ_SEQ")
     @GeneratedValue(generator="QUIZ_SEQ", strategy=GenerationType.SEQUENCE)
 	private Long id;
-
-//	@ManyToOne( cascade=CascadeType.ALL, fetch=FetchType.EAGER)
-//    @JoinColumn(name=Constants.COLUMN_USER_RECEIVER)
-//	private User receiver;
-//
-//	@ManyToOne( cascade=CascadeType.ALL, fetch=FetchType.EAGER)
-//    @JoinColumn(name=Constants.COLUMN_USER_SENDER)
-//	private User sender;
+	
+	@OneToMany(mappedBy="quiz", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	private Set<QuizAttempt> attempts;
 
 	@Column(name=Constants.COLUMN_QUIZ_TIME)
 	private LocalDateTime time;
@@ -49,11 +41,8 @@ public class Quiz implements Serializable{
 	@ManyToMany(targetEntity=Question.class, cascade=CascadeType.ALL, fetch=FetchType.EAGER)
 	@JoinTable(name=Constants.TABLE_QUIZ_QUESTION, joinColumns=@JoinColumn(name=Constants.COLUMN_QUIZ_ID), inverseJoinColumns=@JoinColumn(name=Constants.COLUMN_QUESTION_ID))
 	private Set<Question> questions;
-	
-	
 
 	public Quiz(Set<Question> questions, LocalDateTime time) {
-		super();
 		this.questions = questions;
 		this.time = time;
 	}
@@ -73,22 +62,6 @@ public class Quiz implements Serializable{
 		this.id = id;
 	}
 
-//	public User getReceiver() {
-//		return receiver;
-//	}
-//
-//	public void setReceiver(User receiver) {
-//		this.receiver = receiver;
-//	}
-//
-//	public User getSender() {
-//		return sender;
-//	}
-//
-//	public void setSender(User sender) {
-//		this.sender = sender;
-//	}
-
 	public LocalDateTime getTime() {
 		return time;
 	}
@@ -104,6 +77,14 @@ public class Quiz implements Serializable{
 	public void setQuestions(Set<Question> questions) {
 		this.questions = questions;
 	}
+
+    public Set<QuizAttempt> getAttempts() {
+        return attempts = new HashSet<QuizAttempt>();
+    }
+
+    public void setAttempts(Set<QuizAttempt> attempts) {
+        this.attempts = attempts;
+    }
 
 	@Override
 	public String toString() {

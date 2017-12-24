@@ -1,7 +1,5 @@
 package io.revlearners.util.persistence.interfaces;
 
-import org.hibernate.Session;   // could be replaced with jpa's EntityManager
-
 import java.io.Serializable;
 import java.util.List;
 
@@ -18,16 +16,16 @@ import java.util.List;
  */
 public interface IGenericDao {
 
-    public <T extends Serializable> T fetchSubTypeById(Class<T> clazz, final Serializable id, Session session);
+	public <T extends Serializable> T fetchSubTypeById(Class<T> clazz, final Serializable id);
 
-    public <T extends Serializable> List<T> fetchAllSubTypes(Class<T> clazz, Session session);
+	public <T extends Serializable> List<T> fetchAllSubTypes(Class<T> clazz);
 
-    public <T extends Serializable> Serializable create(final T entity, Session session);
+	public <T extends Serializable> Serializable create(final T entity);
 
-    public <T extends Serializable> T update(Class<T> clazz, final T entity, Session session);
+	public <T extends Serializable> T update(Class<T> clazz, final T entity);
 
-    public <T extends Serializable> void delete(final T entity, Session session);
+	public <T extends Serializable> void delete(final T entity);
 
-    public <T extends Serializable> void deleteById(Class<T> clazz, final Serializable id, Session session);
+	public<T extends Serializable> void deleteById(Class<T> clazz, final Serializable id);
 
 }

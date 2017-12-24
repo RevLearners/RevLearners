@@ -18,7 +18,7 @@ import javax.persistence.Table;
 import io.revlearners.util.commons.configs.Constants;
 
 @Entity
-@Table(name = Constants.TABLE_REPORT_QUESTION)
+@Table(name = Constants.TABLE_REPORT_USER)
 public class ReportUser implements Serializable{
 	
 	private static final long serialVersionUID = 951458230310561236L;

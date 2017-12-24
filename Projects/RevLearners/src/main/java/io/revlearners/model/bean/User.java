@@ -1,9 +1,7 @@
 package io.revlearners.model.bean;
 
 import java.io.Serializable;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import javax.persistence.*;
 
@@ -39,7 +37,7 @@ public class User implements Serializable {
 	private UserRole role;
 
 	@ManyToMany(fetch = FetchType.LAZY)
-	@JoinTable(name = Constants.TABLE_FRIEND, joinColumns = @JoinColumn(name = Constants.COLUMN_USER1_ID), inverseJoinColumns = @JoinColumn(name = Constants.COLUMN_USER2_ID))
+	@JoinTable(name = Constants.TABLE_FRIEND, joinColumns = @JoinColumn(name = Constants.COLUMN_USER_ID), inverseJoinColumns = @JoinColumn(name = Constants.COLUMN_FRIEND_ID))
 	private List<User> friends;
 	
 	@Column(table = Constants.TABLE_USER_CREDENTIALS, name = Constants.COLUMN_EMAIL)
@@ -53,6 +51,19 @@ public class User implements Serializable {
 
 	@Column(table = Constants.TABLE_USER_CREDENTIALS, name = Constants.COLUMN_SALT)
 	private String salt;
+	
+	@OneToMany(mappedBy = Constants.PK_USER, cascade=CascadeType.ALL, fetch = FetchType.EAGER)
+	private List<UserCertification> certifications;
+	
+	@OneToMany(mappedBy = Constants.PK_USER, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	private List<UserRank> ranks;
+	
+	@OneToMany(mappedBy = Constants.USER, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	private List<QuizAttempt> quizzes;
+	
+	@OneToMany(fetch = FetchType.LAZY)
+    @JoinColumn(name=Constants.COLUMN_USER_ID)
+	private List<ChallengeAttempt> challenges;
 	
 	public String getEmail() {
 		return email;
@@ -86,33 +97,27 @@ public class User implements Serializable {
 		this.salt = salt;
 	}
 
-	public Set<UserRank> getRanks() {
+	public List<UserRank> getRanks() {
 		return ranks;
 	}
 
-	public void setRanks(Set<UserRank> ranks) {
+	public void setRanks(List<UserRank> ranks) {
 		this.ranks = ranks;
 	}
 
-	@OneToMany(cascade=CascadeType.ALL, mappedBy = Constants.PK_USER, fetch = FetchType.EAGER)
-	private Set<UserCertification> certifications = new HashSet<UserCertification>();
-	
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = Constants.PK_USER, fetch = FetchType.EAGER)
-	private Set<UserRank> ranks = new HashSet<UserRank>();
-
-	public boolean addCertification(Set<UserCertification> certs) {
+	public boolean addCertification(List<UserCertification> certs) {
 		return certifications.addAll(certs);
 	}
 	
-	public boolean deleteCertifications(Set<UserCertification> certs) {
+	public boolean deleteCertifications(List<UserCertification> certs) {
 		return certifications.removeAll(certs);
 	}
 	
-	public Set<UserCertification> getCertifications() {
+	public List<UserCertification> getCertifications() {
 		return certifications;
 	}
 
-	public void setCertifications(Set<UserCertification> certifications) {
+	public void setCertifications(List<UserCertification> certifications) {
 		this.certifications = certifications;
 	}
 

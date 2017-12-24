@@ -3,7 +3,6 @@ package io.revlearners.model.dao.hibernate;
 import io.revlearners.model.bean.Question;
 import io.revlearners.model.bean.Topic;
 import io.revlearners.model.dao.interfaces.IQuestionDao;
-
 import org.hibernate.Session;
 
 import javax.persistence.Query;
@@ -12,9 +11,9 @@ import java.util.List;
 
 public class QuestionDao extends BeanDao implements IQuestionDao {
 
-
     @Override
-    public List<Question> fetchRandomQuestionsByTopic(int amt, Topic topic, Session session) {
+    public List<Question> fetchRandomQuestionsByTopic(int amt, Topic topic) {
+        Session session = sf.getCurrentSession();
         Query hql = session.createNamedQuery("fetchRandomQuestions", Question.class)   // todo: use constants
                 .setMaxResults(amt);
         hql.setParameter("topicId", topic.getId());

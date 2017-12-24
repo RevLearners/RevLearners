@@ -39,9 +39,9 @@ public class QuestionService {
 
 	    try(Session session = sf.openSession()) {
             tx = session.beginTransaction();
-            float score = scoreAll(questions, selectedAnswers, session);
+            float score = scoreAll(questions, selectedAnswers);
             List<QuestionOption> flattened = flattenOptions(selectedAnswers);
-            attempt = new QuizAttempt(score, user, quiz, flattened);
+            attempt = new QuizAttempt(quiz, user, flattened, score);
             session.save(attempt);
             session.getTransaction().commit();
         }
@@ -66,11 +66,11 @@ public class QuestionService {
      * @param questions
      * @return
      */
-    private float scoreAll(List <Question> questions, Map<Long, List<QuestionOption>> selected, Session session) {
+    private float scoreAll(List <Question> questions, Map<Long, List<QuestionOption>> selected) {
         float score = 0;
 	    for (Question q: questions) {
             List<QuestionOption> selectedForQ = selected.get(q.getId());
-            Question referenceQ = beanService.fetchSubTypeById(Question.class, q.getId(), session);
+            Question referenceQ = beanService.fetchSubTypeById(Question.class, q.getId());
             score += scoreOne(q, selectedForQ, referenceQ);
 
         }
@@ -108,7 +108,7 @@ public class QuestionService {
 	    Transaction tx = null;
 	    try(Session session = sf.openSession()) {
             tx = session.beginTransaction();
-            List<Question> questions = questionDao.fetchRandomQuestionsByTopic(n, topic, session);
+            List<Question> questions = questionDao.fetchRandomQuestionsByTopic(n, topic);
 
             for (Question q: questions)
                 Collections.shuffle(q.getOptions());
@@ -135,10 +135,10 @@ public class QuestionService {
 	    try(Session session = sf.openSession()) {
             tx = session.beginTransaction();
 
-            beanService.create(question, session);
+            beanService.create(question);
             for (QuestionOption option: options) {
                 option.setQuestion(question);
-                beanService.create(option, session);
+                beanService.create(option);
             }
 
             session.getTransaction().commit();

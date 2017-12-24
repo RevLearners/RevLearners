@@ -39,6 +39,11 @@ public class MockPersistenceConfig {
         ds.setUrl(System.getenv("RDS_URL"));
         ds.setUsername(System.getenv("RDS_USERNAME"));
         ds.setPassword(System.getenv("RDS_PASSWORD"));
+
+        ds.setDriverClassName(System.getenv("DBDC"));
+        ds.setUrl(System.getenv("DBUR"));
+        ds.setUsername(System.getenv("DBTESTU"));
+        ds.setPassword(System.getenv("DBTESTP"));
         return ds;
     }
 
@@ -63,7 +68,8 @@ public class MockPersistenceConfig {
                 MimeType.class, Notification.class, Question.class, QuestionDifficulty.class, QuestionOption.class,
                 QuestionType.class, Quiz.class, Rank.class, Topic.class, User.class,
                 UserCertification.class, UserRank.class, UserRole.class, UserStatus.class, Reason.class,
-                ReportQuestion.class, ReasonType.class, RequestStatus.class, QuizQuestion.class);
+                ReportQuestion.class, ReportUser.class, ReasonType.class, RequestStatus.class, Challenge.class,
+                ChallengeAttempt.class, QuizAttempt.class);
         return factoryBean;
     }
 
@@ -101,12 +107,13 @@ public class MockPersistenceConfig {
     }
 
     @Bean
+    public IBeanService hibernateBeanService() {
+        return new BeanService();
+    }
+
+    @Bean
     public IQuestionDao hibernateQuestionDao() {
         return new QuestionDao();
     }
 
-    @Bean
-    public IBeanService hibernateBeanService() {
-        return new BeanService();
-    }
 }

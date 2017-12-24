@@ -8,5 +8,5 @@ import java.util.List;
 
 public interface IQuestionDao extends IBeanDao {
 
-    List<Question> fetchRandomQuestionsByTopic(int amt, Topic topic, Session session);
+    List<Question> fetchRandomQuestionsByTopic(int amt, Topic topic);
 }
