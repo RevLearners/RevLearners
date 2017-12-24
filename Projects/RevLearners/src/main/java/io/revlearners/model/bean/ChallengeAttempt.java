@@ -42,7 +42,7 @@ public class ChallengeAttempt implements Serializable {
 	@JoinColumn(name=Constants.COLUMN_USER_ID)
 	private User user;
 
-	@ManyToMany(targetEntity=QuestionOption.class, cascade=CascadeType.PERSIST, fetch=FetchType.EAGER)
+	@ManyToMany(targetEntity=QuestionOption.class, fetch=FetchType.EAGER)
 	@JoinTable(name=Constants.TABLE_CHALLENGE_ATTEMPT_ANSWERS, joinColumns=@JoinColumn(name=Constants.COLUMN_ATTEMPT_ID), inverseJoinColumns=@JoinColumn(name=Constants.COLUMN_OPTION_ID))
 	private Set<QuestionOption> answers;
 

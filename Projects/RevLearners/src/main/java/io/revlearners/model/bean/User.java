@@ -36,11 +36,11 @@ public class User implements Serializable {
     @JoinColumn(name = Constants.COLUMN_ROLE_ID)
     private UserRole role;
 
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = Constants.TABLE_FRIEND, joinColumns = @JoinColumn(name = Constants.COLUMN_USER_ID), inverseJoinColumns = @JoinColumn(name = Constants.COLUMN_FRIEND_ID))
     private Set<User> friends;
 
-    @OneToMany(mappedBy = Constants.PK_USER, cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = Constants.PK_USER, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Set<UserRank> ranks;
 
     @ManyToMany(mappedBy = "users")
@@ -49,7 +49,7 @@ public class User implements Serializable {
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
     private Set<ChallengeAttempt> challengeAttempts;
 
-    @OneToMany(mappedBy = Constants.PK_USER, cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = Constants.PK_USER, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Set<UserCertification> certifications;
 
     @Column(table = Constants.TABLE_USER_CREDENTIALS, name = Constants.COLUMN_EMAIL)

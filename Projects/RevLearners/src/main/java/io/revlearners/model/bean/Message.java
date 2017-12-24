@@ -36,7 +36,7 @@ public class Message implements Serializable {
     @Column(name = Constants.COLUMN_MESSAGE_CONTENTS)
     private String contents;
 
-    @OneToMany(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinTable(
             name = Constants.TABLE_MESSAGE_ATTACHMENT,
             joinColumns = @JoinColumn(name = Constants.COLUMN_MESSAGE_ID),

@@ -34,7 +34,7 @@ public class Quiz implements Serializable{
 	@Column(name=Constants.COLUMN_QUIZ_TIME)
 	private LocalDateTime time;
 
-	@ManyToMany(cascade=CascadeType.PERSIST, fetch = FetchType.EAGER)
+	@ManyToMany(cascade=CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinTable(name=Constants.TABLE_QUIZ_QUESTION, joinColumns=@JoinColumn(name=Constants.COLUMN_QUIZ_ID), inverseJoinColumns=@JoinColumn(name=Constants.COLUMN_QUESTION_ID))
 	private Set<Question> questions;
 
