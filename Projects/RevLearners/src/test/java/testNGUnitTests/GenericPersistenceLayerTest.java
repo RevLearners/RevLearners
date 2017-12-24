@@ -14,6 +14,7 @@ import java.util.Set;
 import org.apache.commons.io.FilenameUtils;
 import org.hibernate.Session;
 import org.junit.*;
+import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.AfterTest;
@@ -50,6 +51,7 @@ public class GenericPersistenceLayerTest extends PersistenceLayerTest {
 
 	@Test(priority = 1)
 	@Transactional
+	@Rollback(false)
 	public void readTopicTest() {
 		Topic topic = service.fetchSubTypeById(Topic.class, Constants.TOPIC_CORE_JAVA);
 		System.out.println(topic);
@@ -57,6 +59,7 @@ public class GenericPersistenceLayerTest extends PersistenceLayerTest {
 
 	@Test(priority = 1)
 	@Transactional
+	@Rollback(false)
 	public void userInsertTest() {
 		Set<Topic> topics;
 		Rank rank;
@@ -86,6 +89,7 @@ public class GenericPersistenceLayerTest extends PersistenceLayerTest {
 
 	@Test(priority = 1)
 	@Transactional
+	@Rollback(false)
 	public void insertReceiverTest() {
 		Set<Topic> topics;
 		Rank rank;
@@ -113,6 +117,7 @@ public class GenericPersistenceLayerTest extends PersistenceLayerTest {
 
 	@Test()
 	@Transactional
+	@Rollback(false)
 	public void questionInsertTest() {
 
 		session.beginTransaction();
@@ -132,6 +137,7 @@ public class GenericPersistenceLayerTest extends PersistenceLayerTest {
 
 	@Test(dependsOnMethods = "questionInsertTest")
 	@Transactional
+	@Rollback(false)
 	public void quizInsertTest() {
 		Set<Question> quests;
 		Quiz quiz, quiz2;
@@ -150,6 +156,7 @@ public class GenericPersistenceLayerTest extends PersistenceLayerTest {
 
 	@Test(dependsOnMethods = { "quizInsertTest", "userInsertTest" })
 	@Transactional
+	@Rollback(false)
 	public void quizAttemptTest() {
 		Random rand = new Random();
 		QuizAttempt attempt;
@@ -187,6 +194,7 @@ public class GenericPersistenceLayerTest extends PersistenceLayerTest {
 
 	@Test(dependsOnMethods = { "quizInsertTest", "userInsertTest" })
 	@Transactional
+	@Rollback(false)
 	public void challengeAttemptTest() {
 		Random rand = new Random();
 		ChallengeAttempt attempt;
@@ -225,6 +233,7 @@ public class GenericPersistenceLayerTest extends PersistenceLayerTest {
 
 	@Test(dependsOnMethods = "userInsertTest")
 	@Transactional
+	@Rollback(false)
 	public void certificationUploadTest() {
 		session.beginTransaction();
 		RequestStatus reqStat;
@@ -258,6 +267,7 @@ public class GenericPersistenceLayerTest extends PersistenceLayerTest {
 
 	@Test(priority = 2, dependsOnMethods = { "userInsertTest", "insertReceiverTest" })
 	@Transactional
+	@Rollback(false)
 	public void insertMessageWithAttachmentsTest() {
 		String filePath = Constants.PROJECT_DIR + "/testFiles/";
 		Set<FileBlob> blobs = new HashSet<FileBlob>();
@@ -322,6 +332,7 @@ public class GenericPersistenceLayerTest extends PersistenceLayerTest {
 	// tested and working
 	@Test(dependsOnMethods = "insertMessageWithAttachmentsTest")
 	@Transactional
+	@Rollback(false)
 	public void certificationViewTest() {
 		Message msg;
 		msg = service.fetchSubTypeById(Message.class, msgId);
@@ -338,6 +349,7 @@ public class GenericPersistenceLayerTest extends PersistenceLayerTest {
 
 	@Test(priority = 2, dependsOnMethods = { "userInsertTest", "insertReceiverTest" })
 	@Transactional
+	@Rollback(false)
 	public void insertNotificationTest() {
 		User sender, receiver;
 		Set<User> receivers = new HashSet<User>();
@@ -357,6 +369,7 @@ public class GenericPersistenceLayerTest extends PersistenceLayerTest {
 	
 	@Test(dependsOnMethods = {"userInsertTest", "insertReceiverTest"})
 	@Transactional
+	@Rollback(false)
 	public void friendTest() {
 		User user, friend;
 		session.beginTransaction();
@@ -375,6 +388,7 @@ public class GenericPersistenceLayerTest extends PersistenceLayerTest {
 	
 	@Test(dependsOnMethods = {"userInsertTest", "insertReceiverTest"})
 	@Transactional
+	@Rollback(false)
 	public void reportUserTest() {
 		ReportUser report;
 		Reason reason;
@@ -393,6 +407,7 @@ public class GenericPersistenceLayerTest extends PersistenceLayerTest {
 	
 	@Test(dependsOnMethods = {"userInsertTest", "questionInsertTest"})
 	@Transactional
+	@Rollback(false)
 	public void reportQuestionTest() {
 		ReportQuestion report;
 		Reason reason;
