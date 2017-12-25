@@ -55,6 +55,14 @@
 			<artifactId>spring-security-crypto</artifactId>
 			<version>4.2.3.RELEASE</version>
 		</dependency>
+
+		<!-- Spring MVC Dependency -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-webmvc</artifactId>
+			<version>4.3.7.RELEASE</version>
+		</dependency>
+
 		<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
 
 		<!-- <dependency> <groupId>org.mindrot</groupId> <artifactId>jbcrypt</artifactId> 
@@ -140,7 +148,7 @@
 			<version>1.7.25</version>
 		</dependency>
 		<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
-		
+
 		<!-- https://mvnrepository.com/artifact/commons-io/commons-io -->
 		<dependency>
 			<groupId>commons-io</groupId>

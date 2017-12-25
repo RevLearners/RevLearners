@@ -1,6 +1,7 @@
 package io.revlearners.model.services;
 
 import io.revlearners.model.bean.*;
+import io.revlearners.model.dao.hibernate.QuestionDao;
 import io.revlearners.model.services.dao.interfaces.contracts.IBeanService;
 import io.revlearners.util.commons.configs.Constants;
 import org.hibernate.HibernateException;
@@ -10,9 +11,7 @@ import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 
-import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
+import java.util.*;
 
 public class QuestionService {
     @Autowired
@@ -22,35 +21,43 @@ public class QuestionService {
     @Qualifier(Constants.QUALIFY_BEAN_DAO_INJECTOR)
     protected IBeanService beanService;
 
+    @Autowired
+    QuestionDao questionDao;
 
     /**
-     * Each question will contain a Set<QuestionOption> which will
-     * contain exactly one option denoting the option selected by
-     * the user
+     * answers map maps question id to the list of selected answers for said id
      *
-     * should match the one in the database except for the fact that
-     * the its optoin
-     *
-     * @param quiz
+     * @param user
+     * @param challenge
+     * @param selectedAnswers
      * @return
      */
-	public double scoreQuiz(Quiz quiz) {
+	public ChallengeAttempt scoreQuiz(User user, Challenge challenge, Map<Long, Set<QuestionOption>> selectedAnswers)  {
 	    Transaction tx = null;
+	    ChallengeAttempt attempt = null;
 
 	    try(Session session = sf.openSession()) {
-            double score = scoreQuestions(quiz.getQuestions(), session);
+	        Set<Question> questions = challenge.getQuiz().getQuestions();
             tx = session.beginTransaction();
-
-
+            float score = scoreAll(questions, selectedAnswers);
+            Set<QuestionOption> flattened = flattenOptions(selectedAnswers);
+            attempt = new ChallengeAttempt(challenge, user, flattened, score);
+            session.save(attempt);
             session.getTransaction().commit();
         }
         catch(HibernateException e) {
 	        if (tx != null)
 	            tx.rollback();
         }
-
-        return -1;
+        return attempt;
 	}
+
+	private Set<QuestionOption> flattenOptions(Map<Long, Set<QuestionOption>> options) {
+        Set<QuestionOption> flattenedOptions = new HashSet<>();
+        for (Set<QuestionOption> o: options.values())
+            flattenedOptions.addAll(o);
+        return flattenedOptions;
+    }
 
     /**
      * calculates the score given a set answered questions
@@ -59,31 +66,52 @@ public class QuestionService {
      * @param questions
      * @return
      */
-    private double scoreQuestions(Set<Question> questions, Session session) {
-        double score = 0;
+    private float scoreAll(Set <Question> questions, Map<Long, Set<QuestionOption>> selected) {
+        float score = 0;
 	    for (Question q: questions) {
-            QuestionOption selected = (QuestionOption)(q.getOptions().toArray()[0]);
-            Question poolQuestion = beanService.fetchSubTypeById(Question.class, q.getId(), session);
+            Set<QuestionOption> selectedForQ = selected.get(q.getId());
+            Question referenceQ = beanService.fetchSubTypeById(Question.class, q.getId());
+            score += scoreOne(q, selectedForQ, referenceQ);
 
-            boolean answeredCorrectly = poolQuestion.getOptions().stream()
-                    .anyMatch(option -> option.isCorrect() && option.getId().equals(selected.getId()));
-
-            if (answeredCorrectly) {
-                score += q.getDifficulty().getMultiplier() * q.getType().getBaseVal();
-            }
         }
         return score;
     }
 
-    public List<Question> generateQuestions(Long n, Topic category) {
+    /**
+     * assumes each question only has one correct option; can easily extended later
+     * @param question
+     * @param selectedOptions
+     * @param reference
+     * @return
+     */
+    private float scoreOne(Question question, Set<QuestionOption> selectedOptions, Question reference) {
+            QuestionOption selected = new ArrayList<>(selectedOptions).get(0);
+            boolean answeredCorrectly = reference.getOptions().stream()
+                    .anyMatch(option -> option.isCorrect() && option.getId().equals(selected.getId()));
+
+            if (answeredCorrectly) {
+                return question.getDifficulty().getMultiplier() * question.getType().getBaseVal();
+            }
+            return 0;
+    }
+
+
+    /**
+     * generates a random list of questions in the specified topic;
+     * <d>options are shuffled for each question</d> can't shuffle sets
+     *
+     * @param n
+     * @param topic
+     * @return
+     */
+    public Set<Question> generateQuestions(int n, Topic topic) {
 	    Transaction tx = null;
 	    try(Session session = sf.openSession()) {
             tx = session.beginTransaction();
-
-
-
+            Set<Question> questions = questionDao.fetchRandomQuestionsByTopic(n, topic);
 
             session.getTransaction().commit();
+            return questions;
         }
         catch(HibernateException e) {
 	        if (tx != null)
@@ -91,6 +119,31 @@ public class QuestionService {
         }
 
         return null;
+    }
+
+    /**
+     * it is assumed that one of these options is marked correct
+     *
+     * @param question
+     * @param options
+     */
+    public void addQuestion(Question question, Set<QuestionOption> options) {
+ 	    Transaction tx = null;
+	    try(Session session = sf.openSession()) {
+            tx = session.beginTransaction();
+
+            beanService.create(question);
+            for (QuestionOption option: options) {
+                option.setQuestion(question);
+                beanService.create(option);
+            }
+
+            session.getTransaction().commit();
+        }
+        catch(HibernateException e) {
+	        if (tx != null)
+	            tx.rollback();
+        }
     }
 
 }

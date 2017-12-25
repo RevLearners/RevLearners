@@ -1,116 +1,129 @@
 package io.revlearners.model.bean;
 
 import java.io.Serializable;
-import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.*;
 
 import io.revlearners.util.commons.configs.Constants;
 
+@NamedNativeQueries({
+        @NamedNativeQuery(
+                name = "fetchRandomQuestions",
+                query = "SELECT quest.* " +
+                        "FROM QUESTION quest INNER JOIN TOPIC tpc " +
+                        "ON quest.TOPIC_ID = tpc.TOPIC_ID AND tpc.TOPIC_ID = :topicId " +
+                        "ORDER BY dbms_random.value ",
+                resultClass = Question.class
+        )
+})
 @Entity
 @Table(name = Constants.TABLE_QUESTION)
 public class Question implements Serializable {
-	private static final long serialVersionUID = 3506791910251447189L;
+    private static final long serialVersionUID = 3506791910251447189L;
 
-	@Id
-	@Column(name = Constants.COLUMN_QUESTION_ID)
-	@SequenceGenerator(sequenceName = "QUESTION_SEQ", name = "QUESTION_SEQ")
-	@GeneratedValue(generator = "QUESTION_SEQ", strategy = GenerationType.SEQUENCE)
-	private Long id;
+    @Id
+    @Column(name = Constants.COLUMN_QUESTION_ID)
+    @SequenceGenerator(sequenceName = "QUESTION_SEQ", name = "QUESTION_SEQ")
+    @GeneratedValue(generator = "QUESTION_SEQ", strategy = GenerationType.SEQUENCE)
+    private Long id;
 
-	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	@JoinColumn(name = Constants.COLUMN_TOPIC_ID)
-	private Topic topic;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = Constants.COLUMN_TOPIC_ID)
+    private Topic topic;
 
-	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	@JoinColumn(name = Constants.COLUMN_QUESTION_TYPE_ID)
-	private QuestionType type;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = Constants.COLUMN_QUESTION_TYPE_ID)
+    private QuestionType type;
 
-	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	@JoinColumn(name = Constants.COLUMN_DIFFICULTY_ID)
-	private QuestionDifficulty difficulty;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = Constants.COLUMN_DIFFICULTY_ID)
+    private QuestionDifficulty difficulty;
 
-	@OneToMany(cascade=CascadeType.ALL, mappedBy = "question", fetch = FetchType.EAGER)
-	private Set<QuestionOption> options = new HashSet<QuestionOption>();
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "question", fetch = FetchType.EAGER)
+    private Set<QuestionOption> options;
 
-	@Column(name = Constants.COLUMN_QTEXT)
-	private String text;
+    @Column(name = Constants.COLUMN_QTEXT)
+    private String text;
 
-	public Question(Topic topic, QuestionType type, QuestionDifficulty difficulty, String text) {
-		this.topic = topic;
-		this.type = type;
-		this.difficulty = difficulty;
-		this.text = text;
-	}
+    @Column(name = Constants.COLUMN_QUESTION_EXPLANATION) // todo constants file
+    private String explanation;
 
-	public Question(Long id) {
-	    this.id = id;
+    public Question(Topic topic, QuestionType type, QuestionDifficulty difficulty, String text, String explanation) {
+        this.topic = topic;
+        this.type = type;
+        this.difficulty = difficulty;
+        this.text = text;
+        this.explanation = explanation;
     }
-	
-	public boolean addOptions(Set<QuestionOption> opts) {
-		return options.addAll(opts);
-	}
-	
-	public boolean deleteOptions(Set<QuestionOption> opts) {
-		return options.removeAll(opts);
-	}
 
-	public Set<QuestionOption> getOptions() {
-		return options;
-	}
+    public Question(Long id) {
+        this.id = id;
+    }
 
-	public void setOptions(Set<QuestionOption> options) {
-		this.options = options;
-	}
+    public Set<QuestionOption> getOptions() {
+        return options;
+    }
 
-	public Question() {
-	}
+    public void setOptions(Set<QuestionOption> options) {
+        this.options = options;
+    }
 
-	public Long getId() {
-		return id;
-	}
+    public Question() {
+    }
 
-	public void setId(Long questionId) {
-		this.id = questionId;
-	}
+    public Long getId() {
+        return id;
+    }
 
-	public Topic getTopic() {
-		return topic;
-	}
+    public void setId(Long questionId) {
+        this.id = questionId;
+    }
 
-	public void setTopic(Topic topic) {
-		this.topic = topic;
-	}
+    public Topic getTopic() {
+        return topic;
+    }
 
-	public QuestionType getType() {
-		return type;
-	}
+    public void setTopic(Topic topic) {
+        this.topic = topic;
+    }
 
-	public void setType(QuestionType type) {
-		this.type = type;
-	}
+    public QuestionType getType() {
+        return type;
+    }
 
-	public QuestionDifficulty getDifficulty() {
-		return difficulty;
-	}
+    public void setType(QuestionType type) {
+        this.type = type;
+    }
 
-	public void setDifficulty(QuestionDifficulty difficulty) {
-		this.difficulty = difficulty;
-	}
+    public QuestionDifficulty getDifficulty() {
+        return difficulty;
+    }
 
-	public String getText() {
-		return text;
-	}
+    public void setDifficulty(QuestionDifficulty difficulty) {
+        this.difficulty = difficulty;
+    }
 
-	public void setText(String text) {
-		this.text = text;
-	}
+    public String getText() {
+        return text;
+    }
 
-	@Override
-	public String toString() {
-		return "Question [id=" + id + ", topic=" + topic + ", type=" + type
-				+ ", difficulty=" + difficulty + ", text=" + text + "]";
-	}
+    public void setText(String text) {
+        this.text = text;
+    }
+
+    public String getExplanation() {
+        return explanation;
+    }
+
+    public void setExplanation(String explanation) {
+        this.explanation = explanation;
+    }
+
+    @Override
+    public String toString() {
+        return "Question [id=" + id + ", topic=" + topic + ", type=" + type
+                + ", difficulty=" + difficulty + ", text=" + text + "]";
+    }
 
 }

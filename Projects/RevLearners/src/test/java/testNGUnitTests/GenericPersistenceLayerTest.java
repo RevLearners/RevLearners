@@ -1,31 +1,26 @@
-
 package testNGUnitTests;
 
 import java.io.File;
-
 import java.io.IOException;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
 import java.util.Set;
 
+import io.revlearners.util.persistence.BlobWriter;
 import org.apache.commons.io.FilenameUtils;
 import org.hibernate.Session;
-import org.junit.*;
 import org.springframework.transaction.annotation.Transactional;
+import org.testng.Assert;
 import org.testng.annotations.AfterClass;
-import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeClass;
-import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
 import io.revlearners.model.bean.*;
 import io.revlearners.util.commons.configs.Constants;
-import io.revlearners.util.persistence.BlobWriter;
 import preTestScripts.DBInit;
 
 // Tests are enabled and disabled as needed to improve performance 

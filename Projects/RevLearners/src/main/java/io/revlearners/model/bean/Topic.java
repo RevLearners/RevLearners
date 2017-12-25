@@ -4,13 +4,13 @@ import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.FetchType;
 
 import io.revlearners.util.commons.configs.Constants;
 
@@ -26,7 +26,7 @@ public class Topic implements Serializable {
 	@Column(name = Constants.COLUMN_TOPIC_NAME)
 	private String topicName;
 
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = Constants.FK_TOPIC, fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = Constants.FK_TOPIC, fetch = FetchType.EAGER)
 	private Set<Rank> ranks = new HashSet<Rank>();
 
 	public Topic(Long id, String topicName, Set<Rank> ranks) {

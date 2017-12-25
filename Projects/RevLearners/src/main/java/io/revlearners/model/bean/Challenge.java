@@ -11,9 +11,6 @@ import io.revlearners.util.commons.configs.Constants;
 @Table(name = Constants.TABLE_CHALLENGE)
 public class Challenge implements Serializable {
 	
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -7617567946904028684L;
 
 	@Id
@@ -23,21 +20,24 @@ public class Challenge implements Serializable {
 	private Long id;
 	
 	@OneToOne
-	@JoinTable(name = Constants.TABLE_CHALLENGE_QUIZ, joinColumns = {@JoinColumn(name = Constants.COLUMN_CHALLENGE_ID) },
-		inverseJoinColumns = { @JoinColumn(name = Constants.COLUMN_QUIZ_ID) } )
+    @JoinColumn(name=Constants.COLUMN_QUIZ_ID)
 	private Quiz quiz;
+
+    @ManyToMany
+    @JoinTable(name=Constants.COLUMN_CHALLENGE_USERS, joinColumns=@JoinColumn(name=Constants.COLUMN_CHALLENGE_ID), inverseJoinColumns=@JoinColumn(name=Constants.COLUMN_USER_ID))
+	private Set<User> users;
 	
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	@JoinColumn(name = Constants.COLUMN_CHALLENGE_ID)
-	private Set<ChallengeAttempt> attempts = new HashSet<ChallengeAttempt>();
+	@OneToMany(mappedBy="challenge", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	private Set<ChallengeAttempt> attempts;
 
 	public Challenge() {
 		
 	}
 	
-	public Challenge(Quiz quiz) {
+	public Challenge(Quiz quiz, Set<User> users) {
 		this.quiz = quiz;
-	}
+        this.users = users;
+    }
 	
 	public Long getId() {
 		return id;
@@ -62,7 +62,13 @@ public class Challenge implements Serializable {
 	public void setAttempts(Set<ChallengeAttempt> attempts) {
 		this.attempts = attempts;
 	}
-	
-	
+
+    public Set<User> getUsers() {
+        return users;
+    }
+
+    public void setUsers(Set<User> users) {
+        this.users = users;
+    }
 
 }

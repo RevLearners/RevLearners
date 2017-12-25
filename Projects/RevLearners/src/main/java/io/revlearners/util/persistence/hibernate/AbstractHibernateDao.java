@@ -22,18 +22,17 @@ import org.springframework.transaction.annotation.Transactional;
  *
  * This class was made in conjunction with Spring best practices
  */
-@Transactional(value = Constants.TRANSACTION_HIBERNATE_MANAGER)
+
 public abstract class AbstractHibernateDao extends AbstractDao implements IGenericDao {
 
 	@Autowired
-	private SessionFactory sf;
+    protected SessionFactory sf;
 
 	public AbstractHibernateDao() {
-
 	}
 
 	@Override
-	public <T extends Serializable> T fetchSubTypeById(Class<T> clazz, long id) {
+	public <T extends Serializable> T fetchSubTypeById(Class<T> clazz, Serializable id) {
 		return sf.getCurrentSession().get(clazz, id);
 
 	}
@@ -52,20 +51,19 @@ public abstract class AbstractHibernateDao extends AbstractDao implements IGener
 	@Override
 	public <T extends Serializable> T update(Class<T> clazz, final T entity) {
 		return clazz.cast(sf.getCurrentSession().merge(entity));
-
 	}
 
 	@Override
 	public <T extends Serializable> void delete(final T entity) {
 		sf.getCurrentSession().delete(entity);
 	}
-	
+
 	public Session getSession() {
 		return sf.getCurrentSession();
 	}
 
 	@Override
-	public <T extends Serializable> void deleteById(Class<T> clazz, final long id) {
+	public <T extends Serializable> void deleteById(Class<T> clazz, final Serializable id) {
 		final T entity = fetchSubTypeById(clazz, id);
 		delete(entity);
 	}
