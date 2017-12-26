@@ -23,4 +23,17 @@ export class CreateAccountService{
 
         return this.http.post('http://localhost:8085/RevLearners/CreateAccount', params, options);
     }
+
+    public userExist(username: string){
+
+        let params = new FormData();
+        params.append('username', username);
+
+        let options = {
+            headers: new HttpHeaders(),
+        };
+
+        //Link will change after the rest calls/controller has been fully set up
+        return this.http.post('http://localhost:8085/RevLearners/???', params, options);
+    }
 }

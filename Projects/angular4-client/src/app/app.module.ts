@@ -12,6 +12,7 @@ import { HomeComponent } from './components/home/home.component';
 import { CreateAccountService } from './service/create-account-service';
 import { HttpClientModule } from '@angular/common/http';
 import { LoginComponent } from './components/Login/Login.component';
+import { CreateChallengeComponent } from './components/CreateChallenge/CreateChallenge.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { LoginComponent } from './components/Login/Login.component';
     NavbarComponent,
     CreateAccountComponent,
     HomeComponent,
-    LoginComponent
+    LoginComponent,
+    CreateChallengeComponent
   ],
   imports: [
     BrowserModule,
