@@ -7,6 +7,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Component;
 
 import io.revlearners.model.bo.*;
+import io.revlearners.model.services.RankService;
 import io.revlearners.model.services.interfaces.*;
 import io.revlearners.util.commons.interfaces.IServiceFacade;
 
@@ -15,6 +16,8 @@ public class ServiceFacade implements IServiceFacade {
 
 	@Autowired
 	private ITopicService topicService;
+	
+	@Autowired IRankService rankService;
 	
 	@Override
 	public TopicBo getTopicById(Long id) {
@@ -48,38 +51,32 @@ public class ServiceFacade implements IServiceFacade {
 
 	@Override
 	public RankBo getRankById(Long id) {
-		// TODO Auto-generated method stub
-		return null;
+		return rankService.findOne(id);
 	}
 
 	@Override
 	public List<RankBo> listRanks() {
-		// TODO Auto-generated method stub
-		return null;
+		return rankService.findAll();
 	}
 
 	@Override
 	public Page<RankBo> pageRanks(int page, int size) {
-		// TODO Auto-generated method stub
-		return null;
+		return rankService.pageAll(page, size);
 	}
 
 	@Override
 	public void createRank(RankBo rank) {
-		// TODO Auto-generated method stub
-		
+		rankService.create(rank);
 	}
 
 	@Override
 	public void updateRank(RankBo rank) {
-		// TODO Auto-generated method stub
-		
+		rankService.update(rank);
 	}
 
 	@Override
 	public void deleteRankById(Long id) {
-		// TODO Auto-generated method stub
-		
+		rankService.deleteById(id);
 	}
 
 	@Override

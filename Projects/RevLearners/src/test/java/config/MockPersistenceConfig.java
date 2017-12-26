@@ -37,10 +37,10 @@ public class MockPersistenceConfig {
         ds.setUsername(System.getenv("RDS_USERNAME"));
         ds.setPassword(System.getenv("RDS_PASSWORD"));
 
-        ds.setDriverClassName(System.getenv("DBDC"));
-        ds.setUrl(System.getenv("DBUR"));
-        ds.setUsername(System.getenv("DBTESTU"));
-        ds.setPassword(System.getenv("DBTESTP"));
+//        ds.setDriverClassName(System.getenv("DBDC"));
+//        ds.setUrl(System.getenv("DBUR"));
+//        ds.setUsername(System.getenv("DBTESTU"));
+//        ds.setPassword(System.getenv("DBTESTP"));
         return ds;
     }
 
