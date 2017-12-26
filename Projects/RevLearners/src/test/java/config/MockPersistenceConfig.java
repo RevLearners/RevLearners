@@ -26,10 +26,7 @@ import io.revlearners.model.dao.interfaces.*;
 import io.revlearners.model.services.dao.hibernate.injectors.*;
 import io.revlearners.model.services.dao.interfaces.contracts.*;
 
-@TestConfiguration
-@EnableAsync
-@EnableTransactionManagement
-@ComponentScan("io.revlearners.model")
+@Configuration
 public class MockPersistenceConfig {
 
     @Bean
