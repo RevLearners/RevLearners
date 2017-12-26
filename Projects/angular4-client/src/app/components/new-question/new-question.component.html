@@ -1,0 +1,64 @@
+<form class="form form-horizontal">
+
+    <fieldset>
+
+        <div class="form-group">
+            <div class="col-sm-offset-4 col-sm-7">
+                <legend>New Question</legend>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="topic" class="control-label col-sm-4">Topic</label>
+            <div class="col-sm-7">
+                <select class="form-control" id="topic" name="ignored" [(ngModel)]="newQuestion.topic" required>
+                    <option *ngFor="let topic of this.topics" [ngValue]="topic">{{topic.name}}</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="qText" class="col-sm-4 control-label">Question</label>
+            <div class="col-sm-7">
+                <input id="qText" type="text" class="form-control" name="ignored" [(ngModel)]="newQuestion.text"/>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-sm-offset-4 col-sm-7">
+                <button type="button" class="btn btn-success btn-block" (click)="addNewOption()">
+                    <span class="fas fa-plus"></span> Option
+                </button>
+            </div>
+        </div>
+
+        <div *ngFor="let option of newQuestion.options" class="form-group">
+            <label class="control-label blank-label col-sm-4" for="newOptionDiv"></label>
+
+            <div class="nopadding" id="newOptionDiv">
+                <div class="option-control-wide col-sm-7">
+                    <label for="newOption" class="btn btn-default text-center">
+                        <input type="radio" name="ignored" (click)="selectOption(option)"/>
+                    </label>
+                    <input type="text" class="nopadding option-control-text" id="newOption" name="correctChoice"
+                           [(ngModel)]="option.text"/>
+                    <button type="button" class="btn btn-danger trash-button" (click)="removeOption(option)">
+                        <span class="fas fa-trash-alt"></span>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-sm-offset-4 col-sm-7">
+                <button type="button" class="btn btn-primary btn-block" (click)="submitNewQuestion()">
+                    Submit Question
+                </button>
+            </div>
+        </div>
+
+    </fieldset>
+
+</form>
+
+

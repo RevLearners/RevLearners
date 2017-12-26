@@ -1,23 +1,23 @@
-import {Observable} from "rxjs/Observable";
-import {HttpClient, HttpHeaders, HttpParams} from "@angular/common/http";
-import {Injectable} from "@angular/core";
-import { FormGroup } from "@angular/forms/src/model";
+import {Observable} from 'rxjs/Observable';
+import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
+import {Injectable} from '@angular/core';
+import { FormGroup } from '@angular/forms/src/model';
 
 @Injectable()
-export class CreateAccountService{
+export class CreateAccountService {
     constructor(private http: HttpClient) {
     }
 
-    public createAccount(userCred: string[]){
-        let params = new FormData();
+    public createAccount(userCred: string[]) {
+        const params = new FormData();
         params.append('fname', userCred[0]);
         params.append('mname', userCred[1]);
         params.append('lname', userCred[2]);
         params.append('username', userCred[3]);
         params.append('password', userCred[4]);
         params.append('email', userCred[5]);
-        console.log("Test2:" + userCred);
-        let options = {
+        console.log('Test2:' + userCred);
+        const options = {
             headers: new HttpHeaders(),
         };
 
