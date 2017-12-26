@@ -57,7 +57,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 
 var AppComponent = (function () {
     function AppComponent() {
-        this.title = 'Hello from the Angular 4 Client Spring Boot Integration Demo';
+        this.title = 'I just changed the text again AND AGAIN!';
     }
     AppComponent = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({

@@ -6,5 +6,5 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'Hello from the Angular 4 Client Spring Boot Integration Demo';
+  title = 'I just changed the text again AND AGAIN!';
 }
