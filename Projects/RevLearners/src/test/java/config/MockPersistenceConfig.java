@@ -26,7 +26,7 @@ import io.revlearners.model.dao.interfaces.*;
 import io.revlearners.model.services.dao.hibernate.injectors.*;
 import io.revlearners.model.services.dao.interfaces.contracts.*;
 
-@Configuration
+@TestConfiguration
 @EnableAsync
 @EnableTransactionManagement
 @ComponentScan("io.revlearners.model")
