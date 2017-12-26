@@ -66,7 +66,7 @@ public class GenericPersistenceLayerTest extends PersistenceLayerTest {
 				"this is a salt, a really bad salt, but a salt none the less");
 
 		for (Topic t : topics) {
-			rank = t.getRankByWeight(1);
+			rank = t.getRankByWeight(1L);
 			// Not all the topics have been implemented yet
 			if (rank != null) {
 				utr = new UserRank(user, rank, rank.getMeritThreshold());
@@ -94,7 +94,7 @@ public class GenericPersistenceLayerTest extends PersistenceLayerTest {
 		User user = new User("Jane", null, "Bobbert", us, ur, "mail2@email2.com", "aU2se2rname", "password2", "salt2");
 
 		for (Topic t : topics) {
-			rank = t.getRankByWeight(1);
+			rank = t.getRankByWeight(1L);
 			// Not all the topics have been implemented yet
 			if (rank != null) {
 				utr = new UserRank(user, rank, rank.getMeritThreshold());
@@ -114,7 +114,7 @@ public class GenericPersistenceLayerTest extends PersistenceLayerTest {
 		Topic topic = service.fetchSubTypeById(Topic.class, Constants.TOPIC_CORE_JAVA);
 		QuestionType type = service.fetchSubTypeById(QuestionType.class, Constants.QUESTION_TRUE_FALSE);
 		QuestionDifficulty diff = service.fetchSubTypeById(QuestionDifficulty.class, Constants.DIFFICULTY_EASY);
-		Question quest = new Question(topic, type, diff, "Is the answer to life 42?");
+		Question quest = new Question(topic, type, diff, "Is the answer to life 42?", "yes");
 
 		Set<QuestionOption> opts = new HashSet<QuestionOption>();
 		opts.add(new QuestionOption(quest, "True", true));
