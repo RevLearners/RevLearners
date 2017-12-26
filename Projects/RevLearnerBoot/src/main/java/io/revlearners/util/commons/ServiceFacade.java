@@ -17,7 +17,8 @@ public class ServiceFacade implements IServiceFacade {
 	@Autowired
 	private ITopicService topicService;
 	
-	@Autowired IRankService rankService;
+	@Autowired
+	private IRankService rankService;
 	
 	@Override
 	public TopicBo getTopicById(Long id) {

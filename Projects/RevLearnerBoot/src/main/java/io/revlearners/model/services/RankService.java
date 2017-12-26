@@ -10,3 +10,4 @@ import io.revlearners.model.services.interfaces.IRankService;
 public class RankService extends CrudService<Rank, RankBo> implements IRankService {
 
 }
+

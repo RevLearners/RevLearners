@@ -7,4 +7,3 @@ public interface IRankService extends ICrudService<Rank, RankBo>{
 
 }
 
-
