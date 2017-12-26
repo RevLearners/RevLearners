@@ -5,8 +5,7 @@ public final class WebConstants {
 	private WebConstants() {}
 
 	// Main domain of all calls
-	public static final String WEB_DOMAIN = "/api";
-	public static final String REST_DOMAIN = WEB_DOMAIN + "/rest";
+	public static final String REST_DOMAIN = "/api/rest";
 
 	public static final String TOPICS = REST_DOMAIN + "/topics";
 	public static final String RANKS = REST_DOMAIN + "/ranks";
