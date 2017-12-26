@@ -34,24 +34,24 @@ public final class WebConstants {
 	public static final String XOR = "XOR";
 	
 	// get all and return to page
-	public static final String GET_PAGE_REGEX ="/getPage\\w+";
+	public static final String GET_BY_ID ="/getById/{id}";
 	
 	// get all and return to list
-	public static final String GET_LIST_REGEX = "/getList\\w+";
+	public static final String GET_LIST = "/getList";
 	
 	// get one
-	public static final String GET_ONE_REGEX = "/getOne\\w+/{id}";
+	public static final String GET_PAGE = "/getPage";
 
 	// create one
-	public static final String CREATE_REGEX = "/create\\w+"; 
+	public static final String CREATE = "/create"; 
 	
 	// update one to many entities by value specified in JpaRepo method
-	public static final String UPDATE_BY_REGEX = "/updateByJSON";
+	public static final String UPDATE_BY_ID = "/updateById";
 	
 	// delete one to many entities by value specified in JpaRepo method
-	public static final String DELETE_BY_REGEX = "(/delete\\w+By\\w+/{id})";
+	public static final String DELETE_BY = "(/deleteById)";
 	
 	// delete all entities
-	public static final String DELETE_ALL_REGEX = "(/deleteAll\\w+)";
+	public static final String DELETE_ALL = "(/deleteAll)";
 	
 }

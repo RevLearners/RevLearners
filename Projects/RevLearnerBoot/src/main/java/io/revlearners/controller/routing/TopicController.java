@@ -20,7 +20,7 @@ import io.revlearners.util.commons.configs.WebConstants;
 @RequestMapping(WebConstants.TOPICS)
 public class TopicController extends WebServicesController {
 	
-	@GetMapping("/getOne/{id}")
+	@GetMapping(WebConstants.GET_BY_ID)
 	public ResponseEntity<TopicBo> getTopicById(@PathVariable(value = "id") Long id) {
 		TopicBo topic = serviceFacade.getTopicById(id);
 		if(topic == null)
@@ -28,12 +28,12 @@ public class TopicController extends WebServicesController {
 		return ResponseEntity.ok().body(topic);
 	}
 	
-	@GetMapping("/listTopics")
+	@GetMapping(WebConstants.GET_LIST)
 	public List<TopicBo> listTopics(Model model){
 		return serviceFacade.listTopics();
 	}
 	
-	@GetMapping(value = "/getPages/", params = { "page", "size" })
+	@GetMapping(value = WebConstants.GET_PAGE, params = { "page", "size" })
 	public Page<TopicBo> pageTopics(Model model, @RequestParam("page") int page, @RequestParam("size") int size){
 		return serviceFacade.pageTopics(page, size);
 	}
