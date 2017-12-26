@@ -31,14 +31,14 @@ public class SpringDemoApplicationTests extends AbstractTestNGSpringContextTests
 	}
 	
 //	Tests that topic service can fetch and DB is pre-loaded
-	@Test
-	public void topicPersistence() {
-//		Object[] topics = this.restTemplate.getForObject("/api/getTopics", Object[].class);
-		ResponseEntity<List<TopicBo>> topicsResponse = this.restTemplate.exchange("/api/getTopics", HttpMethod.GET, null, new ParameterizedTypeReference<List<TopicBo>>() {
-		});
-		List<TopicBo> topics = topicsResponse.getBody();
-		assertThat(topicsResponse.getStatusCode()).isEqualTo(HttpStatus.OK);
-		assertTrue(topics != null);
-	}
+//	@Test
+//	public void topicPersistence() {
+////		Object[] topics = this.restTemplate.getForObject("/api/getTopics", Object[].class);
+//		ResponseEntity<List<TopicBo>> topicsResponse = this.restTemplate.exchange("/api/getTopics", HttpMethod.GET, null, new ParameterizedTypeReference<List<TopicBo>>() {
+//		});
+//		List<TopicBo> topics = topicsResponse.getBody();
+//		assertThat(topicsResponse.getStatusCode()).isEqualTo(HttpStatus.OK);
+//		assertTrue(topics != null);
+//	}
 
 }
