@@ -4,14 +4,13 @@ import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.FetchType;
 
 import io.revlearners.util.commons.configs.Constants;
 
@@ -27,8 +26,7 @@ public class Topic implements Serializable {
 	@Column(name = Constants.COLUMN_TOPIC_NAME)
 	private String topicName;
 
-//	@OneToMany(cascade = CascadeType.ALL, mappedBy = Constants.PK_TOPIC, fetch = FetchType.EAGER)
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = Constants.FK_TOPIC)
+	@OneToMany(mappedBy = Constants.FK_TOPIC, fetch = FetchType.EAGER)
 	private Set<Rank> ranks = new HashSet<Rank>();
 
 	public Topic(Long id, String topicName, Set<Rank> ranks) {
@@ -73,9 +71,17 @@ public class Topic implements Serializable {
 		return "Topic [id=" + id + ", topicName=" + topicName + "]";
 	}
 
-	public Rank getRankByWeight(int i) {
+
+    /**
+     * given a topic and a rank weight (in the heirarchy of ranks for the topic)
+     * we return the next rank in the sequence
+     *
+     * @param i
+     * @return
+     */
+	public Rank getRankByWeight(Long i) {
 		for (Rank r : ranks) {
-			if (r.getRank() == i)
+			if (r.getRelativeWeight().equals(i))
 				return r;
 		}
 		return null;

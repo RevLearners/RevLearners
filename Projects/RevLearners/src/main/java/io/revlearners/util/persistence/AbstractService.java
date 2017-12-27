@@ -11,33 +11,33 @@ import io.revlearners.util.persistence.interfaces.IGenericDao;
 public abstract class AbstractService implements IGenericDao {
 
 	@Override
-	public <T extends Serializable> T fetchSubTypeById(Class<T> clazz, long id, Object session) {
-		return getDao().fetchSubTypeById(clazz, id, session);
+	public <T extends Serializable> T fetchSubTypeById(Class<T> clazz, Serializable id) {
+		return getDao().fetchSubTypeById(clazz, id);
 	}
 
 	@Override
-	public <T extends Serializable> List<T> fetchAllSubTypes(Class<T> clazz, Object session) {
-		return getDao().fetchAllSubTypes(clazz, session);
+	public <T extends Serializable> List<T> fetchAllSubTypes(Class<T> clazz) {
+		return getDao().fetchAllSubTypes(clazz);
 	}
 
 	@Override
-	public <T extends Serializable> Serializable create(T entity, Object session) {
-		return getDao().create(entity, session);
+	public <T extends Serializable> Serializable create(T entity) {
+		return getDao().create(entity);
 	}
 
 	@Override
-	public <T extends Serializable> T update(Class<T> clazz, T entity, Object session) {
-		return getDao().update(clazz, entity, session);
+	public <T extends Serializable> T update(Class<T> clazz, T entity) {
+		return getDao().update(clazz, entity);
 	}
 
 	@Override
-	public <T extends Serializable> void delete(T entity, Object session) {
-		getDao().delete(entity, session);
+	public <T extends Serializable> void delete(T entity) {
+		getDao().delete(entity);
 	}
 
 	@Override
-	public <T extends Serializable> void deleteById(Class<T> clazz, long id, Object session) {
-		getDao().deleteById(clazz, id, session);		
+	public <T extends Serializable> void deleteById(Class<T> clazz, Serializable id) {
+		getDao().deleteById(clazz, id);
 	}
 	
 	protected abstract IGenericDao getDao();
