@@ -9,7 +9,7 @@ import { CreateAccountService } from '../../service/create-account-service';
   templateUrl: './CreateAccount.component.html',
   styleUrls: ['./CreateAccount.component.css'],
   providers: [CreateAccountService],
-  encapsulation: ViewEncapsulation.None,
+  // encapsulation: ViewEncapsulation.None,
 })
 export class CreateAccountComponent {
 
