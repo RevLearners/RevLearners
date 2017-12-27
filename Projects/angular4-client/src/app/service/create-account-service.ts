@@ -1,39 +1,39 @@
-import {Observable} from "rxjs/Observable";
-import {HttpClient, HttpHeaders, HttpParams} from "@angular/common/http";
-import {Injectable} from "@angular/core";
-import { FormGroup } from "@angular/forms/src/model";
+import {Observable} from 'rxjs/Observable';
+import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
+import {Injectable} from '@angular/core';
+import {FormGroup} from '@angular/forms/src/model';
 
 @Injectable()
-export class CreateAccountService{
+export class CreateAccountService {
     constructor(private http: HttpClient) {
     }
 
-    public createAccount(userCred: string[]){
-        let params = new FormData();
+    public createAccount(userCred: string[]) {
+        const params = new FormData();
         params.append('fname', userCred[0]);
         params.append('mname', userCred[1]);
         params.append('lname', userCred[2]);
         params.append('username', userCred[3]);
         params.append('password', userCred[4]);
         params.append('email', userCred[5]);
-        console.log("Test2:" + userCred);
-        let options = {
+        console.log('Test2:' + userCred);
+        const options = {
             headers: new HttpHeaders(),
         };
 
         return this.http.post('http://localhost:8085/RevLearners/CreateAccount', params, options);
     }
 
-    public userExist(username: string){
+    public userExist(username: string) {
 
-        let params = new FormData();
+        const params = new FormData();
         params.append('username', username);
 
-        let options = {
+        const options = {
             headers: new HttpHeaders(),
         };
 
-        //Link will change after the rest calls/controller has been fully set up
+        // Link will change after the rest calls/controller has been fully set up
         return this.http.post('http://localhost:8085/RevLearners/???', params, options);
     }
 }
