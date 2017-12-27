@@ -1,0 +1,12 @@
+<p>
+  profile works!
+</p>
+
+
+<div class="well">
+    <input [(ngModel)]="rankId"><input type="button" value="SUBMIT" (click)="fetchData()">
+    <table border="2px">
+        <tr><th>NAME</th><td>{{rank.name}}</td></tr>
+        <tr><th>ID</th><td>{{rank.meritThreshold}}</td></tr>
+    </table>
+</div>
