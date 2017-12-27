@@ -12,8 +12,9 @@ import org.springframework.stereotype.Service;
 import io.revlearners.model.bean.User;
 import io.revlearners.model.bo.UserBo;
 import io.revlearners.model.services.interfaces.IUserService;
+import io.revlearners.util.commons.configs.Constants;
 
-@Service
+//@Service
 public class UserService extends CrudService<User, UserBo> implements UserDetailsService, IUserService {	
 
 	private static final String USER_NOT_FOUND = "Invalid username";
@@ -29,9 +30,6 @@ public class UserService extends CrudService<User, UserBo> implements UserDetail
 	private List<SimpleGrantedAuthority> getAuthority(String role){
 		return Arrays.asList(new SimpleGrantedAuthority(role));
 	}
-	
-	
-	
 //	
 //	ApplicationContext springContext = new AnnotationConfigApplicationContext(PersistenceConfig.class);
 //	SessionFactory sf;

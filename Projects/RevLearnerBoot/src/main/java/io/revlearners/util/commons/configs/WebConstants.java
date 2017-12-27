@@ -53,4 +53,9 @@ public final class WebConstants {
 	// delete all entities
 	public static final String DELETE_ALL = "/deleteAll";
 	
+	// Security header values
+	public static final String WWW_AUTHENTICATE = "WWW-Authenticate";
+	public static final String WEB_REALM = "Basic realm=%s\"";
+	public static final String REALM_NAME = "RevLearners";
+	
 }
