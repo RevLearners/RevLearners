@@ -14,6 +14,13 @@ import {HttpClientModule} from '@angular/common/http';
 import {LoginComponent} from './components/Login/Login.component';
 import {CreateChallengeComponent} from './components/CreateChallenge/CreateChallenge.component';
 import {SubmitCertificationComponent} from './components/submit-certification/submit-certification.component';
+import {CompleteChallengeComponent} from './components/complete-challenge/complete-challenge.component';
+import {ReviewChallengeComponent} from './components/review-quiz/review-challenge.component';
+import {GenerateChallengeComponent} from './components/generate-quiz/generate-challenge.component';
+import {NewQuestionComponent} from './components/new-question/new-question.component';
+import {ProfileComponent} from './components/profile/profile.component';
+import {PageDneComponent} from './components/page-dne/page-dne.component';
+
 
 @NgModule({
     declarations: [
@@ -23,7 +30,13 @@ import {SubmitCertificationComponent} from './components/submit-certification/su
         HomeComponent,
         LoginComponent,
         CreateChallengeComponent,
-        SubmitCertificationComponent
+        SubmitCertificationComponent,
+        CompleteChallengeComponent,
+        ReviewChallengeComponent,
+        GenerateChallengeComponent,
+        NewQuestionComponent,
+        ProfileComponent,
+        PageDneComponent
     ],
     imports: [
         BrowserModule,
