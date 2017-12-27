@@ -20,6 +20,7 @@ public class UserService extends CrudService<User, UserBo> implements UserDetail
 	private static final String USER_NOT_FOUND = "Invalid username";
 	
 	@Override
+    
 	public UserDetails loadUserByUsername(String userId) throws UsernameNotFoundException {
 		UserBo user = this.findOne(Long.parseLong(userId));
 		if(user == null)
