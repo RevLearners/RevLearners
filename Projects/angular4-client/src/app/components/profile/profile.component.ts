@@ -46,15 +46,15 @@ export class ProfileComponent implements OnInit {
     )
   }
   
-  getRanks(){
-    this.httpClient.get(`https://my-json-server.typicode.com/mjsnee/fake-json-server/user-ranks`)
-    .subscribe(
-      (data:any[]) => {
-        if(data.length) {
-          this.merit = data[0].merit;
-        }
-      }
-  }
+//  getRanks(){
+//    this.httpClient.get(`https://my-json-server.typicode.com/mjsnee/fake-json-server/user-ranks`)
+//    .subscribe(
+//      (data:any[]) => {
+//        if(data.length) {
+//          this.merit = data[0].merit;
+//        }
+//      }
+//  }
   
 }
 
