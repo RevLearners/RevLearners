@@ -39,6 +39,7 @@ public class RankBo {
     public RankBo(Long id, String name, Long topicId, String topic, Long relativeWeight, Long meritThreshold) {
     		this.id = id;
     		this.name = name;
+    		this.topicId = topicId;
     		this.topic = topic;
     		this.relativeWeight = relativeWeight;
     		this.meritThreshold = meritThreshold;
