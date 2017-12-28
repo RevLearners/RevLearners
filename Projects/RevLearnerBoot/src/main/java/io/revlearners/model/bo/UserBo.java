@@ -44,13 +44,13 @@ public class UserBo {
 
 	private String password;
 
-	private List<String> permissions;
+	private Set<String> permissions;
 
-	public List<String> getPermissions() {
+	public Set<String> getPermissions() {
 		return permissions;
 	}
 
-	public void setPermissions(List<String> permissions) {
+	public void setPermissions(Set<String> permissions) {
 		this.permissions = permissions;
 	}
 
@@ -81,15 +81,16 @@ public class UserBo {
 	public UserBo() {
 	}
 
-	public UserBo(Long id, String firstName, String middleName, String lastName, String email, String username,
+	public UserBo(Long id, String firstName, String middleName, String lastName, String email, String username, String password,
 			Long roleId, String role, Long statId, String stat, Set<UserRankBo> ranks, Set<UserCertificationBo> certs,
-			Set<ChallengeAttemptBo> attempts, Set<ChallengeBo> challenges, Set<UserBo> friends) {
+			Set<ChallengeAttemptBo> attempts, Set<ChallengeBo> challenges, Set<UserBo> friends, Set<String> permissions) {
 		this.id = id;
 		this.firstName = firstName;
 		this.middleName = middleName;
 		this.lastName = lastName;
 		this.email = email;
 		this.username = username;
+		this.password = password;
 		this.roleId = roleId;
 		this.role = role;
 		this.statId = statId;
@@ -99,6 +100,7 @@ public class UserBo {
 		this.challengeAttempts = attempts;
 		this.challenges = challenges;
 		this.friends = friends;
+		this.permissions = permissions;
 	}
 
 	public Long getStatId() {

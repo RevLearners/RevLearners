@@ -55,7 +55,7 @@ public class User implements Serializable {
     @Column(table = Constants.TABLE_USER_CREDENTIALS, name = Constants.COLUMN_EMAIL)
     private String email;
 
-    @Column(table = Constants.TABLE_USER_CREDENTIALS, name = Constants.COLUMN_USERNAME)
+    @Column(unique = true, table = Constants.TABLE_USER_CREDENTIALS, name = Constants.COLUMN_USERNAME)
     private String username;
 
     @Column(table = Constants.TABLE_USER_CREDENTIALS, name = Constants.COLUMN_PASSWORD_HASH)

@@ -1,12 +1,17 @@
 package io.revlearners.model.services.interfaces;
 
+import java.io.Serializable;
 import java.util.List;
 
 import org.springframework.data.domain.Page;
 
 public interface ICrudService<TEntity, TModel>
 {
-    TModel findOne(Long id);
+    TModel findOne(Serializable id);
+    
+    TEntity findOneEntity(Serializable id);
+
+    List<TEntity> findAllEntities(Serializable id);
  
     List<TModel> findAll();
     

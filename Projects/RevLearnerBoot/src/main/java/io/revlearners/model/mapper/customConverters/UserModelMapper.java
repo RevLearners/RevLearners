@@ -3,6 +3,7 @@ package io.revlearners.model.mapper.customConverters;
 import java.io.Serializable;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -10,6 +11,7 @@ import org.modelmapper.AbstractConverter;
 import org.modelmapper.Converter;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Component;
 
 import com.github.jmnarloch.spring.boot.modelmapper.ConverterConfigurerSupport;
@@ -27,6 +29,7 @@ import io.revlearners.model.bo.RankBo;
 import io.revlearners.model.bo.UserBo;
 import io.revlearners.model.bo.UserCertificationBo;
 import io.revlearners.model.bo.UserRankBo;
+import io.revlearners.util.commons.configs.Constants;
 
 @Component
 public class UserModelMapper extends ConverterConfigurerSupport<User, UserBo>{
@@ -42,6 +45,7 @@ public class UserModelMapper extends ConverterConfigurerSupport<User, UserBo>{
 			@Override
 			protected UserBo convert(User user) {
 				
+				Set<String> permissions = new LinkedHashSet<String>();
 				
 				// get mappers for nontrivial conversions
 				Set<UserRankBo> ranks = new LinkedHashSet<UserRankBo>();
@@ -70,11 +74,32 @@ public class UserModelMapper extends ConverterConfigurerSupport<User, UserBo>{
 					friends.add(modelMapper.map(u, UserBo.class));
 				}
 				
+				permissions.add(user.getRole().getName());
+				getAdvRoles(user, permissions);
+				getCertRoles(user, permissions);
+				
 				return new UserBo(user.getId(), user.getFirstName(), user.getMiddleName(), user.getLastName(),
-							user.getEmail(), user.getUsername(), user.getRole().getId(), user.getRole().getName(),
-							user.getStatus().getId(), user.getStatus().getName(), ranks, certs, chalAttempts, challenges, friends);
+							user.getEmail(), user.getUsername(), user.getPassword(), user.getRole().getId(), user.getRole().getName(),
+							user.getStatus().getId(), user.getStatus().getName(), ranks, certs, chalAttempts, challenges, friends, permissions);
 			}
 		};
 	}
+	
+	// Determine user permissions by topic, role
+	private void getAdvRoles(User user, Set<String> permissions) {
+		for (UserRank rank : user.getRanks()) {
+			if (rank.getMerit() > Constants.ADV_USER_PTS)
+				permissions.add(Constants.ROLE_ADVANCED_STR + "_" + rank.getRank().getTopic().getTopicName());
+		}
+	}
+
+	// Determine user permissions by topic, role
+	private void getCertRoles(User user, Set<String> permissions) {
+		for (UserCertification cert : user.getCertifications()) {
+			if (cert.getStatus().equals(Constants.REQUEST_STATUS_APPROVED_STR))
+				permissions.add(Constants.ROLE_ADVANCED_STR + "_" + cert.getCertification().getTopic().getTopicName());
+		}
+	}
+
 
 }
