@@ -81,6 +81,26 @@ public class UserBo {
 
 	public UserBo() {
 	}
+	
+	public UserBo(Long id, String firstName, String middleName, String lastName, String email, String username,
+			String password, Long statId, String statName, Long roleId, String roleName, Set<UserRankBo> ranks,
+			Set<UserCertificationBo> certs, Set<ChallengeAttemptBo> chalAttempts, Set<ChallengeBo> challenges,
+			Set<UserBo> friends, Set<String> permissions) {
+		this.id = id;
+		this.firstName = firstName;
+		this.middleName = middleName;
+		this.lastName = lastName;
+		this.email = email;
+		this.username = username;
+		this.password = password;
+		this.statId = statId;
+		this.status = statName;
+		this.roleId = roleId;
+		this.role = roleName;
+		this.ranks = ranks;
+		this.friends = friends;
+		this.permissions = permissions;
+	}
 
 	public Long getStatId() {
 		return statId;
