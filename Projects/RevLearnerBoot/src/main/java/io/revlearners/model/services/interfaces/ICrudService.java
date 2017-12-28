@@ -5,6 +5,8 @@ import java.util.List;
 
 import org.springframework.data.domain.Page;
 
+import io.revlearners.model.bo.RankBo;
+
 public interface ICrudService<TEntity, TModel>
 {
     TModel findOne(Serializable id);
@@ -16,10 +18,6 @@ public interface ICrudService<TEntity, TModel>
     List<TModel> findAll();
     
     Page<TModel> pageAll(int low, int high);
- 
-    void update(TModel model);
- 
+    
     void deleteById(Long id);
- 
-    void create(TModel model);
 }

@@ -40,12 +40,20 @@ public class Rank implements Serializable {
 	public void setTopic(Topic topic) {
 		this.topic = topic;
 	}
-
+	
     public Rank(Long id, String name, Long rankInHeirarchy, Long meritThreshold) {
         this.id = id;
         this.name = name;
         this.meritThreshold = meritThreshold;
         this.relativeWeight = rankInHeirarchy;
+    }
+
+    public Rank(Long id, String name, Long rankInHeirarchy, Long meritThreshold, Topic topic) {
+        this.id = id;
+        this.name = name;
+        this.meritThreshold = meritThreshold;
+        this.relativeWeight = rankInHeirarchy;
+        this.topic = topic;
     }
 
     public Rank() {

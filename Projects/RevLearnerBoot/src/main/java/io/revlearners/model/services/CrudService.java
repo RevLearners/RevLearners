@@ -46,8 +46,7 @@ public class CrudService<TEntity, TModel> implements ICrudService<TEntity, TMode
 		return result;
 	}
 
-	public void update(TModel model) {
-		TEntity entity = modelMapper.map(model, entityClass);
+	public void update(TEntity entity) {
 		repository.saveAndFlush(entity);
 	}
 
@@ -56,8 +55,7 @@ public class CrudService<TEntity, TModel> implements ICrudService<TEntity, TMode
 		repository.saveAndFlush(entity);
 	}
 
-	public void create(TModel model) {
-		TEntity entity = modelMapper.map(model, entityClass);
+	public void create(TEntity entity) {
 		repository.saveAndFlush(entity);
 	}
 
