@@ -16,20 +16,18 @@ import io.revlearners.model.bean.Challenge;
 import io.revlearners.model.bean.MessageStatus;
 import io.revlearners.model.bean.Notification;
 import io.revlearners.model.bean.User;
-
+import io.revlearners.model.bo.NotificationBo;
+import io.revlearners.model.services.interfaces.INotificationService;
 import io.revlearners.util.commons.configs.Constants;
 
-public class NotificationService {
-	@Autowired
+public class NotificationService extends CrudService<Notification, NotificationBo> implements INotificationService{
+	
 
 	public Notification generateCertificationNotification(User user) {
 
 		Notification notif = new Notification();
 		LocalDateTime now = LocalDateTime.now();
-
-		MessageStatus status = null;
-
-		status.setName("unread");
+		MessageStatus status = new MessageStatus(Constants.MESSAGE_STATUS_UNREAD, Constants.MESSAGE_STATUS_SENT_STR);
 		notif.setTitle("Certification Accepted");
 		notif.setContents("Congratulations, " + user.getFirstName()
 				+ "! Your certification has been verified. You have now been updated to an advanced user.");
