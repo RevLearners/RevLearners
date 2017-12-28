@@ -37,16 +37,32 @@ public class UserBo {
 	private Set<ChallengeAttemptBo> challengeAttempts;
 
 	private Set<UserCertificationBo> certifications;
-
-	private String email;
-
-	private String username;
-
-	private String password;
-
-	private Set<String> permissions;
-
-	public Set<String> getPermissions() {
+	private List<String> permissions;
+	
+	public UserBo() {
+	}
+	
+	public UserBo(Long id, String firstName, String middleName, String lastName, String email, String username,
+			Long roleId, String role, Long statId, String stat, Set<UserRankBo> ranks, Set<UserCertificationBo> certs,
+			Set<ChallengeAttemptBo> attempts, Set<ChallengeBo> challenges, Set<UserBo> friends) {
+		this.id = id;
+		this.firstName = firstName;
+		this.middleName = middleName;
+		this.lastName = lastName;
+		this.email = email;
+		this.username = username;
+		this.roleId = roleId;
+		this.role = role;
+		this.statId = statId;
+		this.status = stat;
+		this.ranks = ranks;
+		this.certifications = certs;
+		this.challengeAttempts = attempts;
+		this.challenges = challenges;
+		this.friends = friends;
+	}
+	
+	public List<String> getPermissions() {
 		return permissions;
 	}
 
