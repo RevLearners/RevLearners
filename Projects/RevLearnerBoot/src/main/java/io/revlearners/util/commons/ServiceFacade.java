@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Component;
 
+import io.revlearners.model.bean.Rank;
+import io.revlearners.model.bean.Topic;
 import io.revlearners.model.bo.*;
 import io.revlearners.model.services.RankService;
 import io.revlearners.model.services.interfaces.*;
@@ -13,7 +15,7 @@ import io.revlearners.util.commons.interfaces.IServiceFacade;
 
 @Component
 public class ServiceFacade implements IServiceFacade {
-
+	
 	@Autowired
 	private ITopicService topicService;
 	
@@ -37,12 +39,12 @@ public class ServiceFacade implements IServiceFacade {
 
 	@Override
 	public void createTopic(TopicBo topic) {
-		topicService.create(topic);
+//		topicService.create(topic);
 	}
 
 	@Override
 	public void updateTopic(TopicBo topic) {	
-		topicService.update(topic);
+//		topicService.update(topic);
 	}
 
 	@Override
@@ -66,13 +68,15 @@ public class ServiceFacade implements IServiceFacade {
 	}
 
 	@Override
-	public void createRank(RankBo rank) {
-		rankService.create(rank);
+	public void createRank(RankBo rankBo) {
+//		Topic topic = topicService.findOneEntity(rankBo.getTopicId());
+//		Rank rank = new Rank(rankBo.getId(), rankBo.getName(), rankBo.getRelativeWeight(), rankBo.getMeritThreshold(), topic);
+//		rankService.create(rank);
 	}
 
 	@Override
 	public void updateRank(RankBo rank) {
-		rankService.update(rank);
+//		rankService.update(rank);
 	}
 
 	@Override

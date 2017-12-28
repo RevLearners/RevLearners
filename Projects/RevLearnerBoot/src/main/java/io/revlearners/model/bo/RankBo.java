@@ -11,9 +11,19 @@ public class RankBo {
 
     private Long id;
     private String name;
+    private Long topicId;
     private String topic;
     private Long relativeWeight;
-    private Long meritThreshold;
+    
+    public Long getTopicId() {
+		return topicId;
+	}
+
+	public void setTopicId(Long topicId) {
+		this.topicId = topicId;
+	}
+
+	private Long meritThreshold;
 
     public String getTopic() {
 		return topic;
@@ -23,17 +33,10 @@ public class RankBo {
 		this.topic = topic;
 	}
 
-    public RankBo(Long id, String name, Long rankInHeirarchy, Long meritThreshold) {
-        this.id = id;
-        this.name = name;
-        this.meritThreshold = meritThreshold;
-        this.relativeWeight = rankInHeirarchy;
-    }
-
     public RankBo() {
     }
 
-    public RankBo(Long id, String name, String topic, Long relativeWeight, Long meritThreshold) {
+    public RankBo(Long id, String name, Long topicId, String topic, Long relativeWeight, Long meritThreshold) {
     		this.id = id;
     		this.name = name;
     		this.topic = topic;
