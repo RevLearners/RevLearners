@@ -1,9 +1,9 @@
 package io.revlearners.model.services;
 
+import java.io.Serializable;
 import java.lang.reflect.ParameterizedType;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import org.modelmapper.ModelMapper;
@@ -32,7 +32,7 @@ public class CrudService<TEntity, TModel> implements ICrudService<TEntity, TMode
 		this.modelClass = (Class<TModel>) genericSuperclass.getActualTypeArguments()[1];
 	}
 
-	public TModel findOne(Long id) {
+	public TModel findOne(Serializable id) {
 		TEntity entity = repository.findOne(id);
 		return modelMapper.map(entity, modelClass);
 	}
@@ -76,5 +76,15 @@ public class CrudService<TEntity, TModel> implements ICrudService<TEntity, TMode
 				return modelMapper.map(entity, modelClass);
 			}
 		});
+	}
+
+	@Override
+	public TEntity findOneEntity(Serializable id) {
+		return repository.findOne(id);
+	}
+
+	@Override
+	public List<TEntity> findAllEntities(Serializable id) {
+		return repository.findAll();
 	}
 }

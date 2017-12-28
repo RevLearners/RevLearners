@@ -1,47 +1,44 @@
 package io.revlearners.model.bo;
 
-import javax.persistence.*;
-
-import io.revlearners.util.commons.configs.Constants;
-
-import java.io.Serializable;
-
 public class UserRankBo {
 
-	private UserRankPair pk = new UserRankPair();
+	private String rankName;
+	private Long rankId;
 	private Long merit;
+	private String topic;
 	
 	public UserRankBo() {
 	}
 
-	public UserRankBo(UserBo user, RankBo rank, Long merit) {
-		this.pk = new UserRankPair(user, rank);
+	public UserRankBo(Long id, String name, Long merit, String topic) {
+		this.rankName = name;
+		this.rankId = id;
 		this.merit = merit;
+		this.topic = topic;
 	}
 
-	public UserRankPair getPk() {
-		return pk;
+	public String getTopic() {
+		return topic;
 	}
 
-	public void setPk(UserRankPair id) {
-		this.pk = id;
+	public void setTopic(String topic) {
+		this.topic = topic;
 	}
 
-	public UserBo getUser() {
-		return pk.user;
+	public String getRankName() {
+		return rankName;
 	}
 
-	public void setUser(UserBo user) {
-		pk.user = user;
+	public void setRankName(String rankName) {
+		this.rankName = rankName;
 	}
 
-	@Transient
-	public RankBo getRank() {
-		return pk.rank;
+	public Long getRankId() {
+		return rankId;
 	}
 
-	public void setRank(RankBo rank) {
-		pk.rank = rank;
+	public void setRankId(Long rankId) {
+		this.rankId = rankId;
 	}
 
 	public Long getMerit() {
@@ -51,41 +48,6 @@ public class UserRankBo {
 	public void setMerit(Long merit) {
 		this.merit = merit;
 	}
-
-	@Embeddable
-	public static class UserRankPair {
-
-		private static final long serialVersionUID = -3420765176964284918L;
-
-		private UserBo user;
-
-		private RankBo rank;
-
-		public UserRankPair(UserBo user, RankBo rank) {
-			this.user = user;
-			this.rank = rank;
-		}
-
-		public UserRankPair() {
-		}
-
-		@Override
-		public boolean equals(Object o) {
-			if (this == o)
-				return true;
-			if (!(o instanceof UserRankPair))
-				return false;
-
-			UserRankPair that = (UserRankPair) o;
-
-			return that.rank.getId().equals(this.rank.getId()) && that.user.getId().equals(this.user.getId());
-		}
-
-		@Override
-		public int hashCode() {
-			int result = user != null ? user.hashCode() : 0;
-			result = 31 * result + (rank != null ? rank.hashCode() : 0);
-			return result;
-		}
-	}
+	
+	
 }

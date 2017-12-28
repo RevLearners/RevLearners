@@ -1,6 +1,7 @@
 package io.revlearners.model.bo;
 
 import java.io.Serializable;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -29,21 +30,45 @@ public class UserBo {
 
 	private Set<UserBo> friends;
 
-	private Map<Long, RankBo> ranks;
+	private Set<UserRankBo> ranks;
 
 	private Set<ChallengeBo> challenges;
 
 	private Set<ChallengeAttemptBo> challengeAttempts;
 
-	private Set<CertificationBo> certifications;
+	private Set<UserCertificationBo> certifications;
+	private List<String> permissions;
+	
+	public UserBo() {
+	}
+	
+	public UserBo(Long id, String firstName, String middleName, String lastName, String email, String username,
+			Long roleId, String role, Long statId, String stat, Set<UserRankBo> ranks, Set<UserCertificationBo> certs,
+			Set<ChallengeAttemptBo> attempts, Set<ChallengeBo> challenges, Set<UserBo> friends) {
+		this.id = id;
+		this.firstName = firstName;
+		this.middleName = middleName;
+		this.lastName = lastName;
+		this.email = email;
+		this.username = username;
+		this.roleId = roleId;
+		this.role = role;
+		this.statId = statId;
+		this.status = stat;
+		this.ranks = ranks;
+		this.certifications = certs;
+		this.challengeAttempts = attempts;
+		this.challenges = challenges;
+		this.friends = friends;
+	}
+	
+	public List<String> getPermissions() {
+		return permissions;
+	}
 
-	private String email;
-
-	private String username;
-
-	private String password;
-
-	private String salt;
+	public void setPermissions(Set<String> permissions) {
+		this.permissions = permissions;
+	}
 
 	public String getEmail() {
 		return email;
@@ -69,26 +94,19 @@ public class UserBo {
 		this.password = password;
 	}
 
-	public String getSalt() {
-		return salt;
-	}
-
-	public void setSalt(String salt) {
-		this.salt = salt;
-	}
-
 	public UserBo() {
 	}
 
-	public UserBo(Long id, String firstName, String middleName, String lastName, String email, String username,
-			Long roleId, String role, Long statId, String stat, Map<Long, RankBo> ranks, Set<CertificationBo> certs,
-			Set<ChallengeAttemptBo> attempts, Set<ChallengeBo> challenges, Set<UserBo> friends) {
+	public UserBo(Long id, String firstName, String middleName, String lastName, String email, String username, String password,
+			Long roleId, String role, Long statId, String stat, Set<UserRankBo> ranks, Set<UserCertificationBo> certs,
+			Set<ChallengeAttemptBo> attempts, Set<ChallengeBo> challenges, Set<UserBo> friends, Set<String> permissions) {
 		this.id = id;
 		this.firstName = firstName;
 		this.middleName = middleName;
 		this.lastName = lastName;
 		this.email = email;
 		this.username = username;
+		this.password = password;
 		this.roleId = roleId;
 		this.role = role;
 		this.statId = statId;
@@ -98,6 +116,7 @@ public class UserBo {
 		this.challengeAttempts = attempts;
 		this.challenges = challenges;
 		this.friends = friends;
+		this.permissions = permissions;
 	}
 
 	public Long getStatId() {
@@ -132,19 +151,19 @@ public class UserBo {
 		this.role = role;
 	}
 
-	public Map<Long, RankBo> getRanks() {
+	public Set<UserRankBo> getRanks() {
 		return ranks;
 	}
 
-	public void setRanks(Map<Long, RankBo> ranks) {
+	public void setRanks(Set<UserRankBo> ranks) {
 		this.ranks = ranks;
 	}
 
-	public Set<CertificationBo> getCertifications() {
+	public Set<UserCertificationBo> getCertifications() {
 		return certifications;
 	}
 
-	public void setCertifications(Set<CertificationBo> certifications) {
+	public void setCertifications(Set<UserCertificationBo> certifications) {
 		this.certifications = certifications;
 	}
 

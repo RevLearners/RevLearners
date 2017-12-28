@@ -94,6 +94,10 @@ public class DBInit {
 			saveEntities(Constants.getQuestionDifficulties(), session);
 
 			addQuestions(session);
+			
+			session.save(new User("Root", null, "Admin", new UserStatus(Constants.STATUS_OK), new UserRole(Constants.ROLE_ADMIN),
+					"botbert@email.com", "Botbert", "$2a$10$trilJ1OUwLZqA9PjJYD9Bu1zpKq8jYKG3Dxsigxf1R4XLPBTH1LOW"));
+			
 			session.getTransaction().commit();
 		}
 	}
