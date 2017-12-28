@@ -23,18 +23,19 @@ import io.revlearners.util.commons.configs.Constants;
 public class NotificationService extends CrudService<Notification, NotificationBo> implements INotificationService{
 	
 
-	public Notification generateCertificationNotification(User user) {
+	public Notification generateCertificationNotification(User sender, Set<User> receivers, MessageStatus status) {
 
 		Notification notif = new Notification();
 		LocalDateTime now = LocalDateTime.now();
-		MessageStatus status = new MessageStatus(Constants.MESSAGE_STATUS_UNREAD, Constants.MESSAGE_STATUS_SENT_STR);
 		notif.setTitle("Certification Accepted");
-		notif.setContents("Congratulations, " + user.getFirstName()
+		notif.setContents("Congratulations, " + sender.getFirstName()
 				+ "! Your certification has been verified. You have now been updated to an advanced user.");
 		notif.setTime(now);
 		notif.setStatus(status);
 		
 		return notif;
+		
+		//create notification bo obj to persist it, populate THIS w my data, 
 
 	}
 
