@@ -16,10 +16,11 @@ export class ProfileComponent implements OnInit {
    meritThreshold: ""
   }
   
-  constructor(private http: HttpClient) { }
+  ranks:rank[];
+  
+  constructor(private httpClient:HttpClient) { }
 
-  ngOnInit() {
-  }
+  ngOnInit() {  }
   
   public fetchData(){
                this.rank.id = "Pending",
@@ -42,8 +43,18 @@ export class ProfileComponent implements OnInit {
        this.rank.relativeWeight = "error";
        this.rank.meritThreshold = "error";
      }
-  )
-}
+    )
+  }
+  
+  getRanks(){
+    this.httpClient.get(`https://my-json-server.typicode.com/mjsnee/fake-json-server/user-ranks`)
+    .subscribe(
+      (data:any[]) => {
+        if(data.length) {
+          this.merit = data[0].merit;
+        }
+      }
+  }
   
 }
 
