@@ -25,6 +25,8 @@ import io.revlearners.model.bo.ChallengeAttemptBo;
 import io.revlearners.model.bo.ChallengeBo;
 import io.revlearners.model.bo.RankBo;
 import io.revlearners.model.bo.UserBo;
+import io.revlearners.model.bo.UserCertificationBo;
+import io.revlearners.model.bo.UserRankBo;
 
 @Component
 public class UserModelMapper extends ConverterConfigurerSupport<User, UserBo>{
@@ -40,15 +42,16 @@ public class UserModelMapper extends ConverterConfigurerSupport<User, UserBo>{
 			@Override
 			protected UserBo convert(User user) {
 				
+				
 				// get mappers for nontrivial conversions
-				Map<Long, RankBo> ranks = new LinkedHashMap<Long, RankBo>();
+				Set<UserRankBo> ranks = new LinkedHashSet<UserRankBo>();
 				for(UserRank r : user.getRanks()) {
-					ranks.put(r.getRank().getTopic().getId(), modelMapper.map(r.getRank(), RankBo.class));
+					ranks.add(modelMapper.map(r.getRank(), UserRankBo.class));
 				}
 				
-				Set<CertificationBo> certs = new LinkedHashSet<CertificationBo>();
+				Set<UserCertificationBo> certs = new LinkedHashSet<UserCertificationBo>();
 				for(UserCertification uc : user.getCertifications()) {
-					certs.add(modelMapper.map(uc.getCertification(), CertificationBo.class));
+					certs.add(modelMapper.map(uc.getCertification(), UserCertificationBo.class));
 				}
 				
 				Set<ChallengeAttemptBo> chalAttempts = new LinkedHashSet<ChallengeAttemptBo>();
