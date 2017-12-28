@@ -7,6 +7,7 @@ public class BCryptGen {
 		String salt;
 		for(int i = 0; i < 8; i++) {
 			salt = BCrypt.gensalt();
+			System.out.println(BCrypt.hashpw("Pass1", salt) + "\n" + salt);
 			System.out.println(BCrypt.hashpw("Pass1", salt) + "\n" + salt + "\n");
 		}
 	}
