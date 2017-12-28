@@ -17,9 +17,9 @@ public interface ICrudService<TEntity, TModel>
     
     Page<TModel> pageAll(int low, int high);
  
-    void update(TModel model);
+    void update(TEntity model);
  
     void deleteById(Long id);
  
-    void create(TModel model);
+    void create(TEntity entity);
 }
