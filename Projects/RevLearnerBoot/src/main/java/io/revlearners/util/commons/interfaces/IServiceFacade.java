@@ -1,5 +1,6 @@
 package io.revlearners.util.commons.interfaces;
 
+import java.io.Serializable;
 import java.util.*;
 
 import org.springframework.data.domain.Page;
@@ -11,7 +12,7 @@ public interface IServiceFacade {
 	// First we need methods for interfacing our basic CRUD requests
 
 	// Topic Services
-	public TopicBo getTopicById(Long id);
+	public TopicBo getTopicById(Serializable id);
 
 	public List<TopicBo> listTopics();
 
@@ -21,10 +22,10 @@ public interface IServiceFacade {
 
 	public void updateTopic(TopicBo topic);
 
-	public void deleteTopicById(Long id);
+	public void deleteTopicById(Serializable id);
 
 	// Rank Services
-	public RankBo getRankById(Long id);
+	public RankBo getRankById(Serializable id);
 
 	public List<RankBo> listRanks();
 
@@ -34,23 +35,25 @@ public interface IServiceFacade {
 
 	public void updateRank(RankBo rank);
 
-	public void deleteRankById(Long id);
+	public void deleteRankById(Serializable id);
 
 	// User Services
-	public UserBo getUserById(Long id);
+	public UserBo getUserById(Serializable id);
 
 	public List<UserBo> listUsers();
 
 	public Page<UserBo> pageUsers(int page, int size);
-
-	public void createUser(UserBo user);
+	
+	public void login(UserBo user);
+	
+	public void register(UserBo user);
 
 	public void updateUser(UserBo user);
 
-	public void deleteUserById(Long id);
+	public void deleteUserById(Serializable id);
 
 	// Question Services
-	public QuestionBo getQuestionById(Long id);
+	public QuestionBo getQuestionById(Serializable id);
 
 	public List<QuestionBo> listQuestions();
 
@@ -60,10 +63,10 @@ public interface IServiceFacade {
 
 	public void updateQuestion(QuestionBo question);
 
-	public void deleteQuestionById(Long id);
+	public void deleteQuestionById(Serializable id);
 
 	// Challenge Services
-	public ChallengeBo getChallengeById(Long id);
+	public ChallengeBo getChallengeById(Serializable id);
 
 	public List<ChallengeBo> listChallenges();
 
@@ -73,10 +76,10 @@ public interface IServiceFacade {
 
 	public void updateChallenge(ChallengeBo challenge);
 
-	public void deleteChallengeById(Long id);
+	public void deleteChallengeById(Serializable id);
 
 	// Messaging Services
-	public MessageBo getMessageById(Long id);
+	public MessageBo getMessageById(Serializable id);
 
 	public List<MessageBo> listMessages();
 
@@ -86,10 +89,10 @@ public interface IServiceFacade {
 
 	public void updateMessage(MessageBo message);
 
-	public void deleteMessageById(Long id);
+	public void deleteMessageById(Serializable id);
 
 	// Notification Services
-	public NotificationBo getNotificationById(Long id);
+	public NotificationBo getNotificationById(Serializable id);
 
 	public List<NotificationBo> listNotifications();
 
@@ -99,10 +102,10 @@ public interface IServiceFacade {
 
 	public void updateNotification(NotificationBo notification);
 
-	public void deleteNotificationById(Long id);
+	public void deleteNotificationById(Serializable id);
 	
 	// Reporting Services
-	public ReportUserBo getReportUserById(Long id);
+	public ReportUserBo getReportUserById(Serializable id);
 
 	public List<ReportUserBo> listReportUsers();
 
@@ -112,9 +115,9 @@ public interface IServiceFacade {
 
 	public void updateReportUser(ReportUserBo reportUser);
 
-	public void deleteReportUserById(Long id);
+	public void deleteReportUserById(Serializable id);
 	
-	public ReportQuestionBo getReportQuestionById(Long id);
+	public ReportQuestionBo getReportQuestionById(Serializable id);
 
 	public List<ReportQuestionBo> listReportQuestions();
 
@@ -124,7 +127,7 @@ public interface IServiceFacade {
 
 	public void updateReportQuestion(ReportQuestionBo reportQuestion);
 
-	public void deleteReportQuestionById(Long id);
+	public void deleteReportQuestionById(Serializable id);
 
 	// Now we need some external service handling
 

@@ -22,23 +22,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	public PasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();
 	}
-//	
-//	@Bean
-//	public DaoAuthenticationProvider authenticationProvider() {
-//		DaoAuthenticationProvider auth = new DaoAuthenticationProvider();
-//		auth.setUserDetailsService(usd);
-//		auth.setPasswordEncoder(passwordEncoder());
-//		return auth;
-//	}
-//	
-//	@Autowired
-//	public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-////		auth.inMemoryAuthentication().withUser()
-//	}
-//	
-//	@Override
-//	protected void configure(AuthenticationManagerBuilder auth) {
-//		auth.authenticationProvider(authenticationProvider());
-//	}
-//	
+
+	@Override
+	protected void configure(HttpSecurity http) throws Exception {
+//		http.authorizeRequests().anyRequest().authenticated().and().formLogin().loginPage("/login");
+	}
+	
 }
