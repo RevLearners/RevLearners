@@ -7,17 +7,21 @@ import org.springframework.data.domain.Page;
 
 import io.revlearners.model.bo.RankBo;
 
-public interface ICrudService<TEntity, TModel>
+public interface ICrudService<TEntity>
 {
-    TModel findOne(Serializable id);
+    TEntity findOne(Serializable id);
     
     TEntity findOneEntity(Serializable id);
 
     List<TEntity> findAllEntities(Serializable id);
  
-    List<TModel> findAll();
+    List<TEntity> findAll();
     
-    Page<TModel> pageAll(int low, int high);
+    Page<TEntity> pageAll(int low, int high);
     
     void deleteById(Long id);
+    
+    TEntity update(TEntity entity);
+    
+    TEntity create(TEntity entity);
 }

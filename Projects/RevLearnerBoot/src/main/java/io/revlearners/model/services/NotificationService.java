@@ -11,6 +11,7 @@ import org.hibernate.Transaction;
 import org.hibernate.annotations.Fetch;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Service;
 
 import io.revlearners.model.bean.Challenge;
 import io.revlearners.model.bean.MessageStatus;
@@ -20,7 +21,8 @@ import io.revlearners.model.bo.NotificationBo;
 import io.revlearners.model.services.interfaces.INotificationService;
 import io.revlearners.util.commons.configs.Constants;
 
-public class NotificationService extends CrudService<Notification, NotificationBo> implements INotificationService{
+@Service
+public class NotificationService extends CrudService<Notification> implements INotificationService{
 	
 
 	public Notification generateCertificationNotification(User sender, Set<User> receivers, MessageStatus status) {
@@ -33,7 +35,7 @@ public class NotificationService extends CrudService<Notification, NotificationB
 		notif.setTime(now);
 		notif.setStatus(status);
 		
-		return notif;
+		return create(notif);
 		
 		//create notification bo obj to persist it, populate THIS w my data, 
 
@@ -51,7 +53,7 @@ public class NotificationService extends CrudService<Notification, NotificationB
 		notif.setTime(now);
 		notif.setStatus(status);
 
-		return notif;
+		return create(notif);
 	}
 
 	public Notification generateChallengeNotification(Challenge challenge, User sender) {
@@ -70,7 +72,7 @@ public class NotificationService extends CrudService<Notification, NotificationB
 		notif.setTime(now);
 		notif.setStatus(status);
 
-		return notif;
+		return create(notif);
 	}
 
 	// public void pushToDB(Notification notif) {
@@ -86,7 +88,5 @@ public class NotificationService extends CrudService<Notification, NotificationB
 
 	public void updateStatus(Notification notif) {
 		MessageStatus status = notif.getStatus();
-
 	}
-
 }
