@@ -29,7 +29,7 @@ import io.revlearners.util.commons.configs.Constants;
 
 @Service
 @Transactional
-public class UserService extends CrudService<User, UserBo> implements UserDetailsService, IUserService {
+public class UserService extends CrudService<User> implements UserDetailsService, IUserService {
 
 	@Autowired
 	private IUserRepository repository;

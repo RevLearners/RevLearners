@@ -1,6 +1,7 @@
 package io.revlearners.model.services;
 
 import java.io.Serializable;
+
 import java.lang.reflect.ParameterizedType;
 
 import java.util.ArrayList;
@@ -11,11 +12,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.stereotype.Service;
 
 import io.revlearners.model.dao.interfaces.IBaseRepository;
 import io.revlearners.model.services.interfaces.ICrudService;
 
-public class CrudService<TEntity, TModel> implements ICrudService<TEntity, TModel> {
+public abstract class CrudService<TEntity> implements ICrudService<TEntity> {
 	@Autowired
 	protected IBaseRepository<TEntity> repository;
 
@@ -23,31 +25,25 @@ public class CrudService<TEntity, TModel> implements ICrudService<TEntity, TMode
 	protected ModelMapper modelMapper;
 
 	protected Class<TEntity> entityClass;
-	protected Class<TModel> modelClass;
+//	protected Class<TModel> modelClass;
 
 	@SuppressWarnings("unchecked")
 	public CrudService() {
 		ParameterizedType genericSuperclass = (ParameterizedType) getClass().getGenericSuperclass();
 		this.entityClass = (Class<TEntity>) genericSuperclass.getActualTypeArguments()[0];
-		this.modelClass = (Class<TModel>) genericSuperclass.getActualTypeArguments()[1];
+//		this.modelClass = (Class<TModel>) genericSuperclass.getActualTypeArguments()[1];
 	}
 
-	public TModel findOne(Serializable id) {
-		TEntity entity = repository.findOne(id);
-		return modelMapper.map(entity, modelClass);
+	public TEntity findOne(Serializable id) {
+		return repository.findOne(id);
 	}
 
-	public List<TModel> findAll() {
-		List<TModel> result = new ArrayList<>();
-		List<TEntity> entities = repository.findAll();
-		for (TEntity entity : entities) {
-			result.add(modelMapper.map(entity, modelClass));
-		}
-		return result;
+	public List<TEntity> findAll() {
+		return repository.findAll();
 	}
 
-	public void update(TEntity entity) {
-		repository.saveAndFlush(entity);
+	public TEntity update(TEntity entity) {
+		return repository.saveAndFlush(entity);
 	}
 
 	public void deleteById(Long id) {
@@ -55,26 +51,25 @@ public class CrudService<TEntity, TModel> implements ICrudService<TEntity, TMode
 		repository.saveAndFlush(entity);
 	}
 
-	public void create(TEntity entity) {
-		repository.saveAndFlush(entity);
+	public TEntity create(TEntity entity) {
+		return repository.saveAndFlush(entity);
 	}
 
-	// Completely generica pager
+	// Completely generic pager
 	@Override
-	public Page<TModel> pageAll(int page, int size) {
-		Page<TEntity> pages = repository.findAll(new PageRequest(page, size));
-		return mapPages(pages);
+	public Page<TEntity> pageAll(int page, int size) {
+		return repository.findAll(new PageRequest(page, size));
 	}
 
-	private Page<TModel> mapPages(Page<TEntity> pages) {
-		return pages.map(new Converter<TEntity, TModel>() {
-
-			@Override
-			public TModel convert(TEntity entity) {
-				return modelMapper.map(entity, modelClass);
-			}
-		});
-	}
+//	private Page<TModel> mapPages(Page<TEntity> pages) {
+//		return pages.map(new Converter<TEntity, TModel>() {
+//
+//			@Override
+//			public TModel convert(TEntity entity) {
+//				return modelMapper.map(entity, modelClass);
+//			}
+//		});
+//	}
 
 	@Override
 	public TEntity findOneEntity(Serializable id) {

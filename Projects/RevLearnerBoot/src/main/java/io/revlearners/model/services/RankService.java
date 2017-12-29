@@ -8,6 +8,6 @@ import io.revlearners.model.bo.RankBo;
 import io.revlearners.model.services.interfaces.IRankService;
 
 @Service
-public class RankService extends CrudService<Rank, RankBo> implements IRankService {
+public class RankService extends CrudService<Rank> implements IRankService {
 }
 

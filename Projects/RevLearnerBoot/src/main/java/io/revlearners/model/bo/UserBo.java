@@ -82,6 +82,19 @@ public class UserBo {
 	public UserBo() {
 	}
 	
+	public UserBo(String username, String password) {
+		this.username = username;
+		this.password = password;
+	}
+	
+	public UserBo(String firstName, String middleName, String lastName, String username, String password, String email) {
+		this.firstName = firstName;
+		this.middleName = middleName;
+		this.lastName = lastName;
+		this.username = username;
+		this.password = password;
+	}
+	
 	public UserBo(Long id, String firstName, String middleName, String lastName, String email, String username,
 			String password, Long statId, String statName, Long roleId, String roleName, Set<UserRankBo> ranks,
 			Set<UserCertificationBo> certs, Set<ChallengeAttemptBo> chalAttempts, Set<ChallengeBo> challenges,
