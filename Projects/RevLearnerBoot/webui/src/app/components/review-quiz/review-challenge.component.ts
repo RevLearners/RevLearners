@@ -5,8 +5,8 @@ import {Quiz} from '../../model/quiz';
 
 @Component({
     selector: 'app-review-quiz',
-    templateUrl: '../../../../src/main/resources/public/home.component.html',
-    styleUrls: [ '../../../../src/main/resources/public/home.component.html']
+    templateUrl: '../../../../src/main/resources/public/review-challenge.component.html',
+    styleUrls: [ '../../../../src/main/resources/public/review-challenge.css']
 })
 export class ReviewChallengeComponent implements OnInit {
 

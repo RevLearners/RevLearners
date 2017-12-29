@@ -7,8 +7,8 @@ import {Router} from '@angular/router';
 
 @Component({
     selector: 'app-new-question',
-    templateUrl: '../../../../src/main/resources/public/home.component.html',
-    styleUrls: [ '../../../../src/main/resources/public/home.component.html']
+    templateUrl: '../../../../../src/main/resources/public/new-question.component.html',
+    styleUrls: ['../../../../../src/main/resources/public/new-question.component.css']
 })
 export class NewQuestionComponent implements OnInit {
 

@@ -3,8 +3,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
     selector: 'createChallenge',
-    templateUrl: './CreateChallenge.component.html',
-    styleUrls: ['./CreateChallenge.component.css'],
+    templateUrl: '../../../../../src/main/resources/public/CreateChallenge.component.html',
+    styleUrls: ['../../../../../src/main/resources/public/CreateChallenge.component.css'],
 })
 
 export class CreateChallengeComponent {
