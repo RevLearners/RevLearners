@@ -1,5 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { Rank } from '../../model/rank';
+import { User } from '../../model/user';
+import { LoginCredentialsService } from '../../services/login-credentials.service';
 
 @Component({
   selector: 'app-profile',
@@ -8,40 +11,36 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ProfileComponent implements OnInit {
   public rankId;
-  public rank = {
-               id: "",
-             name: "",
-            topic: "",
-   relativeWeight: "",
-   meritThreshold: ""
-  }
+  public rank: Rank = null;  
+  ranks:Rank[];
+  user: User;
   
-  ranks:rank[];
-  
-  constructor(private httpClient:HttpClient) { }
+  constructor(private http:HttpClient, private validate:LoginCredentialsService) { }
 
-  ngOnInit() {  }
+  ngOnInit() {
+    this.user = this.validate.getUser();
+    }
   
   public fetchData(){
-               this.rank.id = "Pending",
-             this.rank.name = "Pending",
-            this.rank.topic = "Pending",
-   this.rank.relativeWeight = "Pending",
-   this.rank.meritThreshold = "Pending"
+               this.rank.id = 0;
+             this.rank.name = "";
+            this.rank.topic = null;
+   this.rank.heirarchy_rank = 0;
+   this.rank.merit_threshhold = 0;
    
    this.http.get('http://localhost:4200/api/rest/ranks/getById/' + this.rankId + '/').subscribe(
      data => {
        console.log("test");
        this.rank.name = data["name"],
        this.rank.topic = data["topic"],
-       this.rank.relativeWeight = data["relativeWeight"],
-       this.rank.meritThreshold = data["meritThreshold"]
+       this.rank.heirarchy_rank = data["relativeWeight"],
+       this.rank.merit_threshhold = data["meritThreshold"]
      },
      err => {
        this.rank.name = "error";
-       this.rank.topic = "error";
-       this.rank.relativeWeight = "error";
-       this.rank.meritThreshold = "error";
+       this.rank.topic = null;
+       this.rank.heirarchy_rank = 0;
+       this.rank.merit_threshhold = 0;
      }
     )
   }
