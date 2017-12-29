@@ -9,8 +9,8 @@ import {LoginCredentialsService} from '../../services/login-credentials.service'
 
 @Component({
     selector: 'app-take-quiz',
-    templateUrl: './complete-challenge.component.html',
-    styleUrls: ['./complete-challenge.component.css']
+    templateUrl: '../../../../../src/main/resources/public/complete-challenge.component.html',
+    styleUrls: ['../../../../../src/main/resources/public/complete-challenge.component.css']
 })
 export class CompleteChallengeComponent implements OnInit {
 
