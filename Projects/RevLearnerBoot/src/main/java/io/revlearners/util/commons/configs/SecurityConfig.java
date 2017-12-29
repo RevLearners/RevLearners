@@ -15,7 +15,7 @@ import org.springframework.security.web.AuthenticationEntryPoint;
 import io.revlearners.model.services.UserService;
 
 @Configuration
-@EnableWebSecurity
+//@EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	
 	@Bean
