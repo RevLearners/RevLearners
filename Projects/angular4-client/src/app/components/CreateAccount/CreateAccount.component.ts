@@ -24,6 +24,7 @@ export class CreateAccountComponent {
   password2: string = '';
   titleAlert: string = 'This field is required.';
 
+  usernameTaken: boolean;
   userCred: string[] = [];
 
   constructor(private fb: FormBuilder, private dataService: CreateAccountService) {
@@ -71,18 +72,30 @@ export class CreateAccountComponent {
       this.userCred.push(post.password);
       this.userCred.push(post.email);
       console.log(this.userCred);
-      this.dataService.createAccount(this.userCred).subscribe(
-        (data: any) => console.log(data),
+      this.dataService.userExist(post.username).subscribe(
+        (data: any) => this.usernameTaken,
         console.log
       )
-        ;
+
+      if (this.usernameTaken) {
+        console.log("Username taken.");
+      } else {
+        console.log("Username available.");
+        this.dataService.createAccount(this.userCred).subscribe(
+          (data: any) => console.log(data),
+          console.log
+        )
+      }
+
+
+      ;
     } else {
 
     }
 
   }
 
-  resetForm(){
+  resetForm() {
     this.fname = '';
   }
 }

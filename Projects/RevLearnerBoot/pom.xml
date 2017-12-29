@@ -164,19 +164,21 @@
 			<plugin>
 				<artifactId>maven-resources-plugin</artifactId>
 				<executions>
-					<execution>
+				    <!-- copy webui dist folder to src/resource/webui -->
+                    <execution>
 						<id>copy-resources</id>
 						<phase>validate</phase>
-						<goals>
-							<goal>copy-resources</goal>
-						</goals>
+						<goals><goal>copy-resources</goal></goals>
 						<configuration>
-							<outputDirectory>${basedir}/target/classes/static/</outputDirectory>
-							<resources>
-								<resource>
-									<directory>${basedir}/../angular4-client/dist</directory>
-								</resource>
-							</resources>
+                            <outputDirectory>${project.basedir}/src/main/resources/public</outputDirectory>
+                            <resources>
+                                <resource>
+                                    <directory>${project.basedir}/webui/dist</directory>
+                                    <excludes>
+                	                    <exclude>*.gz</exclude>
+            			            </excludes>
+                                </resource>
+                            </resources>
 						</configuration>
 					</execution>
 				</executions>
