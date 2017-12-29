@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-page-dne',
-  templateUrl: './page-dne.component.html',
-  styleUrls: ['./page-dne.component.css']
+  templateUrl: '../../../../src/main/resources/public/home.component.html',
+  styleUrls: [ '../../../../src/main/resources/public/home.component.html']
 })
 export class PageDneComponent implements OnInit {
 

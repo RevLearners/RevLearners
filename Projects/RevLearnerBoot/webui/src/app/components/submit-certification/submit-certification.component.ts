@@ -3,8 +3,8 @@ import { FormBuilder, FormGroup, Validators} from '@angular/forms';
 
 @Component({
   selector: 'app-submit-certification',
-  templateUrl: './submit-certification.component.html',
-  styleUrls: ['./submit-certification.component.css']
+  templateUrl: '../../../../src/main/resources/public/home.component.html',
+  styleUrls: [ '../../../../src/main/resources/public/home.component.html']
 })
 export class SubmitCertificationComponent {
 

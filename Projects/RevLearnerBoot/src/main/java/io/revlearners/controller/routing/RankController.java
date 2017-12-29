@@ -38,6 +38,5 @@ public class RankController extends WebServicesController {
 		return serviceFacade.pageRanks(page, size);
 	}
 	
-	//need a method to get ranks by User ID
 	
 }

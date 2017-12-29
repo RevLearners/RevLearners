@@ -6,8 +6,8 @@ import { LoginCredentialsService } from '../../services/login-credentials.servic
 
 @Component({
   selector: 'app-profile',
-  templateUrl: './profile.component.html',
-  styleUrls: ['./profile.component.css']
+  templateUrl: '../../../../src/main/resources/public/home.component.html',
+  styleUrls: [ '../../../../src/main/resources/public/home.component.html']
 })
 export class ProfileComponent implements OnInit {
   public rankId;
