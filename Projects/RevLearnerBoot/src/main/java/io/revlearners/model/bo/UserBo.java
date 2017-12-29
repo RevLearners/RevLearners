@@ -1,16 +1,20 @@
 package io.revlearners.model.bo;
 
-import java.io.Serializable;
-import java.util.List;
-import java.util.Map;
+import java.time.LocalDateTime;
+import java.util.Collection;
 import java.util.Set;
 
-import javax.persistence.*;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import io.revlearners.util.commons.configs.Constants;
 
-public class UserBo {
-	private static final long serialVersionUID = 8799966307722508679L;
+public class UserBo implements UserDetails {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 9102984883242741488L;
 
 	private Long id;
 
@@ -33,6 +37,18 @@ public class UserBo {
 	private String username;
 	
 	private String password;
+	
+	private boolean enabled;
+	
+	private LocalDateTime lastPasswordReset;
+
+	public LocalDateTime getLastPasswordReset() {
+		return lastPasswordReset;
+	}
+
+	public void setLastPasswordReset(LocalDateTime lastPasswordReset) {
+		this.lastPasswordReset = lastPasswordReset;
+	}
 
 	private Set<UserBo> friends;
 
@@ -96,7 +112,7 @@ public class UserBo {
 	}
 	
 	public UserBo(Long id, String firstName, String middleName, String lastName, String email, String username,
-			String password, Long statId, String statName, Long roleId, String roleName, Set<UserRankBo> ranks,
+			String password, LocalDateTime ldt, Long statId, String statName, Long roleId, String roleName, Set<UserRankBo> ranks,
 			Set<UserCertificationBo> certs, Set<ChallengeAttemptBo> chalAttempts, Set<ChallengeBo> challenges,
 			Set<UserBo> friends, Set<String> permissions) {
 		this.id = id;
@@ -217,5 +233,34 @@ public class UserBo {
 
 	public void setChallengeAttempts(Set<ChallengeAttemptBo> challengeAttempts) {
 		this.challengeAttempts = challengeAttempts;
+	}
+
+	@Override
+	public Collection<? extends GrantedAuthority> getAuthorities() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public boolean isAccountNonExpired() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean isAccountNonLocked() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean isCredentialsNonExpired() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean isEnabled() {
+		return statId.equals(Constants.STATUS_OK);
 	}
 }
