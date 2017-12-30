@@ -2,6 +2,7 @@ package io.revlearners.util.commons.configs;
 
 import io.revlearners.model.bean.*;
 
+import java.io.Serializable;
 import java.util.*;
 
 /**
@@ -334,6 +335,7 @@ public final class Constants {
 		return new LinkedHashMap<>(certifications);
 	}
 
+
     public static List<Rank> getBeginnerRanks() {
         return new ArrayList<>(beginnerRanks);
     }
@@ -539,9 +541,9 @@ public final class Constants {
 		// update later as needed
 	    beginnerRanks.add(javaRanks.get(JRANKS_BEGINNER));
         beginnerRanks.add(angular4Ranks.get(ANG4RANKS_BEGINNER));
-        beginnerRanks.add(angular4Ranks.get(DVOPSRANKS_BEGINNER));
-        beginnerRanks.add(angular4Ranks.get(HBMRANKS_BEGINNER));
-        beginnerRanks.add(angular4Ranks.get(DPRANKS_BEGINNER));
+        beginnerRanks.add(devOpsRanks.get(DVOPSRANKS_BEGINNER));
+        beginnerRanks.add(hibernateRanks.get(HBMRANKS_BEGINNER));
+        beginnerRanks.add(designPatternRanks.get(DPRANKS_BEGINNER));
 
 		certifications.put(ORACLE_CERTIFIED_ASSOCIATE, new Certification(ORACLE_CERTIFIED_ASSOCIATE,
 				ORACLE_CERTIFIED_ASSOCIATE_STR, new Topic(TOPIC_CORE_JAVA)));

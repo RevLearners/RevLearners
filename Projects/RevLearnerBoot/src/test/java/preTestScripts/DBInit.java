@@ -1,7 +1,10 @@
 package preTestScripts;
 
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import config.MockPersistenceConfig;
 import org.hibernate.Session;
@@ -17,6 +20,9 @@ import io.revlearners.util.commons.configs.Constants;
 public class DBInit {
 	private static ApplicationContext springContext;
 	private static SessionFactory sf;
+	private static Set<UserRank> ranks = new HashSet<UserRank>();
+	private static User botbert = new User("Root", null, "Admin", new UserStatus(Constants.STATUS_OK), new UserRole(Constants.ROLE_ADMIN),
+			"botbert@email.com", "Botbert", "$2a$10$trilJ1OUwLZqA9PjJYD9Bu1zpKq8jYKG3Dxsigxf1R4XLPBTH1LOW");
 
 	public static void main(String[] args) {
 		springContext = new AnnotationConfigApplicationContext(MockPersistenceConfig.class);
@@ -86,8 +92,10 @@ public class DBInit {
 
 			addQuestions(session);
 
-			session.save(new User("Root", null, "Admin", new UserStatus(Constants.STATUS_OK), new UserRole(Constants.ROLE_ADMIN),
-					"botbert@email.com", "Botbert", "$2a$10$trilJ1OUwLZqA9PjJYD9Bu1zpKq8jYKG3Dxsigxf1R4XLPBTH1LOW"));
+			botbert.setRanks(ranks);
+			session.save(botbert);
+			for(UserRank ur : ranks)
+			session.save(ur);
 
 			session.getTransaction().commit();
 		}
@@ -95,6 +103,12 @@ public class DBInit {
 
 	public static void saveEntities(Map<Long, ? extends Serializable> ranks, Session session) {
 		for (Long id : ranks.keySet()) {
+			if(ranks.get(id) instanceof Rank) {
+				if(((Rank)ranks.get(id)).getRelativeWeight() == 1) {
+					DBInit.ranks.add(new UserRank(botbert, (Rank) ranks.get(id), 0L));
+				}
+			}
+				
 			session.save(ranks.get(id));
 		}
 	}
@@ -171,5 +185,10 @@ public class DBInit {
 				"Only one copy of static variables is created when a class is loaded. Each object instantiated has its own copy of instance variables.",
 				session);
 	}
+	
+	
+	
+	
+
 
 }
