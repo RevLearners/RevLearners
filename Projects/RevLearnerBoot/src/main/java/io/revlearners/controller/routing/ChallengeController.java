@@ -18,9 +18,9 @@ import io.revlearners.util.commons.configs.WebConstants;
 @RequestMapping(WebConstants.CHALLENGES)
 public class ChallengeController extends WebServicesController {
 	
-	@GetMapping("/getChallenges/{challengeId}")
+	@GetMapping("/getChallenges")
 	@Produces(MediaType.APPLICATION_JSON)
-	public List<ChallengeBo> getChallengesById(@PathVariable (value = "challengeId") int challengeId){
+	public List<ChallengeBo> getChallenges(){
 		List<ChallengeBo> challenges = serviceFacade.listChallenges();
 		
 		
