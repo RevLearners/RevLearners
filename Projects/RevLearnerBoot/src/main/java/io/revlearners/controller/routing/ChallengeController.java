@@ -20,7 +20,7 @@ public class ChallengeController extends WebServicesController {
 	
 	@GetMapping("/getChallenges")
 	@Produces(MediaType.APPLICATION_JSON)
-	public List<ChallengeBo> getChallengesById(){
+	public List<ChallengeBo> getChallenges(){
 		List<ChallengeBo> challenges = serviceFacade.listChallenges();
 		
 		
