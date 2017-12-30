@@ -16,22 +16,23 @@ import {ProfileComponent} from './components/profile/profile.component';
 export const appRoutes: Routes = [
     {
         path: '',
-        component: HomeComponent
+        redirectTo: '/home',
+        pathMatch: 'full'
     },
     {
         path: 'home',
         component: HomeComponent
     },
     {
-        path: 'CreateAccount',
+        path: 'create-account',
         component: CreateAccountComponent
     },
     {
-        path: 'CreateChallenge',
+        path: 'create-challenge',
         component: CreateChallengeComponent
     },
     {
-        path: 'Login',
+        path: 'login',
         component: LoginComponent
     },
     {
@@ -39,19 +40,19 @@ export const appRoutes: Routes = [
         component: SubmitCertificationComponent
     },
     {
-        path: 'completeChallenge/:id',
+        path: 'complete-challenge/:id',
         component: CompleteChallengeComponent
     },
     {
-        path: 'reviewChallenge/:id',
+        path: 'review-challenge/:id',
         component: ReviewChallengeComponent
     },
     {
-        path: 'generateChallenge',
+        path: 'generate-challenge',
         component: GenerateChallengeComponent
     },
     {
-        path: 'newQuestion',
+        path: 'new-question',
         component: NewQuestionComponent
     },
     {
