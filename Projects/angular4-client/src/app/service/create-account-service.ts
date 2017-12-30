@@ -9,19 +9,26 @@ export class CreateAccountService {
     }
 
     public createAccount(userCred: string[]){
-        let data = new FormData();
-        data.append('fname', userCred[0]);
-        data.append('mname', userCred[1]);
-        data.append('lname', userCred[2]);
-        data.append('username', userCred[3]);
-        data.append('password', userCred[4]);
-        data.append('email', userCred[5]);
+
+        let userInfo = {
+            firstName: userCred[0],
+            middleName: userCred[1],
+            lastName: userCred[2],
+            username: userCred[3],
+            password: userCred[4],
+            email: userCred[5]
+        }
+
         console.log("Test2:" + userCred);
         let options = {
-            headers: new HttpHeaders(),
+            headers: new HttpHeaders(
+                {
+                    'Content-Type' : 'application/json'
+                }
+            ),
         };
 
-        return this.http.post('http://localhost:8085/RevLearners/CreateAccount', data, options);
+        return this.http.post('/api/rest/users/createUser/', userInfo, options);
     }
 
     public userExist(username: string) {
@@ -34,6 +41,6 @@ export class CreateAccountService {
         };
 
         // Link will change after the rest calls/controller has been fully set up
-        return this.http.post('http://localhost:8085/RevLearners/???', data, options);
+        return this.http.get('/api/rest/users/userExist/' + username + '/');
     }
 }

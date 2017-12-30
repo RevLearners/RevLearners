@@ -15,7 +15,11 @@ export class ProfileComponent implements OnInit {
   ranks:Rank[];
   user: User;
   
+<<<<<<< Updated upstream
   constructor(private http:HttpClient, private validate:LoginCredentialsService) { }
+=======
+  constructor(private http:HttpClient) { }
+>>>>>>> Stashed changes
 
   ngOnInit() {
     this.user = this.validate.getUser();

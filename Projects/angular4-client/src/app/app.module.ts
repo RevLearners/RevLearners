@@ -20,6 +20,10 @@ import {GenerateChallengeComponent} from './components/generate-quiz/generate-ch
 import {NewQuestionComponent} from './components/new-question/new-question.component';
 import {ProfileComponent} from './components/profile/profile.component';
 import {PageDneComponent} from './components/page-dne/page-dne.component';
+import { BackendService } from './services/backend.service';
+import { FileService } from './services/file.service';
+import { LoginCredentialsService } from './services/login-credentials.service';
+import { QuestionService } from './services/question.service';
 
 
 @NgModule({
@@ -45,7 +49,7 @@ import {PageDneComponent} from './components/page-dne/page-dne.component';
         HttpClientModule,
         ReactiveFormsModule
     ],
-    providers: [CreateAccountService],
+    providers: [CreateAccountService, BackendService, FileService, LoginCredentialsService, QuestionService],
     bootstrap: [AppComponent]
 })
 export class AppModule {
