@@ -6,37 +6,12 @@ import java.util.*;
 import io.revlearners.model.bean.Challenge;
 import io.revlearners.model.bean.ChallengeAttempt;
 import io.revlearners.model.bean.Question;
-import io.revlearners.model.services.QuestionService;
+import io.revlearners.model.services.ChallengeService;
 import org.springframework.data.domain.Page;
 
 import io.revlearners.model.bo.*;
 
 public interface IServiceFacade {
-
-    Challenge generateChallenge(QuestionService.ChallengeInfo info);
-
-    Question createQuestion(Question question);
-
-    Challenge getChallengeById(Long id);
-
-    List<Challenge> getChallengesByUser(Long userId);
-
-    List<ChallengeAttempt> getChallengeAttemptsByUser(Long challengeId, Long userId);
-
-    float scoreChallenge(ChallengeAttemptBo2 info);
-
-    void updateChallenge(Challenge challenge);
-
-
-    // First we need methods for interfacing our basic CRUD requests
-
-
-
-
-
-
-
-
 
  	// First we need methods for interfacing our basic CRUD requests
 
@@ -101,11 +76,25 @@ public interface IServiceFacade {
 
 	Page<NotificationBo> pageNotifications(int page, int size);
 
-	void createNotification(NotificationBo notification);
-
-	void updateNotification(NotificationBo notification);
+	public void updateNotification(List<NotificationBo> notifications);
 
 	void deleteNotificationById(Serializable id);
+
+    // Challenge/Question/Quiz services
+
+    Challenge generateChallenge(ChallengeService.ChallengeInfo info);
+
+    Question createQuestion(Question question);
+
+    Challenge getChallengeById(Long id);
+
+    List<Challenge> getChallengesByUser(Long userId);
+
+    List<ChallengeAttempt> getChallengeAttemptsByUser(Long challengeId, Long userId);
+
+    float scoreChallenge(ChallengeAttemptBo2 info);
+
+    void updateChallenge(Challenge challenge);
 
 	// Reporting Services
 	ReportUserBo getReportUserById(Serializable id);

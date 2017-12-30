@@ -1,8 +1,7 @@
 package io.revlearners.util.commons;
 
 import java.io.Serializable;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
@@ -52,65 +51,8 @@ public class ServiceFacade implements IServiceFacade {
     @Autowired
     private IFileBlobService blobService;
 
-
-    //----------------------------------------------------------------
     @Autowired
-    private IQuestionService questionService;
-
-    @Override
-    public Challenge generateChallenge(QuestionService.ChallengeInfo info) {
-        return this.questionService.generateChallenge(info);
-    }
-
-    @Override
-    public Question createQuestion(Question question) {
-        return questionService.saveQuestion(question);
-    }
-
-    @Override
-    public Challenge getChallengeById(Long id) {
-        return questionService.getChallengeById(id);
-    }
-
-    @Override
-    public List<Challenge> getChallengesByUser(Long userId) {
-        return questionService.getChallengesByUser(userId);
-    }
-
-    @Override
-    public List<ChallengeAttempt> getChallengeAttemptsByUser(Long challengeId, Long userId) {
-        // todo: validate user id is logged in user
-        return questionService.getChallengeAttemptsByUser(challengeId, userId);
-    }
-
-    @Override
-    public float scoreChallenge(ChallengeAttemptBo2 info) {
-
-        ChallengeAttempt attempt = new ChallengeAttempt();
-        attempt.setAnswers(info.getAnswers().stream()
-                .map(id -> {
-                    QuestionOption opt = new QuestionOption();
-                    opt.setId(id);
-                    return opt;
-                }).collect(Collectors.toSet())
-        );
-
-        Challenge challenge = new Challenge();
-        challenge.setId(info.getChallengeId());
-        attempt.setChallenge(challenge);
-
-        User user = new User();
-        user.setId(info.getUserId());
-        attempt.setUser(user);
-
-        return questionService.scoreChallenge(attempt);
-    }
-
-    @Override
-    public void updateChallenge(Challenge challenge) {
-        // TODO Auto-generated method stub
-    }
-    //-----------------------------------------------------------------------------------
+    private IChallengeService questionService;
 
 
     @Override
@@ -199,7 +141,7 @@ public class ServiceFacade implements IServiceFacade {
     @Override
     public List<UserBo> listUsers() {
         List<User> users = userService.findAll();
-        List<UserBo> userDTOs = new LinkedList<UserBo>();
+        List<UserBo> userDTOs = new LinkedList<>();
         for (User t : users) {
             userDTOs.add(modelMapper.map(t, UserBo.class));
         }
@@ -296,23 +238,78 @@ public class ServiceFacade implements IServiceFacade {
         return notifications.map(source -> modelMapper.map(source, NotificationBo.class));
     }
 
-    @Override
-    public void createNotification(NotificationBo notification) {
-        // TODO Auto-generated method stub
-
-    }
-
-    @Override
-    public void updateNotification(NotificationBo notification) {
-        // TODO Auto-generated method stub
-
-    }
+	@Override
+	public void updateNotification(List<NotificationBo> notifications) {
+		List<Notification> notifs = null;
+		for (NotificationBo nbo : notifications) {
+			Notification n = modelMapper.map(nbo, Notification.class);
+			notifs.add(n);
+		}
+		notificationService.updateStatus(notifs);
+	}
 
     @Override
     public void deleteNotificationById(Serializable id) {
         // TODO Auto-generated method stub
 
     }
+
+
+    @Override
+    public Challenge generateChallenge(ChallengeService.ChallengeInfo info) {
+        return this.questionService.generateChallenge(info);
+    }
+
+    @Override
+    public Question createQuestion(Question question) {
+        return questionService.saveQuestion(question);
+    }
+
+    @Override
+    public Challenge getChallengeById(Long id) {
+        return questionService.getChallengeById(id);
+    }
+
+    @Override
+    public List<Challenge> getChallengesByUser(Long userId) {
+        return questionService.getChallengesByUser(userId);
+    }
+
+    @Override
+    public List<ChallengeAttempt> getChallengeAttemptsByUser(Long challengeId, Long userId) {
+        // todo: validate user id is logged in user
+        return questionService.getChallengeAttemptsByUser(challengeId, userId);
+    }
+
+    @Override
+    public float scoreChallenge(ChallengeAttemptBo2 info) {
+        Map<Long, List<Long>> answersMap = info.getAnswers();
+        Set<QuestionOption> flattened = new HashSet<>();
+        for (Long questId: answersMap.keySet()) {
+            for (Long selectedOptId: answersMap.get(questId)) {
+                QuestionOption opt = new QuestionOption();
+                opt.setId(selectedOptId);
+                opt.setQuestion(new Question(questId));
+                flattened.add(opt);
+            }
+        }
+
+        ChallengeAttempt attempt = new ChallengeAttempt();
+        attempt.setAnswers(flattened);
+
+        // populate from db so service can access quiz, questions
+        attempt.setChallenge(questionService.getChallengeById(info.getChallengeId()));
+        User user = new User();
+        user.setId(info.getUserId());
+        attempt.setUser(user);
+        return questionService.submitChallengeAttempt(attempt);
+    }
+
+    @Override
+    public void updateChallenge(Challenge challenge) {
+        // TODO Auto-generated method stub
+    }
+
 
     @Override
     public ReportUserBo getReportUserById(Serializable id) {

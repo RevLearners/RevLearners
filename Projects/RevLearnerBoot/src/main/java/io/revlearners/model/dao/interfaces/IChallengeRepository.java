@@ -8,5 +8,5 @@ import java.util.Set;
 
 @Repository
 public interface IChallengeRepository extends IBaseRepository<Challenge> {
-    Set<Challenge> getByUsersContaining(User user);
+    Set<Challenge> getByUsersContains(User u);
 }

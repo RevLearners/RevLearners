@@ -33,7 +33,6 @@ public class Challenge implements Serializable {
             inverseJoinColumns=@JoinColumn(name=Constants.COLUMN_USER_ID))
 	private Set<User> users;
 
-    @JsonView({Views.ToFrontEnd.class})
 	@OneToMany(mappedBy="challenge", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private Set<ChallengeAttempt> attempts;
 

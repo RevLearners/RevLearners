@@ -3,7 +3,6 @@ package io.revlearners.model.bean;
 import java.io.Serializable;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -38,8 +37,8 @@ public class ChallengeAttempt implements Serializable {
 	@Column(name=Constants.COLUMN_ATTEMPT_SCORE)
     private Float score;
 
-    @JsonView({Views.ToBackEnd.class})
-    @ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+    @JsonView({Views.ToBackEnd.class, Views.ToFrontEnd.class})
+    @ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = Constants.COLUMN_CHALLENGE_ID)
 	private Challenge challenge;
 

@@ -1,12 +1,12 @@
 package io.revlearners.model.bo;
 
 import java.util.List;
+import java.util.Map;
 
 public class ChallengeAttemptBo2 {
     private Long userId;
     private Long challengeId;
-    private Float score;
-	private List<Long> answers;
+	private Map<Long, List<Long>> answers;
 
 
     public Long getUserId() {
@@ -25,19 +25,11 @@ public class ChallengeAttemptBo2 {
         this.challengeId = challengeId;
     }
 
-    public Float getScore() {
-        return score;
-    }
-
-    public void setScore(Float score) {
-        this.score = score;
-    }
-
-    public List<Long> getAnswers() {
+    public Map<Long, List<Long>> getAnswers() {
         return answers;
     }
 
-    public void setAnswers(List<Long> answers) {
+    public void setAnswers(Map<Long, List<Long>> answers) {
         this.answers = answers;
     }
 }
