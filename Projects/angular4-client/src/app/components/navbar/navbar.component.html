@@ -1,23 +1,74 @@
 <nav class="navbar navbar-inverse">
-        <div class="container-fluid">
+    <div class="container-fluid">
           <div class="navbar-header">
             <a class="navbar-brand" routerLink="/home">RevLearners</a>
           </div>
           <ul class="nav navbar-nav">
-            <li><a routerLink="/CreateAccount">Create Account</a></li>
-            <li><a routerLink="/CreateChallenge">Create A Challenge</a></li>
-            <li><a routerLink="/Login">Login</a></li>
-            <li><a routerLink="/submit-certification">Submit Certification</a></li>
-            <li><a routerLink="/profile">Profile</a></li>
+              
+            <!-- (if user is not logged in) *ngIf user=null -->
+            <li class="dropdown">
+           		<button class="dropbtn">Not logged-in</button>
+           		<div class="dropdown-content">
+           			<a routerLink="/CreateAccount">Create Account</a>
+        		    <a routerLink="/Login">Login</a>
+           		</div>
+            </li>
+                        
+            <!-- *ngIf user.role.name="Basic Account" -->
             <li class="dropdown">
            		<button class="dropbtn">Basic Options</button>
            		<div class="dropdown-content">
            			<p>View Challenges</p>
-           			<p>Create Challenges</p>
+           			<a routerLink="/CreateChallenge">Create A Challenge</a>
            			<p>Leaderboard</p>
-           			<p>Submit Certification</p>
+           			<li><a routerLink="/submit-certification">Submit Certification</a></li>
            		</div>
             </li>
-          </ul>
-        </div>
-      </nav>
+            
+            <!-- *ngIf user.role.name="Advanced Account" -->
+            <li class="dropdown">
+           		<button class="dropbtn">Advanced Options</button>
+           		<div class="dropdown-content">
+           			<p>View Challenges</p>
+           			<a routerLink="/CreateChallenge">Create A Challenge</a>
+           			<p>Leaderboard</p>
+           			<li><a routerLink="/submit-certification">Submit Certification</a></li>
+           			<p>Create Questions</p>
+           		</div>
+            </li>
+            
+            <!-- *ngIf user.role.name="Advanced Account(Certified)" -->
+            <li class="dropdown">
+           		<button class="dropbtn">Admin Options</button>
+           		<div class="dropdown-content">
+           			<p>View Challenges</p>
+           			<a routerLink="/CreateChallenge">Create A Challenge</a>
+           			<p>Leaderboard</p>
+           			<li><a routerLink="/submit-certification">Submit Certification</a></li>
+           			<p>Create Questions</p>
+           		</div>
+            </li>
+            
+            <!-- *ngIf user.role.name="Administrator Account" -->
+            <li class="dropdown">
+           		<button class="dropbtn">Certified Options</button>
+           		<div class="dropdown-content">
+           			<p>Approve Certifications</p>
+           		</div>
+            </li>
+            
+         <!-- (if user is logged in) *ngIf user!=null -->
+         </ul>
+         <ul class="nav navbar-nav navbar-right">
+			<li><a routerLink="/home"><span class="glyphicon glyphicon-envelope"></span></a></li>
+			<li><a routerLink="/home"><span class="glyphicon glyphicon-bell"></span></a></li>   
+			<li class="dropdown">
+				<button class="dropbtn"><span class="glyphicon glyphicon-user"></span></button>
+	           		<div class="dropdown-content">
+						<a routerLink="/profile">Profile</a>
+						<p>Logout</p>
+					</div>
+			</li>         
+        </ul>
+    </div>
+</nav>
