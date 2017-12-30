@@ -375,15 +375,13 @@ public class ServiceFacade implements IServiceFacade {
 	}
 
 	@Override
-	public void createNotification(NotificationBo notification) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void updateNotification(NotificationBo notification) {
-		// TODO Auto-generated method stub
-
+	public void updateNotification(List<NotificationBo> notifications) {
+		List<Notification> notifs = null;
+		for (NotificationBo nbo : notifications) {
+			Notification n = modelMapper.map(nbo, Notification.class);
+			notifs.add(n);
+		}
+		notificationService.updateStatus(notifs);
 	}
 
 	@Override
