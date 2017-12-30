@@ -38,4 +38,5 @@ public class RankController extends WebServicesController {
 		return serviceFacade.pageRanks(page, size);
 	}
 	
+	
 }

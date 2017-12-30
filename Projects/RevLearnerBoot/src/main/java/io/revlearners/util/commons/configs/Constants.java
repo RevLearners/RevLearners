@@ -949,4 +949,6 @@ public final class Constants {
 
 	public static final String FK_QUIZ = "quiz";
 	public static final String USER = "user";
+
+	public static final String COLUMN_LAST_PW_RESET = "LAST_PASSWORD_RESET";
 }

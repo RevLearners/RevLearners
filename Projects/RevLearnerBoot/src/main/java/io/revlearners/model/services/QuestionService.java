@@ -6,20 +6,16 @@ import io.revlearners.model.dao.interfaces.IAttemptRepository;
 import io.revlearners.model.dao.interfaces.IChallengeRepository;
 import io.revlearners.model.dao.interfaces.IQuestionRepository;
 import io.revlearners.model.jsonview.Views;
-import io.revlearners.model.services.interfaces.IGenericService;
 import io.revlearners.model.services.interfaces.IQuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
-public class QuestionService implements IQuestionService {
-    @Autowired
-    IGenericService<QuestionOption> optionsRepo;
+public class QuestionService extends CrudService<Question> implements IQuestionService {
 
     @Autowired
     IChallengeRepository challengeRepo;
@@ -31,49 +27,36 @@ public class QuestionService implements IQuestionService {
     IQuestionRepository questionRepo;
 
 
+    /**
+     * save a given question
+     *
+     * @param question
+     * @return
+     */
     @Override
-    public boolean exists(Serializable id) {
-        return questionRepo.exists(id);
-    }
-
-    @Override
-    public Question findOne(Serializable id) {
-        return questionRepo.findOne(id);
-    }
-
-    @Override
-    public List<Question> findAll() {
-        return questionRepo.findAll();
-    }
-
-    @Override
-    public Question save(Question question) {
+    public Question saveQuestion(Question question) {
         return questionRepo.save(question);
-    }
-
-    @Override
-    public void delete(Serializable id) {
-        questionRepo.delete(id);
-    }
-
-    public List<Question> listAll() {
-        return questionRepo.findAll();
     }
 
     /**
      * answers map maps question id to the list of selected answers for said id
+     * the received attempt is nothing but a shell; have to fetch questions from db
+     * to get access to correct options, difficulty, etc
      *
      * @param attempt
      * @return
      */
     @Override
-    public ChallengeAttempt scoreChallenge(ChallengeAttempt attempt) {
-        Set<Question> questions = attempt.getChallenge().getQuiz().getQuestions();
+    public float scoreChallenge(ChallengeAttempt attempt) {
+        // fetch from db to get questions
+        Challenge challenge = challengeRepo.findOne(attempt.getChallenge().getId());
+
+        Set<Question> questions = challenge.getQuiz().getQuestions();
         Set<QuestionOption> options = attempt.getAnswers();
         float score = scoreAll(questions, distillOptions(options));
         attempt.setScore(score);
         attemptRepo.save(attempt);
-        return attempt;
+        return score;
     }
 
     private Map<Long, Set<QuestionOption>> distillOptions(Set<QuestionOption> flattened) {
@@ -104,7 +87,7 @@ public class QuestionService implements IQuestionService {
     }
 
     /**
-     * assumes each question only has one correct option; can easily extended later
+     * assumes each question only has one correct option; can be easily extended later
      *
      * @param question
      * @param selectedOptions
@@ -116,9 +99,9 @@ public class QuestionService implements IQuestionService {
         boolean answeredCorrectly = reference.getOptions().stream()
                 .anyMatch(option -> option.isCorrect() && option.getId().equals(selected.getId()));
 
-        if (answeredCorrectly) {
+        if (answeredCorrectly)
             return question.getDifficulty().getMultiplier() * question.getType().getBaseVal();
-        }
+
         return 0;
     }
 
@@ -157,24 +140,11 @@ public class QuestionService implements IQuestionService {
         return new ArrayList<>(challengeRepo.getByUsersContaining(user));
     }
 
-    /**
-     * it is assumed that one of these options is marked correct
-     *
-     * @param question
-     */
-    @Override
-    public Question saveQuestion(Question question) {
-        for (QuestionOption option : question.getOptions())
-            option.setQuestion(question);
-
-        questionRepo.save(question);
-        return question;
-    }
 
     @Override
     public Challenge getChallengeById(long id) {
-        System.out.println(optionsRepo.findAll());
-        return challengeRepo.getOne(id);
+        Challenge res = challengeRepo.findOne(id);
+        return res;
     }
 
     @Override
@@ -186,38 +156,6 @@ public class QuestionService implements IQuestionService {
         return new ArrayList<>(attemptRepo.getByUserAndChallenge(user, challenge));
     }
 
-    public static class AttemptInfo {
-        @JsonView({Views.ToBackEnd.class})
-        private Set<Question> questions;
-        @JsonView({Views.ToBackEnd.class})
-        private Set<QuestionOption> options;
-        @JsonView({Views.ToBackEnd.class})
-        private long userId;
-
-        public Set<Question> getQuestions() {
-            return questions;
-        }
-
-        public void setQuestions(Set<Question> questions) {
-            this.questions = questions;
-        }
-
-        public Set<QuestionOption> getOptions() {
-            return options;
-        }
-
-        public void setOptions(Set<QuestionOption> options) {
-            this.options = options;
-        }
-
-        public long getUserId() {
-            return userId;
-        }
-
-        public void setUserId(long userId) {
-            this.userId = userId;
-        }
-    }
 
     public static class ChallengeInfo {
         @JsonView({Views.ToBackEnd.class})

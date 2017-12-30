@@ -79,7 +79,7 @@ public class UserModelMapper extends ConverterConfigurerSupport<User, UserBo>{
 				getCertRoles(user, permissions);
 				
 				return new UserBo(user.getId(), user.getFirstName(), user.getMiddleName(), user.getLastName(),
-							user.getEmail(), user.getUsername(), user.getPassword(), user.getRole().getId(), user.getRole().getName(),
+							user.getEmail(), user.getUsername(), user.getPassword(), user.getLastPasswordReset(), user.getRole().getId(), user.getRole().getName(),
 							user.getStatus().getId(), user.getStatus().getName(), ranks, certs, chalAttempts, challenges, friends, permissions);
 			}
 		};

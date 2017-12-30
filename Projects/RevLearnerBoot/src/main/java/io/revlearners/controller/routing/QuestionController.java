@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonView;
 import io.revlearners.model.bean.Challenge;
 import io.revlearners.model.bean.ChallengeAttempt;
 import io.revlearners.model.bean.Question;
+import io.revlearners.model.bo.ChallengeAttemptBo2;
+import io.revlearners.model.bo.QuestionOptionBo2;
 import io.revlearners.model.jsonview.Views;
 import io.revlearners.model.services.QuestionService;
 import org.springframework.web.bind.annotation.*;
@@ -64,6 +66,7 @@ public class QuestionController extends WebServicesController {
 
     /**
      * handle request to get all a user's attempts for a challenge
+     * todo: does this work?
      *
      * @param userId
      * @return
@@ -72,5 +75,10 @@ public class QuestionController extends WebServicesController {
     public @JsonView(Views.ToFrontEnd.class)
     List<ChallengeAttempt> getAttemptsByUser(@PathVariable("userId") long userId, @PathVariable("challengeId") long challengeId) {
         return serviceFacade.getChallengeAttemptsByUser(userId, challengeId);
+    }
+
+    @GetMapping("createAttempt")
+    public Float submitAttempt(@RequestBody ChallengeAttemptBo2 attemptInfo) {
+        return serviceFacade.scoreChallenge(attemptInfo);
     }
 }

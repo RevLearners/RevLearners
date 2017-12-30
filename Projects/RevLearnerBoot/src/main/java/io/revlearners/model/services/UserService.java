@@ -26,23 +26,24 @@ import io.revlearners.model.dao.interfaces.IUserRoleRepository;
 import io.revlearners.model.dao.interfaces.IUserStatusRepository;
 import io.revlearners.model.services.interfaces.IUserService;
 import io.revlearners.util.commons.configs.Constants;
+import io.revlearners.util.commons.security.JwtUserFactory;
 
 @Service
 @Transactional
-public class UserService extends CrudService<User, UserBo> implements UserDetailsService, IUserService {
+public class UserService extends CrudService<User> implements UserDetailsService, IUserService {
 
 	@Autowired
 	private IUserRepository repository;
-	
+
 	@Autowired
 	private IUserStatusRepository statRepo;
-	
+
 	@Autowired
 	private IUserRoleRepository roleRepo;
-	
+
 	@Autowired
 	PasswordEncoder encoder;
-	
+
 	private static final String USER_NOT_FOUND = "Invalid username";
 
 	@Override
@@ -51,30 +52,20 @@ public class UserService extends CrudService<User, UserBo> implements UserDetail
 		UserBo user = modelMapper.map(userDao, UserBo.class);
 		if (user == null)
 			throw new UsernameNotFoundException(USER_NOT_FOUND);
-		return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(),
-				getAuthorities(user));
+		return JwtUserFactory.create(user);
 	}
-	
-	// special permissions granted to user
-	private List<SimpleGrantedAuthority> getAuthorities(UserBo user) {
-		List<SimpleGrantedAuthority> permissions = new LinkedList<SimpleGrantedAuthority>();
-		for(String s : user.getPermissions()) {
-			permissions.add(new SimpleGrantedAuthority(s));
-		}
-		return permissions;
-	}
-	
+
 	public UserBo register(UserBo user) {
 		String pass;
 		UserStatus stat = statRepo.findOne(Constants.STATUS_PENDING);
 		UserRole role = roleRepo.findOne(user.getRoleId());
 		pass = encoder.encode(user.getPassword());
-		
-		User userDao = new User(user.getFirstName(), user.getMiddleName(), user.getLastName(), 
-				stat, role, user.getEmail(), user.getUsername(), pass);
-		
+
+		User userDao = new User(user.getFirstName(), user.getMiddleName(), user.getLastName(), stat, role,
+				user.getEmail(), user.getUsername(), pass);
+
 		repository.saveAndFlush(userDao);
-		
+
 		return modelMapper.map(userDao, UserBo.class);
 	}
 }

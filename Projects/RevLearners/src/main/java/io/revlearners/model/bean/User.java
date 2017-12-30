@@ -1,6 +1,7 @@
 package io.revlearners.model.bean;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.Set;
 
 import javax.persistence.*;
@@ -60,6 +61,9 @@ public class User implements Serializable {
 
     @Column(table = Constants.TABLE_USER_CREDENTIALS, name = Constants.COLUMN_PASSWORD_HASH)
     private String password;
+    
+    @Column(table = Constants.TABLE_USER_CREDENTIALS, name = Constants.COLUMN_LAST_PW_RESET)
+    private LocalDateTime lastPasswordReset;
 
     public String getEmail() {
         return email;
@@ -113,7 +117,7 @@ public class User implements Serializable {
     }
 
     public User(String firstName, String middleName, String lastName, UserStatus status, UserRole role,
-                String email, String username, String password) {
+                String email, String username, String password, LocalDateTime ldt) {
         this.firstName = firstName;
         this.middleName = middleName;
         this.lastName = lastName;
@@ -122,6 +126,7 @@ public class User implements Serializable {
         this.email = email;
         this.username = username;
         this.password = password;
+        this.lastPasswordReset = ldt;
     }
 
     public Long getId() {

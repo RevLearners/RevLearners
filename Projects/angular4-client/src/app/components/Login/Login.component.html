@@ -1,38 +1,50 @@
 <div *ngIf="!username; else forminfo">
-    <form [formGroup]="rForm" (ngSubmit)="addPost(rForm.value)">
-      <div class="form-container">
-        <div class="row columns">
-          <h1>Login</h1>
-  
-          <label>Username
-            <input type="text" formControlName="username">
-          </label>
-          <br>
-          <div class="alert" *ngIf="!rForm.controls['username'].valid && rForm.controls['username'].touched">
-            This field is required.
-          </div>
-          <br>
+  <form [formGroup]="rForm" (ngSubmit)="addPost(rForm.value)">
+    <div class="form-container">
+      <div class="row columns">
+        <h1>Login</h1>
 
-          <label>Password
-            <input type="password" formControlName="password">
-          </label>
-          <br>
-          <div class="alert" *ngIf="!rForm.controls['password'].valid && rForm.controls['password'].touched">
-            This field is required.
-          </div>
-          <br>
-  
-          <input type="submit" class="button" value="Login" [disabled]="!rForm.valid">
+        <label>Username
+          <input type="text" formControlName="username">
+        </label>
+        <br>
+        <div class="alert" *ngIf="!rForm.controls['username'].valid && rForm.controls['username'].touched">
+          This field is required.
         </div>
+        <br>
+
+        <label>Password
+          <input type="password" formControlName="password">
+        </label>
+        <br>
+        <div class="alert" *ngIf="!rForm.controls['password'].valid && rForm.controls['password'].touched">
+          This field is required.
+        </div>
+        <br>
+
+        <input type="submit" class="button" value="Login" [disabled]="!rForm.valid">
       </div>
-    </form>
-  </div>
-  
-  <ng-template #forminfo>
+    </div>
+  </form>
+</div>
+
+<ng-template #forminfo>
+  <div *ngIf="userFound; else wrongInfo">
     <div class="form-container">
       <div class="row columns">
         <h1>Welcome {{username}}. This is where your profile page should be at but it's still in the works.</h1>
         <button class="button" type="button" (click)="resetForm()">Reset</button>
       </div>
     </div>
+  </div>
+  <ng-template #wrongInfo>
+    <div class="form-container">
+      <div calss="row columns">
+        <h1>Incorrect username/password.</h1>
+        <p>The information you've enter is not correct. Please try again.</p>
+        <button class="button" type="button" (click)="resetForm()">Try Again.</button>
+      </div>
+    </div>
   </ng-template>
+
+</ng-template>

@@ -1,6 +1,7 @@
 package preTestScripts;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.Map;
 
 import config.MockPersistenceConfig;
@@ -96,7 +97,8 @@ public class DBInit {
 			addQuestions(session);
 			
 			session.save(new User("Root", null, "Admin", new UserStatus(Constants.STATUS_OK), new UserRole(Constants.ROLE_ADMIN),
-					"botbert@email.com", "Botbert", "$2a$10$trilJ1OUwLZqA9PjJYD9Bu1zpKq8jYKG3Dxsigxf1R4XLPBTH1LOW"));
+					"botbert@email.com", "Botbert", "$2a$10$trilJ1OUwLZqA9PjJYD9Bu1zpKq8jYKG3Dxsigxf1R4XLPBTH1LOW",
+					LocalDateTime.of(1970, 1, 1, 00, 00)));
 			
 			session.getTransaction().commit();
 		}

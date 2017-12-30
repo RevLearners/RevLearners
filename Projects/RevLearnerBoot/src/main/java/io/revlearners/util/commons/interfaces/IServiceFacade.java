@@ -1,5 +1,6 @@
 package io.revlearners.util.commons.interfaces;
 
+import java.io.Serializable;
 import java.util.*;
 
 import io.revlearners.model.bean.Challenge;
@@ -12,123 +13,131 @@ import io.revlearners.model.bo.*;
 
 public interface IServiceFacade {
 
-    // Question Services
-    Question getQuestionById(Long id);
-
     Challenge generateChallenge(QuestionService.ChallengeInfo info);
 
     Question createQuestion(Question question);
 
-    void deleteQuestionById(Long id);
+    Challenge getChallengeById(Long id);
 
-    Challenge getChallengeById(long id);
+    List<Challenge> getChallengesByUser(Long userId);
 
-    List<Challenge> getChallengesByUser(long userId);
+    List<ChallengeAttempt> getChallengeAttemptsByUser(Long challengeId, Long userId);
 
-    List<ChallengeAttempt> getChallengeAttemptsByUser(long challengeId, long userId);
-
-    Long scoreChallenge(ChallengeAttempt attempt);
+    float scoreChallenge(ChallengeAttemptBo2 info);
 
     void updateChallenge(Challenge challenge);
 
 
     // First we need methods for interfacing our basic CRUD requests
 
-    // Topic Services
-    TopicBo getTopicById(Long id);
 
-    List<TopicBo> listTopics();
 
-    Page<TopicBo> pageTopics(int page, int size);
 
-    void createTopic(TopicBo topic);
 
-    void updateTopic(TopicBo topic);
 
-    void deleteTopicById(Long id);
 
-    // Rank Services
-    RankBo getRankById(Long id);
 
-    List<RankBo> listRanks();
 
-    Page<RankBo> pageRanks(int page, int size);
+ 	// First we need methods for interfacing our basic CRUD requests
 
-    void createRank(RankBo rank);
+	// Topic Services
+	TopicBo getTopicById(Serializable id);
 
-    void updateRank(RankBo rank);
+	List<TopicBo> listTopics();
 
-    void deleteRankById(Long id);
+	Page<TopicBo> pageTopics(int page, int size);
 
-    // User Services
-    UserBo getUserById(Long id);
+	void createTopic(TopicBo topic);
 
-    List<UserBo> listUsers();
+	void updateTopic(TopicBo topic);
 
-    Page<UserBo> pageUsers(int page, int size);
+	void deleteTopicById(Serializable id);
 
-    void createUser(UserBo user);
+	// Rank Services
+	RankBo getRankById(Serializable id);
 
-    void updateUser(UserBo user);
+	List<RankBo> listRanks();
 
-    void deleteUserById(Long id);
+	Page<RankBo> pageRanks(int page, int size);
 
-    // Messaging Services
-    MessageBo getMessageById(Long id);
+	void createRank(RankBo rank);
 
-    List<MessageBo> listMessages();
+	void updateRank(RankBo rank);
 
-    Page<MessageBo> pageMessages(int page, int size);
+	void deleteRankById(Serializable id);
 
-    void createMessage(MessageBo message);
+	// User Services
+	UserBo getUserById(Serializable id);
 
-    void updateMessage(MessageBo message);
+	List<UserBo> listUsers();
 
-    void deleteMessageById(Long id);
+	Page<UserBo> pageUsers(int page, int size);
 
-    // Notification Services
-    NotificationBo getNotificationById(Long id);
+	void login(UserBo user);
 
-    List<NotificationBo> listNotifications();
+	void register(UserBo user);
 
-    Page<NotificationBo> pageNotifications(int page, int size);
+	void updateUser(UserBo user);
 
-    void createNotification(NotificationBo notification);
+	void deleteUserById(Serializable id);
 
-    void updateNotification(NotificationBo notification);
+	// Messaging Services
+	MessageBo getMessageById(Serializable id);
 
-    void deleteNotificationById(Long id);
+	List<MessageBo> listMessages();
 
-    // Reporting Services
-    ReportUserBo getReportUserById(Long id);
+	Page<MessageBo> pageMessages(int page, int size);
 
-    List<ReportUserBo> listReportUsers();
+	void createMessage(MessageBo message);
 
-    Page<ReportUserBo> pageReportUsers(int page, int size);
+	void updateMessage(MessageBo message);
 
-    void createReportUser(ReportUserBo reportUser);
+	void deleteMessageById(Serializable id);
 
-    void updateReportUser(ReportUserBo reportUser);
+	// Notification Services
+	NotificationBo getNotificationById(Serializable id);
 
-    void deleteReportUserById(Long id);
+	List<NotificationBo> listNotifications();
 
-    ReportQuestionBo getReportQuestionById(Long id);
+	Page<NotificationBo> pageNotifications(int page, int size);
 
-    List<ReportQuestionBo> listReportQuestions();
+	void createNotification(NotificationBo notification);
 
-    Page<ReportQuestionBo> pageReportQuestions(int page, int size);
+	void updateNotification(NotificationBo notification);
 
-    void createReportQuestion(ReportQuestionBo reportQuestion);
+	void deleteNotificationById(Serializable id);
 
-    void updateReportQuestion(ReportQuestionBo reportQuestion);
+	// Reporting Services
+	ReportUserBo getReportUserById(Serializable id);
 
-    void deleteReportQuestionById(Long id);
+	List<ReportUserBo> listReportUsers();
 
-    // Now we need some external service handling
+	Page<ReportUserBo> pageReportUsers(int page, int size);
 
-    // Chat Services
-    void sendMessage(MessageBo msg);
+	void createReportUser(ReportUserBo reportUser);
 
-    // Email Services
-    void sendEmail();
+	void updateReportUser(ReportUserBo reportUser);
+
+	void deleteReportUserById(Serializable id);
+
+	ReportQuestionBo getReportQuestionById(Serializable id);
+
+	List<ReportQuestionBo> listReportQuestions();
+
+	Page<ReportQuestionBo> pageReportQuestions(int page, int size);
+
+	void createReportQuestion(ReportQuestionBo reportQuestion);
+
+	void updateReportQuestion(ReportQuestionBo reportQuestion);
+
+	void deleteReportQuestionById(Serializable id);
+
+	// Now we need some external service handling
+
+	// Chat Services
+	void sendMessage(MessageBo msg);
+
+	// Email Services
+	void sendEmail();
+
 }

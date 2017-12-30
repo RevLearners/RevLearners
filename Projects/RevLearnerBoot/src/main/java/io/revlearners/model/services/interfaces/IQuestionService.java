@@ -4,12 +4,10 @@ import io.revlearners.model.bean.*;
 import io.revlearners.model.services.QuestionService;
 
 import java.util.List;
-import java.util.Map;
-import java.util.Set;
 
-public interface IQuestionService extends IGenericService<Question> {
+public interface IQuestionService {
 
-    ChallengeAttempt scoreChallenge(ChallengeAttempt attempt);
+    float scoreChallenge(ChallengeAttempt attempt);
 
     Challenge generateChallenge(QuestionService.ChallengeInfo info);
 
