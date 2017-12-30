@@ -3,6 +3,7 @@ import {Topic} from './topic';
 
 export class Quiz {
     id: number;
+    maxScore: number;
     questions: Question[];
     topic: Topic;
 
