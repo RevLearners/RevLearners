@@ -15,7 +15,6 @@ export class ProfileComponent implements OnInit {
   ranks:Rank[];
   user: User;
   
-
   constructor(private http:HttpClient, private validate:LoginCredentialsService) { }
 
   ngOnInit() {

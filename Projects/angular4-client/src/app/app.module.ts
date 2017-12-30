@@ -6,13 +6,13 @@ import {HttpModule} from '@angular/http';
 
 import {AppComponent} from './app.component';
 import {NavbarComponent} from './components/navbar/navbar.component';
-import {CreateAccountComponent} from './components/CreateAccount/CreateAccount.component';
+import {CreateAccountComponent} from './components/create-account/CreateAccount.component';
 import {appRoutes} from './routing';
 import {HomeComponent} from './components/home/home.component';
 import {CreateAccountService} from './service/create-account-service';
 import {HttpClientModule} from '@angular/common/http';
-import {LoginComponent} from './components/Login/Login.component';
-import {CreateChallengeComponent} from './components/CreateChallenge/CreateChallenge.component';
+import {LoginComponent} from './components/login/Login.component';
+import {CreateChallengeComponent} from './components/create-challenge/CreateChallenge.component';
 import {SubmitCertificationComponent} from './components/submit-certification/submit-certification.component';
 import {CompleteChallengeComponent} from './components/complete-challenge/complete-challenge.component';
 import {ReviewChallengeComponent} from './components/review-quiz/review-challenge.component';
@@ -24,7 +24,7 @@ import { BackendService } from './services/backend.service';
 import { FileService } from './services/file.service';
 import { LoginCredentialsService } from './services/login-credentials.service';
 import { QuestionService } from './services/question.service';
-import { NotificationsComponent } from './notifications/notifications.component';
+import { NotificationsComponent } from './components/notifications/notifications.component';
 
 
 @NgModule({
