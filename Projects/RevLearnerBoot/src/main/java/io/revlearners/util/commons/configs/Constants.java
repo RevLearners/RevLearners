@@ -924,6 +924,7 @@ public final class Constants {
 	public static final String COLUMN_DESCRIPTION = "DESCRIPTION";
 	public static final String COLUMN_ATTEMPT_ID = "ATTEMPT_ID";
     public static final String COLUMN_ATTEMPT_SCORE = "ATTEMPT_SCORE";
+    public static final String CLOUMN_QUIZ_MAX_SCORE = "ATTEMPT_SCORE";
 	public static final String COLUMN_CHALLENGE_ID = "CHALLENGE_ID";
     public static final String COLUMN_CHALLENGE_USERS = "CHALLENGE_USERS";
 	public static final String COLUMN_RESULT_ID = "RESULT_ID";

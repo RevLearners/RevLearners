@@ -2,7 +2,6 @@ package io.revlearners.model.bean;
 
 import java.io.Serializable;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -14,6 +13,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonView;
+import io.revlearners.model.jsonview.Views;
 import io.revlearners.util.commons.configs.Constants;
 
 @Entity
@@ -21,12 +22,14 @@ import io.revlearners.util.commons.configs.Constants;
 public class QuestionOption implements Serializable{
 	private static final long serialVersionUID = 8295215015097184041L;
 
+    @JsonView({Views.ToBackEnd.class, Views.ToFrontEnd.class})
 	@Id
 	@Column(name=Constants.COLUMN_OPTION_ID)
 	@SequenceGenerator(sequenceName="Q_OPTION_SEQ", name="Q_OPTION_SEQ")
 	@GeneratedValue(generator="Q_OPTION_SEQ", strategy=GenerationType.SEQUENCE)
 	private Long id;
 
+    @JsonView({Views.ToBackEnd.class, Views.ToFrontEnd.class})
 	@Column(name=Constants.COLUMN_OPTION_TEXT)
 	private String text;
 
@@ -34,6 +37,7 @@ public class QuestionOption implements Serializable{
 	@JoinColumn(name=Constants.COLUMN_QUESTION_ID)
 	private Question question;
 
+    @JsonView({Views.ToBackEnd.class, Views.ToFrontEnd.class})
 	@Column(name=Constants.COLUMN_IS_CORRECT)
 	private boolean isCorrect;
 

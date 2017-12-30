@@ -3,7 +3,6 @@ package io.revlearners.model.bean;
 import java.io.Serializable;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -17,6 +16,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonView;
+import io.revlearners.model.jsonview.Views;
 import io.revlearners.util.commons.configs.Constants;
 
 @Entity
@@ -25,30 +26,35 @@ public class ChallengeAttempt implements Serializable {
 
 	private static final long serialVersionUID = -460168171956593784L;
 
+    @JsonView({Views.ToBackEnd.class, Views.ToFrontEnd.class})
 	@Id
 	@Column(name=Constants.COLUMN_ATTEMPT_ID)
 	@SequenceGenerator(sequenceName="CATT_SEQ", name="CATT_SEQ")
-    @GeneratedValue(generator="CATT_SEQ", strategy=GenerationType.SEQUENCE)	
+    @GeneratedValue(generator="CATT_SEQ", strategy=GenerationType.SEQUENCE)
 	private Long id;
 
+    @JsonView({Views.ToBackEnd.class, Views.ToFrontEnd.class})
 	@Column(name=Constants.COLUMN_ATTEMPT_SCORE)
     private Float score;
 
-    @ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+    @JsonView({Views.ToBackEnd.class, Views.ToFrontEnd.class})
+    @ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = Constants.COLUMN_CHALLENGE_ID)
 	private Challenge challenge;
 
+    @JsonView({Views.ToBackEnd.class, Views.ToFrontEnd.class})
 	@ManyToOne(targetEntity=User.class, fetch=FetchType.EAGER)
 	@JoinColumn(name=Constants.COLUMN_USER_ID)
 	private User user;
 
+    @JsonView({Views.ToBackEnd.class, Views.ToFrontEnd.class})
 	@ManyToMany(targetEntity=QuestionOption.class, fetch=FetchType.EAGER)
 	@JoinTable(name=Constants.TABLE_CHALLENGE_ATTEMPT_ANSWERS, joinColumns=@JoinColumn(name=Constants.COLUMN_ATTEMPT_ID), inverseJoinColumns=@JoinColumn(name=Constants.COLUMN_OPTION_ID))
 	private Set<QuestionOption> answers;
 
     public ChallengeAttempt() {
 	}
-	
+
 	public ChallengeAttempt(Challenge challenge, User user, Set<QuestionOption> answers, Float score) {
 	    this.challenge = challenge;
 		this.answers = answers;

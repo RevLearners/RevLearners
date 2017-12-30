@@ -9,8 +9,8 @@
             <li class="dropdown">
            		<button class="dropbtn">Not logged-in</button>
            		<div class="dropdown-content">
-           			<a routerLink="/CreateAccount">Create Account</a>
-        		    <a routerLink="/Login">Login</a>
+           			<a routerLink="/create-account">Create Account</a>
+        		    <a routerLink="/login">Login</a>
            		</div>
             </li>
                         
@@ -19,7 +19,7 @@
            		<button class="dropbtn">Basic Options</button>
            		<div class="dropdown-content">
            			<p>View Challenges</p>
-           			<a routerLink="/CreateChallenge">Create A Challenge</a>
+           			<a routerLink="/create-challenge">Create A Challenge</a>
            			<p>Leaderboard</p>
            			<li><a routerLink="/submit-certification">Submit Certification</a></li>
            		</div>
@@ -30,7 +30,7 @@
            		<button class="dropbtn">Advanced Options</button>
            		<div class="dropdown-content">
            			<p>View Challenges</p>
-           			<a routerLink="/CreateChallenge">Create A Challenge</a>
+           			<a routerLink="/create-challenge">Create A Challenge</a>
            			<p>Leaderboard</p>
            			<li><a routerLink="/submit-certification">Submit Certification</a></li>
            			<p>Create Questions</p>
@@ -42,7 +42,7 @@
            		<button class="dropbtn">Admin Options</button>
            		<div class="dropdown-content">
            			<p>View Challenges</p>
-           			<a routerLink="/CreateChallenge">Create A Challenge</a>
+           			<a routerLink="/create-challenge">Create A Challenge</a>
            			<p>Leaderboard</p>
            			<li><a routerLink="/submit-certification">Submit Certification</a></li>
            			<p>Create Questions</p>
@@ -66,7 +66,7 @@
 				<button class="dropbtn"><span class="glyphicon glyphicon-user"></span></button>
 	           		<div class="dropdown-content">
 						<a routerLink="/profile">Profile</a>
-						<p>Logout</p>
+						<a class="btn btn-primary" (click)="validate.logout()">Logout</a>
 					</div>
 			</li>         
         </ul>
