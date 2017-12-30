@@ -4,12 +4,20 @@
             <a class="navbar-brand" routerLink="/home">RevLearners</a>
           </div>
           <ul class="nav navbar-nav">
-            <li><a routerLink="/home">Home</a></li>
             <li><a routerLink="/CreateAccount">Create Account</a></li>
             <li><a routerLink="/CreateChallenge">Create A Challenge</a></li>
             <li><a routerLink="/Login">Login</a></li>
             <li><a routerLink="/submit-certification">Submit Certification</a></li>
             <li><a routerLink="/profile">Profile</a></li>
+            <li class="dropdown">
+           		<button class="dropbtn">Basic Options</button>
+           		<div class="dropdown-content">
+           			<p>View Challenges</p>
+           			<p>Create Challenges</p>
+           			<p>Leaderboard</p>
+           			<p>Submit Certification</p>
+           		</div>
+            </li>
           </ul>
         </div>
       </nav>
