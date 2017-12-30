@@ -17,7 +17,6 @@ export class ProfileComponent implements OnInit {
   
   constructor(private http:HttpClient, private validate:LoginCredentialsService) { }
 
-
   ngOnInit() {
     this.user = this.validate.getUser();
     }
