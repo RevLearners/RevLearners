@@ -29,7 +29,7 @@ public class NotificationController extends WebServicesController  {
 		List<NotificationBo> allUserNotifs = null;
 //		serviceFacade.get
 		
-		return allUserNotifs; 
+		return allUserNotifs;
 	}
 	
 }

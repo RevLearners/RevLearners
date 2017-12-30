@@ -2,11 +2,7 @@ package io.revlearners.util.commons.configs;
 
 import io.revlearners.model.bean.*;
 
-import java.io.Serializable;
-import java.util.LinkedHashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 /**
  * This holds all the constants through the app, the most important being the
@@ -42,6 +38,8 @@ public final class Constants {
 	private static final Map<Long, String> reasonTypes = new LinkedHashMap<>();
 	private static final Map<Long, Topic> topics = new LinkedHashMap<>();
 	private static final Map<Long, Certification> certifications = new LinkedHashMap<>();
+
+	private static final List<Rank> beginnerRanks = new ArrayList<>();
 	private static final Map<Long, Rank> javaRanks = new LinkedHashMap<>();
 	private static final Map<Long, Rank> j2eeRanks = new LinkedHashMap<>();
 	private static final Map<Long, Rank> jtaRanks = new LinkedHashMap<>();
@@ -315,9 +313,6 @@ public final class Constants {
 
 	public static final long ADV_USER_PTS = 1000L;
 
-    public static Map<Long, Rank> getAngular4Ranks() {
-		return new LinkedHashMap<>(angular4Ranks);
-	}
 
 	public static Map<Long, QuestionType> getQuestionTypes() {
 		return new LinkedHashMap<>(questionTypes);
@@ -338,6 +333,14 @@ public final class Constants {
 	public static Map<Long, Certification> getCertifications() {
 		return new LinkedHashMap<>(certifications);
 	}
+
+    public static List<Rank> getBeginnerRanks() {
+        return new ArrayList<>(beginnerRanks);
+    }
+
+    public static Map<Long, Rank> getAngular4Ranks() {
+        return new LinkedHashMap<>(angular4Ranks);
+    }
 
 	public static Map<Long, Rank> getJRanks() {
 		return new LinkedHashMap<>(javaRanks);
@@ -532,6 +535,13 @@ public final class Constants {
 				new Rank(JRANKS_EXPERT, JRANKS_EXPERT_STR, JRANKS_EXPERT_RANK, JRANKS_EXPERT_THRESHOLD));
 		microsRanks.put(JRANKS_JGURU,
 				new Rank(JRANKS_JGURU, JRANKS_JGURU_STR, JRANKS_JGURU_RANK, JRANKS_JGURU_THRESHOLD));
+
+		// update later as needed
+	    beginnerRanks.add(javaRanks.get(JRANKS_BEGINNER));
+        beginnerRanks.add(angular4Ranks.get(ANG4RANKS_BEGINNER));
+        beginnerRanks.add(angular4Ranks.get(DVOPSRANKS_BEGINNER));
+        beginnerRanks.add(angular4Ranks.get(HBMRANKS_BEGINNER));
+        beginnerRanks.add(angular4Ranks.get(DPRANKS_BEGINNER));
 
 		certifications.put(ORACLE_CERTIFIED_ASSOCIATE, new Certification(ORACLE_CERTIFIED_ASSOCIATE,
 				ORACLE_CERTIFIED_ASSOCIATE_STR, new Topic(TOPIC_CORE_JAVA)));

@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.*;
 import java.util.stream.Collectors;
 
+import io.revlearners.util.commons.configs.Constants;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -257,7 +258,14 @@ public class ServiceFacade implements IServiceFacade {
 
     @Override
     public Challenge generateChallenge(ChallengeService.ChallengeInfo info) {
-        return this.questionService.generateChallenge(info);
+
+        User sender = new User();
+        sender.setId(info.getSenderId());
+        Challenge challenge = this.questionService.generateChallenge(info);
+        MessageStatus status = new MessageStatus(Constants.MESSAGE_STATUS_UNREAD, Constants.MESSAGE_STATUS_UNREAD_STR);
+        // TODO: MAKE SURE THIS WORKS!!!
+        notificationService.generateChallengeNotification(sender, challenge.getUsers(), status, challenge);
+        return challenge;
     }
 
     @Override
