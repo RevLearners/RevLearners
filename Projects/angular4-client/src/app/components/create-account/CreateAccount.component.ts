@@ -5,7 +5,7 @@ import { ViewEncapsulation } from '@angular/core';
 import { CreateAccountService } from '../../service/create-account-service';
 
 @Component({
-  selector: 'createAccount',
+  selector: 'app-create-account',
   templateUrl: './CreateAccount.component.html',
   styleUrls: ['./CreateAccount.component.css'],
   providers: [CreateAccountService],

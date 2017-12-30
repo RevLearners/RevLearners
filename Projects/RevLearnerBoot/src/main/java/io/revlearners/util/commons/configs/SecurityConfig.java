@@ -58,7 +58,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	        	
 	        	// Allow CORS from Angular front-end
 	        	
-	            registry.addMapping("/**").allowedOrigins("http://localhost:4200");
+	            registry.addMapping("/**").allowedOrigins("http://localhost:4200/**");
 	        }
 	    };
 	}
@@ -81,7 +81,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		// starts authorizing configurations
 		.authorizeRequests()
 		// ignoring the guest's urls "
-		.antMatchers("/account/register","/account/login","/logout").permitAll()
+		.antMatchers("/create-account","/login","/logout", "/home").permitAll()
 		// authenticate all remaining URLS
 		.anyRequest().fullyAuthenticated().and()
       /* "/logout" will log the user out by invalidating the HTTP Session,
