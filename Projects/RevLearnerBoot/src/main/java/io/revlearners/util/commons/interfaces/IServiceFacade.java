@@ -3,135 +3,130 @@ package io.revlearners.util.commons.interfaces;
 import java.io.Serializable;
 import java.util.*;
 
+import io.revlearners.model.bean.Challenge;
+import io.revlearners.model.bean.ChallengeAttempt;
+import io.revlearners.model.bean.Question;
+import io.revlearners.model.services.ChallengeService;
 import org.springframework.data.domain.Page;
 
 import io.revlearners.model.bo.*;
 
 public interface IServiceFacade {
 
-	// First we need methods for interfacing our basic CRUD requests
+ 	// First we need methods for interfacing our basic CRUD requests
 
 	// Topic Services
-	public TopicBo getTopicById(Serializable id);
+	TopicBo getTopicById(Serializable id);
 
-	public List<TopicBo> listTopics();
+	List<TopicBo> listTopics();
 
-	public Page<TopicBo> pageTopics(int page, int size);
+	Page<TopicBo> pageTopics(int page, int size);
 
-	public void createTopic(TopicBo topic);
+	void createTopic(TopicBo topic);
 
-	public void updateTopic(TopicBo topic);
+	void updateTopic(TopicBo topic);
 
-	public void deleteTopicById(Serializable id);
+	void deleteTopicById(Serializable id);
 
 	// Rank Services
-	public RankBo getRankById(Serializable id);
+	RankBo getRankById(Serializable id);
 
-	public List<RankBo> listRanks();
+	List<RankBo> listRanks();
 
-	public Page<RankBo> pageRanks(int page, int size);
+	Page<RankBo> pageRanks(int page, int size);
 
-	public void createRank(RankBo rank);
+	void createRank(RankBo rank);
 
-	public void updateRank(RankBo rank);
+	void updateRank(RankBo rank);
 
-	public void deleteRankById(Serializable id);
+	void deleteRankById(Serializable id);
 
 	// User Services
-	public UserBo getUserById(Serializable id);
+	UserBo getUserById(Serializable id);
 
-	public List<UserBo> listUsers();
+	List<UserBo> listUsers();
 
-	public Page<UserBo> pageUsers(int page, int size);
-	
-	public void login(UserBo user);
-	
-	public void register(UserBo user);
+	Page<UserBo> pageUsers(int page, int size);
 
-	public void updateUser(UserBo user);
+	void login(UserBo user);
 
-	public void deleteUserById(Serializable id);
+	void register(UserBo user);
 
-	// Question Services
-	public QuestionBo getQuestionById(Serializable id);
+	void updateUser(UserBo user);
 
-	public List<QuestionBo> listQuestions();
-
-	public Page<QuestionBo> pageQuestions(int page, int size);
-
-	public void createQuestion(QuestionBo question);
-
-	public void updateQuestion(QuestionBo question);
-
-	public void deleteQuestionById(Serializable id);
-
-	// Challenge Services
-	public ChallengeBo getChallengeById(Serializable id);
-
-	public List<ChallengeBo> listChallenges();
-
-	public Page<ChallengeBo> pageChallenges(int page, int size);
-
-	public void createChallenge(ChallengeBo challenge);
-
-	public void updateChallenge(ChallengeBo challenge);
-
-	public void deleteChallengeById(Serializable id);
+	void deleteUserById(Serializable id);
 
 	// Messaging Services
-	public MessageBo getMessageById(Serializable id);
+	MessageBo getMessageById(Serializable id);
 
-	public List<MessageBo> listMessages();
+	List<MessageBo> listMessages();
 
-	public Page<MessageBo> pageMessages(int page, int size);
+	Page<MessageBo> pageMessages(int page, int size);
 
-	public void createMessage(MessageBo message);
+	void createMessage(MessageBo message);
 
-	public void updateMessage(MessageBo message);
+	void updateMessage(MessageBo message);
 
-	public void deleteMessageById(Serializable id);
+	void deleteMessageById(Serializable id);
 
 	// Notification Services
-	public NotificationBo getNotificationById(Serializable id);
+	NotificationBo getNotificationById(Serializable id);
 
-	public List<NotificationBo> listNotifications();
+	List<NotificationBo> listNotifications();
 
-	public Page<NotificationBo> pageNotifications(int page, int size);
+	Page<NotificationBo> pageNotifications(int page, int size);
 
 	public void updateNotification(List<NotificationBo> notifications);
 
-	public void deleteNotificationById(Serializable id);
-	
+	void deleteNotificationById(Serializable id);
+
+    // Challenge/Question/Quiz services
+
+    Challenge generateChallenge(ChallengeService.ChallengeInfo info);
+
+    Question createQuestion(Question question);
+
+    Challenge getChallengeById(Long id);
+
+    List<Challenge> getChallengesByUser(Long userId);
+
+    List<ChallengeAttempt> getChallengeAttemptsByUser(Long challengeId, Long userId);
+
+    float scoreChallenge(ChallengeAttemptBo2 info);
+
+    void updateChallenge(Challenge challenge);
+
 	// Reporting Services
-	public ReportUserBo getReportUserById(Serializable id);
+	ReportUserBo getReportUserById(Serializable id);
 
-	public List<ReportUserBo> listReportUsers();
+	List<ReportUserBo> listReportUsers();
 
-	public Page<ReportUserBo> pageReportUsers(int page, int size);
+	Page<ReportUserBo> pageReportUsers(int page, int size);
 
-	public void createReportUser(ReportUserBo reportUser);
+	void createReportUser(ReportUserBo reportUser);
 
-	public void updateReportUser(ReportUserBo reportUser);
+	void updateReportUser(ReportUserBo reportUser);
 
-	public void deleteReportUserById(Serializable id);
-	
-	public ReportQuestionBo getReportQuestionById(Serializable id);
+	void deleteReportUserById(Serializable id);
 
-	public List<ReportQuestionBo> listReportQuestions();
+	ReportQuestionBo getReportQuestionById(Serializable id);
 
-	public Page<ReportQuestionBo> pageReportQuestions(int page, int size);
+	List<ReportQuestionBo> listReportQuestions();
 
-	public void createReportQuestion(ReportQuestionBo reportQuestion);
+	Page<ReportQuestionBo> pageReportQuestions(int page, int size);
 
-	public void updateReportQuestion(ReportQuestionBo reportQuestion);
+	void createReportQuestion(ReportQuestionBo reportQuestion);
 
-	public void deleteReportQuestionById(Serializable id);
+	void updateReportQuestion(ReportQuestionBo reportQuestion);
+
+	void deleteReportQuestionById(Serializable id);
 
 	// Now we need some external service handling
 
 	// Chat Services
-	public void sendMessage(MessageBo msg);
+	void sendMessage(MessageBo msg);
 
 	// Email Services
-	public void sendEmail();
+	void sendEmail();
+
 }

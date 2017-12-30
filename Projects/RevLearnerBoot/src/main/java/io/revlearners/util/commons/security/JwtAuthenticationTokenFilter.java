@@ -52,7 +52,7 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
 
         	// try to read details from token
         		UserDetails userDetails = jwtToken.getUserDetails();
-        		
+
         		// if null, we have to try getting from the database
             if(userDetails == null)
             		userDetails = this.userDetailsService.loadUserByUsername(username);

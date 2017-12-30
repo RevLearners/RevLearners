@@ -2,6 +2,8 @@ package io.revlearners.model.bean;
 
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonView;
+import io.revlearners.model.jsonview.Views;
 import io.revlearners.util.commons.configs.Constants;
 
 import java.io.Serializable;
@@ -13,20 +15,24 @@ public class Rank implements Serializable {
 
 	private static final long serialVersionUID = -5410626868066784809L;
 
+    @JsonView({Views.ToBackEnd.class, Views.ToFrontEnd.class})
 	@Id
     @Column(name = Constants.COLUMN_RANK_ID)
     private Long id;
 
+    @JsonView({Views.ToBackEnd.class, Views.ToFrontEnd.class})
     @Column(name=Constants.COLUMN_RANK_NAME)
     private String name;
-    
+
     @ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = Constants.COLUMN_TOPIC_ID, referencedColumnName = Constants.COLUMN_TOPIC_ID)
     private Topic topic;
 
+    @JsonView({Views.ToBackEnd.class, Views.ToFrontEnd.class})
     @Column(name=Constants.COLUMN_RANK_IN_HEIRARCHY)
     private Long relativeWeight;
 
+    @JsonView({Views.ToBackEnd.class, Views.ToFrontEnd.class})
     @Column(name=Constants.COLUMN_MERIT_THRESHOLD)
     private Long meritThreshold;
 
@@ -40,20 +46,12 @@ public class Rank implements Serializable {
 	public void setTopic(Topic topic) {
 		this.topic = topic;
 	}
-	
+
     public Rank(Long id, String name, Long rankInHeirarchy, Long meritThreshold) {
         this.id = id;
         this.name = name;
         this.meritThreshold = meritThreshold;
         this.relativeWeight = rankInHeirarchy;
-    }
-
-    public Rank(Long id, String name, Long rankInHeirarchy, Long meritThreshold, Topic topic) {
-        this.id = id;
-        this.name = name;
-        this.meritThreshold = meritThreshold;
-        this.relativeWeight = rankInHeirarchy;
-        this.topic = topic;
     }
 
     public Rank() {

@@ -34,4 +34,3 @@ export class ViewChallengesComponent implements OnInit {
   
   
 }
-

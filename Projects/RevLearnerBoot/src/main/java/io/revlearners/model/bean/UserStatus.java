@@ -8,6 +8,8 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonView;
+import io.revlearners.model.jsonview.Views;
 import io.revlearners.util.commons.configs.Constants;
 
 @Entity
@@ -16,10 +18,12 @@ public class UserStatus implements Serializable {
 
 	private static final long serialVersionUID = 1582847082129648664L;
 
+    @JsonView({Views.ToBackEnd.class, Views.ToFrontEnd.class})
 	@Id
 	@Column(name=Constants.COLUMN_STATUS_ID)
 	private Long id;
 
+    @JsonView({Views.ToBackEnd.class, Views.ToFrontEnd.class})
 	@Column(name=Constants.COLUMN_STATUS_NAME)
 	private String name;
 

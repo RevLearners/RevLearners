@@ -2,6 +2,8 @@ package io.revlearners.model.bean;
 
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonView;
+import io.revlearners.model.jsonview.Views;
 import io.revlearners.util.commons.configs.Constants;
 
 import java.io.Serializable;
@@ -15,12 +17,14 @@ public class UserRank implements Serializable {
 
 	private static final long serialVersionUID = -3402953668398433930L;
 
+    @JsonView({Views.ToBackEnd.class, Views.ToFrontEnd.class})
 	@EmbeddedId
 	private UserRankPair pk = new UserRankPair();
 
+    @JsonView({Views.ToBackEnd.class, Views.ToFrontEnd.class})
 	@Column(name = Constants.COLUMN_MERIT)
 	private Long merit;
-	
+
 	public UserRank() {
 	}
 
@@ -72,6 +76,7 @@ public class UserRank implements Serializable {
 		@JoinColumn(name = Constants.COLUMN_USER_ID)
 		private User user;
 
+        @JsonView({Views.ToBackEnd.class, Views.ToFrontEnd.class})
 		@ManyToOne
 		@JoinColumn(name = Constants.COLUMN_RANK_ID)
 		private Rank rank;
