@@ -171,5 +171,10 @@ public class DBInit {
 				"Only one copy of static variables is created when a class is loaded. Each object instantiated has its own copy of instance variables.",
 				session);
 	}
+	
+	
+	
+	
+
 
 }

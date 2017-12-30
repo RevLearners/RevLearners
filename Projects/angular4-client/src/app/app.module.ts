@@ -16,7 +16,6 @@ import {CreateChallengeComponent} from './components/create-challenge/CreateChal
 import {SubmitCertificationComponent} from './components/submit-certification/submit-certification.component';
 import {CompleteChallengeComponent} from './components/complete-challenge/complete-challenge.component';
 import {ReviewChallengeComponent} from './components/review-quiz/review-challenge.component';
-import {GenerateChallengeComponent} from './components/generate-quiz/generate-challenge.component';
 import {NewQuestionComponent} from './components/new-question/new-question.component';
 import {ProfileComponent} from './components/profile/profile.component';
 import {PageDneComponent} from './components/page-dne/page-dne.component';
@@ -25,6 +24,11 @@ import { FileService } from './services/file.service';
 import { LoginCredentialsService } from './services/login-credentials.service';
 import { QuestionService } from './services/question.service';
 import { NotificationsComponent } from './components/notifications/notifications.component';
+import { ViewChallengesComponent } from './components/view-challenges/view-challenges.component';
+import { LeaderboardComponent } from './components/leaderboard/leaderboard.component';
+import { CreateQuestionComponent } from './components/create-question/create-question.component';
+import { ApproveCertificationsComponent } from './components/approve-certifications/approve-certifications.component';
+import { MessagesComponent } from './components/messages/messages.component';
 
 
 @NgModule({
@@ -38,11 +42,15 @@ import { NotificationsComponent } from './components/notifications/notifications
         SubmitCertificationComponent,
         CompleteChallengeComponent,
         ReviewChallengeComponent,
-        GenerateChallengeComponent,
         NewQuestionComponent,
         ProfileComponent,
         PageDneComponent,
-        NotificationsComponent
+        NotificationsComponent,
+        ViewChallengesComponent,
+        LeaderboardComponent,
+        CreateQuestionComponent,
+        ApproveCertificationsComponent,
+        MessagesComponent
     ],
     imports: [
         BrowserModule,

@@ -18,10 +18,10 @@
             <li class="dropdown">
            		<button class="dropbtn">Basic Options</button>
            		<div class="dropdown-content">
-           			<p>View Challenges</p>
+           			<a routerLink="/view-challenges">View Challenges</a>
            			<a routerLink="/create-challenge">Create A Challenge</a>
-           			<p>Leaderboard</p>
-           			<li><a routerLink="/submit-certification">Submit Certification</a></li>
+           			<a routerLink="/leaderboard">Leaderboard</a>
+           			<a routerLink="/submit-certification">Submit Certification</a>
            		</div>
             </li>
             
@@ -29,44 +29,44 @@
             <li class="dropdown">
            		<button class="dropbtn">Advanced Options</button>
            		<div class="dropdown-content">
-           			<p>View Challenges</p>
+           			<a routerLink="/view-challenges">View Challenges</a>
            			<a routerLink="/create-challenge">Create A Challenge</a>
-           			<p>Leaderboard</p>
-           			<li><a routerLink="/submit-certification">Submit Certification</a></li>
-           			<p>Create Questions</p>
+           			<a routerLink="/leaderboard">Leaderboard</a>
+           			<a routerLink="/submit-certification">Submit Certification</a>
+           			<a routerLink="/create-question">Create Questions</a>
            		</div>
             </li>
             
             <!-- *ngIf user.role.name="Advanced Account(Certified)" -->
             <li class="dropdown">
-           		<button class="dropbtn">Admin Options</button>
+           		<button class="dropbtn">Certified Options</button>
            		<div class="dropdown-content">
-           			<p>View Challenges</p>
+           			<a routerLink="/view-challenges">View Challenges</a>
            			<a routerLink="/create-challenge">Create A Challenge</a>
-           			<p>Leaderboard</p>
-           			<li><a routerLink="/submit-certification">Submit Certification</a></li>
-           			<p>Create Questions</p>
+           			<a routerLink="/leaderboard">Leaderboard</a>
+           			<a routerLink="/submit-certification">Submit Certification</a>
+           			<a routerLink="/create-question">Create Questions</a>
            		</div>
             </li>
             
             <!-- *ngIf user.role.name="Administrator Account" -->
             <li class="dropdown">
-           		<button class="dropbtn">Certified Options</button>
+           		<button class="dropbtn">Admin Options</button>
            		<div class="dropdown-content">
-           			<p>Approve Certifications</p>
+           			<a routerLink="/approve-certifications">Approve Certifications</a>
            		</div>
             </li>
             
          <!-- (if user is logged in) *ngIf user!=null -->
          </ul>
          <ul class="nav navbar-nav navbar-right">
-			<li><a routerLink="/home"><span class="glyphicon glyphicon-envelope"></span></a></li>
-			<li><a routerLink="/home"><span class="glyphicon glyphicon-bell"></span></a></li>   
+			<li><a routerLink="/messages"><span class="glyphicon glyphicon-envelope"></span></a></li>
+			<li><a routerLink="/notifications"><span class="glyphicon glyphicon-bell"></span></a></li>   
 			<li class="dropdown">
 				<button class="dropbtn"><span class="glyphicon glyphicon-user"></span></button>
 	           		<div class="dropdown-content">
 						<a routerLink="/profile">Profile</a>
-						<a class="btn btn-primary" (click)="validate.logout()">Logout</a>
+						<button class="btn" (click)="validate.logout()">Logout</button>
 					</div>
 			</li>         
         </ul>
