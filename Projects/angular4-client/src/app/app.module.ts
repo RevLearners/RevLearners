@@ -24,6 +24,7 @@ import { BackendService } from './services/backend.service';
 import { FileService } from './services/file.service';
 import { LoginCredentialsService } from './services/login-credentials.service';
 import { QuestionService } from './services/question.service';
+import { NotificationsComponent } from './notifications/notifications.component';
 
 
 @NgModule({
@@ -40,7 +41,8 @@ import { QuestionService } from './services/question.service';
         GenerateChallengeComponent,
         NewQuestionComponent,
         ProfileComponent,
-        PageDneComponent
+        PageDneComponent,
+        NotificationsComponent
     ],
     imports: [
         BrowserModule,
