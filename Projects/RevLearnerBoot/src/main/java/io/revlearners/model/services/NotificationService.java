@@ -12,7 +12,6 @@ import io.revlearners.model.bean.Notification;
 import io.revlearners.model.bean.User;
 import io.revlearners.model.services.interfaces.INotificationService;
 
-
 @Service
 public class NotificationService extends CrudService<Notification> implements INotificationService{
     
@@ -72,9 +71,11 @@ public class NotificationService extends CrudService<Notification> implements IN
 		return allNotifs;
 	}
     
-	public void updateStatus(Notification notif, MessageStatus update) {
-        notif.setStatus(update);
-	}
+	public void updateStatus(List<Notification> notifs) {
+		for (Notification n : notifs) {
+			update(n);
+		}
+	}//status change occurs in NotifBo on front end, pushed here
     
 }
 

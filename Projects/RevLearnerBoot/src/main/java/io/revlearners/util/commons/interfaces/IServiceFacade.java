@@ -98,9 +98,7 @@ public interface IServiceFacade {
 
 	public Page<NotificationBo> pageNotifications(int page, int size);
 
-	public void createNotification(NotificationBo notification);
-
-	public void updateNotification(NotificationBo notification);
+	public void updateNotification(List<NotificationBo> notifications);
 
 	public void deleteNotificationById(Serializable id);
 	

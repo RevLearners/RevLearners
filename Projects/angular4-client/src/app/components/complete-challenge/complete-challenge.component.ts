@@ -8,7 +8,7 @@ import {Challenge} from '../../model/challenge';
 import {LoginCredentialsService} from '../../services/login-credentials.service';
 
 @Component({
-    selector: 'app-take-quiz',
+    selector: 'app-complete-challenge',
     templateUrl: './complete-challenge.component.html',
     styleUrls: ['./complete-challenge.component.css']
 })
