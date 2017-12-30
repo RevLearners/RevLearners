@@ -1,12 +1,8 @@
 package io.revlearners.model.services;
 
-import java.util.Arrays;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.HashSet;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.repository.NoRepositoryBean;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -14,13 +10,12 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import io.revlearners.model.bean.Rank;
 import io.revlearners.model.bean.User;
+import io.revlearners.model.bean.UserRank;
 import io.revlearners.model.bean.UserRole;
 import io.revlearners.model.bean.UserStatus;
-import io.revlearners.model.bo.RankBo;
 import io.revlearners.model.bo.UserBo;
-import io.revlearners.model.bo.UserCertificationBo;
-import io.revlearners.model.bo.UserRankBo;
 import io.revlearners.model.dao.interfaces.IUserRepository;
 import io.revlearners.model.dao.interfaces.IUserRoleRepository;
 import io.revlearners.model.dao.interfaces.IUserStatusRepository;
@@ -63,7 +58,10 @@ public class UserService extends CrudService<User> implements UserDetailsService
 
 		User userDao = new User(user.getFirstName(), user.getMiddleName(), user.getLastName(), stat, role,
 				user.getEmail(), user.getUsername(), pass);
-
+		userDao.setRanks(new HashSet<>());
+		for(Rank r : Constants.getBeginnerRanks()) {
+			userDao.getRanks().add(new UserRank(userDao, r, 0L));
+		}
 		repository.saveAndFlush(userDao);
 
 		return modelMapper.map(userDao, UserBo.class);

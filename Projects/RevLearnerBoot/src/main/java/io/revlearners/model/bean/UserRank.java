@@ -73,12 +73,12 @@ public class UserRank implements Serializable {
 		private static final long serialVersionUID = -3420765176964284918L;
 
 		@ManyToOne
-		@JoinColumn(name = Constants.COLUMN_USER_ID)
+		@JoinColumn(name = Constants.COLUMN_USER_ID, insertable=false)
 		private User user;
 
         @JsonView({Views.ToBackEnd.class, Views.ToFrontEnd.class})
 		@ManyToOne
-		@JoinColumn(name = Constants.COLUMN_RANK_ID)
+		@JoinColumn(name = Constants.COLUMN_RANK_ID, insertable=false)
 		private Rank rank;
 
 		public UserRankPair(User user, Rank rank) {
