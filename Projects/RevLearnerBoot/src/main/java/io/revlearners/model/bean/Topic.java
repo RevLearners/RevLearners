@@ -11,6 +11,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.FetchType;
 
+import com.fasterxml.jackson.annotation.JsonView;
+import io.revlearners.model.jsonview.Views;
 import io.revlearners.util.commons.configs.Constants;
 
 @Entity
@@ -18,13 +20,16 @@ import io.revlearners.util.commons.configs.Constants;
 public class Topic implements Serializable {
 	private static final long serialVersionUID = -7336698542678175301L;
 
+    @JsonView({Views.ToBackEnd.class, Views.ToFrontEnd.class})
 	@Id
 	@Column(name = Constants.COLUMN_TOPIC_ID)
 	private Long id;
 
+    @JsonView({Views.ToBackEnd.class, Views.ToFrontEnd.class})
 	@Column(name = Constants.COLUMN_TOPIC_NAME)
 	private String topicName;
 
+    @JsonView({Views.ToBackEnd.class, Views.ToFrontEnd.class})
 	@OneToMany(mappedBy = Constants.FK_TOPIC, fetch = FetchType.EAGER)
 	private Set<Rank> ranks = new HashSet<Rank>();
 

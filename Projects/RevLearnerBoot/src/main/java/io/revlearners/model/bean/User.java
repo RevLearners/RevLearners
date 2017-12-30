@@ -5,6 +5,8 @@ import java.util.Set;
 
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonView;
+import io.revlearners.model.jsonview.Views;
 import io.revlearners.util.commons.configs.Constants;
 
 @Entity
@@ -13,25 +15,31 @@ import io.revlearners.util.commons.configs.Constants;
 public class User implements Serializable {
     private static final long serialVersionUID = 8799966307722508679L;
 
+    @JsonView({Views.ToBackEnd.class, Views.ToFrontEnd.class})
     @Id
     @Column(name = Constants.COLUMN_USER_ID)
     @SequenceGenerator(sequenceName = "USER_SEQ", name = "USER_SEQ")
     @GeneratedValue(generator = "USER_SEQ", strategy = GenerationType.SEQUENCE)
     private Long id;
 
+    @JsonView({Views.ToBackEnd.class, Views.ToFrontEnd.class})
     @Column(name = Constants.COlUMN_FNAME)
     private String firstName;
 
+    @JsonView({Views.ToBackEnd.class, Views.ToFrontEnd.class})
     @Column(name = Constants.COLUMN_MNAME)
     private String middleName;
 
+    @JsonView({Views.ToBackEnd.class, Views.ToFrontEnd.class})
     @Column(name = Constants.COLUMN_LNAME)
     private String lastName;
 
+    @JsonView({Views.ToBackEnd.class, Views.ToFrontEnd.class})
     @ManyToOne
     @JoinColumn(name = Constants.COLUMN_STATUS_ID)
     private UserStatus status;
 
+    @JsonView({Views.ToBackEnd.class, Views.ToFrontEnd.class})
     @ManyToOne
     @JoinColumn(name = Constants.COLUMN_ROLE_ID)
     private UserRole role;
@@ -40,6 +48,7 @@ public class User implements Serializable {
     @JoinTable(name = Constants.TABLE_FRIEND, joinColumns = @JoinColumn(name = Constants.COLUMN_USER_ID), inverseJoinColumns = @JoinColumn(name = Constants.COLUMN_FRIEND_ID))
     private Set<User> friends;
 
+    @JsonView({Views.ToBackEnd.class, Views.ToFrontEnd.class})
     @OneToMany(mappedBy = Constants.PK_USER, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Set<UserRank> ranks;
 
@@ -52,15 +61,49 @@ public class User implements Serializable {
     @OneToMany(mappedBy = Constants.PK_USER, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Set<UserCertification> certifications;
 
+    @JsonView({Views.ToBackEnd.class, Views.ToFrontEnd.class})
     @Column(table = Constants.TABLE_USER_CREDENTIALS, name = Constants.COLUMN_EMAIL)
     private String email;
 
-    @Column(unique = true, table = Constants.TABLE_USER_CREDENTIALS, name = Constants.COLUMN_USERNAME)
+    @JsonView({Views.ToBackEnd.class, Views.ToFrontEnd.class})
+    @Column(table = Constants.TABLE_USER_CREDENTIALS, name = Constants.COLUMN_USERNAME)
     private String username;
 
+    @JsonView({Views.ToBackEnd.class})
     @Column(table = Constants.TABLE_USER_CREDENTIALS, name = Constants.COLUMN_PASSWORD_HASH)
     private String password;
 
+    @Column(table = Constants.TABLE_USER_CREDENTIALS, name = Constants.COLUMN_SALT)
+    private String salt;
+
+
+    public User(String firstName, String middleName, String lastName, UserStatus status, UserRole role, String email, String username, String password) {
+        this.firstName = firstName;
+        this.middleName = middleName;
+        this.lastName = lastName;
+        this.status = status;
+        this.role = role;
+        this.email = email;
+        this.username = username;
+        this.password = password;
+    }
+
+    public User(String firstName, String middleName, String lastName, UserStatus status, UserRole role,
+                String email, String username, String password, String salt) {
+        this.firstName = firstName;
+        this.middleName = middleName;
+        this.lastName = lastName;
+        this.status = status;
+        this.role = role;
+        this.email = email;
+        this.username = username;
+        this.password = password;
+        this.salt = salt;
+    }
+
+
+    public User() {
+    }
 
     public String getEmail() {
         return email;
@@ -86,6 +129,14 @@ public class User implements Serializable {
         this.password = password;
     }
 
+    public String getSalt() {
+        return salt;
+    }
+
+    public void setSalt(String salt) {
+        this.salt = salt;
+    }
+
     public Set<UserRank> getRanks() {
         return ranks;
     }
@@ -108,21 +159,6 @@ public class User implements Serializable {
 
     public void setCertifications(Set<UserCertification> certifications) {
         this.certifications = certifications;
-    }
-
-    public User() {
-    }
-
-    public User(String firstName, String middleName, String lastName, UserStatus status, UserRole role,
-                String email, String username, String password) {
-        this.firstName = firstName;
-        this.middleName = middleName;
-        this.lastName = lastName;
-        this.status = status;
-        this.role = role;
-        this.email = email;
-        this.username = username;
-        this.password = password;
     }
 
     public Long getId() {

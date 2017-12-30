@@ -5,40 +5,45 @@ import java.util.*;
 
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonView;
+import io.revlearners.model.jsonview.Views;
 import io.revlearners.util.commons.configs.Constants;
 
 @Entity
 @Table(name = Constants.TABLE_CHALLENGE)
 public class Challenge implements Serializable {
-	
+
 	private static final long serialVersionUID = -7617567946904028684L;
 
+    @JsonView({Views.ToBackEnd.class, Views.ToFrontEnd.class})
 	@Id
 	@Column(name=Constants.COLUMN_CHALLENGE_ID)
 	@SequenceGenerator(sequenceName="CHAL_SEQ", name="CHAL_SEQ")
-    @GeneratedValue(generator="CHAL_SEQ", strategy=GenerationType.SEQUENCE)	
+    @GeneratedValue(generator="CHAL_SEQ", strategy=GenerationType.SEQUENCE)
 	private Long id;
-	
-	@OneToOne
+
+    @JsonView({Views.ToBackEnd.class, Views.ToFrontEnd.class})
+	@OneToOne(cascade=CascadeType.ALL)
     @JoinColumn(name=Constants.COLUMN_QUIZ_ID)
 	private Quiz quiz;
 
+    @JsonView({Views.ToBackEnd.class, Views.ToFrontEnd.class})
     @ManyToMany
-    @JoinTable(name=Constants.COLUMN_CHALLENGE_USERS, joinColumns=@JoinColumn(name=Constants.COLUMN_CHALLENGE_ID), inverseJoinColumns=@JoinColumn(name=Constants.COLUMN_USER_ID))
+    @JoinTable(name=Constants.COLUMN_CHALLENGE_USERS, joinColumns=@JoinColumn(name=Constants.COLUMN_CHALLENGE_ID),
+            inverseJoinColumns=@JoinColumn(name=Constants.COLUMN_USER_ID))
 	private Set<User> users;
-	
+
+    @JsonView({Views.ToFrontEnd.class})
 	@OneToMany(mappedBy="challenge", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private Set<ChallengeAttempt> attempts;
 
-	public Challenge() {
-		
-	}
-	
+	public Challenge() {}
+
 	public Challenge(Quiz quiz, Set<User> users) {
 		this.quiz = quiz;
         this.users = users;
     }
-	
+
 	public Long getId() {
 		return id;
 	}

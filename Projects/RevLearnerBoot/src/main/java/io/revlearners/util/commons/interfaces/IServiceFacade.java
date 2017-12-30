@@ -2,135 +2,133 @@ package io.revlearners.util.commons.interfaces;
 
 import java.util.*;
 
+import io.revlearners.model.bean.Challenge;
+import io.revlearners.model.bean.ChallengeAttempt;
+import io.revlearners.model.bean.Question;
+import io.revlearners.model.services.QuestionService;
 import org.springframework.data.domain.Page;
 
 import io.revlearners.model.bo.*;
 
 public interface IServiceFacade {
 
-	// First we need methods for interfacing our basic CRUD requests
+    // Question Services
+    Question getQuestionById(Long id);
 
-	// Topic Services
-	public TopicBo getTopicById(Long id);
+    Challenge generateChallenge(QuestionService.ChallengeInfo info);
 
-	public List<TopicBo> listTopics();
+    Question createQuestion(Question question);
 
-	public Page<TopicBo> pageTopics(int page, int size);
+    void deleteQuestionById(Long id);
 
-	public void createTopic(TopicBo topic);
+    Challenge getChallengeById(long id);
 
-	public void updateTopic(TopicBo topic);
+    List<Challenge> getChallengesByUser(long userId);
 
-	public void deleteTopicById(Long id);
+    List<ChallengeAttempt> getChallengeAttemptsByUser(long challengeId, long userId);
 
-	// Rank Services
-	public RankBo getRankById(Long id);
+    Long scoreChallenge(ChallengeAttempt attempt);
 
-	public List<RankBo> listRanks();
+    void updateChallenge(Challenge challenge);
 
-	public Page<RankBo> pageRanks(int page, int size);
 
-	public void createRank(RankBo rank);
+    // First we need methods for interfacing our basic CRUD requests
 
-	public void updateRank(RankBo rank);
+    // Topic Services
+    TopicBo getTopicById(Long id);
 
-	public void deleteRankById(Long id);
+    List<TopicBo> listTopics();
 
-	// User Services
-	public UserBo getUserById(Long id);
+    Page<TopicBo> pageTopics(int page, int size);
 
-	public List<UserBo> listUsers();
+    void createTopic(TopicBo topic);
 
-	public Page<UserBo> pageUsers(int page, int size);
+    void updateTopic(TopicBo topic);
 
-	public void createUser(UserBo user);
+    void deleteTopicById(Long id);
 
-	public void updateUser(UserBo user);
+    // Rank Services
+    RankBo getRankById(Long id);
 
-	public void deleteUserById(Long id);
+    List<RankBo> listRanks();
 
-	// Question Services
-	public QuestionBo getQuestionById(Long id);
+    Page<RankBo> pageRanks(int page, int size);
 
-	public List<QuestionBo> listQuestions();
+    void createRank(RankBo rank);
 
-	public Page<QuestionBo> pageQuestions(int page, int size);
+    void updateRank(RankBo rank);
 
-	public void createQuestion(QuestionBo question);
+    void deleteRankById(Long id);
 
-	public void updateQuestion(QuestionBo question);
+    // User Services
+    UserBo getUserById(Long id);
 
-	public void deleteQuestionById(Long id);
+    List<UserBo> listUsers();
 
-	// Challenge Services
-	public ChallengeBo getChallengeById(Long id);
+    Page<UserBo> pageUsers(int page, int size);
 
-	public List<ChallengeBo> listChallenges();
+    void createUser(UserBo user);
 
-	public Page<ChallengeBo> pageChallenges(int page, int size);
+    void updateUser(UserBo user);
 
-	public void createChallenge(ChallengeBo challenge);
+    void deleteUserById(Long id);
 
-	public void updateChallenge(ChallengeBo challenge);
+    // Messaging Services
+    MessageBo getMessageById(Long id);
 
-	public void deleteChallengeById(Long id);
+    List<MessageBo> listMessages();
 
-	// Messaging Services
-	public MessageBo getMessageById(Long id);
+    Page<MessageBo> pageMessages(int page, int size);
 
-	public List<MessageBo> listMessages();
+    void createMessage(MessageBo message);
 
-	public Page<MessageBo> pageMessages(int page, int size);
+    void updateMessage(MessageBo message);
 
-	public void createMessage(MessageBo message);
+    void deleteMessageById(Long id);
 
-	public void updateMessage(MessageBo message);
+    // Notification Services
+    NotificationBo getNotificationById(Long id);
 
-	public void deleteMessageById(Long id);
+    List<NotificationBo> listNotifications();
 
-	// Notification Services
-	public NotificationBo getNotificationById(Long id);
+    Page<NotificationBo> pageNotifications(int page, int size);
 
-	public List<NotificationBo> listNotifications();
+    void createNotification(NotificationBo notification);
 
-	public Page<NotificationBo> pageNotifications(int page, int size);
+    void updateNotification(NotificationBo notification);
 
-	public void createNotification(NotificationBo notification);
+    void deleteNotificationById(Long id);
 
-	public void updateNotification(NotificationBo notification);
+    // Reporting Services
+    ReportUserBo getReportUserById(Long id);
 
-	public void deleteNotificationById(Long id);
-	
-	// Reporting Services
-	public ReportUserBo getReportUserById(Long id);
+    List<ReportUserBo> listReportUsers();
 
-	public List<ReportUserBo> listReportUsers();
+    Page<ReportUserBo> pageReportUsers(int page, int size);
 
-	public Page<ReportUserBo> pageReportUsers(int page, int size);
+    void createReportUser(ReportUserBo reportUser);
 
-	public void createReportUser(ReportUserBo reportUser);
+    void updateReportUser(ReportUserBo reportUser);
 
-	public void updateReportUser(ReportUserBo reportUser);
+    void deleteReportUserById(Long id);
 
-	public void deleteReportUserById(Long id);
-	
-	public ReportQuestionBo getReportQuestionById(Long id);
+    ReportQuestionBo getReportQuestionById(Long id);
 
-	public List<ReportQuestionBo> listReportQuestions();
+    List<ReportQuestionBo> listReportQuestions();
 
-	public Page<ReportQuestionBo> pageReportQuestions(int page, int size);
+    Page<ReportQuestionBo> pageReportQuestions(int page, int size);
 
-	public void createReportQuestion(ReportQuestionBo reportQuestion);
+    void createReportQuestion(ReportQuestionBo reportQuestion);
 
-	public void updateReportQuestion(ReportQuestionBo reportQuestion);
+    void updateReportQuestion(ReportQuestionBo reportQuestion);
 
-	public void deleteReportQuestionById(Long id);
+    void deleteReportQuestionById(Long id);
 
-	// Now we need some external service handling
+    // Now we need some external service handling
 
-	// Chat Services
-	public void sendMessage(MessageBo msg);
+    // Chat Services
+    void sendMessage(MessageBo msg);
 
-	// Email Services
-	public void sendEmail();
+    // Email Services
+    void sendEmail();
 }

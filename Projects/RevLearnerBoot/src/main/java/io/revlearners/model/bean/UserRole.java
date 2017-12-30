@@ -1,6 +1,9 @@
 package io.revlearners.model.bean;
 
 import java.io.Serializable;
+
+import com.fasterxml.jackson.annotation.JsonView;
+import io.revlearners.model.jsonview.Views;
 import io.revlearners.util.commons.configs.Constants;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -33,10 +36,12 @@ public class UserRole implements Serializable {
 
 	private static final long serialVersionUID = 4523050103926297436L;
 
+    @JsonView({Views.ToBackEnd.class, Views.ToFrontEnd.class})
 	@Id
 	@Column(name=Constants.COLUMN_ROLE_ID)
 	private Long id;
 
+    @JsonView({Views.ToBackEnd.class, Views.ToFrontEnd.class})
 	@Column(name=Constants.COLUMN_ROLE_NAME)
 	private String name;
 

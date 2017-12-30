@@ -40,5 +40,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 //	protected void configure(AuthenticationManagerBuilder auth) {
 //		auth.authenticationProvider(authenticationProvider());
 //	}
-//	
+//
+
+ 	@Override
+	protected void configure(HttpSecurity httpSecurity) throws Exception {
+	    httpSecurity.csrf().disable();  // this is necessary to allow testing with postman
+	}
 }

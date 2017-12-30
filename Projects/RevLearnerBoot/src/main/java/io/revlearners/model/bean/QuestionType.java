@@ -7,6 +7,8 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonView;
+import io.revlearners.model.jsonview.Views;
 import io.revlearners.util.commons.configs.Constants;
 
 @Entity
@@ -14,13 +16,16 @@ import io.revlearners.util.commons.configs.Constants;
 public class QuestionType implements Serializable{
 	private static final long serialVersionUID = -2990237829521957808L;
 
+    @JsonView({Views.ToBackEnd.class, Views.ToFrontEnd.class})
 	@Id
 	@Column (name=Constants.COLUMN_QUESTION_TYPE_ID)
 	private Long id;
 
+    @JsonView({Views.ToBackEnd.class, Views.ToFrontEnd.class})
 	@Column(name=Constants.COLUMN_QUESTION_TYPE_NAME)
 	private String name;
-	
+
+    @JsonView({Views.ToBackEnd.class, Views.ToFrontEnd.class})
 	@Column(name=Constants.COLUMN_BASE_VALUE)
 	private Float baseVal;
 

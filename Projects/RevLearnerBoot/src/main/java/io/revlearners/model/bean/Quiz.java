@@ -17,6 +17,8 @@ import javax.persistence.ManyToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonView;
+import io.revlearners.model.jsonview.Views;
 import io.revlearners.util.commons.configs.Constants;
 import org.hibernate.annotations.Fetch;
 
@@ -24,16 +26,19 @@ import org.hibernate.annotations.Fetch;
 @Table (name=Constants.TABLE_QUIZ)
 public class Quiz implements Serializable{
 	private static final long serialVersionUID = 4858112442645949427L;
-	
+
+    @JsonView({Views.ToBackEnd.class, Views.ToFrontEnd.class})
 	@Id
 	@Column(name=Constants.COLUMN_QUIZ_ID)
 	@SequenceGenerator(sequenceName="QUIZ_SEQ", name="QUIZ_SEQ")
     @GeneratedValue(generator="QUIZ_SEQ", strategy=GenerationType.SEQUENCE)
 	private Long id;
-	
+
+    @JsonView({Views.ToBackEnd.class, Views.ToFrontEnd.class})
 	@Column(name=Constants.COLUMN_QUIZ_TIME)
 	private LocalDateTime time;
 
+    @JsonView({Views.ToBackEnd.class, Views.ToFrontEnd.class})
 	@ManyToMany(cascade=CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinTable(name=Constants.TABLE_QUIZ_QUESTION, joinColumns=@JoinColumn(name=Constants.COLUMN_QUIZ_ID), inverseJoinColumns=@JoinColumn(name=Constants.COLUMN_QUESTION_ID))
 	private Set<Question> questions;
