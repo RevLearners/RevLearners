@@ -7,10 +7,7 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
-import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Properties;
 
 @Component
@@ -53,8 +50,7 @@ public class EmailService {
         try {
             return sendTextMailWithAttachments(
                     REVLEARNERS_EMAIL, REVLEARNERS_PASSWORD, recipientEmail,
-                    VERIFICATION_EMAIL_SUBJECT_TEMPLATE, String.format(VERIFICATION_EMAIL_TEMPLATE, token,
-                    new ArrayList<>())
+                    VERIFICATION_EMAIL_SUBJECT_TEMPLATE, String.format(VERIFICATION_EMAIL_TEMPLATE, token)
             );
         } catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -73,11 +69,11 @@ public class EmailService {
      * @param senderPassword
      * @param recipientEmail
      * @param subject
-     * @param text
+     * @param htmlString
      * @return
      */
-    private static boolean sendTextMailWithAttachments(String senderEmail, String senderPassword, String recipientEmail,
-                                                      String subject, String text) throws FileNotFoundException {
+    private static boolean sendHtmlEmail(String senderEmail, String senderPassword, String recipientEmail,
+                                                      String subject, String htmlString) throws FileNotFoundException {
         Session mailSession = Session.getDefaultInstance(SMTP_PROPERTIES, new Authenticator() {
             @Override
             protected PasswordAuthentication getPasswordAuthentication() {
@@ -94,7 +90,7 @@ public class EmailService {
             message.setSubject(subject);
             // Create text part
             BodyPart htmlPart = new MimeBodyPart();
-            htmlPart.setContent(text, "text/html; charset=utf-8");
+            htmlPart.setContent(htmlString, "text/html; charset=utf-8");
 
             // this is the message composite
             Multipart multipart = new MimeMultipart();

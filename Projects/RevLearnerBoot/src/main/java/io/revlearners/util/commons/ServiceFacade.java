@@ -205,8 +205,7 @@ public class ServiceFacade implements IServiceFacade {
 
 	@Override
 	public void register(UserBo user, Device device) {
-		String token = null;
-		token = userService.register(user, device);
+		String token = userService.register(user, device);
 		if (token == null)
 			return;
 		emailService.sendVerificationEmail(user.getEmail(), token);
