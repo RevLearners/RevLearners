@@ -24,6 +24,8 @@ import io.revlearners.util.commons.security.JwtAuthenticationResponse;
 import io.revlearners.util.commons.security.JwtToken;
 import io.revlearners.util.commons.security.JwtUser;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.time.ZoneId;
 import java.util.Date;
 import java.util.List;
@@ -36,9 +38,10 @@ public class AuthenticationRestController extends WebServicesController {
 	@Value("${jwt.header}")
 	private String tokenHeader;
 
-	@GetMapping(value = "verify/{token}")
-	public @ResponseBody Boolean verifyEmail(@PathVariable("token") String token, Device device) {
-		serviceFacade.verifyUser(token, device);
+	@GetMapping(value = "verify", params = "token")
+	public @ResponseBody Boolean verifyEmail(@RequestParam("token") String token, Device device) throws UnsupportedEncodingException {
+		String decodedToken = URLDecoder.decode(token, "UTF-8");
+		serviceFacade.verifyUser(decodedToken, device);
 		System.out.println("=========================== verified! =================================");
 		return true;
 	}

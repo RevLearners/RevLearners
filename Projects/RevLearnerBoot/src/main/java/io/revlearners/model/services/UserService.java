@@ -84,8 +84,9 @@ public class UserService extends CrudService<User> implements UserDetailsService
 		}
 		repository.saveAndFlush(userEntity);
 		UserDetails userDetails = loadUserByUsername(user.getUsername());
-		
-		return jwtTokenUtil.generateToken(userDetails, device);
+		String token = jwtTokenUtil.generateToken(userDetails, device);
+		System.out.println(jwtTokenUtil.getUsernameFromToken(token));
+		return token;
 	}
 
 	@Override
