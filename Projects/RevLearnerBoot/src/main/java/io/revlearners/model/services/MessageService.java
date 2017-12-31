@@ -1,6 +1,7 @@
 package io.revlearners.model.services;
 
 import java.io.Serializable;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,6 +20,13 @@ public class MessageService extends CrudService<Message> implements IMessageServ
 	@Override
 	public MessageStatus findOneStatus(Serializable id) {
 		return msgRepo.findOne(id);
+	}
+
+	@Override
+	public void updateStatus(List<Message> messages) {
+		for(Message m : messages) {
+			update(m);
+		}
 	}
 
 }

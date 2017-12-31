@@ -37,9 +37,7 @@ public class UserBo implements UserDetails {
 	private String username;
 	
 	private String password;
-	
-	private boolean enabled;
-	
+		
 	private LocalDateTime lastPasswordReset;
 
 	public LocalDateTime getLastPasswordReset() {

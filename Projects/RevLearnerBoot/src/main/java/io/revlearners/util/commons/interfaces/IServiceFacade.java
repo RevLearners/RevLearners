@@ -66,6 +66,8 @@ public interface IServiceFacade {
 	void createMessage(MessageBo message);
 
 	void updateMessage(MessageBo message);
+	
+	void updateMessages(List<MessageBo> message);
 
 	void deleteMessageById(Serializable id);
 

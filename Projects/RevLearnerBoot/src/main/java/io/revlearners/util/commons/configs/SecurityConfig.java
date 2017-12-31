@@ -28,7 +28,7 @@ import io.revlearners.util.commons.security.JwtAuthenticationEntryPoint;
 import io.revlearners.util.commons.security.JwtAuthenticationTokenFilter;
 
 @Configuration
-@EnableWebSecurity
+//@EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
@@ -74,9 +74,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	// specify that inside this method
 	@Override
 	public void configure(WebSecurity web) throws Exception {
-		web.ignoring().antMatchers("/", "/resources/**", "/static/**", "/public/**", "/webui/**", "/h2-console/**"
-	            , "/configuration/**", "/swagger-ui/**", "/swagger-resources/**", "/api-docs", "/api-docs/**", "/v2/api-docs/**"
-	            , "/*.html", "/**/*.html" ,"/**/*.css","/**/*.js","/**/*.png","/**/*.jpg", "/**/*.gif", "/**/*.svg", "/**/*.ico", "/**/*.ttf","/**/*.woff");
+//		web.ignoring().antMatchers("/", "/resources/**", "/static/**", "/public/**", "/webui/**", "/h2-console/**"
+//	            , "/configuration/**", "/swagger-ui/**", "/swagger-resources/**", "/api-docs", "/api-docs/**", "/v2/api-docs/**"
+//	            , "/*.html", "/**/*.html" ,"/**/*.css","/**/*.js","/**/*.png","/**/*.jpg", "/**/*.gif", "/**/*.svg", "/**/*.ico", "/**/*.ttf","/**/*.woff");
 	}
 
 	// This method is used for override HttpSecurity of the web Application.
@@ -98,6 +98,4 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		// disabling the CSRF - Cross Site Request Forgery
 		.csrf().disable();
 	}
-
-
 }

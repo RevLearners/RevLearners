@@ -49,13 +49,13 @@ public class MessageController extends WebServicesController  {
 		serviceFacade.createMessage(message);
 	}
 	
-	@PostMapping("/updateNotifStatus/{status}")
-	public void updateStatus(@RequestBody List<NotificationBo> messages) {
+	@PostMapping("/updateMessgaeStatus/{status}")
+	public void updateStatus(@RequestBody List<MessageBo> messages) {
 		//status updates persisted from front-end events
-		serviceFacade.updateNotification(messages);
+		serviceFacade.updateMessages(messages);
 	}
 	
-	@GetMapping("/getAllNotifications/{userid}")
+	@GetMapping("/getAllMessages/{userid}")
 	public @ResponseBody List<MessageBo> getAllMessagesById(@PathVariable("userid") Long userid) {
 		return serviceFacade.listMessages();
 	}

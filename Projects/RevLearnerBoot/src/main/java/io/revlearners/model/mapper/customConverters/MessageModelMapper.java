@@ -23,6 +23,9 @@ import io.revlearners.model.bo.UserBo;
 public class MessageModelMapper extends ConverterConfigurerSupport<Message, MessageBo>{
 
 	@Autowired
+	UserModelMapper userModelMapper;
+	
+	@Autowired
 	ModelMapper modelMapper;
 	
 	@Override
@@ -33,7 +36,7 @@ public class MessageModelMapper extends ConverterConfigurerSupport<Message, Mess
 			protected MessageBo convert(Message msg) {
 				Set<UserBo> receivers = new LinkedHashSet<UserBo>();
 				for(User u : msg.getReceivers()) {
-					receivers.add(modelMapper.map(u, UserBo.class));
+					receivers.add(userModelMapper.map(u, UserBo.class));
 				}
 				
 				Set<FileBlobBo> blobs = new LinkedHashSet<FileBlobBo>();
@@ -43,7 +46,7 @@ public class MessageModelMapper extends ConverterConfigurerSupport<Message, Mess
 					}
 				}
 				
-				return new MessageBo(msg.getId(), modelMapper.map(msg.getSender(), UserBo.class),
+				return new MessageBo(msg.getId(), userModelMapper.map(msg.getSender(), UserBo.class),
 						receivers, msg.getTitle(), msg.getContents(), blobs,  msg.getTime(), modelMapper.map(msg.getStatus(), MessageStatusBo.class));
 			}
 			
