@@ -64,7 +64,6 @@ public class ChallengeController extends WebServicesController {
 
     /**
      * handle request to get all a user's attempts for a challenge
-     * todo: does this work?
      *
      * @param userId
      * @return
