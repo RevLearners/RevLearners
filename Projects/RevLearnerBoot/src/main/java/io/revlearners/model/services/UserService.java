@@ -27,6 +27,9 @@ import io.revlearners.util.commons.security.JwtUserFactory;
 @Transactional
 public class UserService extends CrudService<User> implements UserDetailsService, IUserService {
 
+    @Autowired
+    EmailService emailService;
+
 	@Autowired
 	private IUserRepository repository;
 
@@ -56,14 +59,15 @@ public class UserService extends CrudService<User> implements UserDetailsService
 		UserRole role = roleRepo.findOne(user.getRoleId());
 		pass = encoder.encode(user.getPassword());
 
-		User userDao = new User(user.getFirstName(), user.getMiddleName(), user.getLastName(), stat, role,
+		User userEntity = new User(user.getFirstName(), user.getMiddleName(), user.getLastName(), stat, role,
 				user.getEmail(), user.getUsername(), pass);
-		userDao.setRanks(new HashSet<>());
+		userEntity.setRanks(new HashSet<>());
 		for(Rank r : Constants.getBeginnerRanks()) {
-			userDao.getRanks().add(new UserRank(userDao, r, 0L));
+			userEntity.getRanks().add(new UserRank(userEntity, r, 0L));
 		}
-		repository.saveAndFlush(userDao);
+		repository.saveAndFlush(userEntity);
+		emailService.sendVerificationEmail(userEntity.getEmail(), userEntity.getId());
 
-		return modelMapper.map(userDao, UserBo.class);
+		return modelMapper.map(userEntity, UserBo.class);
 	}
 }

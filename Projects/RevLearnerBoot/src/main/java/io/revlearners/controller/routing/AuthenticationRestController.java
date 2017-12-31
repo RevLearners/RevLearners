@@ -46,7 +46,7 @@ public class AuthenticationRestController {
     private IUserService userService;
 
 
-    @PostMapping(value="verifyEmail/{userId}")
+    @PostMapping(value="verify/{userId}")
     public @ResponseBody Boolean verifyEmail(@PathVariable("userId") long userId) {
         User user = userService.findOne(userId);
         user.setStatus(new UserStatus(Constants.STATUS_OK));
