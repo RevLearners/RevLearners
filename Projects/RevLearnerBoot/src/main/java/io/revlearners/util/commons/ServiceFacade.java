@@ -2,7 +2,6 @@ package io.revlearners.util.commons;
 
 import java.io.Serializable;
 import java.util.*;
-import java.util.stream.Collectors;
 
 import io.revlearners.util.commons.configs.Constants;
 import org.modelmapper.ModelMapper;
@@ -12,7 +11,6 @@ import org.springframework.stereotype.Component;
 
 import io.revlearners.model.bean.*;
 import io.revlearners.model.bo.*;
-import io.revlearners.model.services.*;
 import io.revlearners.model.services.interfaces.*;
 import io.revlearners.util.commons.interfaces.IServiceFacade;
 
@@ -257,13 +255,12 @@ public class ServiceFacade implements IServiceFacade {
 
 
     @Override
-    public Challenge generateChallenge(ChallengeService.ChallengeInfo info) {
+    public Challenge generateChallenge(ChallengeInfoBo info) {
 
         User sender = new User();
         sender.setId(info.getSenderId());
         Challenge challenge = this.questionService.generateChallenge(info);
         MessageStatus status = new MessageStatus(Constants.MESSAGE_STATUS_UNREAD, Constants.MESSAGE_STATUS_UNREAD_STR);
-        // TODO: MAKE SURE THIS WORKS!!!
         notificationService.generateChallengeNotification(sender, challenge.getUsers(), status, challenge);
         return challenge;
     }
