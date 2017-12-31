@@ -22,7 +22,7 @@ export class CreateAccountComponent implements OnInit {
     password2 = '';
     titleAlert = 'This field is required.';
 
-    usernameTaken = true;
+    usernameTaken = null;
     userCred: string[] = [];
 
     constructor(private fb: FormBuilder, private dataService: CreateAccountService) {
@@ -54,6 +54,7 @@ export class CreateAccountComponent implements OnInit {
     }
 
     addPost(post) {
+        this.usernameTaken = null;
         if (post.password === post.password2) {
             this.fname = post.fname;
             if (post.mname !== ' ') {
@@ -79,7 +80,8 @@ export class CreateAccountComponent implements OnInit {
             this.dataService.userExist(post.username).subscribe(
                 (data: any) => {
                     console.log('data: ' + data);
-                    this.usernameTaken = data;
+                    console.log(data);
+                    this.usernameTaken = (data == 'true');
                     console.log('TESTING Inside: ' + this.usernameTaken);
                     if (this.usernameTaken) {
                         console.log('Username taken.');
@@ -91,17 +93,14 @@ export class CreateAccountComponent implements OnInit {
                         );
                     }
                 },
-                console.log
+                (err) => {
+                    console.log(err);
+                    this.usernameTaken = null;
+                }
             );
         } else {
 
         }
-
     }
 
-    resetForm() {
-        this.fname = '';
-        this.usernameTaken = true;
-        this.userCred = [];
-    }
 }
