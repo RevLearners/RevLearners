@@ -12,7 +12,6 @@ import {SubmitCertificationComponent} from './components/submit-certification/su
 import {ProfileComponent} from './components/profile/profile.component';
 import {ViewChallengesComponent} from './components/view-challenges/view-challenges.component';
 import {LeaderboardComponent} from './components/leaderboard/leaderboard.component';
-import {CreateQuestionComponent} from './components/create-question/create-question.component';
 import {ApproveCertificationsComponent} from './components/approve-certifications/approve-certifications.component';
 import {NotificationsComponent} from './components/notifications/notifications.component';
 import {MessagesComponent} from './components/messages/messages.component';
@@ -66,10 +65,6 @@ export const appRoutes: Routes = [
     {
         path: 'leaderboard',
         component: LeaderboardComponent
-    },
-    {
-        path: 'create-question',
-        component: CreateQuestionComponent
     },
     {
         path: 'approve-certifications',

@@ -19,7 +19,6 @@ import {PageDneComponent} from './components/page-dne/page-dne.component';
 import { NotificationsComponent } from './components/notifications/notifications.component';
 import { ViewChallengesComponent } from './components/view-challenges/view-challenges.component'
 import { LeaderboardComponent } from './components/leaderboard/leaderboard.component';
-import {CreateQuestionComponent} from './components/create-question/create-question.component';
 import {ApproveCertificationsComponent} from './components/approve-certifications/approve-certifications.component';
 import { MessagesComponent }  from './components/messages/messages.component';
 
@@ -49,7 +48,6 @@ import { AuthenticationService }  from './services/authentication.service';
         NotificationsComponent,
         ViewChallengesComponent,
         LeaderboardComponent,
-        CreateQuestionComponent,
         ApproveCertificationsComponent,
         MessagesComponent
     ],
