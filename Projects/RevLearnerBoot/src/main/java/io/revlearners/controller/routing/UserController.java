@@ -27,13 +27,17 @@ public class UserController  extends WebServicesController {
 		if(userList == null) {
 			return false;
 		}
+		System.out.println("TAKE THE HIT 1: testingUsername: " + username);
 		//Check through the list of users to see if anyone has the username
 		//If taken, should return true right away
 		for (UserBo u : userList) {
+			System.out.println("TAKE THE HIT 2: Username:" + u.getUsername());
 			if(u.getUsername().equals(username)) {
+				System.out.println("TAKE THE HIT 3");
 				return true;
 			}
 		}
+		System.out.println("TAKE THE HIT 4");
 		//If it's not taken, write false
 		return false;
 	}
