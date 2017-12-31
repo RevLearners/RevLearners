@@ -1,3 +1,11 @@
-<p>
-  leaderboard works!
-</p>
+
+
+
+<table border = "2px">
+    <tr>
+        <th>Topic</th><th>User 1</th><th>Score</th>
+    </tr>
+    <tr *ngFor="let userScore of userScores">
+        <td>{{userScore.quiz.topic}}</td><td>{{userScore.users[0]}}</td><td>{{userScore.users[1]}}</td>
+    </tr>
+</table>

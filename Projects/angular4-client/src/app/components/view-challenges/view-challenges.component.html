@@ -1,6 +1,17 @@
 
-<p> table of all the challenges the user has received</p> <br>
+<h1>NOT DONE</h1>
+
+<p> table of all the quizzes the user has received</p> <br>
+
+<table border = "2px">
+    <tr>
+        <th>Topic</th><th>User 1</th><th>User 2</th>
+    </tr>
+    <tr *ngFor="let chall of challs">
+        <td>{{chall.quiz.topic}}</td><td>{{chall.users[0]}}</td><td>{{chall.users[1]}}</td>
+    </tr>
+</table>
 
 
-<h1>NOTHING IS HERE</h1>
+
 

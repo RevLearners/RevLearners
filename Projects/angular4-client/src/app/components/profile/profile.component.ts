@@ -11,7 +11,7 @@ import { LoginCredentialsService } from '../../services/login-credentials.servic
 })
 export class ProfileComponent implements OnInit {
   public rankId;
-  public rank: Rank = null;  
+  public rank: Rank = new Rank(0, 0, "", 0, null);  
   ranks:Rank[];
   user: User;
   
