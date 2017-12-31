@@ -33,7 +33,7 @@ public class EmailService {
 
     static {
         REVLEARNERS_EMAIL = System.getenv("REVLEARNERS_EMAIL");
-        REVLEARNERS_PASSWORD = System.getenv("REVLEARNERS_EMAIL_PASSWORD");
+        REVLEARNERS_PASSWORD = System.getenv("REVLEARNERS_PASSWORD");
         SMTP_PORT = System.getenv("SMTP_PORT");
         SMTP_HOST = System.getenv("SMTP_HOST");
         SMTP_PROPERTIES.put("mail.smtp.host", SMTP_HOST);
