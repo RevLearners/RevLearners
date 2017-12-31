@@ -12,6 +12,7 @@ import io.revlearners.model.bean.User;
 
 public interface INotificationService extends ICrudService<Notification>{
 	
+	
 	public Notification generateCertificationNotification(User sender, Set<User> receivers, MessageStatus status, String certName);
 	
 	public Notification generateAdvancementNotification(User sender, Set<User> receivers, MessageStatus status, String topic, String rankOld, String rankNew);
@@ -21,5 +22,6 @@ public interface INotificationService extends ICrudService<Notification>{
 	public List<Notification> getByUserId(User user);
     
 	public void updateStatus(List<Notification> notifs); 
+	
 	
 }

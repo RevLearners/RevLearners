@@ -3,6 +3,7 @@ package io.revlearners.util.commons.configs;
 import io.revlearners.model.bean.*;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.*;
 
 /**
@@ -964,4 +965,6 @@ public final class Constants {
 	public static final String USER = "user";
 
 	public static final String COLUMN_LAST_PW_RESET = "LAST_PASSWORD_RESET";
+
+	public static final LocalDateTime START_DATE = LocalDateTime.of(1970, 1, 1, 0, 0);
 }
