@@ -41,14 +41,4 @@ public class UserController  extends WebServicesController {
 		//If it's not taken, write false
 		return false;
 	}
-	
-	@PostMapping("/createUser")
-	public void createUser(@RequestBody UserBo userCred) {
-		userCred.setRoleId(Constants.ROLE_BASIC);
-		serviceFacade.register(userCred);
-		
-		System.out.println(userCred);
-	}
-	
-
 }

@@ -1,6 +1,7 @@
 package io.revlearners.controller.routing;
 import io.revlearners.model.bean.User;
 import io.revlearners.model.bean.UserStatus;
+import io.revlearners.model.bo.UserBo;
 import io.revlearners.model.services.interfaces.IUserService;
 import io.revlearners.util.commons.configs.Constants;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +29,7 @@ import java.util.Date;
 import javax.servlet.http.HttpServletRequest;
 
 @RestController
-public class AuthenticationRestController {
+public class AuthenticationRestController extends WebServicesController {
 
     @Value("${jwt.header}")
     private String tokenHeader;
@@ -54,6 +55,14 @@ public class AuthenticationRestController {
         System.out.println("=========================== verified! =================================");
         return true;
     }
+    
+	@PostMapping("/register")
+	public void createUser(@RequestBody UserBo userCred) {
+		userCred.setRoleId(Constants.ROLE_BASIC);
+		serviceFacade.register(userCred);
+		
+		System.out.println(userCred);
+	}
 
     @RequestMapping(value = "${jwt.route.authentication.path}", method = RequestMethod.POST)
     public ResponseEntity<?> createAuthenticationToken(@RequestBody JwtAuthenticationRequest authenticationRequest, Device device) throws AuthenticationException {

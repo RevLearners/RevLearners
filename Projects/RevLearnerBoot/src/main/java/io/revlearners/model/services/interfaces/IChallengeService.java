@@ -1,7 +1,7 @@
 package io.revlearners.model.services.interfaces;
 
 import io.revlearners.model.bean.*;
-import io.revlearners.model.services.ChallengeService;
+import io.revlearners.model.bo.ChallengeInfoBo;
 
 import java.util.List;
 
@@ -9,7 +9,7 @@ public interface IChallengeService {
 
     float submitChallengeAttempt(ChallengeAttempt attempt);
 
-    Challenge generateChallenge(ChallengeService.ChallengeInfo info);
+    Challenge generateChallenge(ChallengeInfoBo info);
 
     List<Challenge> getChallengesByUser(long userId);
 

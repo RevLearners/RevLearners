@@ -33,7 +33,7 @@ public class EmailService {
 
     static {
         REVLEARNERS_EMAIL = System.getenv("REVLEARNERS_EMAIL");
-        REVLEARNERS_PASSWORD = System.getenv("REVLEARNERS_EMAIL_PASSWORD");
+        REVLEARNERS_PASSWORD = System.getenv("REVLEARNERS_PASSWORD");
         SMTP_PORT = System.getenv("SMTP_PORT");
         SMTP_HOST = System.getenv("SMTP_HOST");
         SMTP_PROPERTIES.put("mail.smtp.host", SMTP_HOST);
@@ -45,6 +45,13 @@ public class EmailService {
         SMTP_PROPERTIES.put("mail.smtp.EMAIL_TIMEOUT", EMAIL_TIMEOUT);
     }
 
+    /**
+     * send verification email to a newly registering user; email contains a link to which will
+     * set their user status to ok (from pending status)
+     * @param recipientEmail
+     * @param recipientId
+     * @return
+     */
     public boolean sendVerificationEmail(String recipientEmail, Long recipientId) {
         try {
             return sendTextMailWithAttachments(
@@ -133,11 +140,6 @@ public class EmailService {
                 }
         }
         return false;
-    }
-
-    public static void main(String[] args) {
-        EmailService emailer = new EmailService();
-        emailer.sendVerificationEmail("daxterix3000@gmail.com", 1L);
     }
 
 }

@@ -1,19 +1,35 @@
 package preTestScripts;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import config.MockPersistenceConfig;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.transaction.annotation.Transactional;
 
-import io.revlearners.model.bean.*;
+import config.MockPersistenceConfig;
+import io.revlearners.model.bean.FileBlob;
+import io.revlearners.model.bean.Message;
+import io.revlearners.model.bean.MessageStatus;
+import io.revlearners.model.bean.MimeType;
+import io.revlearners.model.bean.Notification;
+import io.revlearners.model.bean.Question;
+import io.revlearners.model.bean.QuestionDifficulty;
+import io.revlearners.model.bean.QuestionOption;
+import io.revlearners.model.bean.QuestionType;
+import io.revlearners.model.bean.Rank;
+import io.revlearners.model.bean.ReasonType;
+import io.revlearners.model.bean.RequestStatus;
+import io.revlearners.model.bean.Topic;
+import io.revlearners.model.bean.User;
+import io.revlearners.model.bean.UserRank;
+import io.revlearners.model.bean.UserRole;
+import io.revlearners.model.bean.UserStatus;
 import io.revlearners.util.commons.configs.Constants;
 
 @Transactional(value = Constants.TRANSACTION_HIBERNATE_MANAGER)
@@ -22,7 +38,7 @@ public class DBInit {
 	private static SessionFactory sf;
 	private static Set<UserRank> ranks = new HashSet<UserRank>();
 	private static User botbert = new User("Root", null, "Admin", new UserStatus(Constants.STATUS_OK), new UserRole(Constants.ROLE_ADMIN),
-			"botbert@email.com", "Botbert", "$2a$10$trilJ1OUwLZqA9PjJYD9Bu1zpKq8jYKG3Dxsigxf1R4XLPBTH1LOW");
+			"botbert@email.com", "Botbert", "$2a$10$trilJ1OUwLZqA9PjJYD9Bu1zpKq8jYKG3Dxsigxf1R4XLPBTH1LOW", Constants.START_DATE);
 
 	public static void main(String[] args) {
 		springContext = new AnnotationConfigApplicationContext(MockPersistenceConfig.class);
@@ -91,11 +107,18 @@ public class DBInit {
 			saveEntities(Constants.getQuestionDifficulties(), session);
 
 			addQuestions(session);
+			/*****************************************************************/
+			
+			
+			
+			
 
 			botbert.setRanks(ranks);
 			session.save(botbert);
 			for(UserRank ur : ranks)
 			session.save(ur);
+			addNotifications(session);
+			addMessages(session);
 
 			session.getTransaction().commit();
 		}
@@ -124,7 +147,7 @@ public class DBInit {
 	 * @param correctIdx
 	 */
 	public static void persistQuestion(String questionText, long topicId, long typeId, long difficultyId,
-			String[] optionTexts, int correctIdx, String explanation, Session session) {
+		String[] optionTexts, int correctIdx, String explanation, Session session) {
 
 		Question question = new Question();
 		question.setText(questionText);
@@ -187,8 +210,60 @@ public class DBInit {
 	}
 	
 	
+	public static void persistNotification(String notificationContent, Set<User> receivers, User sender, 
+			MessageStatus status, LocalDateTime time, String title, Session session) {
+		
+			Notification notification = new Notification();
+			notification.setContents(notificationContent);
+			notification.setReceivers(receivers);
+			notification.setSender(sender);
+			notification.setStatus(status);
+			notification.setTime(time);
+			notification.setTitle(title);
+			session.persist(notification);
+		}
 	
 	
+	private static void addNotifications(Session session) {
+		Set<User> receivers = new HashSet<User>();
+		receivers.add(botbert);
+		MessageStatus ms = new MessageStatus();
+		ms.setId(Constants.MESSAGE_STATUS_RECEIVED);
+		persistNotification("0Hello World!", receivers, botbert, ms, LocalDateTime.now(), "0Hello World!", session);
+//		persistNotification("1Hello World!", receivers, botbert, ms, LocalDateTime.now(), "1Hello World!", session);
+//		persistNotification("2Hello World!", receivers, botbert, ms, LocalDateTime.now(), "2Hello World!", session);
+//		persistNotification("3Hello World!", receivers, botbert, ms, LocalDateTime.now(), "3Hello World!", session);
+//		persistNotification("4Hello World!", receivers, botbert, ms, LocalDateTime.now(), "4Hello World!", session);
+//		persistNotification("5Hello World!", receivers, botbert, ms, LocalDateTime.now(), "5Hello World!", session);
+	}
 
+	
+	public static void persistMessage(String contents, LocalDateTime time, String title, User sender,
+			Set<User> receivers, MessageStatus status, Set<FileBlob> blobs, Session session) {
+			Message message = new Message();
+			message.setContents(contents);
+			message.setTime(time);
+			message.setTitle(title);
+			message.setSender(sender);
+			message.setReceivers(receivers);
+			message.setStatus(status);
+			message.setBlobs(blobs);
+			session.persist(message);
+		}
+	
+	
+	private static void addMessages(Session session) {
+		Set<User> receivers = new HashSet<User>();
+		receivers.add(botbert);
+		MessageStatus ms = new MessageStatus();
+		ms.setId(Constants.MESSAGE_STATUS_RECEIVED);
+		Set<FileBlob> files = new HashSet<FileBlob>();
+		persistMessage("0Hello World!", LocalDateTime.now(), "0Hello World!", botbert, receivers, ms, files, session);
+//		persistMessage("1Hello World!", LocalDateTime.now(), "1Hello World!", botbert, receivers, ms, files, session);
+//		persistMessage("2Hello World!", LocalDateTime.now(), "2Hello World!", botbert, receivers, ms, files, session);
+//		persistMessage("3Hello World!", LocalDateTime.now(), "3Hello World!", botbert, receivers, ms, files, session);
+//		persistMessage("4Hello World!", LocalDateTime.now(), "4Hello World!", botbert, receivers, ms, files, session);
+//		persistMessage("5Hello World!", LocalDateTime.now(), "5Hello World!", botbert, receivers, ms, files, session);
+	}
 
 }

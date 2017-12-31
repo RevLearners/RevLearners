@@ -24,11 +24,12 @@ export class CreateAccountService {
             headers: new HttpHeaders(
                 {
                     'Content-Type' : 'application/json'
+
                 }
             ),
         };
 
-        return this.http.post('/api/rest/users/createUser/', userInfo, options);
+        return this.http.post('http://localhost:8085/register', userInfo, options);
     }
 
     public userExist(username: string) {

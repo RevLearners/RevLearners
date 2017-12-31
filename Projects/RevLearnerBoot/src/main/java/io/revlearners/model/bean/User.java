@@ -67,7 +67,7 @@ public class User implements Serializable {
     private String email;
 
     @JsonView({Views.ToBackEnd.class, Views.ToFrontEnd.class})
-    @Column(table = Constants.TABLE_USER_CREDENTIALS, name = Constants.COLUMN_USERNAME)
+    @Column(table = Constants.TABLE_USER_CREDENTIALS, unique = true, name = Constants.COLUMN_USERNAME)
     private String username;
 
     @JsonView({Views.ToBackEnd.class})
@@ -77,11 +77,8 @@ public class User implements Serializable {
     @Column(name = Constants.COLUMN_LAST_PW_RESET)
     private LocalDateTime lastPasswordReset;
 
-    @Column(table = Constants.TABLE_USER_CREDENTIALS, name = Constants.COLUMN_SALT)
-    private String salt;
-
-
-    public User(String firstName, String middleName, String lastName, UserStatus status, UserRole role, String email, String username, String password) {
+    public User(String firstName, String middleName, String lastName, UserStatus status, UserRole role, 
+    		String email, String username, String password, LocalDateTime ldt) {
         this.firstName = firstName;
         this.middleName = middleName;
         this.lastName = lastName;
@@ -90,21 +87,8 @@ public class User implements Serializable {
         this.email = email;
         this.username = username;
         this.password = password;
+        this.lastPasswordReset = ldt;
     }
-
-    public User(String firstName, String middleName, String lastName, UserStatus status, UserRole role,
-                String email, String username, String password, String salt) {
-        this.firstName = firstName;
-        this.middleName = middleName;
-        this.lastName = lastName;
-        this.status = status;
-        this.role = role;
-        this.email = email;
-        this.username = username;
-        this.password = password;
-        this.salt = salt;
-    }
-
 
     public User() {
     }
@@ -139,14 +123,6 @@ public class User implements Serializable {
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public String getSalt() {
-        return salt;
-    }
-
-    public void setSalt(String salt) {
-        this.salt = salt;
     }
 
     public Set<UserRank> getRanks() {

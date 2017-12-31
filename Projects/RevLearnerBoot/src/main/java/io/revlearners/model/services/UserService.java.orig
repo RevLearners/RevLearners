@@ -59,9 +59,15 @@ public class UserService extends CrudService<User> implements UserDetailsService
 		UserRole role = roleRepo.findOne(user.getRoleId());
 		pass = encoder.encode(user.getPassword());
 
-		User userEntity = new User(user.getFirstName(), user.getMiddleName(), user.getLastName(), stat, role,
+<<<<<<< HEAD
+		User userDao = new User(user.getFirstName(), user.getMiddleName(), user.getLastName(), stat, role,
 				user.getEmail(), user.getUsername(), pass, Constants.START_DATE);
+		userDao.setRanks(new HashSet<>());
+=======
+		User userEntity = new User(user.getFirstName(), user.getMiddleName(), user.getLastName(), stat, role,
+				user.getEmail(), user.getUsername(), pass);
 		userEntity.setRanks(new HashSet<>());
+>>>>>>> 491465ed850694b16627618e078427bb1944412d
 		for(Rank r : Constants.getBeginnerRanks()) {
 			userEntity.getRanks().add(new UserRank(userEntity, r, 0L));
 		}
