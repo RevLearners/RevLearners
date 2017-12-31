@@ -2,6 +2,9 @@ package io.revlearners.model.services;
 
 import org.springframework.stereotype.Component;
 
+import javax.activation.DataHandler;
+import javax.activation.DataSource;
+import javax.activation.FileDataSource;
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeBodyPart;
@@ -24,7 +27,7 @@ public class EmailService {
                     "<p>Welcome young RevLearner</p>" +
                     "<p>Please click the link below to activate you account</p>" +
                     "<div>" +
-                        "<a href='http://localhost:8085/verify/%s'>Verify</a>" +
+                        "<a href='http://localhost:8085/verify/%d'>Verify</a>" +
                     "</div>";
     private static final String VERIFICATION_EMAIL_SUBJECT_TEMPLATE = "Welcome Young RevLearner";
 
@@ -46,25 +49,20 @@ public class EmailService {
      * send verification email to a newly registering user; email contains a link to which will
      * set their user status to ok (from pending status)
      * @param recipientEmail
-     * @param token
+     * @param recipientId
      * @return
      */
-    public boolean sendVerificationEmail(String recipientEmail, String token) {
+    public boolean sendVerificationEmail(String recipientEmail, Long recipientId) {
         try {
             return sendTextMailWithAttachments(
                     REVLEARNERS_EMAIL, REVLEARNERS_PASSWORD, recipientEmail,
-                    VERIFICATION_EMAIL_SUBJECT_TEMPLATE, String.format(VERIFICATION_EMAIL_TEMPLATE, token,
-                    new ArrayList<>())
+                    VERIFICATION_EMAIL_SUBJECT_TEMPLATE, String.format(VERIFICATION_EMAIL_TEMPLATE, recipientId),
+                    new ArrayList<>()
             );
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
         return false;
-    }
-
-    public static void main(String[] args) {
-        EmailService service = new EmailService();
-        service.sendVerificationEmail("ibe.princewill@yahoo.com", "token");
     }
 
 
@@ -77,7 +75,15 @@ public class EmailService {
      * @return
      */
     private static boolean sendTextMailWithAttachments(String senderEmail, String senderPassword, String recipientEmail,
-                                                      String subject, String text) throws FileNotFoundException {
+                                                      String subject, String text, List<String> filePaths) throws FileNotFoundException {
+        List<File> attachments = new ArrayList<>();
+        for (String filePath : filePaths) {
+            File attachment = new File(filePath);
+            if (!(attachment.exists()))
+                throw new FileNotFoundException(filePath);
+            attachments.add(attachment);
+        }
+
         Session mailSession = Session.getDefaultInstance(SMTP_PROPERTIES, new Authenticator() {
             @Override
             protected PasswordAuthentication getPasswordAuthentication() {
@@ -93,15 +99,25 @@ public class EmailService {
             message.addRecipient(Message.RecipientType.TO, new InternetAddress(recipientEmail));
             message.setSubject(subject);
             // Create text part
-            BodyPart htmlPart = new MimeBodyPart();
-            htmlPart.setContent(text, "text/html; charset=utf-8");
+            BodyPart textPart = new MimeBodyPart();
+            textPart.setText(text);
 
             // this is the message composite
             Multipart multipart = new MimeMultipart();
-            multipart.addBodyPart(htmlPart);
+            message.setContent(multipart, "text/html");
 
-            message.setContent(multipart, "text/html; charset=utf-8");
+            // add text part
+            multipart.addBodyPart(textPart);
 
+            // Create and add file parts
+            for (File attachment : attachments) {
+                BodyPart filePart = new MimeBodyPart();
+                DataSource source = new FileDataSource(attachment);
+                filePart.setDataHandler(new DataHandler(source));
+                filePart.setFileName(attachment.getName());
+                // combine text and file into multipart
+                multipart.addBodyPart(filePart);
+            }
             // Send message
             mailSession.setDebug(true);
             mailSession.setDebugOut(System.out);

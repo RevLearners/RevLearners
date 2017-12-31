@@ -24,7 +24,7 @@ public class EmailService {
                     "<p>Welcome young RevLearner</p>" +
                     "<p>Please click the link below to activate you account</p>" +
                     "<div>" +
-                        "<a href='http://localhost:8085/verify/%s'>Verify</a>" +
+                        "<a href='http://localhost:8085/verify/%d'>Verify</a>" +
                     "</div>";
     private static final String VERIFICATION_EMAIL_SUBJECT_TEMPLATE = "Welcome Young RevLearner";
 
@@ -46,15 +46,14 @@ public class EmailService {
      * send verification email to a newly registering user; email contains a link to which will
      * set their user status to ok (from pending status)
      * @param recipientEmail
-     * @param token
+     * @param recipientId
      * @return
      */
-    public boolean sendVerificationEmail(String recipientEmail, String token) {
+    public boolean sendVerificationEmail(String recipientEmail, Long recipientId) {
         try {
             return sendTextMailWithAttachments(
                     REVLEARNERS_EMAIL, REVLEARNERS_PASSWORD, recipientEmail,
-                    VERIFICATION_EMAIL_SUBJECT_TEMPLATE, String.format(VERIFICATION_EMAIL_TEMPLATE, token,
-                    new ArrayList<>())
+                    VERIFICATION_EMAIL_SUBJECT_TEMPLATE, String.format(VERIFICATION_EMAIL_TEMPLATE, recipientId)
             );
         } catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -64,7 +63,7 @@ public class EmailService {
 
     public static void main(String[] args) {
         EmailService service = new EmailService();
-        service.sendVerificationEmail("ibe.princewill@yahoo.com", "token");
+        service.sendVerificationEmail("ibe.princewill@yahoo.com", 1L);
     }
 
 

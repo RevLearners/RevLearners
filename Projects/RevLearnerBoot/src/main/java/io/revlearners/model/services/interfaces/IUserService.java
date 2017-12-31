@@ -15,4 +15,5 @@ public interface IUserService extends ICrudService<User> {
 
 	public String verify(String token, Device device);
 
+	boolean userExists(String username);
 }

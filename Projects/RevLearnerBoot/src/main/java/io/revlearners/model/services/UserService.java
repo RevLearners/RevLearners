@@ -46,7 +46,7 @@ public class UserService extends CrudService<User> implements UserDetailsService
 	private UserDetailsService userDetailsService;
 
 	@Autowired
-	private IUserRepository repository;
+	private IUserRepository userRepo;
 
 	@Autowired
 	private IUserStatusRepository statRepo;
@@ -63,7 +63,7 @@ public class UserService extends CrudService<User> implements UserDetailsService
 
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		User userDao = repository.findByUsername(username);
+		User userDao = userRepo.findByUsername(username);
 		UserBo user = modelMapper.map(userDao, UserBo.class);
 		if (user == null)
 			throw new UsernameNotFoundException(USER_NOT_FOUND);
@@ -71,10 +71,10 @@ public class UserService extends CrudService<User> implements UserDetailsService
 	}
 
 	public String register(UserBo user, Device device) {
-		String pass;
+
 		UserStatus stat = statRepo.findOne(Constants.STATUS_PENDING);
 		UserRole role = roleRepo.findOne(user.getRoleId());
-		pass = encoder.encode(user.getPassword());
+		String pass = encoder.encode(user.getPassword());
 
 		User userEntity = new User(user.getFirstName(), user.getMiddleName(), user.getLastName(), stat, role,
 				user.getEmail(), user.getUsername(), pass, Constants.START_DATE);
@@ -122,10 +122,15 @@ public class UserService extends CrudService<User> implements UserDetailsService
 	@Override
 	public String verify(String token, Device device) {
 		String username = jwtTokenUtil.getUsernameFromToken(token);
-		User userDao = repository.findByUsername(username);
+		User userDao = userRepo.findByUsername(username);
 		userDao.setStatus(new UserStatus(Constants.STATUS_OK));
 		this.update(userDao);
 		UserDetails userDetails = this.loadUserByUsername(username);
 		return jwtTokenUtil.generateToken(userDetails, device);
 	}
+
+    @Override
+    public boolean userExists(String username) {
+	    return userRepo.findByUsername(username) != null;
+    }
 }

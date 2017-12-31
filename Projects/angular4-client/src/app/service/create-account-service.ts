@@ -10,26 +10,25 @@ export class CreateAccountService {
 
     public createAccount(userCred: string[]){
 
-        let userInfo = {
+        const userInfo = {
             firstName: userCred[0],
             middleName: userCred[1],
             lastName: userCred[2],
             username: userCred[3],
             password: userCred[4],
             email: userCred[5]
-        }
+        };
 
         console.log("Test2:" + userCred);
-        let options = {
+        const options = {
             headers: new HttpHeaders(
                 {
                     'Content-Type' : 'application/json'
-
                 }
             ),
         };
 
-        return this.http.post('http://localhost:8085/register', userInfo, options);
+        return this.http.post('http://localhost:8085/register', userInfo, options);     // watch the f****** trailing slashes
     }
 
     public userExist(username: string) {
@@ -42,6 +41,6 @@ export class CreateAccountService {
         };
 
         // Link will change after the rest calls/controller has been fully set up
-        return this.http.get('/api/rest/users/userExist/' + username + '/');
+        return this.http.get('http://localhost:8085/userExist/' + username, options);        // watch the f****** trailing slashes
     }
 }
