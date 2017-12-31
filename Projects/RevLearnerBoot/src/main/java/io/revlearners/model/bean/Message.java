@@ -22,7 +22,13 @@ public class Message implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "SEQ_GEN_MESSAGE")
     private Long id;
 
-    @ManyToOne
+    @Override
+	public String toString() {
+		return "Message [id=" + id + ", sender=" + sender + ", receivers=" + receivers + ", title=" + title
+				+ ", contents=" + contents + ", blobs=" + blobs + ", time=" + time + ", status=" + status + "]";
+	}
+
+	@ManyToOne
     @JoinColumn(name = Constants.COLUMN_SENDER_ID, referencedColumnName = Constants.COLUMN_USER_ID)
     private User sender;
 

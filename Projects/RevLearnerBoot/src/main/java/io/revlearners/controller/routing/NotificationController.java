@@ -26,10 +26,9 @@ public class NotificationController extends WebServicesController  {
 	
 	@GetMapping("/getAllNotifications/{userid}")
 	public @ResponseBody List<NotificationBo> getAllNotifsById(@PathVariable("userid") Long userid) {
-		List<NotificationBo> allUserNotifs = null;
+//		List<NotificationBo> allUserNotifs = null;
 //		serviceFacade.get
-		
-		return allUserNotifs;
+		return serviceFacade.listNotifications();
 	}
 	
 }

@@ -16,6 +16,7 @@ import io.revlearners.model.bean.Message;
 import io.revlearners.model.bean.User;
 import io.revlearners.model.bo.FileBlobBo;
 import io.revlearners.model.bo.MessageBo;
+import io.revlearners.model.bo.MessageStatusBo;
 import io.revlearners.model.bo.UserBo;
 
 @Component
@@ -43,7 +44,7 @@ public class MessageModelMapper extends ConverterConfigurerSupport<Message, Mess
 				}
 				
 				return new MessageBo(msg.getId(), modelMapper.map(msg.getSender(), UserBo.class),
-						receivers, msg.getTitle(), msg.getContents(), blobs,  msg.getTime(), msg.getStatus());
+						receivers, msg.getTitle(), msg.getContents(), blobs,  msg.getTime(), modelMapper.map(msg.getStatus(), MessageStatusBo.class));
 			}
 			
 		};
