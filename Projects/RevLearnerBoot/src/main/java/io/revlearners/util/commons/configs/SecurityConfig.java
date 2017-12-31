@@ -64,7 +64,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	        public void addCorsMappings(CorsRegistry registry) {
 	        	
 	        	// Allow CORS from Angular front-end
-	            registry.addMapping("/**").allowedOrigins("http://localhost:4200");
+	            registry.addMapping("/**").allowedOrigins("*");
 	        }
 	    };
 	}
