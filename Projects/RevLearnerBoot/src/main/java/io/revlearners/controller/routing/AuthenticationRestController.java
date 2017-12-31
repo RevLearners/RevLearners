@@ -1,4 +1,8 @@
 package io.revlearners.controller.routing;
+import io.revlearners.model.bean.User;
+import io.revlearners.model.bean.UserStatus;
+import io.revlearners.model.services.interfaces.IUserService;
+import io.revlearners.util.commons.configs.Constants;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.beans.factory.annotation.Value;
@@ -11,10 +15,7 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import io.revlearners.util.commons.security.JwtAuthenticationRequest;
 import io.revlearners.util.commons.security.JwtAuthenticationResponse;
@@ -40,6 +41,19 @@ public class AuthenticationRestController {
 
     @Autowired
     private UserDetailsService userDetailsService;
+
+    @Autowired
+    private IUserService userService;
+
+
+    @PostMapping(value="verifyEmail/{userId}")
+    public @ResponseBody Boolean verifyEmail(@PathVariable("userId") long userId) {
+        User user = userService.findOne(userId);
+        user.setStatus(new UserStatus(Constants.STATUS_OK));
+        userService.update(user);
+        System.out.println("=========================== verified! =================================");
+        return true;
+    }
 
     @RequestMapping(value = "${jwt.route.authentication.path}", method = RequestMethod.POST)
     public ResponseEntity<?> createAuthenticationToken(@RequestBody JwtAuthenticationRequest authenticationRequest, Device device) throws AuthenticationException {
