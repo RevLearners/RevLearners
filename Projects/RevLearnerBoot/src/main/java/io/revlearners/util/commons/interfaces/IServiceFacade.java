@@ -7,6 +7,7 @@ import io.revlearners.model.bean.Challenge;
 import io.revlearners.model.bean.ChallengeAttempt;
 import io.revlearners.model.bean.Question;
 import org.springframework.data.domain.Page;
+import org.springframework.mobile.device.Device;
 
 import io.revlearners.model.bo.*;
 
@@ -47,9 +48,9 @@ public interface IServiceFacade {
 
 	Page<UserBo> pageUsers(int page, int size);
 
-	void login(UserBo user);
+	String login(String username, String password, Device device);
 
-	void register(UserBo user);
+	void register(UserBo user, Device device);
 
 	void updateUser(UserBo user);
 
@@ -127,5 +128,9 @@ public interface IServiceFacade {
 
 	// Email Services
 	void sendEmail();
+
+	String checkRefresh(String token);
+
+	String verifyUser(String token, Device device);
 
 }

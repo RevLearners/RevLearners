@@ -1,8 +1,15 @@
 package io.revlearners.model.services;
 
+import java.time.ZoneId;
+import java.util.Date;
 import java.util.HashSet;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mobile.device.Device;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -21,14 +28,22 @@ import io.revlearners.model.dao.interfaces.IUserRoleRepository;
 import io.revlearners.model.dao.interfaces.IUserStatusRepository;
 import io.revlearners.model.services.interfaces.IUserService;
 import io.revlearners.util.commons.configs.Constants;
+import io.revlearners.util.commons.security.JwtToken;
+import io.revlearners.util.commons.security.JwtUser;
 import io.revlearners.util.commons.security.JwtUserFactory;
 
 @Service
 @Transactional
 public class UserService extends CrudService<User> implements UserDetailsService, IUserService {
 
-    @Autowired
-    EmailService emailService;
+	@Autowired
+	private AuthenticationManager authenticationManager;
+
+	@Autowired
+	private JwtToken jwtTokenUtil;
+
+	@Autowired
+	private UserDetailsService userDetailsService;
 
 	@Autowired
 	private IUserRepository repository;
@@ -42,6 +57,8 @@ public class UserService extends CrudService<User> implements UserDetailsService
 	@Autowired
 	PasswordEncoder encoder;
 
+	private UserDetails ud;
+
 	private static final String USER_NOT_FOUND = "Invalid username";
 
 	@Override
@@ -53,7 +70,7 @@ public class UserService extends CrudService<User> implements UserDetailsService
 		return JwtUserFactory.create(user);
 	}
 
-	public UserBo register(UserBo user) {
+	public String register(UserBo user, Device device) {
 		String pass;
 		UserStatus stat = statRepo.findOne(Constants.STATUS_PENDING);
 		UserRole role = roleRepo.findOne(user.getRoleId());
@@ -62,12 +79,53 @@ public class UserService extends CrudService<User> implements UserDetailsService
 		User userEntity = new User(user.getFirstName(), user.getMiddleName(), user.getLastName(), stat, role,
 				user.getEmail(), user.getUsername(), pass, Constants.START_DATE);
 		userEntity.setRanks(new HashSet<>());
-		for(Rank r : Constants.getBeginnerRanks()) {
+		for (Rank r : Constants.getBeginnerRanks()) {
 			userEntity.getRanks().add(new UserRank(userEntity, r, 0L));
 		}
 		repository.saveAndFlush(userEntity);
-		emailService.sendVerificationEmail(userEntity.getEmail(), userEntity.getId());
+		UserDetails userDetails = loadUserByUsername(user.getUsername());
+		
+		return jwtTokenUtil.generateToken(userDetails, device);
+	}
 
-		return modelMapper.map(userEntity, UserBo.class);
+	@Override
+	public String login(String username, String password, Device device) {
+		// Perform the security
+		final Authentication authentication = authenticationManager
+				.authenticate(new UsernamePasswordAuthenticationToken(username, password));
+		SecurityContextHolder.getContext().setAuthentication(authentication);
+
+		// Load only once thanks to cached details
+		final UserDetails userDetails = ud;
+
+		// userDetailsService.loadUserByUsername(username);
+
+		// return token
+		return jwtTokenUtil.generateToken(userDetails, device);
+	}
+
+	@Override
+	public String tryRefresh(String token) {
+		String username = jwtTokenUtil.getUsernameFromToken(token);
+		JwtUser user = (JwtUser) userDetailsService.loadUserByUsername(username);
+
+		if (jwtTokenUtil.canTokenBeRefreshed(token, Date
+				.from(user.getLastPasswordReset().toLocalDate().atStartOfDay(ZoneId.systemDefault()).toInstant()))) {
+			String refreshedToken = jwtTokenUtil.refreshToken(token);
+			return refreshedToken;
+		}
+		return null;
+	}
+
+//	 we have a token, so we do not need to authenticate
+//	just update and load user by username
+	@Override
+	public String verify(String token, Device device) {
+		String username = jwtTokenUtil.getUsernameFromToken(token);
+		User userDao = repository.findByUsername(username);
+		userDao.setStatus(new UserStatus(Constants.STATUS_OK));
+		this.update(userDao);
+		UserDetails userDetails = this.loadUserByUsername(username);
+		return jwtTokenUtil.generateToken(userDetails, device);
 	}
 }

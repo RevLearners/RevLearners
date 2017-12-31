@@ -1,4 +1,5 @@
 package io.revlearners.controller.routing;
+
 import io.revlearners.model.bean.User;
 import io.revlearners.model.bean.UserStatus;
 import io.revlearners.model.bo.UserBo;
@@ -31,71 +32,44 @@ import javax.servlet.http.HttpServletRequest;
 @RestController
 public class AuthenticationRestController extends WebServicesController {
 
-    @Value("${jwt.header}")
-    private String tokenHeader;
+	@Value("${jwt.header}")
+	private String tokenHeader;
 
-    @Autowired
-    private AuthenticationManager authenticationManager;
-
-    @Autowired
-    private JwtToken jwtTokenUtil;
-
-    @Autowired
-    private UserDetailsService userDetailsService;
-
-    @Autowired
-    private IUserService userService;
-
-
-    @PostMapping(value="verify/{userId}")
-    public @ResponseBody Boolean verifyEmail(@PathVariable("userId") long userId) {
-        User user = userService.findOne(userId);
-        user.setStatus(new UserStatus(Constants.STATUS_OK));
-        userService.update(user);
-        System.out.println("=========================== verified! =================================");
-        return true;
-    }
-    
-	@PostMapping("/register")
-	public void createUser(@RequestBody UserBo userCred) {
-		userCred.setRoleId(Constants.ROLE_BASIC);
-		serviceFacade.register(userCred);
-		
-		System.out.println(userCred);
+	@PostMapping(value = "verify/{token}")
+	public @ResponseBody Boolean verifyEmail(@PathVariable("token") String token, Device device) {
+		serviceFacade.verifyUser(token, device);
+		System.out.println("=========================== verified! =================================");
+		return true;
 	}
 
-    @RequestMapping(value = "${jwt.route.authentication.path}", method = RequestMethod.POST)
-    public ResponseEntity<?> createAuthenticationToken(@RequestBody JwtAuthenticationRequest authenticationRequest, Device device) throws AuthenticationException {
+	@PostMapping("/register")
+	public ResponseEntity<?> createUser(@RequestBody UserBo userCred, Device device) {
+		userCred.setRoleId(Constants.ROLE_BASIC);
+		serviceFacade.register(userCred, device);
 
-        // Perform the security
-        final Authentication authentication = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(
-                        authenticationRequest.getUsername(),
-                        authenticationRequest.getPassword()
-                )
-        );
-        SecurityContextHolder.getContext().setAuthentication(authentication);
+		System.out.println(userCred);
+		return ResponseEntity.ok().build();
+	}
 
-        // Reload password post-security so we can generate token
-        final UserDetails userDetails = userDetailsService.loadUserByUsername(authenticationRequest.getUsername());
-        final String token = jwtTokenUtil.generateToken(userDetails, device);
+	@RequestMapping(value = "${jwt.route.authentication.path}", method = RequestMethod.POST)
+	public ResponseEntity<?> createAuthenticationToken(@RequestBody JwtAuthenticationRequest authenticationRequest,
+			Device device) throws AuthenticationException {
+		String token;
 
-        // Return the token
-        return ResponseEntity.ok(new JwtAuthenticationResponse(token));
-    }
+		token = serviceFacade.login(authenticationRequest.getUsername(), authenticationRequest.getPassword(), device);
 
-    @RequestMapping(value = "${jwt.route.authentication.refresh}", method = RequestMethod.GET)
-    public ResponseEntity<?> refreshAndGetAuthenticationToken(HttpServletRequest request) {
-        String token = request.getHeader(tokenHeader);
-        String username = jwtTokenUtil.getUsernameFromToken(token);
-        JwtUser user = (JwtUser) userDetailsService.loadUserByUsername(username);
+		return ResponseEntity.ok(new JwtAuthenticationResponse(token));
+	}
 
-        if (jwtTokenUtil.canTokenBeRefreshed(token, Date.from(user.getLastPasswordReset().toLocalDate().atStartOfDay(ZoneId.systemDefault()).toInstant()))) {
-            String refreshedToken = jwtTokenUtil.refreshToken(token);
-            return ResponseEntity.ok(new JwtAuthenticationResponse(refreshedToken));
-        } else {
-            return ResponseEntity.badRequest().body(null);
-        }
-    }
+	@RequestMapping(value = "${jwt.route.authentication.refresh}", method = RequestMethod.GET)
+	public ResponseEntity<?> refreshAndGetAuthenticationToken(HttpServletRequest request) {
+		String token = request.getHeader(tokenHeader);
+		String refreshedToken = serviceFacade.checkRefresh(token);
+		if (refreshedToken != null) {
+			return ResponseEntity.ok(new JwtAuthenticationResponse(refreshedToken));
+		} else {
+			return ResponseEntity.badRequest().body(null);
+		}
+	}
 
 }

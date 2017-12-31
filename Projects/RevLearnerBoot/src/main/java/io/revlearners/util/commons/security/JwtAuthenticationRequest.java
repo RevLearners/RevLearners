@@ -8,8 +8,17 @@ public class  JwtAuthenticationRequest implements Serializable {
 
     private String username;
     private String password;
+    private String role;
 
-    public JwtAuthenticationRequest() {
+    public String getRole() {
+		return role;
+	}
+
+	public void setRole(String role) {
+		this.role = role;
+	}
+
+	public JwtAuthenticationRequest() {
         super();
     }
 
