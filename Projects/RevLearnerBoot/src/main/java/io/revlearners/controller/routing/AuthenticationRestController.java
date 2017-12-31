@@ -38,6 +38,9 @@ public class AuthenticationRestController extends WebServicesController {
 	@Value("${jwt.header}")
 	private String tokenHeader;
 
+	@Autowired
+    private IUserService userService;
+
 	@GetMapping(value = "verify", params = "token")
 	public @ResponseBody Boolean verifyEmail(@RequestParam("token") String token, Device device) throws UnsupportedEncodingException {
 		String decodedToken = URLDecoder.decode(token, "UTF-8");
@@ -45,6 +48,12 @@ public class AuthenticationRestController extends WebServicesController {
 		System.out.println("=========================== verified! =================================");
 		return true;
 	}
+
+    @GetMapping("/userExist/{username}")
+    public boolean userExist(@PathVariable(value = "username") String username) {
+        System.out.println("TAKE THE HIT 1: testingUsername: " + username);
+        return userService.userExists(username);
+    }
 
 	@PostMapping("/register")
 	public ResponseEntity<?> createUser(@RequestBody UserBo userCred, Device device) {
