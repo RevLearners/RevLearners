@@ -50,8 +50,22 @@ public class MessageBo {
     }
 
     public MessageBo(Long id2, UserBo map, Set<UserBo> receivers2, String title2, String contents2,
-			Set<FileBlobBo> blobs2, LocalDateTime time2, MessageStatus status2) {
+			Set<FileBlobBo> blobs2, LocalDateTime time2, MessageStatusBo status2) {
 		// TODO Auto-generated constructor stub
+    	this.id = id2;
+    	this.sender = map;
+    	this.receivers = receivers2;
+    	this.title = title2;
+    	this.contents = contents2;
+    	this.blobs = blobs2;
+    	this.time = time2;
+    	this.status = status2;
+	}
+
+	@Override
+	public String toString() {
+		return "MessageBo [id=" + id + ", sender=" + sender + ", receivers=" + receivers + ", title=" + title
+				+ ", contents=" + contents + ", blobs=" + blobs + ", time=" + time + ", status=" + status + "]";
 	}
 
 	public Long getId() {

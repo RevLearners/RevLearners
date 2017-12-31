@@ -6,7 +6,6 @@ import java.util.*;
 import io.revlearners.model.bean.Challenge;
 import io.revlearners.model.bean.ChallengeAttempt;
 import io.revlearners.model.bean.Question;
-import io.revlearners.model.services.ChallengeService;
 import org.springframework.data.domain.Page;
 
 import io.revlearners.model.bo.*;
@@ -82,7 +81,7 @@ public interface IServiceFacade {
 
     // Challenge/Question/Quiz services
 
-    Challenge generateChallenge(ChallengeService.ChallengeInfo info);
+    Challenge generateChallenge(ChallengeInfoBo info);
 
     Question createQuestion(Question question);
 

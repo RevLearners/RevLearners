@@ -5,8 +5,8 @@ import io.revlearners.model.bean.Challenge;
 import io.revlearners.model.bean.ChallengeAttempt;
 import io.revlearners.model.bean.Question;
 import io.revlearners.model.bo.ChallengeAttemptBo2;
+import io.revlearners.model.bo.ChallengeInfoBo;
 import io.revlearners.model.jsonview.Views;
-import io.revlearners.model.services.ChallengeService;
 import org.springframework.web.bind.annotation.*;
 
 import io.revlearners.util.commons.configs.WebConstants;
@@ -29,7 +29,7 @@ public class ChallengeController extends WebServicesController {
     @PostMapping("createChallenge")
     @JsonView(Views.ToFrontEnd.class)
     public @ResponseBody
-    Challenge createChallenge(@JsonView(Views.ToBackEnd.class) @RequestBody ChallengeService.ChallengeInfo info) {
+    Challenge createChallenge(@JsonView(Views.ToBackEnd.class) @RequestBody ChallengeInfoBo info) {
         return serviceFacade.generateChallenge(info);
     }
 
@@ -64,7 +64,6 @@ public class ChallengeController extends WebServicesController {
 
     /**
      * handle request to get all a user's attempts for a challenge
-     * todo: does this work?
      *
      * @param userId
      * @return

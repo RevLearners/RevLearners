@@ -1,19 +1,51 @@
 package io.revlearners.util.commons;
 
 import java.io.Serializable;
-import java.util.*;
-import java.util.stream.Collectors;
+import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
-import io.revlearners.util.commons.configs.Constants;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Component;
 
-import io.revlearners.model.bean.*;
-import io.revlearners.model.bo.*;
-import io.revlearners.model.services.*;
-import io.revlearners.model.services.interfaces.*;
+import io.revlearners.model.bean.Challenge;
+import io.revlearners.model.bean.ChallengeAttempt;
+import io.revlearners.model.bean.Message;
+import io.revlearners.model.bean.MessageStatus;
+import io.revlearners.model.bean.Notification;
+import io.revlearners.model.bean.Question;
+import io.revlearners.model.bean.QuestionOption;
+import io.revlearners.model.bean.Rank;
+import io.revlearners.model.bean.ReportQuestion;
+import io.revlearners.model.bean.ReportUser;
+import io.revlearners.model.bean.Topic;
+import io.revlearners.model.bean.User;
+import io.revlearners.model.bo.ChallengeAttemptBo2;
+import io.revlearners.model.bo.ChallengeInfoBo;
+import io.revlearners.model.bo.MessageBo;
+import io.revlearners.model.bo.NotificationBo;
+import io.revlearners.model.bo.RankBo;
+import io.revlearners.model.bo.ReportQuestionBo;
+import io.revlearners.model.bo.ReportUserBo;
+import io.revlearners.model.bo.TopicBo;
+import io.revlearners.model.bo.UserBo;
+import io.revlearners.model.mapper.customConverters.MessageModelMapper;
+import io.revlearners.model.services.interfaces.IChallengeService;
+import io.revlearners.model.services.interfaces.IFileBlobService;
+import io.revlearners.model.services.interfaces.IMessageService;
+import io.revlearners.model.services.interfaces.INotificationService;
+import io.revlearners.model.services.interfaces.IRankService;
+import io.revlearners.model.services.interfaces.IReportQuestionService;
+import io.revlearners.model.services.interfaces.IReportUserService;
+import io.revlearners.model.services.interfaces.ITopicService;
+import io.revlearners.model.services.interfaces.IUserCertificationService;
+import io.revlearners.model.services.interfaces.IUserRankService;
+import io.revlearners.model.services.interfaces.IUserService;
+import io.revlearners.util.commons.configs.Constants;
 import io.revlearners.util.commons.interfaces.IServiceFacade;
 
 @Component
@@ -21,6 +53,9 @@ public class ServiceFacade implements IServiceFacade {
 
     @Autowired
     private ModelMapper modelMapper;
+    
+    @Autowired
+    private MessageModelMapper msgModelMapper;
 
     @Autowired
     private ITopicService topicService;
@@ -190,6 +225,12 @@ public class ServiceFacade implements IServiceFacade {
         for (Message t : messages) {
             messageDTOs.add(modelMapper.map(t, MessageBo.class));
         }
+        
+        System.out.print("n\n\n\n\n\n" + messages.toString() + "n\n\n\n\n\n");
+        System.out.print("n\n\n\n\n\n" + messageDTOs.toString() + "n\n\n\n\n\n");
+        
+        
+        
         return messageDTOs;
     }
 
@@ -257,13 +298,12 @@ public class ServiceFacade implements IServiceFacade {
 
 
     @Override
-    public Challenge generateChallenge(ChallengeService.ChallengeInfo info) {
+    public Challenge generateChallenge(ChallengeInfoBo info) {
 
         User sender = new User();
         sender.setId(info.getSenderId());
         Challenge challenge = this.questionService.generateChallenge(info);
         MessageStatus status = new MessageStatus(Constants.MESSAGE_STATUS_UNREAD, Constants.MESSAGE_STATUS_UNREAD_STR);
-        // TODO: MAKE SURE THIS WORKS!!!
         notificationService.generateChallengeNotification(sender, challenge.getUsers(), status, challenge);
         return challenge;
     }
