@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import io.revlearners.model.bo.MessageBo;
+import io.revlearners.model.bo.NotificationBo;
 import io.revlearners.model.bo.UserBo;
 import io.revlearners.util.commons.configs.Constants;
 import io.revlearners.util.commons.configs.WebConstants;
@@ -43,5 +45,6 @@ public class UserController  extends WebServicesController {
 		
 		System.out.println(userCred);
 	}
+	
 
 }

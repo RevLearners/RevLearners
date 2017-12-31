@@ -5,13 +5,17 @@ import {HomeComponent} from './components/home/home.component';
 import {LoginComponent} from './components/login/Login.component';
 import {PageDneComponent} from './components/page-dne/page-dne.component';
 import {NewQuestionComponent} from './components/new-question/new-question.component';
-import {GenerateChallengeComponent} from './components/generate-quiz/generate-challenge.component';
 import {ReviewChallengeComponent} from './components/review-quiz/review-challenge.component';
 import {CompleteChallengeComponent} from './components/complete-challenge/complete-challenge.component';
 import {CreateChallengeComponent} from './components/create-challenge/CreateChallenge.component';
 import {SubmitCertificationComponent} from './components/submit-certification/submit-certification.component';
 import {ProfileComponent} from './components/profile/profile.component';
-
+import {ViewChallengesComponent} from './components/view-challenges/view-challenges.component';
+import {LeaderboardComponent} from './components/leaderboard/leaderboard.component';
+import {CreateQuestionComponent} from './components/create-question/create-question.component';
+import {ApproveCertificationsComponent} from './components/approve-certifications/approve-certifications.component';
+import {NotificationsComponent} from './components/notifications/notifications.component';
+import {MessagesComponent} from './components/messages/messages.component';
 
 export const appRoutes: Routes = [
     {
@@ -48,10 +52,6 @@ export const appRoutes: Routes = [
         component: ReviewChallengeComponent
     },
     {
-        path: 'generate-challenge',
-        component: GenerateChallengeComponent
-    },
-    {
         path: 'new-question',
         component: NewQuestionComponent
     },
@@ -60,7 +60,31 @@ export const appRoutes: Routes = [
         component: ProfileComponent
     },
     {
+        path: 'view-challenges',
+        component: ViewChallengesComponent
+    },
+    {
+        path: 'leaderboard',
+        component: LeaderboardComponent
+    },
+    {
+        path: 'create-question',
+        component: CreateQuestionComponent
+    },
+    {
+        path: 'approve-certifications',
+        component: ApproveCertificationsComponent
+    },
+    {
+        path: 'notifications',
+        component: NotificationsComponent
+    },
+    {
+        path: 'messages',
+        component: MessagesComponent
+    },
+    {
         path: '**',
         component: PageDneComponent
-    },
+    }
 ];
