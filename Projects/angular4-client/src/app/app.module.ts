@@ -30,6 +30,7 @@ import { FileService } from './services/file.service';
 import { LoginCredentialsService } from './services/login-credentials.service';
 import { QuestionService } from './services/question.service';
 import { AuthenticationService }  from './services/authentication.service';
+import { VerifyEmailComponent } from './components/verify-email/verify-email.component';
 
 @NgModule({
     declarations: [
@@ -49,7 +50,8 @@ import { AuthenticationService }  from './services/authentication.service';
         ViewChallengesComponent,
         LeaderboardComponent,
         ApproveCertificationsComponent,
-        MessagesComponent
+        MessagesComponent,
+        VerifyEmailComponent
     ],
     imports: [
         BrowserModule,

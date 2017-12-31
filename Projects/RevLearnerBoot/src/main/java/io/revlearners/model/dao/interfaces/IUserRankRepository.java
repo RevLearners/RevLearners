@@ -9,5 +9,7 @@ public interface IUserRankRepository extends IBaseRepository<UserRank> {
 
     /*
     UserRank getByUserAndRank(User user, Rank rank);
+
+    UserRank findByUserAndRank(User user, Rank rank);
     */
 }
