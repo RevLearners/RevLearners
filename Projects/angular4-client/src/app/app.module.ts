@@ -2,7 +2,6 @@ import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {RouterModule} from '@angular/router';
-import {HttpModule} from '@angular/http';
 import {HttpClientModule} from '@angular/common/http';
 
 import {AppComponent} from './app.component';
@@ -61,7 +60,7 @@ import { AuthenticationService }  from './services/authentication.service';
         HttpClientModule,
         ReactiveFormsModule
     ],
-    providers: [CreateAccountService, BackendService, FileService, LoginCredentialsService, 
+    providers: [CreateAccountService, BackendService, FileService, LoginCredentialsService,
       QuestionService, AuthenticationService],
     bootstrap: [AppComponent]
 })

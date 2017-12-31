@@ -1,4 +1,5 @@
 package io.revlearners.controller.routing;
+
 import io.revlearners.model.bean.User;
 import io.revlearners.model.bean.UserStatus;
 import io.revlearners.model.bo.UserBo;
@@ -25,6 +26,7 @@ import io.revlearners.util.commons.security.JwtUser;
 
 import java.time.ZoneId;
 import java.util.Date;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -47,22 +49,46 @@ public class AuthenticationRestController extends WebServicesController {
     private IUserService userService;
 
 
-    @PostMapping(value="verify/{userId}")
-    public @ResponseBody Boolean verifyEmail(@PathVariable("userId") long userId) {
+    @GetMapping(value = "verify/{userId}")  // todo: change to post when hitting from angular side
+    public @ResponseBody
+    Boolean verifyEmail(@PathVariable("userId") long userId) {
         User user = userService.findOne(userId);
         user.setStatus(new UserStatus(Constants.STATUS_OK));
         userService.update(user);
         System.out.println("=========================== verified! =================================");
         return true;
     }
-    
-	@PostMapping("/register")
-	public void createUser(@RequestBody UserBo userCred) {
-		userCred.setRoleId(Constants.ROLE_BASIC);
-		serviceFacade.register(userCred);
-		
-		System.out.println(userCred);
-	}
+
+    @PostMapping("/register")
+    public void createUser(@RequestBody UserBo userCred) {
+        userCred.setRoleId(Constants.ROLE_BASIC);
+        serviceFacade.register(userCred);
+
+        System.out.println(userCred);
+    }
+
+    @GetMapping("/userExist/{username}")
+    public boolean userExist(@PathVariable(value = "username") String username) {
+        List<UserBo> userList = serviceFacade.listUsers();
+
+        //In case the list is empty, return false right away
+        if (userList == null) {
+            return false;
+        }
+        System.out.println("TAKE THE HIT 1: testingUsername: " + username);
+        //Check through the list of users to see if anyone has the username
+        //If taken, should return true right away
+        for (UserBo u : userList) {
+            System.out.println("TAKE THE HIT 2: Username:" + u.getUsername());
+            if (u.getUsername().equals(username)) {
+                System.out.println("TAKE THE HIT 3");
+                return true;
+            }
+        }
+        System.out.println("TAKE THE HIT 4");
+        //If it's not taken, write false
+        return false;
+    }
 
     @RequestMapping(value = "${jwt.route.authentication.path}", method = RequestMethod.POST)
     public ResponseEntity<?> createAuthenticationToken(@RequestBody JwtAuthenticationRequest authenticationRequest, Device device) throws AuthenticationException {
