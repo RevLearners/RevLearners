@@ -57,7 +57,7 @@ public class UserService extends CrudService<User> implements UserDetailsService
 		pass = encoder.encode(user.getPassword());
 
 		User userDao = new User(user.getFirstName(), user.getMiddleName(), user.getLastName(), stat, role,
-				user.getEmail(), user.getUsername(), pass);
+				user.getEmail(), user.getUsername(), pass, Constants.START_DATE);
 		userDao.setRanks(new HashSet<>());
 		for(Rank r : Constants.getBeginnerRanks()) {
 			userDao.getRanks().add(new UserRank(userDao, r, 0L));

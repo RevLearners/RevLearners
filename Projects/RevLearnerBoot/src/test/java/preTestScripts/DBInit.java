@@ -1,6 +1,7 @@
 package preTestScripts;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -22,7 +23,7 @@ public class DBInit {
 	private static SessionFactory sf;
 	private static Set<UserRank> ranks = new HashSet<UserRank>();
 	private static User botbert = new User("Root", null, "Admin", new UserStatus(Constants.STATUS_OK), new UserRole(Constants.ROLE_ADMIN),
-			"botbert@email.com", "Botbert", "$2a$10$trilJ1OUwLZqA9PjJYD9Bu1zpKq8jYKG3Dxsigxf1R4XLPBTH1LOW");
+			"botbert@email.com", "Botbert", "$2a$10$trilJ1OUwLZqA9PjJYD9Bu1zpKq8jYKG3Dxsigxf1R4XLPBTH1LOW", Constants.START_DATE);
 
 	public static void main(String[] args) {
 		springContext = new AnnotationConfigApplicationContext(MockPersistenceConfig.class);

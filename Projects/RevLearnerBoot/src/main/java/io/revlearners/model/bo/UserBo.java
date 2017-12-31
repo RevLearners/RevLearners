@@ -129,6 +129,7 @@ public class UserBo implements UserDetails {
 		this.ranks = ranks;
 		this.friends = friends;
 		this.permissions = permissions;
+		this.lastPasswordReset = ldt;
 	}
 
 	public Long getStatId() {
