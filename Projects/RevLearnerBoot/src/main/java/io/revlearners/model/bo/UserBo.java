@@ -112,7 +112,7 @@ public class UserBo implements UserDetails {
 	}
 	
 	public UserBo(Long id, String firstName, String middleName, String lastName, String email, String username,
-			String password, LocalDateTime ldt, Long statId, String statName, Long roleId, String roleName, Set<UserRankBo> ranks,
+			String password, LocalDateTime ldt, Long roleId, String roleName, Long statId, String statName, Set<UserRankBo> ranks,
 			Set<UserCertificationBo> certs, Set<ChallengeAttemptBo> chalAttempts, Set<ChallengeBo> challenges,
 			Set<UserBo> friends, Set<String> permissions) {
 		this.id = id;

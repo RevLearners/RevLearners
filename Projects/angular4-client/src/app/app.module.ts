@@ -3,14 +3,12 @@ import {NgModule} from '@angular/core';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {RouterModule} from '@angular/router';
 import {HttpModule} from '@angular/http';
+import {HttpClientModule} from '@angular/common/http';
 
 import {AppComponent} from './app.component';
 import {NavbarComponent} from './components/navbar/navbar.component';
 import {CreateAccountComponent} from './components/create-account/CreateAccount.component';
-import {appRoutes} from './routing';
 import {HomeComponent} from './components/home/home.component';
-import {CreateAccountService} from './service/create-account-service';
-import {HttpClientModule} from '@angular/common/http';
 import {LoginComponent} from './components/login/Login.component';
 import {CreateChallengeComponent} from './components/create-challenge/CreateChallenge.component';
 import {SubmitCertificationComponent} from './components/submit-certification/submit-certification.component';
@@ -20,12 +18,16 @@ import {GenerateChallengeComponent} from './components/generate-quiz/generate-ch
 import {NewQuestionComponent} from './components/new-question/new-question.component';
 import {ProfileComponent} from './components/profile/profile.component';
 import {PageDneComponent} from './components/page-dne/page-dne.component';
+import { NotificationsComponent } from './components/notifications/notifications.component';
+
+import {appRoutes} from './routing';
+
+import {CreateAccountService} from './service/create-account-service';
 import { BackendService } from './services/backend.service';
 import { FileService } from './services/file.service';
 import { LoginCredentialsService } from './services/login-credentials.service';
 import { QuestionService } from './services/question.service';
-import { NotificationsComponent } from './components/notifications/notifications.component';
-
+import { AuthenticationService }  from './services/authentication.service';
 
 @NgModule({
     declarations: [
@@ -51,7 +53,8 @@ import { NotificationsComponent } from './components/notifications/notifications
         HttpClientModule,
         ReactiveFormsModule
     ],
-    providers: [CreateAccountService, BackendService, FileService, LoginCredentialsService, QuestionService],
+    providers: [CreateAccountService, BackendService, FileService, LoginCredentialsService, 
+      QuestionService, AuthenticationService],
     bootstrap: [AppComponent]
 })
 export class AppModule {
