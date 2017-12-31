@@ -25,6 +25,7 @@ import io.revlearners.model.bean.ReportUser;
 import io.revlearners.model.bean.Topic;
 import io.revlearners.model.bean.User;
 import io.revlearners.model.bo.ChallengeAttemptBo2;
+import io.revlearners.model.bo.ChallengeInfoBo;
 import io.revlearners.model.bo.MessageBo;
 import io.revlearners.model.bo.NotificationBo;
 import io.revlearners.model.bo.RankBo;
@@ -33,7 +34,6 @@ import io.revlearners.model.bo.ReportUserBo;
 import io.revlearners.model.bo.TopicBo;
 import io.revlearners.model.bo.UserBo;
 import io.revlearners.model.mapper.customConverters.MessageModelMapper;
-import io.revlearners.model.services.ChallengeService;
 import io.revlearners.model.services.interfaces.IChallengeService;
 import io.revlearners.model.services.interfaces.IFileBlobService;
 import io.revlearners.model.services.interfaces.IMessageService;
@@ -298,13 +298,12 @@ public class ServiceFacade implements IServiceFacade {
 
 
     @Override
-    public Challenge generateChallenge(ChallengeService.ChallengeInfo info) {
+    public Challenge generateChallenge(ChallengeInfoBo info) {
 
         User sender = new User();
         sender.setId(info.getSenderId());
         Challenge challenge = this.questionService.generateChallenge(info);
         MessageStatus status = new MessageStatus(Constants.MESSAGE_STATUS_UNREAD, Constants.MESSAGE_STATUS_UNREAD_STR);
-        // TODO: MAKE SURE THIS WORKS!!!
         notificationService.generateChallengeNotification(sender, challenge.getUsers(), status, challenge);
         return challenge;
     }

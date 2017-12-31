@@ -1,13 +1,13 @@
 import {Routes} from '@angular/router';
 
-import {CreateAccountComponent} from './components/create-account/CreateAccount.component';
+import {CreateAccountComponent} from './components/create-account/create-account.component';
 import {HomeComponent} from './components/home/home.component';
 import {LoginComponent} from './components/login/Login.component';
 import {PageDneComponent} from './components/page-dne/page-dne.component';
 import {NewQuestionComponent} from './components/new-question/new-question.component';
 import {ReviewChallengeComponent} from './components/review-quiz/review-challenge.component';
 import {CompleteChallengeComponent} from './components/complete-challenge/complete-challenge.component';
-import {CreateChallengeComponent} from './components/create-challenge/CreateChallenge.component';
+import {CreateChallengeComponent} from './components/create-challenge/create-challenge.component';
 import {SubmitCertificationComponent} from './components/submit-certification/submit-certification.component';
 import {ProfileComponent} from './components/profile/profile.component';
 import {ViewChallengesComponent} from './components/view-challenges/view-challenges.component';

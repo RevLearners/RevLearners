@@ -1,11 +1,10 @@
 package io.revlearners.model.services;
 
-import com.fasterxml.jackson.annotation.JsonView;
 import io.revlearners.model.bean.*;
+import io.revlearners.model.bo.ChallengeInfoBo;
 import io.revlearners.model.dao.interfaces.IAttemptRepository;
 import io.revlearners.model.dao.interfaces.IChallengeRepository;
 import io.revlearners.model.dao.interfaces.IQuestionRepository;
-import io.revlearners.model.jsonview.Views;
 import io.revlearners.model.services.interfaces.IChallengeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -131,8 +130,8 @@ public class ChallengeService extends CrudService<Question> implements IChalleng
      * @return
      */
     @Override
-    public Challenge generateChallenge(ChallengeInfo info) {
-        Set<Question> questions = questionRepo.generateQuestions(info.topicId, info.numQuestions);
+    public Challenge generateChallenge(ChallengeInfoBo info) {
+        Set<Question> questions = questionRepo.generateQuestions(info.getTopicId(), info.getNumQuestions());
         Quiz quiz = new Quiz(questions, LocalDateTime.now());
         quiz.setMaxScore(calculateMaxScore(questions));
 
@@ -170,50 +169,4 @@ public class ChallengeService extends CrudService<Question> implements IChalleng
         return new ArrayList<>(attemptRepo.getByUserAndChallenge(user, challenge));
     }
 
-
-    public static class ChallengeInfo {
-        @JsonView({Views.ToBackEnd.class})
-        private int topicId;
-
-        @JsonView({Views.ToBackEnd.class})
-        private long senderId;
-
-        @JsonView({Views.ToBackEnd.class})
-        private List<Long> receiverIds;
-
-        @JsonView({Views.ToBackEnd.class})
-        private int numQuestions;
-
-        public int getTopicId() {
-            return topicId;
-        }
-
-        public void setTopicId(int topicId) {
-            this.topicId = topicId;
-        }
-
-        public long getSenderId() {
-            return senderId;
-        }
-
-        public void setSenderId(long senderId) {
-            this.senderId = senderId;
-        }
-
-        public List<Long> getReceiverIds() {
-            return receiverIds;
-        }
-
-        public void setReceiverIds(List<Long> receiverIds) {
-            this.receiverIds = receiverIds;
-        }
-
-        public int getNumQuestions() {
-            return numQuestions;
-        }
-
-        public void setNumQuestions(int numQuestions) {
-            this.numQuestions = numQuestions;
-        }
-    }
 }
