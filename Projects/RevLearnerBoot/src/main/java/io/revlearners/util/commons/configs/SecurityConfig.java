@@ -87,7 +87,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		// starts authorizing configurations
 		.authorizeRequests()
 		// ignoring the guest's urls "
-		.antMatchers("/create-account","/login","/logout", "/home", "/register", "/auth", "/verify/*").permitAll()
+		.antMatchers("/create-account","/login","/logout", "/home", "/register", "/userExist/*", "/auth", "/verify/*").permitAll()
 		// authenticate all remaining URLS
 		.anyRequest().authenticated().and().addFilterBefore(authenticationTokenFilterBean(), UsernamePasswordAuthenticationFilter.class)
 		// configuring the session on the server
