@@ -1,5 +1,7 @@
 package io.revlearners.model.services;
 
+import org.springframework.stereotype.Component;
+
 import javax.activation.DataHandler;
 import javax.activation.DataSource;
 import javax.activation.FileDataSource;
@@ -14,6 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
+@Component
 public class EmailService {
     private static final long EMAIL_TIMEOUT = 100;
     private static final Properties SMTP_PROPERTIES = new Properties();
