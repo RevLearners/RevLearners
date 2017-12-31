@@ -67,7 +67,8 @@ public class UserService extends CrudService<User> implements UserDetailsService
 		UserBo user = modelMapper.map(userDao, UserBo.class);
 		if (user == null)
 			throw new UsernameNotFoundException(USER_NOT_FOUND);
-		return JwtUserFactory.create(user);
+		ud = JwtUserFactory.create(user);
+		return ud;
 	}
 
 	public String register(UserBo user, Device device) {
