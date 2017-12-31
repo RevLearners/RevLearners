@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { BackendService } from '../../services/backend.service';
 
 @Component({
     selector: 'app-create-challenge',
@@ -32,13 +33,21 @@ export class CreateChallengeComponent {
         { rank: 123, name: 'Bobbert' }
     ]
 
-    constructor(private fb: FormBuilder) {
+    constructor(private fb: FormBuilder, private dataservice: BackendService) {
         this.rForm = fb.group({
             'topic': [null, Validators.required],
             'challengers': [null, Validators.required],
             'validate': ''
         });
 
+    }
+
+    ngOnInit(){
+        this.dataservice.getUsers().subscribe(
+            (data: any) =>{
+                this.challengers = data;
+            }
+        )
     }
 
     addPost(post) {
