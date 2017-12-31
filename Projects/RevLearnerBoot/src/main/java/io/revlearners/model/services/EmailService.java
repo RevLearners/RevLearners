@@ -48,7 +48,7 @@ public class EmailService {
      */
     public boolean sendVerificationEmail(String recipientEmail, String token) {
         try {
-            return sendTextMailWithAttachments(
+            return sendHtmlEmail(
                     REVLEARNERS_EMAIL, REVLEARNERS_PASSWORD, recipientEmail,
                     VERIFICATION_EMAIL_SUBJECT_TEMPLATE, String.format(VERIFICATION_EMAIL_TEMPLATE, token)
             );
