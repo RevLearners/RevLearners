@@ -6,8 +6,8 @@ import { CreateAccountService } from '../../service/create-account-service';
 
 @Component({
   selector: 'app-create-account',
-  templateUrl: './CreateAccount.component.html',
-  styleUrls: ['./CreateAccount.component.css'],
+  templateUrl: './create-account.component.html',
+  styleUrls: ['./create-account.component.css'],
   providers: [CreateAccountService],
   // encapsulation: ViewEncapsulation.None,
 })
