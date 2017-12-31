@@ -41,6 +41,6 @@ export class CreateAccountService {
         };
 
         // Link will change after the rest calls/controller has been fully set up
-        return this.http.get('http://localhost:8085/userExist/' + username);        // watch the f****** trailing slashes
+        return this.http.get('http://localhost:8085/userExist/' + username, options);        // watch the f****** trailing slashes
     }
 }

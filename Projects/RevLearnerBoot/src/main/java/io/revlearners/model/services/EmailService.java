@@ -53,8 +53,7 @@ public class EmailService {
         try {
             return sendTextMailWithAttachments(
                     REVLEARNERS_EMAIL, REVLEARNERS_PASSWORD, recipientEmail,
-                    VERIFICATION_EMAIL_SUBJECT_TEMPLATE, String.format(VERIFICATION_EMAIL_TEMPLATE, recipientId),
-                    new ArrayList<>()
+                    VERIFICATION_EMAIL_SUBJECT_TEMPLATE, String.format(VERIFICATION_EMAIL_TEMPLATE, recipientId)
             );
         } catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -77,15 +76,7 @@ public class EmailService {
      * @return
      */
     private static boolean sendTextMailWithAttachments(String senderEmail, String senderPassword, String recipientEmail,
-                                                      String subject, String text, List<String> filePaths) throws FileNotFoundException {
-        List<File> attachments = new ArrayList<>();
-        for (String filePath : filePaths) {
-            File attachment = new File(filePath);
-            if (!(attachment.exists()))
-                throw new FileNotFoundException(filePath);
-            attachments.add(attachment);
-        }
-
+                                                      String subject, String text) throws FileNotFoundException {
         Session mailSession = Session.getDefaultInstance(SMTP_PROPERTIES, new Authenticator() {
             @Override
             protected PasswordAuthentication getPasswordAuthentication() {

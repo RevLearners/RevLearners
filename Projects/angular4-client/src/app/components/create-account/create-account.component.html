@@ -1,4 +1,10 @@
-<div *ngIf="!fname; else forminfo">
+<div class="alert-danger form-container" *ngIf="usernameTaken">
+    <div class="row columns">
+        <h3>Sorry, but that username has been taken already. Please use a different username.</h3>
+    </div>
+</div>
+
+<div *ngIf="!userCreated; else submitsuccess">
     <form [formGroup]="rForm" (ngSubmit)="addPost(rForm.value)">
         <div class="form-container">
             <div class="row columns">
@@ -78,27 +84,12 @@
     </form>
 </div>
 
-<ng-template #forminfo>
-    <div *ngIf="usernameTaken===null; else usernameTaken">
-        <h3>Registering... </h3>
+<ng-template #submitsuccess>
+    <div class="form-container">
+        <div class="row columns">
+            <h1>Welcome {{fname}}! Your account has been created.</h1>
+            <h3>Please verify your account using the link from email we just sent you!</h3>
+            <a class="btn btn-primary" routerLink="/home">Back</a>
+        </div>
     </div>
-    <ng-template #usernameTaken>
-        <div *ngIf="usernameTaken==false; else registerFail">
-            <div class="form-container">
-                <div class="row columns">
-                    <h1>Welcome {{fname}}! Your account has been created.</h1>
-                    <h3>Please verify your account using the link from email we just sent you!</h3>
-                </div>
-            </div>
-        </div>
-    </ng-template>
-    <ng-template #registerFail>
-        <div class="form-container">
-            <div class="row columns">
-                <h1>Sorry, but that username has been taken already. Please use a different username.</h1>
-                <button class="button" type="button" (click)="resetForm()">Go Back</button>
-            </div>
-        </div>
-    </ng-template>
-
 </ng-template>

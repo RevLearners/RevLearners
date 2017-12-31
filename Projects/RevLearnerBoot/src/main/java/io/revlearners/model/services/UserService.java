@@ -31,7 +31,7 @@ public class UserService extends CrudService<User> implements UserDetailsService
     EmailService emailService;
 
 	@Autowired
-	private IUserRepository repository;
+	private IUserRepository userRepo;
 
 	@Autowired
 	private IUserStatusRepository statRepo;
@@ -46,7 +46,7 @@ public class UserService extends CrudService<User> implements UserDetailsService
 
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		User userDao = repository.findByUsername(username);
+		User userDao = userRepo.findByUsername(username);
 		UserBo user = modelMapper.map(userDao, UserBo.class);
 		if (user == null)
 			throw new UsernameNotFoundException(USER_NOT_FOUND);
@@ -54,10 +54,9 @@ public class UserService extends CrudService<User> implements UserDetailsService
 	}
 
 	public UserBo register(UserBo user) {
-		String pass;
 		UserStatus stat = statRepo.findOne(Constants.STATUS_PENDING);
 		UserRole role = roleRepo.findOne(user.getRoleId());
-		pass = encoder.encode(user.getPassword());
+		String pass = encoder.encode(user.getPassword());
 
 		User userEntity = new User(user.getFirstName(), user.getMiddleName(), user.getLastName(), stat, role,
 				user.getEmail(), user.getUsername(), pass, Constants.START_DATE);
@@ -65,9 +64,14 @@ public class UserService extends CrudService<User> implements UserDetailsService
 		for(Rank r : Constants.getBeginnerRanks()) {
 			userEntity.getRanks().add(new UserRank(userEntity, r, 0L));
 		}
-		repository.saveAndFlush(userEntity);
+		userRepo.saveAndFlush(userEntity);
 		emailService.sendVerificationEmail(userEntity.getEmail(), userEntity.getId());
 
 		return modelMapper.map(userEntity, UserBo.class);
 	}
+
+    @Override
+    public boolean userExists(String username) {
+	    return userRepo.findByUsername(username) != null;
+    }
 }

@@ -5,6 +5,7 @@ import io.revlearners.model.bo.UserBo;
 
 public interface IUserService extends ICrudService<User> {
 
-	public UserBo register(UserBo user);
+	UserBo register(UserBo user);
 
+	boolean userExists(String username);
 }

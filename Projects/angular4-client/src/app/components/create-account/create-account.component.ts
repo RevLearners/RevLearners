@@ -22,7 +22,8 @@ export class CreateAccountComponent implements OnInit {
     password2 = '';
     titleAlert = 'This field is required.';
 
-    usernameTaken = null;
+    usernameTaken: boolean = null;
+    userCreated: boolean = null;
     userCred: string[] = [];
 
     constructor(private fb: FormBuilder, private dataService: CreateAccountService) {
@@ -54,10 +55,9 @@ export class CreateAccountComponent implements OnInit {
     }
 
     addPost(post) {
-        this.usernameTaken = null;
         if (post.password === post.password2) {
             this.fname = post.fname;
-            if (post.mname !== ' ') {
+            if (post.mname !== ' ' || post.name !== '') {
                 this.mname = post.mname;
             }
             this.lname = post.lname;
@@ -69,7 +69,7 @@ export class CreateAccountComponent implements OnInit {
             if (post.mname != null) {
                 this.userCred.push(post.mname);
             } else {
-                this.userCred.push(' ');
+                this.userCred.push('');
             }
 
             this.userCred.push(post.lname);
@@ -79,28 +79,35 @@ export class CreateAccountComponent implements OnInit {
             console.log(this.userCred);
             this.dataService.userExist(post.username).subscribe(
                 (data: any) => {
-                    console.log('data: ' + data);
-                    console.log(data);
-                    this.usernameTaken = (data == 'true');
-                    console.log('TESTING Inside: ' + this.usernameTaken);
+                    this.usernameTaken = data === true;
                     if (this.usernameTaken) {
-                        console.log('Username taken.');
-                    } else {
-                        console.log('Username available.');
+                        console.log('impostor (username taken)');
+                        this.resetForm();
+                    }
+                    else {
                         this.dataService.createAccount(this.userCred).subscribe(
-                            (data2: any) => console.log(data2),
-                            console.log
+                            (createdUser: any) => {
+                                this.userCreated = true;
+                                console.log('success: user created', createdUser);
+                                this.resetForm();
+                            },
+                            (err) => {
+                                console.log('error creating user', err);
+                                this.userCreated = false;
+                                this.resetForm();
+                            }
                         );
                     }
-                },
-                (err) => {
-                    console.log(err);
-                    this.usernameTaken = null;
                 }
             );
-        } else {
 
         }
     }
+
+    resetForm(): void {
+        this.fname = '';
+        this.userCred = [];
+    }
+
 
 }
