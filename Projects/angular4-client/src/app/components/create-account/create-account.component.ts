@@ -78,24 +78,24 @@ export class CreateAccountComponent {
       this.userCred.push(post.password);
       this.userCred.push(post.email);
       console.log(this.userCred);
-      this.dataService.userExist(post.username).subscribe(
-        (data: any) => {
-          console.log("data: " + data);
-          this.usernameTaken = data;
-          console.log("TESTING Inside: " + this.usernameTaken);
-          if (this.usernameTaken) {
-            console.log("Username taken.");
-          } else {
+      // this.dataService.userExist(post.username).subscribe(
+      //   (data: any) => {
+      //     console.log("data: " + data);
+      //     this.usernameTaken = data;
+      //     console.log("TESTING Inside: " + this.usernameTaken);
+      //     if (this.usernameTaken) {
+      //       console.log("Username taken.");
+      //     } else {
             console.log("Username available.");
             this.dataService.createAccount(this.userCred).subscribe(
               (data: any) => console.log(data),
               console.log
             )
-          }
-        },
-        console.log
-      );
-    } else {
+      //     }
+      //   },
+      //   console.log
+      // // );
+    // } else {
 
     }
 
