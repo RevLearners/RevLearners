@@ -46,26 +46,5 @@ public class UserController  extends WebServicesController {
 		System.out.println(userCred);
 	}
 	
-	
-	
-	@GetMapping("/navbarStats/{username}")
-	public boolean navbarStats(@PathVariable(value = "username") String username) {		
-		List<MessageBo> msgList = serviceFacade.listMessages();
-		List<NotificationBo> noteList = serviceFacade.listNotifications();
-		
-		//In case the list is empty, return false right away
-		if(userList == null) {
-			return false;
-		}
-		//Check through the list of users to see if anyone has the username
-		//If taken, should return true right away
-		for (UserBo u : userList) {
-			if(u.getUsername().equals(username)) {
-				return true;
-			}
-		}
-		//If it's not taken, write false
-		return false;
-	}
 
 }
