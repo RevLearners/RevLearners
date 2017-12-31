@@ -24,14 +24,14 @@ export class CreateAccountComponent {
   password2: string = '';
   titleAlert: string = 'This field is required.';
 
-  usernameTaken: boolean;
+  usernameTaken: boolean = true;
   userCred: string[] = [];
 
   constructor(private fb: FormBuilder, private dataService: CreateAccountService) {
 
     this.rForm = fb.group({
       'fname': [null, Validators.required],
-      'mname': [null, Validators.required],
+      'mname': [null],
       'lname': [null, Validators.required],
       'email': [null, Validators.required],
       'username': [null, Validators.required],
@@ -66,29 +66,35 @@ export class CreateAccountComponent {
       this.password2 = post.password2;
       this.email = post.email;
       this.userCred.push(post.fname);
-      this.userCred.push(post.mname);
+
+      if (post.mname != null){
+        this.userCred.push(post.mname);
+      }else{
+        this.userCred.push(' ');
+      }
+
       this.userCred.push(post.lname);
       this.userCred.push(post.username);
       this.userCred.push(post.password);
       this.userCred.push(post.email);
       console.log(this.userCred);
       this.dataService.userExist(post.username).subscribe(
-        (data: any) => this.usernameTaken,
+        (data: any) => {
+          console.log("data: " + data);
+          this.usernameTaken = data;
+          console.log("TESTING Inside: " + this.usernameTaken);
+          if (this.usernameTaken) {
+            console.log("Username taken.");
+          } else {
+            console.log("Username available.");
+            this.dataService.createAccount(this.userCred).subscribe(
+              (data: any) => console.log(data),
+              console.log
+            )
+          }
+        },
         console.log
-      )
-
-      if (this.usernameTaken) {
-        console.log("Username taken.");
-      } else {
-        console.log("Username available.");
-        this.dataService.createAccount(this.userCred).subscribe(
-          (data: any) => console.log(data),
-          console.log
-        )
-      }
-
-
-      ;
+      );
     } else {
 
     }
@@ -97,5 +103,7 @@ export class CreateAccountComponent {
 
   resetForm() {
     this.fname = '';
+    this.usernameTaken = true;
+    this.userCred = [];
   }
 }
