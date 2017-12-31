@@ -36,7 +36,7 @@ public class AuthenticationRestController extends WebServicesController {
 	@Value("${jwt.header}")
 	private String tokenHeader;
 
-	@PostMapping(value = "verify/{token}")
+	@GetMapping(value = "verify/{token}")
 	public @ResponseBody Boolean verifyEmail(@PathVariable("token") String token, Device device) {
 		serviceFacade.verifyUser(token, device);
 		System.out.println("=========================== verified! =================================");
