@@ -1,3 +1,22 @@
 <p>
-  messages works!
+  Messages:
 </p>
+
+<table border = "2px">
+    <tr>
+        <th>Title</th>
+        <th>Content</th>
+        <th>Time</th>
+        <th>Sender</th>
+        <th>Status</th>
+        <th>Attachment</th>
+    </tr>
+    <tr *ngFor="let msg of fetchUserMsgs()">
+        <td>{{msg.title}}</td>
+        <td>{{msg.content}}</td>
+        <td>{{msg.time}}</td>
+		<td>{{msg.sender}}</td>
+		<td>{{msg.status}}</td>
+		<td>{{msg.attachment}}</td>
+    </tr>
+</table>

@@ -135,4 +135,8 @@ public interface IServiceFacade {
 
 	String verifyUser(String token, Device device);
 
+	UserRoleBo getRoleById(Serializable id);
+
+	List<UserRoleBo> listRoles();
+
 }

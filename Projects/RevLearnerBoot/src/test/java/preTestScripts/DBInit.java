@@ -44,6 +44,15 @@ public class DBInit {
 	private static User user1 = new User("User1", null, "User1", new UserStatus(Constants.STATUS_OK), new UserRole(Constants.ROLE_ADMIN),
 			"botbert@email.com", "User1", "$2a$10$trilJ1OUwLZqA9PjJYD9Bu1zpKq8jYKG3Dxsigxf1R4XLPBTH1LOW", Constants.START_DATE);
 	
+	private static User basic = new User("Basic", null, "User", new UserStatus(Constants.STATUS_OK), new UserRole(Constants.ROLE_BASIC),
+			"basic@email.com", "basic", "$2a$10$trilJ1OUwLZqA9PjJYD9Bu1zpKq8jYKG3Dxsigxf1R4XLPBTH1LOW", Constants.START_DATE);
+	
+	private static User advanced = new User("Advanced", null, "User", new UserStatus(Constants.STATUS_OK), new UserRole(Constants.ROLE_ADVANCED),
+			"advanced@email.com", "advanced", "$2a$10$trilJ1OUwLZqA9PjJYD9Bu1zpKq8jYKG3Dxsigxf1R4XLPBTH1LOW", Constants.START_DATE);
+	
+	private static User certified = new User("Certified", null, "User", new UserStatus(Constants.STATUS_OK), new UserRole(Constants.ROLE_CERTIFIED),
+			"certified@email.com", "certified", "$2a$10$trilJ1OUwLZqA9PjJYD9Bu1zpKq8jYKG3Dxsigxf1R4XLPBTH1LOW", Constants.START_DATE);
+	
 	public static void main(String[] args) {
 		springContext = new AnnotationConfigApplicationContext(MockPersistenceConfig.class);
 		sf = springContext.getBean(SessionFactory.class);
@@ -117,6 +126,10 @@ public class DBInit {
 			user1.setRanks(ranks2);
 			session.save(botbert);
 			session.save(user1);
+			session.save(basic);
+			session.save(advanced);
+			session.save(certified);
+			
 			for(UserRank ur : ranks)
 			session.save(ur);
 			

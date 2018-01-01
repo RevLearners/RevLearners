@@ -16,9 +16,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonView;
 
 import io.revlearners.model.bo.MessageBo;
 import io.revlearners.model.bo.NotificationBo;
+import io.revlearners.model.jsonview.Views;
 import io.revlearners.util.commons.configs.WebConstants;
 
 @RestController
@@ -44,7 +46,7 @@ public class MessageController extends WebServicesController  {
 	}
 	
 	@PostMapping("/create")
-	public void createMessage(@RequestBody MessageBo message) {
+	public void createMessage(	@JsonView(Views.ToBackEnd.class) @RequestBody MessageBo message) {
 		//status updates persisted from front-end events
 		serviceFacade.createMessage(message);
 	}

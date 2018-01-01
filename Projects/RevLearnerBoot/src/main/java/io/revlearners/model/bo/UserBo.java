@@ -2,9 +2,11 @@ package io.revlearners.model.bo;
 
 import java.time.LocalDateTime;
 import java.util.Collection;
+import java.util.LinkedList;
 import java.util.Set;
 
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import io.revlearners.util.commons.configs.Constants;
@@ -16,6 +18,8 @@ public class UserBo implements UserDetails {
 	 */
 	private static final long serialVersionUID = 9102984883242741488L;
 
+	Collection<GrantedAuthority> auths;
+	
 	private Long id;
 
 	private String firstName;
@@ -48,7 +52,7 @@ public class UserBo implements UserDetails {
 		this.lastPasswordReset = lastPasswordReset;
 	}
 
-	private Set<Long> friends;
+	private Set<FriendBo> friends;
 
 	private Set<UserRankBo> ranks;
 
@@ -112,7 +116,7 @@ public class UserBo implements UserDetails {
 	public UserBo(Long id, String firstName, String middleName, String lastName, String email, String username,
 			String password, LocalDateTime ldt, Long roleId, String roleName, Long statId, String statName, Set<UserRankBo> ranks,
 			Set<UserCertificationBo> certs, Set<ChallengeAttemptBo> chalAttempts, Set<ChallengeBo> challenges,
-			Set<Long> friends, Set<String> permissions) {
+			Set<FriendBo> friends, Set<String> permissions) {
 		this.id = id;
 		this.firstName = firstName;
 		this.middleName = middleName;
@@ -128,6 +132,10 @@ public class UserBo implements UserDetails {
 		this.friends = friends;
 		this.permissions = permissions;
 		this.lastPasswordReset = ldt;
+		auths = new LinkedList<GrantedAuthority>();
+		for(String s : permissions) {
+			auths.add(new SimpleGrantedAuthority(s));
+		}
 	}
 
 	public Long getStatId() {
@@ -210,11 +218,11 @@ public class UserBo implements UserDetails {
 		this.lastName = lastName;
 	}
 
-	public Set<Long> getFriends() {
+	public Set<FriendBo> getFriends() {
 		return friends;
 	}
 
-	public void setFriends(Set<Long> friends) {
+	public void setFriends(Set<FriendBo> friends) {
 		this.friends = friends;
 	}
 
@@ -236,26 +244,24 @@ public class UserBo implements UserDetails {
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
-		// TODO Auto-generated method stub
-		return null;
+		return auths;
 	}
 
 	@Override
 	public boolean isAccountNonExpired() {
 		// TODO Auto-generated method stub
-		return false;
+		return true;
 	}
 
 	@Override
 	public boolean isAccountNonLocked() {
 		// TODO Auto-generated method stub
-		return false;
+		return isEnabled();
 	}
 
 	@Override
 	public boolean isCredentialsNonExpired() {
-		// TODO Auto-generated method stub
-		return false;
+		return true;
 	}
 
 	@Override
