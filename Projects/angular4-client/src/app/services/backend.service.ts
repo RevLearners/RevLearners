@@ -8,6 +8,7 @@ import {AuthenticationService} from './authentication.service';
 import {SessionToken} from '../model/session-token';
 
 import {AUTHORIZATION_HEADER, TOKEN_HEADER} from '../model/session-token';
+import { Router } from '@angular/router';
 
 export const backendUrl = 'http://localhost:8085/RevLearners';
 
@@ -21,17 +22,23 @@ export class BackendService implements OnInit{
 
     private headers = new HttpHeaders({'Content-Type': 'application/json'});
 
-    constructor(private http: HttpClient, private validate: LoginCredentialsService) {
+    constructor(private http: HttpClient, private validate: LoginCredentialsService,
+    private rout: Router) {
         this.user = this.validate.getUser();
         this.token = this.validate.getToken();
+        if(this.token != null){
         this.headers = this.headers.append(AUTHORIZATION_HEADER, this.token.username);
         this.headers = this.headers.append(TOKEN_HEADER, this.token.token);
         console.log("Princewill's statement.");
         console.log(this.token);
+        }
     }
 
     ngOnInit() {
-
+        this.token = this.validate.getToken();
+        if(this.token == null){
+            this.rout.navigate(['401']);
+        }
     }
 
     public getUsers() {

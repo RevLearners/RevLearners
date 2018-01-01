@@ -1,55 +1,59 @@
-import {HttpClient} from '@angular/common/http';
-import {Component} from '@angular/core';
-import {User} from '../../model/user';
-import {Role} from '../../model/role';
-import {LoginCredentialsService} from '../../services/login-credentials.service';
-import {Observable} from 'rxjs/Rx';
+import { HttpClient } from '@angular/common/http';
+import { Component } from '@angular/core';
+import { User } from '../../model/user';
+import { Role } from '../../model/role';
+import { LoginCredentialsService } from '../../services/login-credentials.service';
+import { Observable } from 'rxjs/Rx';
 
-import {SessionToken} from '../../model/session-token';
-import {HttpHeaders} from '@angular/common/http';
+import { SessionToken } from '../../model/session-token';
+import { HttpHeaders } from '@angular/common/http';
 
-import {AUTHORIZATION_HEADER, TOKEN_HEADER} from '../../model/session-token';
+import { AUTHORIZATION_HEADER, TOKEN_HEADER } from '../../model/session-token';
 
 
-@Component ({
+@Component({
     selector: 'app-nav-bar',
     templateUrl: './navbar.component.html',
-    styleUrls:[
+    styleUrls: [
         './navbar.component.css'
     ]
 })
-export class NavbarComponent{
-  
-  user: User;
-  role: Role;
-  
-  token: SessionToken = null;
+export class NavbarComponent {
 
-  private headers = new HttpHeaders({'Content-Type': 'application/json'});
+    user: User;
+    role: Role;
 
-  notificationCount: number;
-  messageCount: number;
-  
-constructor(private http: HttpClient, private validate:LoginCredentialsService) { }
+    token: SessionToken = null;
 
-  ngOnInit() {
+    private headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+
+    notificationCount: number;
+    messageCount: number;
+
+    constructor(private http: HttpClient, private validate: LoginCredentialsService) { }
+
+    ngOnInit() {
     }
 
     public appendHeaders() {
         this.user = this.validate.getUser();
         this.token = this.validate.getToken();
-        this.headers = this.headers.append(AUTHORIZATION_HEADER, this.token.username);
-        this.headers = this.headers.append(TOKEN_HEADER, this.token.token);
-        this.invokeMonitors();
+        if (this.token != null) {
+            this.headers = this.headers.append(AUTHORIZATION_HEADER, this.token.username);
+            this.headers = this.headers.append(TOKEN_HEADER, this.token.token);
+            this.invokeMonitors();
+        }
     }
 
     public invokeMonitors() {
-    // notificationCount = fetchNoteCount().
+        if (this.token != null) {
+            // notificationCount = fetchNoteCount().
+        }
     }
-    
-    
-//    fetchNoteCount() {
-//      let url = `http://localhost:4200/api/rest/notifications/getByUserId/${this.user.id}/`;
+
+
+    //    fetchNoteCount() {
+    //      let url = `http://localhost:4200/api/rest/notifications/getByUserId/${this.user.id}/`;
 }
 
 

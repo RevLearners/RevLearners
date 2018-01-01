@@ -1,21 +1,22 @@
-import {Routes} from '@angular/router';
+import { Routes } from '@angular/router';
 
-import {CreateAccountComponent} from './components/create-account/create-account.component';
-import {HomeComponent} from './components/home/home.component';
-import {LoginComponent} from './components/login/login.component';
-import {PageDneComponent} from './components/page-dne/page-dne.component';
-import {NewQuestionComponent} from './components/new-question/new-question.component';
-import {ReviewChallengeComponent} from './components/review-quiz/review-challenge.component';
-import {CompleteChallengeComponent} from './components/complete-challenge/complete-challenge.component';
-import {CreateChallengeComponent} from './components/create-challenge/create-challenge.component';
-import {SubmitCertificationComponent} from './components/submit-certification/submit-certification.component';
-import {ProfileComponent} from './components/profile/profile.component';
-import {ViewChallengesComponent} from './components/view-challenges/view-challenges.component';
-import {LeaderboardComponent} from './components/leaderboard/leaderboard.component';
-import {ApproveCertificationsComponent} from './components/approve-certifications/approve-certifications.component';
-import {NotificationsComponent} from './components/notifications/notifications.component';
-import {MessagesComponent} from './components/messages/messages.component';
-import {VerifyAccountComponent} from './components/verify-account/verify-account.component';
+import { CreateAccountComponent } from './components/create-account/create-account.component';
+import { HomeComponent } from './components/home/home.component';
+import { LoginComponent } from './components/login/login.component';
+import { PageDneComponent } from './components/page-dne/page-dne.component';
+import { NewQuestionComponent } from './components/new-question/new-question.component';
+import { ReviewChallengeComponent } from './components/review-quiz/review-challenge.component';
+import { CompleteChallengeComponent } from './components/complete-challenge/complete-challenge.component';
+import { CreateChallengeComponent } from './components/create-challenge/create-challenge.component';
+import { SubmitCertificationComponent } from './components/submit-certification/submit-certification.component';
+import { ProfileComponent } from './components/profile/profile.component';
+import { ViewChallengesComponent } from './components/view-challenges/view-challenges.component';
+import { LeaderboardComponent } from './components/leaderboard/leaderboard.component';
+import { ApproveCertificationsComponent } from './components/approve-certifications/approve-certifications.component';
+import { NotificationsComponent } from './components/notifications/notifications.component';
+import { MessagesComponent } from './components/messages/messages.component';
+import { VerifyAccountComponent } from './components/verify-account/verify-account.component';
+import { UnauthorizedComponent } from './components/unauthorized/unauthorized.component';
 
 export const appRoutes: Routes = [
     {
@@ -82,6 +83,14 @@ export const appRoutes: Routes = [
     {
         path: 'messages',
         component: MessagesComponent
+    },
+    {
+        path: '401',
+        component: UnauthorizedComponent
+    },
+    {
+        path: '403',
+        component: UnauthorizedComponent
     },
     {
         path: '**',

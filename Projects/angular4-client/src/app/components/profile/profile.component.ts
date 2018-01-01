@@ -1,21 +1,22 @@
-import {HttpClient} from '@angular/common/http';
-import {Component, OnInit} from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Component, OnInit } from '@angular/core';
 
-import {Rank} from '../../model/rank';
-import {User} from '../../model/user';
-import {LoginCredentialsService} from '../../services/login-credentials.service';
-import {AuthenticationService} from '../../services/authentication.service';
-import {SessionToken} from '../../model/session-token';
-import {HttpHeaders} from '@angular/common/http';
+import { LoginCredentialsService } from '../../services/login-credentials.service';
+import { AuthenticationService } from '../../services/authentication.service';
 
-import {AUTHORIZATION_HEADER, TOKEN_HEADER} from '../../model/session-token';
+import { Rank } from '../../model/rank';
+import { User } from '../../model/user';
+import { SessionToken } from '../../model/session-token';
+import { Router } from '@angular/router';
+import { HttpHeaders } from '@angular/common/http';
+import { AUTHORIZATION_HEADER, TOKEN_HEADER } from '../../model/session-token';
 
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.css']
 })
-  
+
 export class ProfileComponent implements OnInit {
   rankId;
   rank: Rank = new Rank(0, 0, "", 0, null);
@@ -23,40 +24,51 @@ export class ProfileComponent implements OnInit {
   user: User;
   token: SessionToken = null;
 
-  private headers = new HttpHeaders({'Content-Type': 'application/json'});
+  private headers = new HttpHeaders({ 'Content-Type': 'application/json' });
 
-  constructor(private http: HttpClient, private validate: LoginCredentialsService) {
+  constructor(private http: HttpClient, private validate: LoginCredentialsService,
+  private rout: Router) {
   }
 
   ngOnInit() {
     this.user = this.validate.getUser();
     this.token = this.validate.getToken();
-    this.headers = this.headers.append(AUTHORIZATION_HEADER, this.token.username);
-    this.headers = this.headers.append(TOKEN_HEADER, this.token.token);
+    if (this.user != null && this.token != null) {
+      this.headers = this.headers.append(AUTHORIZATION_HEADER, this.token.username);
+      this.headers = this.headers.append(TOKEN_HEADER, this.token.token);
+    }
+    else {
+      this.rout.navigate(["401"]);
+    }
   }
 
   public fetchData() {
-    this.rank.id = 0;
-    this.rank.rankName = "";
-    this.rank.topic = null;
-    this.rank.relativeWeight = 0;
-    this.rank.meritThreshold = 0;
-    console.log(this.token);
-    this.http.get('http://localhost:4200/api/rest/ranks/getById/' + this.rankId + '/', {headers: this.headers}).subscribe(
-      data => {
-        console.log("test");
-        this.rank.rankName = data["name"],
-          this.rank.topic = data["topic"],
-          this.rank.relativeWeight = data["relativeWeight"],
-          this.rank.meritThreshold = data["meritThreshold"]
-      },
-      err => {
-        this.rank.rankName = "error";
-        this.rank.topic = null;
-        this.rank.relativeWeight = 0;
-        this.rank.meritThreshold = 0;
-      }
-    )
+    if (this.token != null) {
+      this.rank.id = 0;
+      this.rank.rankName = "";
+      this.rank.topic = null;
+      this.rank.relativeWeight = 0;
+      this.rank.meritThreshold = 0;
+      console.log(this.token);
+      this.http.get('http://localhost:4200/api/rest/ranks/getById/' + this.rankId + '/', { headers: this.headers }).subscribe(
+        data => {
+          console.log("test");
+          this.rank.rankName = data["name"],
+            this.rank.topic = data["topic"],
+            this.rank.relativeWeight = data["relativeWeight"],
+            this.rank.meritThreshold = data["meritThreshold"]
+        },
+        err => {
+          this.rank.rankName = "error";
+          this.rank.topic = null;
+          this.rank.relativeWeight = 0;
+          this.rank.meritThreshold = 0;
+        }
+      )
+    }
+    else {
+      this.rout.navigate(["401"]);
+    }
   }
 
   //  getRanks(){
@@ -66,8 +78,8 @@ export class ProfileComponent implements OnInit {
   //        if(data.length) {
   //          this.merit = data[0].merit;
   //        }
-//        }
+  //        }
   //  }
-  
+
 }
 

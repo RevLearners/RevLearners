@@ -1,7 +1,7 @@
 <h1>NOT DONE</h1>
 
 
-<form [formGroup]="UserForm" id="UserForm" (ngSubmit)="OnSubmit(UserForm.value)">
+<form [formGroup]="userForm" id="UserForm" (ngSubmit)="OnSubmit(userForm.value)">
   
   <div class="form-group">
     <label for="Certification">Certifications to be uploaded:</label><br>
@@ -13,6 +13,6 @@
     <label for="exampleFileUpload1">User File</label>
     <input type="file" class="form-control" id="image" #UserImage formControlName="UserImage">
   </div>
-  <button type="submit" class="btn btn-primary" [disabled]="!UserForm.valid">Submit</button>
+  <button type="submit" class="btn btn-primary" [disabled]="!userForm.valid">Submit</button>
   
 </form>
