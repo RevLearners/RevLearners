@@ -44,6 +44,10 @@ export const appRoutes: Routes = [
         component: SubmitCertificationComponent
     },
     {
+        path: 'view-challenges',
+        component: ViewChallengesComponent
+    },
+    {
         path: 'complete-challenge/:id',
         component: CompleteChallengeComponent
     },
@@ -58,10 +62,6 @@ export const appRoutes: Routes = [
     {
         path: 'profile',
         component: ProfileComponent
-    },
-    {
-        path: 'view-challenges',
-        component: ViewChallengesComponent
     },
     {
         path: 'verify',

@@ -2,3 +2,25 @@
 label, button {
     font-size: 12pt;
 }
+
+.alert, .alert-danger {
+    padding: 15px;
+    margin-bottom: 20px;
+    display: inline-block;
+    animation: 2s alertAnim forwards;
+}
+
+div.alert {
+    background: #f2eaaf;
+    color: red;
+}
+
+
+.alert > h3 {
+    background: #f2edda;
+}
+
+label, button, input[type="submit"] {
+    font-size: 12pt;
+}
+

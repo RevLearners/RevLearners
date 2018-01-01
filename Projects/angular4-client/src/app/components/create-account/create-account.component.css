@@ -5,8 +5,8 @@ body{
     font-family: 'Muli';
 }
 
-.alert{
-    padding: 7px;
+.alert, .alert-danger {
+    padding: 15px;
     margin-bottom: 20px;
     display: inline-block;
     animation: 2s alertAnim forwards;
