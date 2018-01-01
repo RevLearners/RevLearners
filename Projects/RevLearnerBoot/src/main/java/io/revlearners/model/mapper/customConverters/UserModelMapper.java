@@ -99,10 +99,10 @@ public class UserModelMapper extends ConverterConfigurerSupport<User, UserBo> {
 				}
 
 			// we must manually create users
-			Set<UserBo> friends = new LinkedHashSet<UserBo>();
+			Set<Long> friends = new LinkedHashSet<Long>();
 			if (user.getFriends() != null)
 				for (User u : user.getFriends()) {
-					friends.add(modelMapper.map(u, UserBo.class));
+					u.getId();
 				}
 
 			permissions.add(user.getRole().getName());

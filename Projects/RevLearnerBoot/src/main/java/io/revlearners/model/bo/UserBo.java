@@ -48,7 +48,7 @@ public class UserBo implements UserDetails {
 		this.lastPasswordReset = lastPasswordReset;
 	}
 
-	private Set<UserBo> friends;
+	private Set<Long> friends;
 
 	private Set<UserRankBo> ranks;
 
@@ -112,7 +112,7 @@ public class UserBo implements UserDetails {
 	public UserBo(Long id, String firstName, String middleName, String lastName, String email, String username,
 			String password, LocalDateTime ldt, Long roleId, String roleName, Long statId, String statName, Set<UserRankBo> ranks,
 			Set<UserCertificationBo> certs, Set<ChallengeAttemptBo> chalAttempts, Set<ChallengeBo> challenges,
-			Set<UserBo> friends, Set<String> permissions) {
+			Set<Long> friends, Set<String> permissions) {
 		this.id = id;
 		this.firstName = firstName;
 		this.middleName = middleName;
@@ -210,11 +210,11 @@ public class UserBo implements UserDetails {
 		this.lastName = lastName;
 	}
 
-	public Set<UserBo> getFriends() {
+	public Set<Long> getFriends() {
 		return friends;
 	}
 
-	public void setFriends(Set<UserBo> friends) {
+	public void setFriends(Set<Long> friends) {
 		this.friends = friends;
 	}
 

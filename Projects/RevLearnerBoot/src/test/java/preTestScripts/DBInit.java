@@ -37,9 +37,13 @@ public class DBInit {
 	private static ApplicationContext springContext;
 	private static SessionFactory sf;
 	private static Set<UserRank> ranks = new HashSet<UserRank>();
+	private static Set<UserRank> ranks2 = new HashSet<UserRank>();
 	private static User botbert = new User("Root", null, "Admin", new UserStatus(Constants.STATUS_OK), new UserRole(Constants.ROLE_ADMIN),
 			"botbert@email.com", "Botbert", "$2a$10$trilJ1OUwLZqA9PjJYD9Bu1zpKq8jYKG3Dxsigxf1R4XLPBTH1LOW", Constants.START_DATE);
 
+	private static User user1 = new User("User1", null, "User1", new UserStatus(Constants.STATUS_OK), new UserRole(Constants.ROLE_ADMIN),
+			"botbert@email.com", "User1", "$2a$10$trilJ1OUwLZqA9PjJYD9Bu1zpKq8jYKG3Dxsigxf1R4XLPBTH1LOW", Constants.START_DATE);
+	
 	public static void main(String[] args) {
 		springContext = new AnnotationConfigApplicationContext(MockPersistenceConfig.class);
 		sf = springContext.getBean(SessionFactory.class);
@@ -109,14 +113,23 @@ public class DBInit {
 			addQuestions(session);
 			/*****************************************************************/
 			
-			
-			
-			
-
 			botbert.setRanks(ranks);
+			user1.setRanks(ranks2);
 			session.save(botbert);
+			session.save(user1);
 			for(UserRank ur : ranks)
 			session.save(ur);
+			
+			Set<User> friends1 = new HashSet<User>();
+			Set<User> friends2 = new HashSet<User>();
+			friends1.add(botbert);
+			friends2.add(user1);
+			
+			botbert.setFriends(friends2);
+			user1.setFriends(friends1);
+			session.save(user1);
+			session.save(botbert);
+			
 			addNotifications(session);
 			addMessages(session);
 
@@ -129,6 +142,7 @@ public class DBInit {
 			if(ranks.get(id) instanceof Rank) {
 				if(((Rank)ranks.get(id)).getRelativeWeight() == 1) {
 					DBInit.ranks.add(new UserRank(botbert, (Rank) ranks.get(id), 0L));
+					DBInit.ranks2.add(new UserRank(user1, (Rank) ranks.get(id), 0L));
 				}
 			}
 				
@@ -254,7 +268,7 @@ public class DBInit {
 	
 	private static void addMessages(Session session) {
 		Set<User> receivers = new HashSet<User>();
-		receivers.add(botbert);
+		receivers.add(user1);
 		MessageStatus ms = new MessageStatus();
 		ms.setId(Constants.MESSAGE_STATUS_RECEIVED);
 		Set<FileBlob> files = new HashSet<FileBlob>();
