@@ -5,8 +5,8 @@
           </div>
           <ul class="nav navbar-nav">
 
-            <!-- (if user is not logged in) *ngIf user=null -->
-            <li class="dropdown">
+            <!-- (if user is not logged in) -->
+            <li class="dropdown"> <!-- *ngIf="role.id==0" -->
            		<button class="dropbtn">Not logged-in</button>
            		<div class="dropdown-content">
            			<a routerLink="/create-account">Create Account</a>
@@ -14,8 +14,8 @@
            		</div>
             </li>
                         
-            <!-- *ngIf user.role.name="Basic Account" -->
-            <li class="dropdown">
+            <!-- "Basic Account" -->
+            <li class="dropdown"> <!-- *ngIf="role.id==1" -->
            		<button class="dropbtn">Basic Options</button>
            		<div class="dropdown-content">
            			<a routerLink="/view-challenges">View Challenges</a>
@@ -25,8 +25,8 @@
            		</div>
             </li>
             
-            <!-- *ngIf user.role.name="Advanced Account" -->
-            <li class="dropdown">
+            <!-- "Advanced Account" -->
+            <li class="dropdown"> <!-- *ngIf="role.id==2" -->
            		<button class="dropbtn">Advanced Options</button>
            		<div class="dropdown-content">
            			<a routerLink="/view-challenges">View Challenges</a>
@@ -37,8 +37,8 @@
            		</div>
             </li>
             
-            <!-- *ngIf user.role.name="Advanced Account(Certified)" -->
-            <li class="dropdown">
+            <!-- "Advanced Account(Certified)" -->
+            <li class="dropdown"> <!-- *ngIf="role.id==3" -->
            		<button class="dropbtn">Certified Options</button>
            		<div class="dropdown-content">
            			<a routerLink="/view-challenges">View Challenges</a>
@@ -49,8 +49,8 @@
            		</div>
             </li>
             
-            <!-- *ngIf user.role.name="Administrator Account" -->
-            <li class="dropdown">
+            <!-- "Administrator Account" -->
+            <li class="dropdown"> <!-- *ngIf="role.id==4" -->
            		<button class="dropbtn">Admin Options</button>
            		<div class="dropdown-content">
            			<a routerLink="/approve-certifications">Approve Certifications</a>
@@ -59,13 +59,13 @@
          </ul>
          
          
-         <!-- (if user is logged in) *ngIf user!=null -->
-         <ul class="nav navbar-nav navbar-right">
+         <!-- (if user is logged in) -->
+         <ul class="nav navbar-nav navbar-right"> <!-- *ngIf="role.id!=0" -->
             <li class="dropdown">
 				<button class="dropbtn"><span class="glyphicon glyphicon-user"></span></button>
 	           		<div class="dropdown-content">
 						<a routerLink="/profile">Profile</a>
-						<button class="btn" (click)="validate.logout()">Logout</button>
+						<a routerLink="/logout">Logout</a>
 					</div>
 			</li> 
 			<li><a routerLink="/messages">

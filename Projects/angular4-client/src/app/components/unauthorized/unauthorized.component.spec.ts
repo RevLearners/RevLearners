@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ViewChallengesComponent } from './view-challenges.component';
+import { UnauthorizedComponent } from './unauthorized.component';
 
-describe('ViewChallengesComponent', () => {
-  let component: ViewChallengesComponent;
-  let fixture: ComponentFixture<ViewChallengesComponent>;
+describe('UnauthorizedComponent', () => {
+  let component: UnauthorizedComponent;
+  let fixture: ComponentFixture<UnauthorizedComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ViewChallengesComponent ]
+      declarations: [ UnauthorizedComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ViewChallengesComponent);
+    fixture = TestBed.createComponent(UnauthorizedComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -1,0 +1,104 @@
+import {Component, OnInit} from '@angular/core';
+import {HttpClient} from '@angular/common/http';
+
+import 'rxjs/add/operator/map';
+
+<<<<<<< HEAD
+import { Quiz } from '../../model/quiz'
+import { Question } from '../../model/question';
+import { Topic } from '../../model/topic';
+import { User } from '../../model/user';
+import { Challenge } from '../../model/challenge';
+import { ChallengeAttempt } from '../../model/challenge-attempt';
+
+import { LoginCredentialsService } from '../../services/login-credentials.service';
+import { AuthenticationService } from '../../services/authentication.service';
+import { SessionToken } from '../../model/session-token';
+import { HttpHeaders } from '@angular/common/http';
+import {Router } from '@angular/router';
+
+import { AUTHORIZATION_HEADER, TOKEN_HEADER } from '../../model/session-token';
+=======
+import {Quiz} from '../../model/quiz'
+import {User} from '../../model/user';
+import {Challenge} from '../../model/challenge';
+
+import {LoginCredentialsService} from '../../services/login-credentials.service';
+import {SessionToken} from '../../model/session-token';
+
+import {QuestionService} from "../../services/question.service";
+>>>>>>> b42f68373b7d4c27c896089153c9f531ca1f27b4
+
+@Component({
+    selector: 'app-view-challenges',
+    templateUrl: './view-challenges.component.html',
+    styleUrls: ['./view-challenges.component.css']
+})
+
+export class ViewChallengesComponent implements OnInit {
+
+<<<<<<< HEAD
+  chall: Challenge;
+  quiz: Quiz;
+  user: User;
+  token: SessionToken = null;
+
+  private headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+
+  constructor(private http: HttpClient, private validate: LoginCredentialsService,
+  private rout: Router) { }
+
+  ngOnInit() {
+    this.user = this.validate.getUser();
+    this.token = this.validate.getToken();
+    if (this.user != null && this.token != null) {
+      this.headers = this.headers.append(AUTHORIZATION_HEADER, this.token.username);
+      this.headers = this.headers.append(TOKEN_HEADER, this.token.token);
+    }
+    else{
+      this.rout.navigate(["401"]);
+    }
+  }
+
+  fetchUserQuiz(): Observable<Challenge> {
+    if (this.token != null) {
+      let url = `http://localhost:4200/api/challenges/getChallengesByUser/${this.user.id}/`;
+      return this.http.get(url, { headers: this.headers })
+        .map((res: Response) => {
+          return res.json().results.map(item => {
+            return new Challenge(
+              item.id,
+              item.quiz,
+              item.users,
+              item.attempts
+            );
+          });
+        });
+    }
+    else{
+      this.rout.navigate(["401"]);
+    }
+  }
+=======
+    challenges: Challenge[];
+    quiz: Quiz;
+    user: User;
+    token: SessionToken = null;
+
+    constructor(private http: HttpClient, private validate: LoginCredentialsService,
+                private challengeService: QuestionService) {
+    }
+
+    ngOnInit() {
+        this.challengeService.getChallengesForUser().subscribe(
+            (data: Challenge[]) => {
+                console.log("========== Challenges ============", data);
+                this.challenges = data;
+            },
+            console.log
+        );
+    }
+
+
+>>>>>>> b42f68373b7d4c27c896089153c9f531ca1f27b4
+}

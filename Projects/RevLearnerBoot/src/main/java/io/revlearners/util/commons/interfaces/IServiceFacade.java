@@ -139,4 +139,6 @@ public interface IServiceFacade {
 
 	List<UserRoleBo> listRoles();
 
+	UserRoleBo getRoleByUserId(Serializable userId);
+
 }
