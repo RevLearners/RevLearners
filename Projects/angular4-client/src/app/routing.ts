@@ -2,7 +2,7 @@ import {Routes} from '@angular/router';
 
 import {CreateAccountComponent} from './components/create-account/create-account.component';
 import {HomeComponent} from './components/home/home.component';
-import {LoginComponent} from './components/login/Login.component';
+import {LoginComponent} from './components/login/login.component';
 import {PageDneComponent} from './components/page-dne/page-dne.component';
 import {NewQuestionComponent} from './components/new-question/new-question.component';
 import {ReviewChallengeComponent} from './components/review-quiz/review-challenge.component';
