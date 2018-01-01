@@ -23,7 +23,6 @@ import { ViewChallengesComponent } from './components/view-challenges/view-chall
 import { LeaderboardComponent } from './components/leaderboard/leaderboard.component';
 import { ApproveCertificationsComponent } from './components/approve-certifications/approve-certifications.component';
 import { MessagesComponent } from './components/messages/messages.component';
-import { LogoutComponent } from './components/logout/logout.component';
 
 import { CreateAccountService } from './services/create-account-service';
 import { BackendService } from './services/backend.service';
