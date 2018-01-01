@@ -2,9 +2,9 @@ import {Rank} from "./rank";
 
 export class User {
     id: number;
-    firstname: string;
-    middlename: string;
-    lastname: string;
+    firstName: string;
+    middleName: string;
+    lastName: string;
     email: string;
     username: string;
     password: string;

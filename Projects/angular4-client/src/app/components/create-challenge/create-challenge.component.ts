@@ -3,9 +3,8 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {BackendService} from '../../services/backend.service';
 import {Rank} from "../../model/rank";
 import {QuestionService} from "../../services/question.service";
-import { SessionToken } from '../../model/session-token';
-import { LoginCredentialsService } from '../../services/login-credentials.service';
-import { Router } from '@angular/router';
+import {Router} from "@angular/router";
+import {LoginCredentialsService} from "../../services/login-credentials.service";
 
 @Component({
     selector: 'app-create-challenge',
@@ -15,7 +14,6 @@ import { Router } from '@angular/router';
 
 export class CreateChallengeComponent implements OnInit {
 
-    token: SessionToken;
     rForm: FormGroup;
     chosenTopic: number;
     chosenChallenger: number;
@@ -27,7 +25,7 @@ export class CreateChallengeComponent implements OnInit {
     public challengers = [];
 
     constructor(private fb: FormBuilder, private dataService: BackendService, private questionService: QuestionService,
-    private lcs: LoginCredentialsService, private rout: Router) {
+                private router: Router, private creds: LoginCredentialsService) {
         this.rForm = fb.group({
             'topic': [null, Validators.required],
             'challengers': [null, Validators.required],
@@ -36,8 +34,11 @@ export class CreateChallengeComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.token = this.lcs.getToken();
-        if(this.token != null){
+        if (!this.creds.isLoggedIn()) {
+            console.log("===== is logged in ====", this.creds.isLoggedIn());
+            this.router.navigate(['/login']);
+        }
+
         this.dataService.getUsers().subscribe(
             (data: any) => {
                 this.challengers = data;
@@ -54,11 +55,6 @@ export class CreateChallengeComponent implements OnInit {
             console.log
         )
     }
-    else{
-      this.rout.navigate(["401"]);
-    }
-}
-
 
     addPost(post) {
         console.log(post.challengers);
@@ -70,7 +66,8 @@ export class CreateChallengeComponent implements OnInit {
         this.challengeSuccess = true;
         this.questionService.generateChallenge(this.chosenTopic, this.chosenChallenger).subscribe(
             (challenge) => {
-                console.log("generated challenge", challenge)
+                console.log("============ generated challenge ============", challenge);
+                this.router.navigate([`/complete-challenge/${challenge.id}`]);
             },
             console.log
         );
@@ -82,7 +79,7 @@ export class CreateChallengeComponent implements OnInit {
     }
 
     getRankInTopic(challenger: any): string {
-        for(const rank of challenger.ranks) {
+        for (const rank of challenger.ranks) {
             if (rank.topicId == this.chosenTopic)
                 return rank.rankName;
         }

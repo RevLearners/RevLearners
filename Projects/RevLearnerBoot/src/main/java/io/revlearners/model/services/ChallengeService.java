@@ -5,6 +5,7 @@ import io.revlearners.model.bo.ChallengeInfoBo;
 import io.revlearners.model.dao.interfaces.IAttemptRepository;
 import io.revlearners.model.dao.interfaces.IChallengeRepository;
 import io.revlearners.model.dao.interfaces.IQuestionRepository;
+import io.revlearners.model.dao.interfaces.IUserRepository;
 import io.revlearners.model.services.interfaces.IChallengeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,6 +25,9 @@ public class ChallengeService extends CrudService<Question> implements IChalleng
 
     @Autowired
     IQuestionRepository questionRepo;
+
+    @Autowired
+    IUserRepository userRepo;
 
 
     /**
@@ -143,10 +147,13 @@ public class ChallengeService extends CrudService<Question> implements IChalleng
                 }).collect(Collectors.toSet());
         User sender = new User();
         sender.setId(info.getSenderId());
-        users.add(new User());
+        users.add(sender);
 
-        Challenge challenge = new Challenge(quiz, users);
-        return challengeRepo.saveAndFlush(challenge);
+        Challenge challenge = challengeRepo.save(new Challenge(quiz, new HashSet<>()));
+        for (User u: users)
+            challenge.getUsers().add(userRepo.findOne(u.getId()));
+        challengeRepo.saveAndFlush(challenge);
+        return challenge;
     }
 
     @Override
