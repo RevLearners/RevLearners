@@ -16,6 +16,7 @@ import {ApproveCertificationsComponent} from './components/approve-certification
 import {NotificationsComponent} from './components/notifications/notifications.component';
 import {MessagesComponent} from './components/messages/messages.component';
 import {VerifyAccountComponent} from './components/verify-account/verify-account.component';
+import {LogoutComponent} from './components/logout/logout.component';
 
 export const appRoutes: Routes = [
     {
@@ -82,6 +83,10 @@ export const appRoutes: Routes = [
     {
         path: 'messages',
         component: MessagesComponent
+    },
+    {
+        path: 'logout',
+        component: LogoutComponent
     },
     {
         path: '**',

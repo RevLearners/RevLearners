@@ -61,10 +61,6 @@ constructor(private http: HttpClient, private validate:LoginCredentialsService) 
       }
     )
   }
-    
-    public logout() {
-      this.user = null;
-    }
       
 }
     
