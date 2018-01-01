@@ -95,7 +95,6 @@ public class ServiceFacade implements IServiceFacade {
 	@Autowired
 	private IChallengeService questionService;
 
-	//-------------------- TOPICS -----------------------
 	@Override
 	public TopicBo getTopicById(Serializable id) {
 		Topic topic = topicService.findOne(id);
@@ -133,7 +132,6 @@ public class ServiceFacade implements IServiceFacade {
 		// topicService.deleteById(id);
 	}
 
-	//-------------------- RANKS -----------------------
 	@Override
 	public RankBo getRankById(Serializable id) {
 		Rank rank = rankService.findOne(id);
@@ -175,7 +173,6 @@ public class ServiceFacade implements IServiceFacade {
 		// rankService.deleteById(id);
 	}
 
-	//-------------------- USERS -----------------------
 	@Override
 	public UserRoleBo getRoleById(Serializable id) {
 		UserRole role = userRoleService.findOne(id);
@@ -191,9 +188,6 @@ public class ServiceFacade implements IServiceFacade {
 		}
 		return roleDTOs;
 	}
-
-
-
 
 	@Override
 	public UserBo getUserById(Serializable id) {
@@ -254,7 +248,6 @@ public class ServiceFacade implements IServiceFacade {
 
 	}
 	
-	//-------------------- QUESTIONS -----------------------
 	@Override
 	public MessageBo getMessageById(Serializable id) {
 		Message message = messageService.findOne(id);
@@ -329,7 +322,6 @@ public class ServiceFacade implements IServiceFacade {
 	public void deleteMessageById(Serializable id) {
 	}
 
-	//-------------------- MESSAGES -----------------------
 	@Override
 	public NotificationBo getNotificationById(Serializable id) {
 		Notification notification = notificationService.findOne(id);
@@ -379,7 +371,6 @@ public class ServiceFacade implements IServiceFacade {
 		return challenge;
 	}
 
-	//-------------------- NOTIFICATIONS -----------------------
 	@Override
 	public Question createQuestion(Question question) {
 		return questionService.saveQuestion(question);
