@@ -15,25 +15,39 @@ import {LoginCredentialsService} from '../../services/login-credentials.service'
 export class CompleteChallengeComponent implements OnInit {
 
     attempt: ChallengeAttempt;
+    challenge: Challenge;
+    challengeId: number;
 
-    constructor(private credentialsService: LoginCredentialsService, private questionService: QuestionService,
+
+    constructor(private creds: LoginCredentialsService, private questionService: QuestionService,
                 private router: Router, private activatedRoute: ActivatedRoute) {
         this.activatedRoute.params.subscribe(params => {
             console.log(params);
-            const id: number = +(params['id']);
-            this.questionService.getChallengeById(id).subscribe(
+            this.challengeId = +(params['id']);
+        });
+    }
+
+    ngOnInit() {
+        // router.navigate does not actually stop execution of the rest of the code,
+        // hence the if statement and return value
+        if (this.creds.isLoggedIn()) {
+            this.questionService.getChallengeById(this.challengeId).subscribe(
                 (challenge: Challenge) => {
+                    this.challenge = challenge;
                     this.attempt = new ChallengeAttempt(
-                        1, this.credentialsService.getUser(), challenge, 0, []
+                        -1, this.creds.getUser(), challenge, 0, []
                     );
                 },
                 console.log
             );
-        });
+        }
+        else {
+            this.creds.navigateToLogin(this.router);
+        }
+
     }
 
     submitAttempt(): void {
-        // todo: validate new attempt?
         this.questionService.submitAttempt(this.attempt).subscribe(
             (result: ChallengeAttempt) => {
                 this.router.navigate([`/reviewChallenge/${result.id}`]);
@@ -47,9 +61,6 @@ export class CompleteChallengeComponent implements OnInit {
             opt.isCorrect = false;
         }
         option.isCorrect = true;
-    }
-
-    ngOnInit() {
     }
 }
 

@@ -3,6 +3,8 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {BackendService} from '../../services/backend.service';
 import {Rank} from "../../model/rank";
 import {QuestionService} from "../../services/question.service";
+import {Router} from "@angular/router";
+import {LoginCredentialsService} from "../../services/login-credentials.service";
 
 @Component({
     selector: 'app-create-challenge',
@@ -22,7 +24,8 @@ export class CreateChallengeComponent implements OnInit {
     //Temporary Table of Challengers
     public challengers = [];
 
-    constructor(private fb: FormBuilder, private dataService: BackendService, private questionService: QuestionService) {
+    constructor(private fb: FormBuilder, private dataService: BackendService, private questionService: QuestionService,
+                private router: Router, private creds: LoginCredentialsService) {
         this.rForm = fb.group({
             'topic': [null, Validators.required],
             'challengers': [null, Validators.required],
@@ -31,6 +34,11 @@ export class CreateChallengeComponent implements OnInit {
     }
 
     ngOnInit() {
+        if (!this.creds.isLoggedIn()) {
+            console.log("===== is logged in ====", this.creds.isLoggedIn());
+            this.router.navigate(['/login']);
+        }
+
         this.dataService.getUsers().subscribe(
             (data: any) => {
                 this.challengers = data;
@@ -58,7 +66,8 @@ export class CreateChallengeComponent implements OnInit {
         this.challengeSuccess = true;
         this.questionService.generateChallenge(this.chosenTopic, this.chosenChallenger).subscribe(
             (challenge) => {
-                console.log("generated challenge", challenge)
+                console.log("============ generated challenge ============", challenge);
+                this.router.navigate([`/complete-challenge/${challenge.id}`]);
             },
             console.log
         );
@@ -70,7 +79,7 @@ export class CreateChallengeComponent implements OnInit {
     }
 
     getRankInTopic(challenger: any): string {
-        for(const rank of challenger.ranks) {
+        for (const rank of challenger.ranks) {
             if (rank.topicId == this.chosenTopic)
                 return rank.rankName;
         }

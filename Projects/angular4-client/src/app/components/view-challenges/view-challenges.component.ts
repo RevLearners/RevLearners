@@ -11,6 +11,9 @@ import {LoginCredentialsService} from '../../services/login-credentials.service'
 import {SessionToken} from '../../model/session-token';
 
 import {QuestionService} from "../../services/question.service";
+import {Router} from "@angular/router";
+
+
 
 @Component({
     selector: 'app-view-challenges',
@@ -18,24 +21,31 @@ import {QuestionService} from "../../services/question.service";
     styleUrls: ['./view-challenges.component.css']
 })
 export class ViewChallengesComponent implements OnInit {
+    CHALLENGE_BASE_URL = "complete-challenge";
 
     challenges: Challenge[];
     quiz: Quiz;
     user: User;
     token: SessionToken = null;
 
-    constructor(private http: HttpClient, private validate: LoginCredentialsService,
-                private challengeService: QuestionService) {
+    constructor(private http: HttpClient, private creds: LoginCredentialsService,
+                private challengeService: QuestionService, private router: Router) {
     }
 
     ngOnInit() {
-        this.challengeService.getChallengesForUser().subscribe(
-            (data: Challenge[]) => {
-                console.log("========== Challenges ============", data);
-                this.challenges = data;
-            },
-            console.log
-        );
+        if (this.creds.isLoggedIn()) {  // redirect users not logged in
+            this.challengeService.getChallengesForUser().subscribe(
+                (data: Challenge[]) => {
+                    console.log("========== Challenges ============", data);
+                    this.challenges = data;
+                },
+                console.log
+            );
+        }
+        else {
+            this.creds.navigateToLogin(this.router);
+        }
+
     }
 
 

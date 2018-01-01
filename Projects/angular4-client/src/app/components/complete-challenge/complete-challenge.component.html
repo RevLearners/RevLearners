@@ -1,7 +1,7 @@
 <form class="form form-horizontal">
 
-    <ul>
-        <li *ngFor="let question of this.attempt.challenge.quiz.questions">
+    <ul *ngIf="this.challenge">
+        <li *ngFor="let question of this.challenge.quiz.questions">
 
             <div class="form-group">
                 <div class="col-sm-7">

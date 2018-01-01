@@ -3,15 +3,14 @@
 
 <p> table of all the quizzes the user has received</p> <br>
 
-<table border = "2px">
+<table *ngIf="challenges" border = "2px">
     <tr>
-        <th>Topic</th><th>User 1</th><th>User 2</th><th>Accept</th>
+        <th>Topic</th><th>User 1</th><th>Accept</th>
     </tr>
     <tr *ngFor="let chall of challenges">
-        <td>{{chall.quiz.topic}}</td>
-        <td>{{chall.users[0]}}</td>
-        <td>{{chall.users[1]}}</td>
-        <td><button>Accept</button></td>
+        <td>{{chall.quiz.questions[0].topic.topicName}}</td>
+        <td>{{chall.users[0].firstName + " " + chall.users[0].lastName}}</td>
+        <td><button [routerLink]="['/', CHALLENGE_BASE_URL, chall.id]" class="btn btn-large btn-primary">Accept</button></td>
     </tr>
 </table>
 

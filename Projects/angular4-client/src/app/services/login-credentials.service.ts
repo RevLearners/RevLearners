@@ -5,6 +5,7 @@ import 'rxjs/add/operator/map';
 
 import {AUTHORIZATION_HEADER, SessionToken, TOKEN_HEADER} from '../model/session-token';
 import {HttpHeaders} from "@angular/common/http";
+import {Router} from "@angular/router";
 
 
 export const SESSION_KEY = "currentUser";
@@ -37,7 +38,7 @@ export class LoginCredentialsService {
         this.token = null;
     }
 
-    public prepareAuthHeaders(): HttpHeaders {
+    prepareAuthHeaders(): HttpHeaders {
         let headers = new HttpHeaders({'Content-Type': 'application/json'});
         headers = headers.append(AUTHORIZATION_HEADER, this.token.username);
         headers = headers.append(TOKEN_HEADER, this.token.token);
@@ -47,4 +48,9 @@ export class LoginCredentialsService {
     isLoggedIn(): boolean {
         return this.token != null;
     }
+
+    navigateToLogin(router: Router) {
+        router.navigate(['/login']);
+    }
+
 }

@@ -4,12 +4,9 @@ import {Injectable, OnInit} from '@angular/core';
 import {Rank} from '../model/rank';
 import {User} from '../model/user';
 import {LoginCredentialsService} from './login-credentials.service';
-import {AuthenticationService} from './authentication.service';
 import {SessionToken} from '../model/session-token';
 
 import {AUTHORIZATION_HEADER, TOKEN_HEADER} from '../model/session-token';
-
-export const backendUrl = 'http://localhost:8085/RevLearners';
 
 @Injectable()
 export class BackendService implements OnInit{
