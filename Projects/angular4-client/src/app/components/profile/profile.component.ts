@@ -1,5 +1,6 @@
 import {HttpClient} from '@angular/common/http';
 import {Component, OnInit} from '@angular/core';
+
 import {Rank} from '../../model/rank';
 import {User} from '../../model/user';
 import {LoginCredentialsService} from '../../services/login-credentials.service';
@@ -16,8 +17,8 @@ import {AUTHORIZATION_HEADER, TOKEN_HEADER} from '../../model/session-token';
 })
   
 export class ProfileComponent implements OnInit {
-  public rankId;
-  public rank: Rank = new Rank(0, 0, "", 0, null);
+  rankId;
+  rank: Rank = new Rank(0, 0, "", 0, null);
   ranks: Rank[];
   user: User;
   token: SessionToken = null;
