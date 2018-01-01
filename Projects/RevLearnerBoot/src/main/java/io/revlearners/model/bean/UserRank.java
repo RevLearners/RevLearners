@@ -23,12 +23,12 @@ public class UserRank implements Serializable {
 
     @JsonView({Views.ToBackEnd.class, Views.ToFrontEnd.class})
 	@Column(name = Constants.COLUMN_MERIT)
-	private Long merit;
+	private Float merit;
 
 	public UserRank() {
 	}
 
-	public UserRank(User user, Rank rank, Long merit) {
+	public UserRank(User user, Rank rank, Float merit) {
 		this.pk = new UserRankPair(user, rank);
 		this.merit = merit;
 	}
@@ -59,11 +59,11 @@ public class UserRank implements Serializable {
 		pk.rank = rank;
 	}
 
-	public Long getMerit() {
+	public Float getMerit() {
 		return merit;
 	}
 
-	public void setMerit(Long merit) {
+	public void setMerit(Float merit) {
 		this.merit = merit;
 	}
 

@@ -141,8 +141,8 @@ public class DBInit {
 		for (Long id : ranks.keySet()) {
 			if(ranks.get(id) instanceof Rank) {
 				if(((Rank)ranks.get(id)).getRelativeWeight() == 1) {
-					DBInit.ranks.add(new UserRank(botbert, (Rank) ranks.get(id), 0L));
-					DBInit.ranks2.add(new UserRank(user1, (Rank) ranks.get(id), 0L));
+					DBInit.ranks.add(new UserRank(botbert, (Rank) ranks.get(id), 0f));
+					DBInit.ranks2.add(new UserRank(user1, (Rank) ranks.get(id), 0f));
 				}
 			}
 				
