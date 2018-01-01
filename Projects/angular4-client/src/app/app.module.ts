@@ -10,7 +10,7 @@ import {AppComponent} from './app.component';
 import {NavbarComponent} from './components/navbar/navbar.component';
 import {CreateAccountComponent} from './components/create-account/create-account.component';
 import {HomeComponent} from './components/home/home.component';
-import {LoginComponent} from './components/login/Login.component';
+import {LoginComponent} from './components/login/login.component';
 import {CreateChallengeComponent} from './components/create-challenge/create-challenge.component';
 import {SubmitCertificationComponent} from './components/submit-certification/submit-certification.component';
 import {CompleteChallengeComponent} from './components/complete-challenge/complete-challenge.component';
