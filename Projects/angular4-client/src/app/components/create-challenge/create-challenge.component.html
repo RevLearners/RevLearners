@@ -8,8 +8,8 @@
                 <label>Choose Topic:</label>
                 <br>
                 <select formControlName="topic" style="width: 20%; height: 5%">
-                    <option *ngFor="let t of topics">
-                        {{t}}
+                    <option *ngFor="let t of topics" [ngValue] = "t">
+                        {{t.topicName}}
                     </option>
                 </select>
                 <br>
@@ -17,8 +17,8 @@
                 <label>Choose Challenger:</label>
                 <br>
                 <select formControlName="challengers" style="width: 40%; height: 5%">
-                    <option *ngFor="let u of challengers">
-                        Rank: {{u.rank}} Name: {{u.name}}
+                    <option *ngFor="let u of challengers" [ngValue] = "u">
+                        Rank: {{u.id}} Name: {{u.firstName}} {{u.middleName}} {{u.lastName}}
                     </option>
                 </select>
 
