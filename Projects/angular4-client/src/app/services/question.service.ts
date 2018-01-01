@@ -196,16 +196,4 @@ export class QuestionService {
         return Observable.empty();
     }
 
-    public getAllTopics(): Observable<Topic[]> {
-        if (this.topics != null)
-            return Observable.of(this.topics);
-
-        else
-            return Observable.of(TOPICS)    // todo: replace with http call
-                .map(data => {
-                        this.topics = TOPICS;   // assign once and never make http call again
-                        return data;
-                    }
-                );
-    }
 }

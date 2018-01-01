@@ -1,37 +1,4 @@
-@import url('https://fonts.googleapis.com/css?family=Muli:400,700');
 
-body{
-    background-color: #e8e8e8;
-    font-family: 'Muli';
-}
-
-.alert{
-    padding: 7px;
-    margin-bottom: 20px;
-    display: inline-block;
-    animation: 2s alertAnim forwards;
-}
-
-div.alert {
-    background: #f2eaaf;
-    color: red;
-}
-
-
-.alert > h3 {
-    background: #f2edda;
-}
-
-label, button, input[type="submit"] {
-    font-size: 12pt;
-}
-
-h1 {
-    margin-bottom: 2rem;
-    font-weight: bold;
-    font-family: 'Muli';
-    font-size: 2em;
-}
 
 @keyframes alertAnim {
     from {

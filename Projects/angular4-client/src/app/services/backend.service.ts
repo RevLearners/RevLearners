@@ -38,4 +38,8 @@ export class BackendService implements OnInit{
         console.log(this.token);
         return this.http.get('http://localhost:8085/api/rest/users/getList', {headers: this.headers});
     }
+
+    public getTopics() {
+        return this.http.get('http://localhost:8085/api/rest/topics/getList', {headers: this.headers})
+    }
 }
