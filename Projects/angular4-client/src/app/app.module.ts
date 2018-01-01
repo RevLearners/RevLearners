@@ -4,6 +4,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 import { Ng4LoadingSpinnerModule } from 'ng4-loading-spinner';
+import { FileDropModule } from 'ngx-file-drop';
 
 import { appRoutes } from './routing';
 
@@ -35,6 +36,7 @@ import { VerifyAccountComponent } from './components/verify-account/verify-accou
 import { VerifyEmailComponent } from './components/verify-email/verify-email.component';
 import { UnauthorizedComponent } from './components/unauthorized/unauthorized.component';
 import { LogoutComponent } from './components/logout/logout.component';
+import { FileUploadComponent } from './components/file-upload/file-upload.component';
 
 @NgModule({
     declarations: [
@@ -58,7 +60,8 @@ import { LogoutComponent } from './components/logout/logout.component';
         VerifyEmailComponent,
         VerifyAccountComponent,
         UnauthorizedComponent,
-        LogoutComponent
+        LogoutComponent,
+        FileUploadComponent
     ],
     imports: [
         BrowserModule,
@@ -66,7 +69,8 @@ import { LogoutComponent } from './components/logout/logout.component';
         RouterModule.forRoot(appRoutes),
         HttpClientModule,
         ReactiveFormsModule,
-        Ng4LoadingSpinnerModule.forRoot()
+        Ng4LoadingSpinnerModule.forRoot(),
+        FileDropModule
     ],
     providers: [CreateAccountService, BackendService, FileService, LoginCredentialsService,
         QuestionService, AuthenticationService],

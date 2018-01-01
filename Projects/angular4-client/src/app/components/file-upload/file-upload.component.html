@@ -1,0 +1,23 @@
+<div class="center">
+  <file-drop headertext="Drop files here" (onFileDrop)="dropped($event)" 
+  (onFileOver)="fileOver($event)" (onFileLeave)="fileLeave($event)">
+      <span>Drag and drop all files</span>
+  </file-drop>
+  <div class="upload-table">
+      <table class="table" *ngIf="files.length > 0">
+          <thead>
+              <tr>
+                  <th>Name</th>
+                  <th>size</th>
+              </tr>
+          </thead>
+          <tbody class="upload-name-style">
+              <tr *ngFor="let item of files; let i=index">
+                  <td><strong>{{ item.name }}</strong></td>
+                  <td>{{ item.size }}</td>
+                  <td><button (click)="removeFile(item)">X</button></td>
+              </tr>
+          </tbody>
+      </table>
+  </div>
+</div>
