@@ -8,7 +8,7 @@
 		<th>Topic</th><th>Rank</th>
 	</tr>
 	<tr *ngFor="let rank of ranks">
-		<td>{{rank.topic.name}}</td><td>{{rank.name}}</td>
+		<td>{{rank.topic.name}}</td><td>{{rank.rankName}}</td>
 	</tr>
 	</table>
 </div>
@@ -17,8 +17,8 @@
 <div class="well">
     <input [(ngModel)]="rankId"><input type="button" value="SUBMIT" (click)="fetchData()">
     <table >
-        <tr><th>NAME</th><td>{{rank.name}}</td></tr>
-        <tr><th>ID</th><td>{{rank.merit_threshhold}}</td></tr>
+        <tr><th>NAME</th><td>{{rank.rankName}}</td></tr>
+        <tr><th>ID</th><td>{{rank.meritThreshold}}</td></tr>
     </table>
 </div>
 

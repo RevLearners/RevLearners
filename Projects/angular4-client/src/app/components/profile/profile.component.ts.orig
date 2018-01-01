@@ -24,6 +24,7 @@ export class ProfileComponent implements OnInit {
     user: User;
     token: SessionToken = null;
 
+<<<<<<< HEAD
   private headers = new HttpHeaders({ 'Content-Type': 'application/json' });
 
   constructor(private http: HttpClient, private validate: LoginCredentialsService,
@@ -80,5 +81,53 @@ export class ProfileComponent implements OnInit {
   //        }
   //        }
   //  }
+=======
+    private headers = new HttpHeaders({'Content-Type': 'application/json'});
+
+    constructor(private http: HttpClient, private validate: LoginCredentialsService) {
+    }
+
+    ngOnInit() {
+        this.user = this.validate.getUser();
+        this.token = this.validate.getToken();
+        this.headers = this.headers.append(AUTHORIZATION_HEADER, this.token.username);
+        this.headers = this.headers.append(TOKEN_HEADER, this.token.token);
+    }
+
+    public fetchData() {
+        this.rank.id = 0;
+        this.rank.rankName = "";
+        this.rank.topic = null;
+        this.rank.relativeWeight = 0;
+        this.rank.meritThreshold = 0;
+        console.log(this.token);
+        this.http.get('http://localhost:4200/api/rest/ranks/getById/' + this.rankId + '/', {headers: this.headers}).subscribe(
+            data => {
+                console.log("test");
+                this.rank.rankName = data["name"],
+                    this.rank.topic = data["topic"],
+                    this.rank.relativeWeight = data["relativeWeight"],
+                    this.rank.meritThreshold = data["meritThreshold"]
+            },
+            err => {
+                this.rank.rankName = "error";
+                this.rank.topic = null;
+                this.rank.relativeWeight = 0;
+                this.rank.meritThreshold = 0;
+            }
+        )
+    }
+
+    //  getRanks(){
+    //    this.httpClient.get(`https://my-json-server.typicode.com/mjsnee/fake-json-server/user-ranks`)
+    //    .subscribe(
+    //      (data:any[]) => {
+    //        if(data.length) {
+    //          this.merit = data[0].merit;
+    //        }
+//        }
+    //  }
+>>>>>>> b42f68373b7d4c27c896089153c9f531ca1f27b4
+
 }
 
