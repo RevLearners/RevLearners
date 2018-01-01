@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
+import { Ng4LoadingSpinnerModule } from 'ng4-loading-spinner';
 
 import { appRoutes } from './routing';
 
@@ -32,11 +33,8 @@ import { QuestionService } from './services/question.service';
 import { AuthenticationService } from './services/authentication.service';
 import { VerifyAccountComponent } from './components/verify-account/verify-account.component';
 import { VerifyEmailComponent } from './components/verify-email/verify-email.component';
-<<<<<<< HEAD
 import { UnauthorizedComponent } from './components/unauthorized/unauthorized.component';
-=======
 import { LogoutComponent } from './components/logout/logout.component';
->>>>>>> b42f68373b7d4c27c896089153c9f531ca1f27b4
 
 @NgModule({
     declarations: [
@@ -59,18 +57,16 @@ import { LogoutComponent } from './components/logout/logout.component';
         MessagesComponent,
         VerifyEmailComponent,
         VerifyAccountComponent,
-<<<<<<< HEAD
         UnauthorizedComponent,
-=======
         LogoutComponent,
->>>>>>> b42f68373b7d4c27c896089153c9f531ca1f27b4
     ],
     imports: [
         BrowserModule,
         FormsModule,
         RouterModule.forRoot(appRoutes),
         HttpClientModule,
-        ReactiveFormsModule
+        ReactiveFormsModule,
+        Ng4LoadingSpinnerModule
     ],
     providers: [CreateAccountService, BackendService, FileService, LoginCredentialsService,
         QuestionService, AuthenticationService],

@@ -8,7 +8,7 @@
         <th>Topic</th>
         <th>Attachment</th>
     </tr>
-    <tr *ngFor="let cert of fetchAllCert()"> <!-- *ngIf="cert.status=='pending'"> -->
+    <tr *ngFor="let cert of certs"> <!-- *ngIf="cert.status=='pending'"> -->
         <td>{{cert.user}}</td>
         <td>{{cert.name}}</td>
         <td>{{cert.topic}}</td>

@@ -10,26 +10,23 @@ import { BackendService } from '../../services/backend.service';
 import { AUTHORIZATION_HEADER, TOKEN_HEADER, SessionToken } from '../../model/session-token';
 import { HttpHeaders } from '@angular/common/http';
 
+import { Router } from '@angular/router';
+
 @Component({
   selector: 'app-leaderboard',
   templateUrl: './leaderboard.component.html',
-  styleUrls: ['./leaderboard.component.css']
+  styleUrls: ['./leaderboard.component.css'],
 })
 export class LeaderboardComponent implements OnInit {
 
   user: User;
+  template: string =`<img src="http://pa1.narvii.com/5722/2c617cd9674417d272084884b61e4bb7dd5f0b15_hq.gif" />`;
 
   userScore: {
     topic: Topic,
     user: User,
     score: number
-<<<<<<< HEAD
   }
-=======
-  };
->>>>>>> 354e064b0781ae8a81df6ea13fea382aa91c90bf
-
-  //userScores = userScore[];
 
   users: User[];
   public topics = []
@@ -39,11 +36,10 @@ export class LeaderboardComponent implements OnInit {
 
   private headers = new HttpHeaders({ 'Content-Type': 'application/json' });
 
-  constructor(private validate: LoginCredentialsService, private dataservice: BackendService) { }
+  constructor(private validate: LoginCredentialsService, private dataservice: BackendService,
+    private rout: Router) { }
 
   ngOnInit() {
-    console.log("IS THERE A TOKEN?")
-    console.log(this.token);
 
     this.user = this.validate.getUser();
     this.token = this.validate.getToken();
@@ -58,6 +54,7 @@ export class LeaderboardComponent implements OnInit {
         }
       )
 
+
       this.dataservice.getUsers().subscribe(
         (data: any) => {
           this.users = data;
@@ -65,15 +62,19 @@ export class LeaderboardComponent implements OnInit {
           console.log(data);
         }
       )
+
+
+      console.log("Current User:");
+      console.log(this.user);
     }
-    console.log("Current User:");
-    console.log(this.user);
+    else {
+      this.rout.navigate(['401']);
+    }
 
 
   }
 
-  submit(value){
+  submit(value) {
     this.selectedTopic = value;
   }
-
 }

@@ -7,7 +7,8 @@ import {AUTHORIZATION_HEADER, SessionToken, TOKEN_HEADER} from '../model/session
 import {HttpHeaders} from "@angular/common/http";
 
 
-export const SESSION_KEY = "currentUser";
+export const SESSION_KEY = "token";
+export const SESSION_USER = "currentUser";
 
 @Injectable()
 export class LoginCredentialsService {
@@ -25,7 +26,7 @@ export class LoginCredentialsService {
     }
 
     setUser(user: any): void {
-        this.user = user;
+        this.user = JSON.parse(localStorage.getItem(SESSION_USER));
     }
 
     getUser(): any {
