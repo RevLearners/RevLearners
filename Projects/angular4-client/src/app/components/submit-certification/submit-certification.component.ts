@@ -35,7 +35,7 @@ export class SubmitCertificationComponent {
     });
   }
 
-  OnSubmit(value) {
+  OnSubmit() {
     const Image = this.User_Image.nativeElement;
     if (Image.files && Image.files[0]) {
       this.UserImageFile = Image.files[0];
@@ -44,6 +44,9 @@ export class SubmitCertificationComponent {
 
     const formData: FormData = new FormData();
     formData.append('UserImage', ImageFile, ImageFile.name);
+
+    console.log("File loaded:");
+    console.log(ImageFile);
   }
 
 
