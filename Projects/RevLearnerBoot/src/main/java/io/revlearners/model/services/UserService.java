@@ -136,4 +136,6 @@ public class UserService extends CrudService<User> implements UserDetailsService
     public boolean userExists(String username) {
 	    return userRepo.findByUsername(username) != null;
     }
+    
+    
 }

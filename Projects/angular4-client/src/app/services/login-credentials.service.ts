@@ -7,12 +7,13 @@ import 'rxjs/add/operator/map';
 
 import {SessionToken} from '../model/session-token';
 import {USER1} from './question.service';
+import {Role} from '../model/role';
 
 export const SESSION_KEY = "currentUser";
 
 @Injectable()
 export class LoginCredentialsService {
-  user: User = null;
+  user: User = new User (0, "");
   token: SessionToken = null;
 
   login(username: string, password: string): Observable<User> {

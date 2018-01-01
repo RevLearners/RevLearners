@@ -20,9 +20,8 @@ import {AUTHORIZATION_HEADER, TOKEN_HEADER} from '../../model/session-token';
 })
 export class NavbarComponent{
   
-  user: User;
-  role: Role;
-  
+  user: User = new User(0, "");
+  role: Role = new Role(0, "");
   token: SessionToken = null;
 
   private headers = new HttpHeaders({'Content-Type': 'application/json'});
@@ -37,18 +36,37 @@ constructor(private http: HttpClient, private validate:LoginCredentialsService) 
     this.token = this.validate.getToken();
     this.headers = this.headers.append(AUTHORIZATION_HEADER, this.token.username);
     this.headers = this.headers.append(TOKEN_HEADER, this.token.token);
-    // this.role = 
-      
+    this.fetchRole(this.user);
+
     // notificationCount = fetchNoteCount().
     }
+  
+  
+  public fetchRole(user:User) {
+    let url = `http://localhost:4200/api/rest/roles/getById/${user.id}/`;
+    this.http.get(url, {headers: this.headers}).subscribe(
+      data => {
+        this.role.id = data["id"],
+        this.role.name = data["name"]
+      },
+      err => {
+        this.role.id = -1,
+        this.role.name = "error"
+      }
+    )
+  }
+    
+    logout() {
+      this.validate.logout();
+    }
+      
+}
     
     
 //    fetchNoteCount() {
 //      let url = `http://localhost:4200/api/rest/notifications/getByUserId/${this.user.id}/`;
 
-  
-  
-}
+
 
 
 //    fetchNoteCount() {
@@ -64,9 +82,9 @@ constructor(private http: HttpClient, private validate:LoginCredentialsService) 
 //    }
 
 
-
 //  Observable.interval(200 * 60).subscribe(
 //    x => {
 //    doSomething();
 //    }
 //  );
+

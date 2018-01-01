@@ -189,6 +189,23 @@ public class ServiceFacade implements IServiceFacade {
 		return modelMapper.map(role, UserRoleBo.class);
 	};
 	
+	
+	
+	
+	
+	
+	@Override
+	public UserRoleBo getRoleByUserId(Serializable userId) {
+		User user = modelMapper.map(getUserById(userId), User.class);
+		UserRole role = userRoleService.findUserRole(user);
+		return modelMapper.map(role, UserRoleBo.class);
+	};
+
+		
+
+	
+	
+	
 	@Override
 	public List<UserRoleBo> listRoles() {
 		List<UserRole> roles = userRoleService.findAll();

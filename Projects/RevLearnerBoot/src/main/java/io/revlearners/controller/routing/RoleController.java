@@ -18,17 +18,25 @@ import io.revlearners.util.commons.configs.WebConstants;
 @RequestMapping(WebConstants.ROLE)
 public class RoleController extends WebServicesController  {
 	
-	@GetMapping(WebConstants.GET_BY_ID)
-	public ResponseEntity<UserRoleBo> getRoleById(@PathVariable(value = "id") Long id) {
-		UserRoleBo ur = serviceFacade.getRoleById(id);
-		if(ur == null)
-			return ResponseEntity.notFound().build();
-		return ResponseEntity.ok().body(ur);
-	}
+//	@GetMapping(WebConstants.GET_BY_ID)
+//	public ResponseEntity<UserRoleBo> getRoleById(@PathVariable(value = "id") Long id) {
+//		UserRoleBo ur = serviceFacade.getRoleById(id);
+//		if(ur == null)
+//			return ResponseEntity.notFound().build();
+//		return ResponseEntity.ok().body(ur);
+//	}
 	
 	@GetMapping(WebConstants.GET_LIST)
 	public List<UserRoleBo> listRoles(Model model){
 		return serviceFacade.listRoles();
+	}
+	
+	@GetMapping(WebConstants.GET_BY_ID)
+	public ResponseEntity<UserRoleBo> getRoleByUserId(@PathVariable(value = "id") Long id) {
+		UserRoleBo ur = serviceFacade.getRoleByUserId(id);
+		if(ur == null)
+			return ResponseEntity.notFound().build();
+		return ResponseEntity.ok().body(ur);
 	}
 	
 	
