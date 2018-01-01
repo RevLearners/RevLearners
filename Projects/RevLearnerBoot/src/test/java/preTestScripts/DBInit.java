@@ -2,6 +2,7 @@ package preTestScripts;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
@@ -121,18 +122,12 @@ public class DBInit {
 
 			addQuestions(session);
 			/*****************************************************************/
-			
-			botbert.setRanks(ranks);
-			user1.setRanks(ranks2);
-			session.save(botbert);
-			session.save(user1);
-			session.save(basic);
-			session.save(advanced);
-			session.save(certified);
-			
-			for(UserRank ur : ranks)
-			session.save(ur);
-			
+
+			for (User user: new User[]{botbert, user1, basic, advanced, certified}) {
+                initRanks(user);
+                session.save(user);
+            }
+
 			Set<User> friends1 = new HashSet<User>();
 			Set<User> friends2 = new HashSet<User>();
 			friends1.add(botbert);
@@ -140,8 +135,8 @@ public class DBInit {
 			
 			botbert.setFriends(friends2);
 			user1.setFriends(friends1);
-			session.save(user1);
-			session.save(botbert);
+			session.update(user1);
+			session.update(botbert);
 			
 			addNotifications(session);
 			addMessages(session);
@@ -162,6 +157,17 @@ public class DBInit {
 			session.save(ranks.get(id));
 		}
 	}
+
+    /**
+     * assign ranks to beginner ranks
+     */
+	public static void initRanks (User user) {
+	    Set<UserRank> userRanks = new HashSet<>();
+	    for (Rank rank: Constants.getBeginnerRanks()) {
+	        userRanks.add(new UserRank(user, rank, 0f));
+        }
+        user.setRanks(userRanks);
+    }
 
 	/**
 	 * for quick adding of questions; does not do much validation

@@ -5,6 +5,7 @@ import {User} from '../../model/user';
 import {Topic} from '../../model/topic';
 
 import {LoginCredentialsService} from '../../services/login-credentials.service';
+import { BackendService } from '../../services/backend.service';
 
 
 @Component({
@@ -24,10 +25,31 @@ export class LeaderboardComponent implements OnInit {
   
   //userScores = userScore[];
 
-  constructor(private validate:LoginCredentialsService) { }
+  users: User[];
+  public topics = []
+  selectedTopic = '';
+
+  constructor(private validate:LoginCredentialsService, private dataservice: BackendService) { }
 
   ngOnInit() {
     this.user = this.validate.getUser();
+
+    this.dataservice.getTopics().subscribe(
+      (data: any) =>{
+          this.topics = data;
+          console.log("Topic Data");
+          console.log(data);
+      }
+  )
+
+    this.dataservice.getUsers().subscribe(
+      (data: any) =>{
+          this.users = data;
+          console.log("Data: " + data);
+          console.log(data);
+      }
+  )
+
     }
   
   

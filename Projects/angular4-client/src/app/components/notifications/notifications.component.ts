@@ -21,6 +21,7 @@ import {AUTHORIZATION_HEADER, TOKEN_HEADER} from '../../model/session-token';
   templateUrl: './notifications.component.html',
   styleUrls: ['./notifications.component.css']
 })
+
 export class NotificationsComponent implements OnInit {
 
   note: Notification;
@@ -33,9 +34,9 @@ export class NotificationsComponent implements OnInit {
 
   ngOnInit() {
     this.user = this.validate.getUser();
-    this.token = this.validate.getToken();
-    this.headers = this.headers.append(AUTHORIZATION_HEADER, this.token.username);
-    this.headers = this.headers.append(TOKEN_HEADER, this.token.token);
+    this.token = this.validate.getToken();   
+    // this.headers = this.headers.append(AUTHORIZATION_HEADER, this.user.username);
+    // this.headers = this.headers.append(TOKEN_HEADER, this.token);
   }
   
   fetchUserNotes(): Observable<Notification> {
@@ -55,5 +56,4 @@ export class NotificationsComponent implements OnInit {
             });
           });
   }
-
 }

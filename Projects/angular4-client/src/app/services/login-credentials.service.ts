@@ -1,30 +1,19 @@
-import {User} from '../model/user';
 import {Injectable} from '@angular/core';
-import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/observable/of';
 import 'rxjs/add/observable/empty';
 import 'rxjs/add/operator/map';
 
 import {SessionToken} from '../model/session-token';
-import {USER1} from './question.service';
-import {Role} from '../model/role';
+
 
 export const SESSION_KEY = "currentUser";
 
 @Injectable()
 export class LoginCredentialsService {
-  user: User = new User (0, "");
+
+  user: any = null;
+
   token: SessionToken = null;
-
-  login(username: string, password: string): Observable<User> {
-    return Observable.of(USER1)
-      .map((res: User) => this.user = res);
-  }
-
-  logout(): Observable<any> {
-    this.user = null;
-    return Observable.empty();
-  }
 
   setToken(token: SessionToken): void {
     this.token = JSON.parse(localStorage.getItem(SESSION_KEY));
@@ -34,8 +23,17 @@ export class LoginCredentialsService {
     return JSON.parse(localStorage.getItem(SESSION_KEY));
   }
 
-  getUser(): User {
+  setUser(user: any): void {
+      this.user = user;
+  }
+
+  getUser(): any {
     return this.user;
+  }
+
+  clear(): void {
+      this.user = null;
+      this.token = null;
   }
 
   isLoggedIn(): boolean {

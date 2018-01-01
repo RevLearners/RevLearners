@@ -1,3 +1,4 @@
+import {Rank} from "./rank";
 
 export class User {
     id: number;
@@ -7,6 +8,7 @@ export class User {
     email: string;
     username: string;
     password: string;
+    ranks: Rank[];
 
     constructor(id, username) {
         this.id = id;

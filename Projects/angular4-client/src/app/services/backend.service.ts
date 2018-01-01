@@ -39,7 +39,23 @@ export class BackendService implements OnInit{
         return this.http.get('http://localhost:8085/api/rest/users/getList', {headers: this.headers});
     }
 
-    public getTopics(){
+    public getTopics() {
         return this.http.get('http://localhost:8085/api/rest/topics/getList', {headers: this.headers})
+    }
+
+    public makeChallenge(challengeInfo: string[]){
+
+        const challengeInfo2 = {
+            "topicId": challengeInfo[0],
+            "senderId": 1,
+            "receiverIds": [challengeInfo[1]],
+            "numQuestions": 5
+        }
+
+        const options = {
+            headers: new HttpHeaders(),
+        };
+
+        return this.http.post('http://localhost:8085/api/rest/challenges/createChallenge', challengeInfo2, options)
     }
 }

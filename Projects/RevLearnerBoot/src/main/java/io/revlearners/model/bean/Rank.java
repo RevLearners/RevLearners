@@ -34,7 +34,7 @@ public class Rank implements Serializable {
 
     @JsonView({Views.ToBackEnd.class, Views.ToFrontEnd.class})
     @Column(name=Constants.COLUMN_MERIT_THRESHOLD)
-    private Long meritThreshold;
+    private Float meritThreshold;
 
     @OneToMany(fetch = FetchType.EAGER, mappedBy = Constants.PK_RANK)
     private Set<UserRank> users;
@@ -47,7 +47,7 @@ public class Rank implements Serializable {
 		this.topic = topic;
 	}
 
-    public Rank(Long id, String name, Long rankInHeirarchy, Long meritThreshold) {
+    public Rank(Long id, String name, Long rankInHeirarchy, Float meritThreshold) {
         this.id = id;
         this.name = name;
         this.meritThreshold = meritThreshold;
@@ -81,11 +81,11 @@ public class Rank implements Serializable {
         this.relativeWeight = relativeWeight;
     }
 
-    public Long getMeritThreshold() {
+    public Float getMeritThreshold() {
         return meritThreshold;
     }
 
-    public void setMeritThreshold(Long meritThreshold) {
+    public void setMeritThreshold(Float meritThreshold) {
         this.meritThreshold = meritThreshold;
     }
 }

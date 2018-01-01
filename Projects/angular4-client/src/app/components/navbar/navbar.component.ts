@@ -32,12 +32,18 @@ export class NavbarComponent{
 constructor(private http: HttpClient, private validate:LoginCredentialsService) { }
 
   ngOnInit() {
-    this.user = this.validate.getUser();
-    this.token = this.validate.getToken();
-    this.headers = this.headers.append(AUTHORIZATION_HEADER, this.token.username);
-    this.headers = this.headers.append(TOKEN_HEADER, this.token.token);
-    this.fetchRole(this.user);
 
+    }
+
+    public appendHeaders() {
+        this.user = this.validate.getUser();
+        this.token = this.validate.getToken();
+        this.headers = this.headers.append(AUTHORIZATION_HEADER, this.token.username);
+        this.headers = this.headers.append(TOKEN_HEADER, this.token.token);
+        this.invokeMonitors();
+    }
+
+    public invokeMonitors() {
     // notificationCount = fetchNoteCount().
     }
   
@@ -56,35 +62,9 @@ constructor(private http: HttpClient, private validate:LoginCredentialsService) 
     )
   }
     
-    logout() {
-      this.validate.logout();
-    }
+
       
 }
     
-    
-//    fetchNoteCount() {
-//      let url = `http://localhost:4200/api/rest/notifications/getByUserId/${this.user.id}/`;
 
-
-
-
-//    fetchNoteCount() {
-//      let url = `http://localhost:4200/api/rest/notifications/getByUserId/${this.user.id}/`;
-//      this.http.get(url, {headers: this.headers}).subscribe(
-//        (data: Notification[]) => {
-//          console.log(data);
-//        },
-//        err => {
-//          
-//        }
-//      )
-//    }
-
-
-//  Observable.interval(200 * 60).subscribe(
-//    x => {
-//    doSomething();
-//    }
-//  );
 
