@@ -37,24 +37,24 @@ export class ProfileComponent implements OnInit {
 
   public fetchData() {
     this.rank.id = 0;
-    this.rank.name = "";
+    this.rank.rankName = "";
     this.rank.topic = null;
-    this.rank.heirarchy_rank = 0;
-    this.rank.merit_threshhold = 0;
+    this.rank.relativeWeight = 0;
+    this.rank.meritThreshold = 0;
     console.log(this.token);
     this.http.get('http://localhost:4200/api/rest/ranks/getById/' + this.rankId + '/', {headers: this.headers}).subscribe(
       data => {
         console.log("test");
-        this.rank.name = data["name"],
+        this.rank.rankName = data["name"],
           this.rank.topic = data["topic"],
-          this.rank.heirarchy_rank = data["relativeWeight"],
-          this.rank.merit_threshhold = data["meritThreshold"]
+          this.rank.relativeWeight = data["relativeWeight"],
+          this.rank.meritThreshold = data["meritThreshold"]
       },
       err => {
-        this.rank.name = "error";
+        this.rank.rankName = "error";
         this.rank.topic = null;
-        this.rank.heirarchy_rank = 0;
-        this.rank.merit_threshhold = 0;
+        this.rank.relativeWeight = 0;
+        this.rank.meritThreshold = 0;
       }
     )
   }
