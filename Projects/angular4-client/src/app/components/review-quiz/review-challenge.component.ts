@@ -22,13 +22,15 @@ export class ReviewChallengeComponent implements OnInit {
         private lcs: LoginCredentialsService, private rout: Router) {
     }
 
+
     ngOnInit() {
+        /*
         this.token = this.lcs.getToken();
         if (this.token != null) {
             this.activatedRoute.params.subscribe(params => {
                 console.log(params);
                 const id: number = +(params['id']);
-                this.questionService.getQuizById(id).subscribe(
+                this.questionService.getChallengeById(id).subscribe(
                     (quiz: Quiz) => this.quiz = quiz,
                     console.log
                 );
@@ -37,5 +39,6 @@ export class ReviewChallengeComponent implements OnInit {
         else{
           this.rout.navigate(["401"]);
         }
+        */
     }
 }

@@ -15,7 +15,7 @@ import { FileService } from '../../services/file.service';
   styleUrls: ['./submit-certification.component.css']
 })
 export class SubmitCertificationComponent {
-
+    /*
   user: User;
   token: SessionToken = null;
 
@@ -57,6 +57,7 @@ export class SubmitCertificationComponent {
     console.log(ImageFile);
   }
 
+*/
 
 }
 

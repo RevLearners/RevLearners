@@ -33,7 +33,6 @@ import { LoginCredentialsService } from './services/login-credentials.service';
 import { QuestionService } from './services/question.service';
 import { AuthenticationService } from './services/authentication.service';
 import { VerifyAccountComponent } from './components/verify-account/verify-account.component';
-import { VerifyEmailComponent } from './components/verify-email/verify-email.component';
 import { UnauthorizedComponent } from './components/unauthorized/unauthorized.component';
 import { LogoutComponent } from './components/logout/logout.component';
 import { FileUploadComponent } from './components/file-upload/file-upload.component';
@@ -57,7 +56,6 @@ import { FileUploadComponent } from './components/file-upload/file-upload.compon
         LeaderboardComponent,
         ApproveCertificationsComponent,
         MessagesComponent,
-        VerifyEmailComponent,
         VerifyAccountComponent,
         UnauthorizedComponent,
         LogoutComponent,

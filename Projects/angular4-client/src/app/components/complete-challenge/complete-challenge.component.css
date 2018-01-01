@@ -10,6 +10,10 @@
     margin-bottom: 0;
 }
 
+ul {
+    list-style: none;
+}
+
 .option-control-text {
     flex-grow: 1;
     border: 1px solid #dce4ec;
@@ -33,7 +37,7 @@ label[for="newOption"] {
 }
 
 span > .fa-trash, input[type="radio"] {
-    transform: scale(2);
+    transform: scale(1.5);
 }
 
 div > label.text-center {
