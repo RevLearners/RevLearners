@@ -49,6 +49,11 @@ public abstract class CrudService<TEntity> implements ICrudService<TEntity> {
 	public TEntity create(TEntity entity) {
 		return repository.saveAndFlush(entity);
 	}
+    
+    @Override
+	public List<TEntity> create(List<TEntity> entities) {
+		return repository.save(entities);
+	}
 
 	// Completely generic pager
 	@Override

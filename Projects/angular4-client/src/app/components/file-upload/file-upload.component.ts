@@ -13,12 +13,19 @@ export class FileUploadComponent {
   public files: UploadFile[] = [];
 
   public dropped(event: UploadEvent) {
-    this.files = event.files;
     for (var file of event.files) {
+      this.files.push(file);
+    }
+    for (var file of this.files) {
       file.fileEntry.file(info => {
         console.log(info);
       });
     }
+  }
+
+  public removeFile(file: UploadFile) {
+    const idx: number = this.files.indexOf(file);
+    this.files.splice(idx, 1);
   }
 
   public fileOver(event) {
