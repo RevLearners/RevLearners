@@ -18,7 +18,8 @@ export class LoginCredentialsService {
     token: SessionToken = null;
 
     setToken(token: SessionToken): void {
-        this.token = JSON.parse(localStorage.getItem(SESSION_KEY));
+        localStorage.setItem(SESSION_KEY, JSON.stringify(token));
+        this.token = token;
     }
 
     getToken(): SessionToken {
@@ -26,11 +27,12 @@ export class LoginCredentialsService {
     }
 
     setUser(user: any): void {
-        this.user = JSON.parse(localStorage.getItem(SESSION_USER));
+        localStorage.setItem(SESSION_USER, JSON.stringify(user));
+        this.user = user;
     }
 
     getUser(): any {
-        return this.user;
+        return JSON.parse(localStorage.getItem(SESSION_USER));
     }
 
     clear(): void {

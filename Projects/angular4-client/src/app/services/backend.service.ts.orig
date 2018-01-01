@@ -51,7 +51,9 @@ export class BackendService implements OnInit {
     }
 
     public getTopics() {
-
+<<<<<<< HEAD
+        return this.http.get('http://localhost:8085/api/rest/topics/getList', { headers: this.headers })
+=======
         console.log(this.token);
         return this.http.get('http://localhost:8085/api/rest/topics/getList', {headers: this.headers});
     }
@@ -63,6 +65,7 @@ export class BackendService implements OnInit {
   
     public getNotifications() {
         return this.http.get('http://localhost:8085/api/rest/notifications/getList', {headers: this.headers});
+>>>>>>> 09d9c2c8e2d15e425a3568c15dde9f724e487b1e
     }
 
     public makeChallenge(challengeInfo: string[]) {

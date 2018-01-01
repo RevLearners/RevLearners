@@ -13,12 +13,16 @@ import com.github.jmnarloch.spring.boot.modelmapper.ConverterConfigurerSupport;
 
 import io.revlearners.model.bean.Notification;
 import io.revlearners.model.bean.User;
+import io.revlearners.model.bo.MessageStatusBo;
 import io.revlearners.model.bo.NotificationBo;
 import io.revlearners.model.bo.UserBo;
 
 @Component
 public class NotificationModelMapper extends ConverterConfigurerSupport<Notification, NotificationBo>{
 
+	@Autowired
+	UserModelMapper userModelMapper;
+	
 	@Autowired
 	ModelMapper modelMapper;
 	
@@ -34,7 +38,7 @@ public class NotificationModelMapper extends ConverterConfigurerSupport<Notifica
 				}
 				
 				return new NotificationBo(notif.getId(), modelMapper.map(notif.getSender(), UserBo.class),
-						receivers, notif.getTitle(), notif.getContents(), notif.getTime(), notif.getStatus());
+						receivers, notif.getTitle(), notif.getContents(), notif.getTime(), modelMapper.map(notif.getStatus(), MessageStatusBo.class));
 			}
 			
 		};

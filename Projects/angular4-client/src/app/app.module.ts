@@ -58,7 +58,7 @@ import { LogoutComponent } from './components/logout/logout.component';
         VerifyEmailComponent,
         VerifyAccountComponent,
         UnauthorizedComponent,
-        LogoutComponent,
+        LogoutComponent
     ],
     imports: [
         BrowserModule,
@@ -66,7 +66,7 @@ import { LogoutComponent } from './components/logout/logout.component';
         RouterModule.forRoot(appRoutes),
         HttpClientModule,
         ReactiveFormsModule,
-        Ng4LoadingSpinnerModule
+        Ng4LoadingSpinnerModule.forRoot()
     ],
     providers: [CreateAccountService, BackendService, FileService, LoginCredentialsService,
         QuestionService, AuthenticationService],

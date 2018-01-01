@@ -10,11 +10,11 @@
         <th>Sender</th>
         <th>Status</th>
     </tr>
-    <tr *ngFor="let note of fetchUserNotes()">
+    <tr *ngFor="let note of notes">
         <td>{{note.title}}</td>
-        <td>{{note.content}}</td>
+        <td>{{note.contents}}</td>
         <td>{{note.time}}</td>
-		<td>{{note.sender}}</td>
+		<td>{{note.senderId}}</td>
 		<td>{{note.status}}</td>
     </tr>
 </table>
