@@ -40,21 +40,7 @@ export class SubmitCertificationComponent {
 
   OnSubmit() {
     this.spinner.show();
-    const Image = this.User_Image.nativeElement;
-    if (Image.files && Image.files[0]) {
-      this.files = Image.files[0];
-    }
-    const ImageFile: File = this.file;
-
-    const formData: FormData = new FormData();
-    formData.append('UserImage', ImageFile, ImageFile.name);
-
-    this.fs.sendFiles();
-
     this.spinner.hide();
-
-    console.log("File loaded:");
-    console.log(ImageFile);
   }
 
 
