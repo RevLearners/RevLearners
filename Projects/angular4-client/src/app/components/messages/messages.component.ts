@@ -39,7 +39,7 @@ export class MessagesComponent implements OnInit {
   }
   
     fetchUserMsgs(): Observable<Notification> {
-      let url = `http://localhost:4200/api/rest/messages/getByUserId/${this.user.id}/`;
+      let url = `http://localhost:4200/api/rest/messages/getList/`; //ByUserId/${this.user.id}/`;
       return this.http.get(url, {headers: this.headers})
         .map((res: Response) => {
           return res.json().results.map(item => {

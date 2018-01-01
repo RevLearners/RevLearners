@@ -13,6 +13,8 @@ import {AuthenticationService} from '../../services/authentication.service';
 import {SessionToken} from '../../model/session-token';
 import {HttpHeaders} from '@angular/common/http';
 
+import {BackendService} from '../../services/backend.service';
+
 import {AUTHORIZATION_HEADER, TOKEN_HEADER} from '../../model/session-token';
 
 
@@ -25,35 +27,30 @@ import {AUTHORIZATION_HEADER, TOKEN_HEADER} from '../../model/session-token';
 export class NotificationsComponent implements OnInit {
 
   note: Notification;
+  notes: Notification[];
   user: User;
   token: SessionToken = null;
   
   private headers = new HttpHeaders({'Content-Type': 'application/json'});
   
-  constructor(private http:HttpClient, private validate:LoginCredentialsService) { }
+  constructor(private http:HttpClient, private validate:LoginCredentialsService, private dataservice:BackendService) { }
 
   ngOnInit() {
     this.user = this.validate.getUser();
     this.token = this.validate.getToken();   
-    // this.headers = this.headers.append(AUTHORIZATION_HEADER, this.user.username);
-    // this.headers = this.headers.append(TOKEN_HEADER, this.token);
+    this.notes == this.dataservice.getNotifications().subscribe(
+      (data: any) =>{
+          this.notes = data;
+          console.log("Notification Data");
+          console.log(data);
+      }
+    
+     this.headers = this.headers.append(AUTHORIZATION_HEADER, this.user.username);
+     this.headers = this.headers.append(TOKEN_HEADER, this.token);
+    }
+ 
+
   }
   
-  fetchUserNotes(): Observable<Notification> {
-      let url = `http://localhost:4200/api/rest/notifications/getByUserId/${this.user.id}/`;
-      return this.http.get(url, {headers: this.headers})
-        .map((res: Response) => {
-          return res.json().results.map(item => {
-            return new Notification(
-              item.id,
-              item.senderId,
-              item.receivers,
-              item.title,
-              item.contents,
-              item.time,
-              item.status
-              );
-            });
-          });
-  }
-}
+  
+  

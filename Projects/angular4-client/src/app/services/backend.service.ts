@@ -40,7 +40,17 @@ export class BackendService implements OnInit{
     }
 
     public getTopics() {
-        return this.http.get('http://localhost:8085/api/rest/topics/getList', {headers: this.headers})
+        console.log(this.token);
+        return this.http.get('http://localhost:8085/api/rest/topics/getList', {headers: this.headers});
+    }
+  
+    public getMessages() {
+        console.log(this.token);
+        return this.http.get('http://localhost:8085/api/rest/messages/getList', {headers: this.headers});
+    }
+  
+    public getNotifications() {
+        return this.http.get('http://localhost:8085/api/rest/notifications/getList', {headers: this.headers});
     }
 
     public makeChallenge(challengeInfo: string[]){
@@ -58,4 +68,6 @@ export class BackendService implements OnInit{
 
         return this.http.post('http://localhost:8085/api/rest/challenges/createChallenge', challengeInfo2, options)
     }
+  
+  
 }

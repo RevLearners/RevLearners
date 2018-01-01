@@ -75,8 +75,8 @@ public class NotificationService extends CrudService<Notification> implements IN
 		for (Notification n : notifs) {
 			update(n);
 		}
-	}//status change occurs in NotifBo on front end, pushed here
-    
+	}
+	
     
 }
 
