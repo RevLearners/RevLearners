@@ -4,6 +4,7 @@ import {QuestionOption} from '../../model/question-option';
 import {Topic} from '../../model/topic';
 import {QuestionService} from '../../services/question.service';
 import {Router} from '@angular/router';
+import {BackendService} from "../../services/backend.service";
 
 @Component({
     selector: 'app-new-question',
@@ -17,12 +18,11 @@ export class NewQuestionComponent implements OnInit {
         new QuestionOption(-1, '', false)
     ]);
 
-    topics: Topic[] = [];
+    topics: any[] = [];
 
-
-    constructor(private questionService: QuestionService, private router: Router) {
-        this.questionService.getAllTopics().subscribe(
-            data => {
+    constructor(private dataService: BackendService, private questionService: QuestionService, private router: Router) {
+        this.dataService.getTopics().subscribe(
+            (data: any[]) => {
                 this.topics = data;
                 this.newQuestion.topic = this.topics[0];
             },

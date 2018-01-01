@@ -7,7 +7,6 @@ import {CreateAccountService} from '../../services/create-account-service';
     templateUrl: './create-account.component.html',
     styleUrls: ['./create-account.component.css'],
     providers: [CreateAccountService],
-    // encapsulation: ViewEncapsulation.None,
 })
 export class CreateAccountComponent implements OnInit {
 

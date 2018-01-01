@@ -14,15 +14,15 @@ import { BackendService } from '../../services/backend.service';
   styleUrls: ['./leaderboard.component.css']
 })
 export class LeaderboardComponent implements OnInit {
-  
+
   user: User;
-  
+
   userScore: {
     topic: Topic,
     user: User,
     score: number
-  }
-  
+  };
+
   //userScores = userScore[];
 
   users: User[];
@@ -51,7 +51,7 @@ export class LeaderboardComponent implements OnInit {
   )
 
     }
-  
-  
+
+
 
 }

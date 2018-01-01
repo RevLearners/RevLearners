@@ -7,7 +7,7 @@
     <tr>
         <th>Topic</th><th>User 1</th><th>User 2</th><th>Accept</th>
     </tr>
-    <tr *ngFor="let chall of fetchUserQuiz()">
+    <tr *ngFor="let chall of challenges">
         <td>{{chall.quiz.topic}}</td>
         <td>{{chall.users[0]}}</td>
         <td>{{chall.users[1]}}</td>

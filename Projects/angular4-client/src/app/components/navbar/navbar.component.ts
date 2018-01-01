@@ -1,5 +1,5 @@
 import {HttpClient} from '@angular/common/http';
-import {Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {User} from '../../model/user';
 import {Role} from '../../model/role';
 import {LoginCredentialsService} from '../../services/login-credentials.service';
@@ -11,27 +11,28 @@ import {HttpHeaders} from '@angular/common/http';
 import {AUTHORIZATION_HEADER, TOKEN_HEADER} from '../../model/session-token';
 
 
-@Component ({
+@Component({
     selector: 'app-nav-bar',
     templateUrl: './navbar.component.html',
-    styleUrls:[
+    styleUrls: [
         './navbar.component.css'
     ]
 })
-export class NavbarComponent{
-  
-  user: User = new User(0, "");
-  role: Role = new Role(0, "");
-  token: SessionToken = null;
+export class NavbarComponent implements OnInit {
 
-  private headers = new HttpHeaders({'Content-Type': 'application/json'});
+    user: User = new User(0, "");
+    role: Role = new Role(0, "");
+    token: SessionToken = null;
 
-  notificationCount: number;
-  messageCount: number;
-  
-constructor(private http: HttpClient, private validate:LoginCredentialsService) { }
+    private headers = new HttpHeaders({'Content-Type': 'application/json'});
 
-  ngOnInit() {
+    notificationCount: number;
+    messageCount: number;
+
+    constructor(private http: HttpClient, private validate: LoginCredentialsService) {
+    }
+
+    ngOnInit() {
 
     }
 
@@ -44,27 +45,26 @@ constructor(private http: HttpClient, private validate:LoginCredentialsService) 
     }
 
     public invokeMonitors() {
-    // notificationCount = fetchNoteCount().
+        // notificationCount = fetchNoteCount().
     }
-  
-  
-  public fetchRole(user:User) {
-    let url = `http://localhost:4200/api/rest/roles/getById/${user.id}/`;
-    this.http.get(url, {headers: this.headers}).subscribe(
-      data => {
-        this.role.id = data["id"],
-        this.role.name = data["name"]
-      },
-      err => {
-        this.role.id = -1,
-        this.role.name = "error"
-      }
-    )
-  }
-    
 
-      
+
+    public fetchRole(user: User) {
+        let url = `http://localhost:4200/api/rest/roles/getById/${user.id}/`;
+        this.http.get(url, {headers: this.headers}).subscribe(
+            data => {
+                this.role.id = data["id"],
+                    this.role.name = data["name"]
+            },
+            err => {
+                this.role.id = -1,
+                    this.role.name = "error"
+            }
+        )
+    }
+
+
 }
-    
+
 
 
