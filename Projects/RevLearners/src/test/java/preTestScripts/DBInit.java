@@ -96,10 +96,21 @@ public class DBInit {
 
 			addQuestions(session);
 			
-			session.save(new User("Root", null, "Admin", new UserStatus(Constants.STATUS_OK), new UserRole(Constants.ROLE_ADMIN),
+			User user1 = new User("Root", null, "Admin", new UserStatus(Constants.STATUS_OK), new UserRole(Constants.ROLE_ADMIN),
 					"botbert@email.com", "Botbert", "$2a$10$trilJ1OUwLZqA9PjJYD9Bu1zpKq8jYKG3Dxsigxf1R4XLPBTH1LOW",
-					LocalDateTime.of(1970, 1, 1, 00, 00)));
+					LocalDateTime.of(1970, 1, 1, 00, 00));
 			
+			User user2 = new User("User1", null, "User1", new UserStatus(Constants.STATUS_OK), new UserRole(Constants.ROLE_ADMIN),
+					"botbert@email.com", "User1", "$2a$10$trilJ1OUwLZqA9PjJYD9Bu1zpKq8jYKG3Dxsigxf1R4XLPBTH1LOW",
+					LocalDateTime.of(1970, 1, 1, 00, 00));
+
+			session.save(user1);
+			session.save(user2);
+			user1.getFriends().add(user2);
+			user2.getFriends().add(user1);
+			session.save(user1);
+			session.save(user2);
+
 			session.getTransaction().commit();
 		}
 	}
