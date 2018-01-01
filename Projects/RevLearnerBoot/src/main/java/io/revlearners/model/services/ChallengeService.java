@@ -167,6 +167,11 @@ public class ChallengeService extends CrudService<Question> implements IChalleng
     @Override
     public Challenge getChallengeById(long id) {
         Challenge res = challengeRepo.findOne(id);
+        // mask it so front end doesn't know which ones are correct
+        for (Question question: res.getQuiz().getQuestions())
+            for (QuestionOption opt: question.getOptions())
+                opt.setCorrect(false);
+
         return res;
     }
 
