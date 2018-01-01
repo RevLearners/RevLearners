@@ -4,13 +4,13 @@ public class UserRankBo {
 
 	private String rankName;
 	private Long rankId;
-	private Long merit;
+	private Float merit;
 	private String topic;
 	
 	public UserRankBo() {
 	}
 
-	public UserRankBo(Long id, String name, Long merit, String topic) {
+	public UserRankBo(Long id, String name, Float merit, String topic) {
 		this.rankName = name;
 		this.rankId = id;
 		this.merit = merit;
@@ -41,13 +41,12 @@ public class UserRankBo {
 		this.rankId = rankId;
 	}
 
-	public Long getMerit() {
+	public Float getMerit() {
 		return merit;
 	}
 
-	public void setMerit(Long merit) {
+	public void setMerit(Float merit) {
 		this.merit = merit;
 	}
-	
-	
+
 }

@@ -64,7 +64,7 @@ export const appRoutes: Routes = [
         component: ViewChallengesComponent
     },
     {
-        path: 'verify-account',
+        path: 'verify',
         component: VerifyAccountComponent
     },
     {

@@ -81,7 +81,7 @@ public class UserService extends CrudService<User> implements UserDetailsService
 				user.getEmail(), user.getUsername(), pass, Constants.START_DATE);
 		userEntity.setRanks(new HashSet<>());
 		for (Rank r : Constants.getBeginnerRanks()) {
-			userEntity.getRanks().add(new UserRank(userEntity, r, 0L));
+			userEntity.getRanks().add(new UserRank(userEntity, r, 0f));
 		}
 		repository.saveAndFlush(userEntity);
 		UserDetails userDetails = loadUserByUsername(user.getUsername());

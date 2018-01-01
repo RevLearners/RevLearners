@@ -18,9 +18,12 @@ public class EmailService {
 	private static final Properties SMTP_PROPERTIES = new Properties();
 	private static final String REVLEARNERS_EMAIL, REVLEARNERS_PASSWORD, SMTP_HOST, SMTP_PORT;
 
+	// TODO: this may change in EC2 deployment
+	private static final String  VERIFICATION_ENDPOINT_TEMPLATE = "http://localhost:4200/verify?token=%s";  // to be filled in with token
+
 	private static final String VERIFICATION_EMAIL_TEMPLATE = "<h3>RevLearners</h3>" + "<p>Welcome young RevLearner</p>"
 			+ "<p>Please click the link below to activate you account</p>" + "<div>"
-			+ "<a href='http://localhost:8085/verify?token=%s'>Verify</a>" + "</div>";
+			+ "<a href='"+ VERIFICATION_ENDPOINT_TEMPLATE + "'>Verify</a>" + "</div>";
 	private static final String VERIFICATION_EMAIL_SUBJECT_TEMPLATE = "Welcome Young RevLearner";
 
 	static {
