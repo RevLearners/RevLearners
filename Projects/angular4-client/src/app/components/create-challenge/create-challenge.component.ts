@@ -3,6 +3,9 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {BackendService} from '../../services/backend.service';
 import {Rank} from "../../model/rank";
 import {QuestionService} from "../../services/question.service";
+import { SessionToken } from '../../model/session-token';
+import { LoginCredentialsService } from '../../services/login-credentials.service';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-create-challenge',
@@ -12,6 +15,7 @@ import {QuestionService} from "../../services/question.service";
 
 export class CreateChallengeComponent implements OnInit {
 
+    token: SessionToken;
     rForm: FormGroup;
     chosenTopic: number;
     chosenChallenger: number;
@@ -22,7 +26,8 @@ export class CreateChallengeComponent implements OnInit {
     //Temporary Table of Challengers
     public challengers = [];
 
-    constructor(private fb: FormBuilder, private dataService: BackendService, private questionService: QuestionService) {
+    constructor(private fb: FormBuilder, private dataService: BackendService, private questionService: QuestionService,
+    private lcs: LoginCredentialsService, private rout: Router) {
         this.rForm = fb.group({
             'topic': [null, Validators.required],
             'challengers': [null, Validators.required],
@@ -31,6 +36,8 @@ export class CreateChallengeComponent implements OnInit {
     }
 
     ngOnInit() {
+        this.token = this.lcs.getToken();
+        if(this.token != null){
         this.dataService.getUsers().subscribe(
             (data: any) => {
                 this.challengers = data;
@@ -47,6 +54,11 @@ export class CreateChallengeComponent implements OnInit {
             console.log
         )
     }
+    else{
+      this.rout.navigate(["401"]);
+    }
+}
+
 
     addPost(post) {
         console.log(post.challengers);

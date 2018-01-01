@@ -1,9 +1,17 @@
+<<<<<<< HEAD
 import { HttpClient } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { User } from '../../model/user';
 import { Role } from '../../model/role';
 import { LoginCredentialsService } from '../../services/login-credentials.service';
 import { Observable } from 'rxjs/Rx';
+=======
+import {HttpClient} from '@angular/common/http';
+import {Component, OnInit} from '@angular/core';
+import {User} from '../../model/user';
+import {Role} from '../../model/role';
+import {LoginCredentialsService} from '../../services/login-credentials.service';
+>>>>>>> b42f68373b7d4c27c896089153c9f531ca1f27b4
 
 import { SessionToken } from '../../model/session-token';
 import { HttpHeaders } from '@angular/common/http';
@@ -18,8 +26,9 @@ import { AUTHORIZATION_HEADER, TOKEN_HEADER } from '../../model/session-token';
         './navbar.component.css'
     ]
 })
-export class NavbarComponent implements OnInit {
-    
+<<<<<<< HEAD
+export class NavbarComponent {
+
     user: User;
     role: Role;
 
@@ -33,7 +42,24 @@ export class NavbarComponent implements OnInit {
     constructor(private http: HttpClient, private validate: LoginCredentialsService) { }
 
     ngOnInit() {
-        this.token = this.validate.getToken();
+=======
+export class NavbarComponent implements OnInit {
+
+    user: User = new User(0, "");
+    role: Role = new Role(0, "");
+    token: SessionToken = null;
+
+    private headers = new HttpHeaders({'Content-Type': 'application/json'});
+
+    notificationCount: number;
+    messageCount: number;
+
+    constructor(private http: HttpClient, private validate: LoginCredentialsService) {
+    }
+
+    ngOnInit() {
+
+>>>>>>> b42f68373b7d4c27c896089153c9f531ca1f27b4
     }
 
     public appendHeaders() {
@@ -46,7 +72,22 @@ export class NavbarComponent implements OnInit {
         }
     }
 
-    public invokeMonitors() {}
+    public invokeMonitors() {
+<<<<<<< HEAD
+        if (this.token != null) {
+            // notificationCount = fetchNoteCount().
+        }
+    }
+
+
+    //    fetchNoteCount() {
+    //      let url = `http://localhost:4200/api/rest/notifications/getByUserId/${this.user.id}/`;
+}
+=======
+        // notificationCount = fetchNoteCount().
+    }
+>>>>>>> b42f68373b7d4c27c896089153c9f531ca1f27b4
+
 
     public fetchRole(user: User) {
         let url = `http://localhost:4200/api/rest/roles/getById/${user.id}/`;

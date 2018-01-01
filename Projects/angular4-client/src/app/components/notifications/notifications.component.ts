@@ -5,18 +5,18 @@ import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs/Rx';
 import 'rxjs/add/operator/map';
 
-import {User} from '../../model/user';
-import {Notification} from '../../model/notification';
+import { User } from '../../model/user';
+import { Notification } from '../../model/notification';
 
-import {LoginCredentialsService} from '../../services/login-credentials.service';
-import {AuthenticationService} from '../../services/authentication.service';
-import {SessionToken} from '../../model/session-token';
-import {HttpHeaders} from '@angular/common/http';
+import { LoginCredentialsService } from '../../services/login-credentials.service';
+import { AuthenticationService } from '../../services/authentication.service';
+import { SessionToken } from '../../model/session-token';
+import { HttpHeaders } from '@angular/common/http';
+import {Router} from '@angular/router';
 
 import {BackendService} from '../../services/backend.service';
 
 import {AUTHORIZATION_HEADER, TOKEN_HEADER} from '../../model/session-token';
-
 
 @Component({
   selector: 'app-notifications',
@@ -37,20 +37,24 @@ export class NotificationsComponent implements OnInit {
 
   ngOnInit() {
     this.user = this.validate.getUser();
-    this.token = this.validate.getToken();   
-    this.notes == this.dataservice.getNotifications().subscribe(
-      (data: any) =>{
-          this.notes = data;
-          console.log("Notification Data");
-          console.log(data);
-      }
+    this.token = this.validate.getToken();
+    
+    if (this.token != null) {
+      this.notes == this.dataservice.getNotifications().subscribe(
+        (data: any) =>{
+            this.notes = data;
+            console.log("Notification Data");
+            console.log(data);
+        }
+    }else{
+      this.rout.navigate(["401"]);
+    }
     
      this.headers = this.headers.append(AUTHORIZATION_HEADER, this.user.username);
      this.headers = this.headers.append(TOKEN_HEADER, this.token);
     }
  
-
-  }
+}
   
   
-  
+ 

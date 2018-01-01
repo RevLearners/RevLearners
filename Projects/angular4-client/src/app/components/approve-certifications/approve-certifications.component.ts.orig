@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+<<<<<<< HEAD
+import { SessionToken } from '../../model/session-token';
+import { LoginCredentialsService } from '../../services/login-credentials.service';
 import { Router } from '@angular/router';
+=======
 import { HttpClient } from '@angular/common/http';
 
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
@@ -16,6 +20,7 @@ import {HttpHeaders} from '@angular/common/http';
 
 import {AUTHORIZATION_HEADER, TOKEN_HEADER} from '../../model/session-token';
 
+>>>>>>> b42f68373b7d4c27c896089153c9f531ca1f27b4
 
 @Component({
   selector: 'app-approve-certifications',
@@ -24,38 +29,49 @@ import {AUTHORIZATION_HEADER, TOKEN_HEADER} from '../../model/session-token';
 })
 export class ApproveCertificationsComponent implements OnInit {
 
+<<<<<<< HEAD
   token: SessionToken;
-  cert: Certification;
-  user: User;
-  
 
-  private headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-
-  constructor(private http: HttpClient, private lcs: LoginCredentialsService, private rout: Router) { }
+  constructor(private lcs: LoginCredentialsService, private rout: Router) { }
 
   ngOnInit() {
     this.token = this.lcs.getToken();
-    if (this.token != null) { }
-    else {
+    if(this.token != null){}
+    else{
       this.rout.navigate(["401"]);
     }
+=======
+  cert: Certification;
+  user: User;
+  token: SessionToken = null;
+  
+  private headers = new HttpHeaders({'Content-Type': 'application/json'});
+  
+  constructor(private http:HttpClient, private validate:LoginCredentialsService) { }
+
+  ngOnInit() {
+    this.user = this.validate.getUser();
+    this.token = this.validate.getToken();
+    this.headers = this.headers.append(AUTHORIZATION_HEADER, this.token.username);
+    this.headers = this.headers.append(TOKEN_HEADER, this.token.token);
+>>>>>>> b42f68373b7d4c27c896089153c9f531ca1f27b4
   }
 
   fetchAllCert(): Observable<Certification> {
     let url = `http://localhost:4200/api/rest/certification/getList/`;
-    return this.http.get(url, { headers: this.headers })
-      .map((res: Response) => {
-        return res.json().results.map(item => {
-          return new Certification(
-            item.id,
-            item.name,
-            item.topic,
-            item.user,
-            item.status
-          );
-        });
-      });
+    return this.http.get(url, {headers: this.headers})
+     .map((res: Response) => {
+       return res.json().results.map(item => {
+         return new Certification(
+           item.id,
+           item.name,
+           item.topic,
+           item.user,
+           item.status
+           );
+         });
+       });
   }
-
+  
 }
 
