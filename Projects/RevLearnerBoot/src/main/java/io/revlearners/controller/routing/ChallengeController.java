@@ -58,7 +58,7 @@ public class ChallengeController extends WebServicesController {
      */
     @GetMapping("getChallengesByUser/{userId}")
     public @JsonView(Views.ToFrontEnd.class)
-    List<Challenge> getChallegesByUser(@PathVariable long userId) {
+    List<Challenge> getChallengesByUser(@PathVariable long userId) {
         return serviceFacade.getChallengesByUser(userId);
     }
 

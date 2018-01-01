@@ -32,6 +32,7 @@ import { QuestionService } from './services/question.service';
 import { AuthenticationService } from './services/authentication.service';
 import { VerifyAccountComponent } from './components/verify-account/verify-account.component';
 import { VerifyEmailComponent } from './components/verify-email/verify-email.component';
+import { LogoutComponent } from './components/logout/logout.component';
 
 @NgModule({
     declarations: [
@@ -54,6 +55,7 @@ import { VerifyEmailComponent } from './components/verify-email/verify-email.com
         MessagesComponent,
         VerifyEmailComponent,
         VerifyAccountComponent,
+        LogoutComponent,
     ],
     imports: [
         BrowserModule,
