@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
+import { Ng4LoadingSpinnerModule } from 'ng4-loading-spinner';
 
 import { appRoutes } from './routing';
 
@@ -64,7 +65,8 @@ import { LogoutComponent } from './components/logout/logout.component';
         FormsModule,
         RouterModule.forRoot(appRoutes),
         HttpClientModule,
-        ReactiveFormsModule
+        ReactiveFormsModule,
+        Ng4LoadingSpinnerModule.forRoot()
     ],
     providers: [CreateAccountService, BackendService, FileService, LoginCredentialsService,
         QuestionService, AuthenticationService],

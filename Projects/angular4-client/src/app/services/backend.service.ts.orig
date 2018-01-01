@@ -1,7 +1,5 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import {Injectable, OnInit} from '@angular/core';
-import {Observable} from 'rxjs/Observable';
-
+import { Injectable, OnInit } from '@angular/core';
 
 import { Rank } from '../model/rank';
 import { User } from '../model/user';
@@ -52,9 +50,12 @@ export class BackendService implements OnInit {
         return this.http.get('http://localhost:8085/api/rest/users/getList', { headers: this.headers });
     }
 
-    public getTopics(): Observable<any[]> {
+    public getTopics() {
+<<<<<<< HEAD
+        return this.http.get('http://localhost:8085/api/rest/topics/getList', { headers: this.headers })
+=======
         console.log(this.token);
-        return this.http.get<any[]>('http://localhost:8085/api/rest/topics/getList', {headers: this.headers});
+        return this.http.get('http://localhost:8085/api/rest/topics/getList', {headers: this.headers});
     }
   
     public getMessages() {
@@ -64,6 +65,7 @@ export class BackendService implements OnInit {
   
     public getNotifications() {
         return this.http.get('http://localhost:8085/api/rest/notifications/getList', {headers: this.headers});
+>>>>>>> 09d9c2c8e2d15e425a3568c15dde9f724e487b1e
     }
 
     public makeChallenge(challengeInfo: string[]) {
