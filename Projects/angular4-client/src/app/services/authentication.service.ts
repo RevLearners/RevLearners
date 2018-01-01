@@ -38,12 +38,7 @@ export class AuthenticationService {
                     this.user = response.user;
                     localStorage.setItem('currentUser', JSON.stringify({username: username, token: token}));
                     this.creds.setToken(new SessionToken(username, token));
-<<<<<<< HEAD
-
-                    console.log(this.creds.getToken());
-=======
                     this.creds.setUser(this.user);
->>>>>>> 3891c4f14a52cb8cf6466a0c7159c9667a314e57
                     // return true to indicate successful login
                     return true;
                 } else {

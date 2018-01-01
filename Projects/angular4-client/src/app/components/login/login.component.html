@@ -1,56 +1,56 @@
 <div *ngIf="error">
-    <h3 class="alert-danger row column" *ngIf="error">Login Failed. Try Again.</h3>
+  <h3 class="alert-danger row column" *ngIf="error">Login Failed. Try Again.</h3>
 </div>
 
 <div *ngIf="true; else forminfo">
-    <!--   <form (ngSubmit)="login()"> -->
-    <div class="form-container">
-        <div class="row columns">
-            <h1>Login</h1>
+  <!--   <form (ngSubmit)="login()"> -->
+  <div class="form-container">
+      <div class="row columns">
+          <h1>Login</h1>
 
-            <div class="form-group">
-                <label class="control-label" for="username">Username</label>
-                <input class="form-control" type="text" id="username" [(ngModel)]="model.username">
-                <br>
-                <div class="alert" *ngIf="false">
-                    This field is required.
-                </div>
-                <br>
-            </div>
+          <div class="form-group">
+              <label class="control-label" for="username">Username</label>
+              <input class="form-control" type="text" id="username" [(ngModel)]="model.username">
+              <br>
+              <div class="alert" *ngIf="false">
+                  This field is required.
+              </div>
+              <br>
+          </div>
 
-            <div class="form-group">
-                <label class="control-label" for="password">Password</label>
-                <input class="form-control" id="password" type="password" [(ngModel)]="model.password">
-                <br>
-                <div class="alert" *ngIf="false">
-                    This field is required.
-                </div>
-                <br>
-            </div>
+          <div class="form-group">
+              <label class="control-label" for="password">Password</label>
+              <input class="form-control" id="password" type="password" [(ngModel)]="model.password">
+              <br>
+              <div class="alert" *ngIf="false">
+                  This field is required.
+              </div>
+              <br>
+          </div>
 
-            <input type="submit" class="btn btn-block btn-primary" value="Login" [disabled]="false" (click)="login()">
-        </div>
-    </div>
-    <!--   </form> -->
+          <input type="submit" class="btn btn-block btn-primary" value="Login" [disabled]="false" (click)="login()">
+      </div>
+  </div>
+  <!--   </form> -->
 </div>
 
 <ng-template #forminfo>
-    <div *ngIf="userFound; else wrongInfo">
-        <div class="form-container">
-            <div class="row columns">
-                <h1>Welcome {{model.username}}. This is where your profile page should be at but it's still in the
-                    works.</h1>
-            </div>
-        </div>
-    </div>
-    <ng-template #wrongInfo>
-        <div class="form-container">
-            <div class="row columns">
-                <h1>Incorrect username/password.</h1>
-                <p>The information you've enter is not correct. Please try again.</p>
-            </div>
-        </div>
-    </ng-template>
+  <div *ngIf="userFound; else wrongInfo">
+      <div class="form-container">
+          <div class="row columns">
+              <h1>Welcome {{model.username}}. This is where your profile page should be at but it's still in the
+                  works.</h1>
+          </div>
+      </div>
+  </div>
+  <ng-template #wrongInfo>
+      <div class="form-container">
+          <div class="row columns">
+              <h1>Incorrect username/password.</h1>
+              <p>The information you've enter is not correct. Please try again.</p>
+          </div>
+      </div>
+  </ng-template>
 
 </ng-template>
 
