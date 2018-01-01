@@ -43,6 +43,7 @@ export class LoginComponent implements OnInit {
                     this.loading = false;
                 }
             }, error => {
+                this.spinner.hide();
                 this.loading = false;
                 this.error = error;
                 console.log(error);
