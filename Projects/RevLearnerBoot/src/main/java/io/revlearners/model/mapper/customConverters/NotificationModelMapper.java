@@ -35,9 +35,7 @@ public class NotificationModelMapper extends ConverterConfigurerSupport<Notifica
 				
 				return new NotificationBo(notif.getId(), modelMapper.map(notif.getSender(), UserBo.class),
 						receivers, notif.getTitle(), notif.getContents(), notif.getTime(), notif.getStatus());
-			}
-			
+			}		
 		};
 	}
-
 }

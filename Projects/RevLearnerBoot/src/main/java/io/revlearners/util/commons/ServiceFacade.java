@@ -99,6 +99,7 @@ public class ServiceFacade implements IServiceFacade {
 	@Autowired
 	private IChallengeService questionService;
 
+	//-------------------- TOPICS -----------------------
 	@Override
 	public TopicBo getTopicById(Serializable id) {
 		Topic topic = topicService.findOne(id);
@@ -136,6 +137,7 @@ public class ServiceFacade implements IServiceFacade {
 		// topicService.deleteById(id);
 	}
 
+	//-------------------- RANKS -----------------------
 	@Override
 	public RankBo getRankById(Serializable id) {
 		Rank rank = rankService.findOne(id);
@@ -176,6 +178,7 @@ public class ServiceFacade implements IServiceFacade {
 		// rankService.deleteById(id);
 	}
 
+	//-------------------- USERS -----------------------
 	@Override
 	public UserBo getUserById(Serializable id) {
 		User user = userService.findOne(id);
@@ -222,7 +225,8 @@ public class ServiceFacade implements IServiceFacade {
 		// TODO Auto-generated method stub
 
 	}
-
+	
+	//-------------------- QUESTIONS -----------------------
 	@Override
 	public MessageBo getMessageById(Serializable id) {
 		Message message = messageService.findOne(id);
@@ -297,6 +301,7 @@ public class ServiceFacade implements IServiceFacade {
 	public void deleteMessageById(Serializable id) {
 	}
 
+	//-------------------- MESSAGES -----------------------
 	@Override
 	public NotificationBo getNotificationById(Serializable id) {
 		Notification notification = notificationService.findOne(id);
@@ -346,6 +351,7 @@ public class ServiceFacade implements IServiceFacade {
 		return challenge;
 	}
 
+	//-------------------- NOTIFICATIONS -----------------------
 	@Override
 	public Question createQuestion(Question question) {
 		return questionService.saveQuestion(question);
@@ -396,6 +402,7 @@ public class ServiceFacade implements IServiceFacade {
 		// TODO Auto-generated method stub
 	}
 
+	//-------------------- REPORTS -----------------------
 	@Override
 	public ReportUserBo getReportUserById(Serializable id) {
 		ReportUser reportUser = reportUService.findOne(id);
@@ -457,7 +464,7 @@ public class ServiceFacade implements IServiceFacade {
 		Page<ReportQuestion> reportReportQuestions = reportQService.pageAll(page, size);
 		return reportReportQuestions.map(source -> modelMapper.map(source, ReportQuestionBo.class));
 	}
-
+	
 	@Override
 	public void createReportQuestion(ReportQuestionBo reportQuestion) {
 		// TODO Auto-generated method stub
@@ -476,6 +483,7 @@ public class ServiceFacade implements IServiceFacade {
 
 	}
 
+	//-------------------- ?? -----------------------
 	@Override
 	public void sendMessage(MessageBo msg) {
 		// TODO Auto-generated method stub

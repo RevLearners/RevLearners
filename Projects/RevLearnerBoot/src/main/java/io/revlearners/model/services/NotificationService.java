@@ -11,7 +11,9 @@ import io.revlearners.model.bean.MessageStatus;
 import io.revlearners.model.bean.Notification;
 import io.revlearners.model.bean.User;
 import io.revlearners.model.services.interfaces.INotificationService;
-
+/*
+ * This class generates notifications based on 
+ */
 @Service
 public class NotificationService extends CrudService<Notification> implements INotificationService{
     
