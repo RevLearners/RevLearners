@@ -3,193 +3,56 @@ import 'rxjs/add/observable/of';
 import 'rxjs/add/observable/empty';
 import 'rxjs/add/operator/map';
 
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 
 import {Question} from '../model/question';
-import {Quiz} from '../model/quiz';
-import {QuestionOption} from '../model/question-option';
-import {Topic} from '../model/topic';
 import {Injectable} from '@angular/core';
 import {ChallengeAttempt} from '../model/challenge-attempt';
 import {Challenge} from '../model/challenge';
-import {User} from '../model/user';
+import {AUTHORIZATION_HEADER, TOKEN_HEADER} from "../model/session-token";
+import {LoginCredentialsService} from "./login-credentials.service";
 
 
-export const TOPICS: Topic[] = [
-    new Topic(-1, 'Hibernate'),
-    new Topic(-1, 'Core Java'),
-    new Topic(-1, 'Design Patterns'),
-    new Topic(-1, 'Html/CSS/Javascript')
-];
 
-export const QUIZ: Quiz = new Quiz(
-    1,
-    null,
-    [
-        new Question(
-            1,
-            'a this is a question this is a question this is a question this is a ' +
-            'question this is a question this is a question, deal with it ',
-            'the correct answer is whatever i say it is the correct ' +
-            'answer is whatever i say it is the correct answer is whatever i say it is',
-            [
-                new QuestionOption(
-                    1,
-                    'this is an option; deal with it',
-                    false
-                ),
-                new QuestionOption(
-                    2,
-                    'this is an option; deal with it',
-                    true
-                ),
-                new QuestionOption(
-                    3,
-                    'this is an option; deal with it',
-                    false
-                ),
-            ]
-        ),
-        new Question(
-            1,
-            'b this is a question this is a question this is a question this is a question this is a question this is a question, deal with it ',
-            'the correct answer is whatever i say it is the correct answer is whatever i say it is the correct answer is whatever i say it is',
-            [
-                new QuestionOption(
-                    1,
-                    'this is an option; deal with it',
-                    false
-                ),
-                new QuestionOption(
-                    2,
-                    'this is an option; deal with it',
-                    true
-                ),
-                new QuestionOption(
-                    3,
-                    'this is an option; deal with it',
-                    false
-                ),
-            ]
-        ),
 
-        new Question(
-            1,
-            'c this is a question this is a question this is a question this is a question this is a question this is a question, deal with it ',
-            'the correct answer is whatever i say it is the correct answer is whatever i say it is the correct answer is whatever i say it is',
-            [
-                new QuestionOption(
-                    1,
-                    'this is an option; deal with it',
-                    false
-                ),
-                new QuestionOption(
-                    2,
-                    'this is an option; deal with it',
-                    true
-                ),
-                new QuestionOption(
-                    3,
-                    'this is an option; deal with it',
-                    false
-                ),
-            ]
-        ),
-
-        new Question(
-            1,
-            'c this is a question this is a question this is a question this is a question this is a question this is a question, deal with it ',
-            'the correct answer is whatever i say it is the correct answer is whatever i say it is the correct answer is whatever i say it is',
-            [
-                new QuestionOption(
-                    1,
-                    'this is an option; deal with it',
-                    false
-                ),
-                new QuestionOption(
-                    2,
-                    'this is an option; deal with it',
-                    true
-                ),
-                new QuestionOption(
-                    3,
-                    'this is an option; deal with it',
-                    false
-                ),
-            ]
-        ),
-
-        new Question(
-            1,
-            'd this is a question this is a question this is a question this is a question this is a question this is a question, deal with it ',
-            'the correct answer is whatever i say it is the correct answer is whatever i say it is the correct answer is whatever i say it is',
-            [
-                new QuestionOption(
-                    1,
-                    'this is an option; deal with it',
-                    false
-                ),
-                new QuestionOption(
-                    2,
-                    'this is an option; deal with it',
-                    true
-                ),
-                new QuestionOption(
-                    3,
-                    'this is an option; deal with it',
-                    false
-                ),
-            ]
-        )
-
-    ]
-);
-
-export const USER1: User = new User(1, 'userOne');
-export const USER2: User = new User(2, 'userTwo');
-
-export const CHALLENGE: Challenge = new Challenge(
-    1,
-    QUIZ,
-    [USER1, USER2],
-    []
-);
-
-export const ATTEMPT: ChallengeAttempt = new ChallengeAttempt(
-    1,
-    USER1,
-    CHALLENGE,
-    50,
-    QUIZ.questions.map(q => q.options[0])
-);
-
+const CHALLENGES_URL = 'http://localhost:8085/api/rest/challenges/createChallenge';
+const DEFAULT_QUESTION_COUNT = 5;
 
 @Injectable()
 export class QuestionService {
 
-    topics: Topic[] = null;
+    private headers = new HttpHeaders({'Content-Type': 'application/json'});
+    private requestOptions = null;
 
-    constructor(private http: HttpClient) {
+    constructor(private http: HttpClient, private creds: LoginCredentialsService) {
     }
 
-    public generateQuizByTopic(topic: Topic): Observable<Quiz> {
-        return Observable.of(QUIZ);
-    }
+    public generateChallenge(topicId: number, receiverId: number): Observable<any> {
+        const token = this.creds.getToken();
+        let headers = this.headers.append(AUTHORIZATION_HEADER, token.username);
+        headers = this.headers.append(TOKEN_HEADER, token.token);
+        const requestOptions = {headers: this.headers}
 
-    public getQuizById(id: number): Observable<Quiz> {
-        return Observable.of(QUIZ);
+        const userId = this.creds.getUser().id;
+        const requestBody = {
+            topicId: topicId,
+            senderId: userId,
+            receiverIds: [receiverId],
+            numQuestions: DEFAULT_QUESTION_COUNT
+        };
+        return this.http.post(CHALLENGES_URL, requestBody, requestOptions);
     }
 
     public getChallengeById(id: number): Observable<Challenge> {
-        return Observable.of(CHALLENGE);
+        return Observable.empty();
     }
 
     public getAttemptById(id: number): Observable<ChallengeAttempt> {
-        return Observable.of(ATTEMPT);
+        return Observable.empty();
     }
 
     public submitAttempt(completedChallenge: ChallengeAttempt): Observable<ChallengeAttempt> {
-        return Observable.of(ATTEMPT);
+        return Observable.empty();
     }
 
     public submitNewQuestion(newQuestion: Question): Observable<any> {

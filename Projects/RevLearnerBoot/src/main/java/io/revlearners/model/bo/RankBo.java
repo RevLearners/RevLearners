@@ -9,10 +9,10 @@ import java.util.Set;
 
 public class RankBo {
 
-    private Long id;
-    private String name;
+    private Long rankId;
+    private String rankName;
     private Long topicId;
-    private String topic;
+    private String topicName;
     private Long relativeWeight;
     
     public Long getTopicId() {
@@ -23,42 +23,26 @@ public class RankBo {
 		this.topicId = topicId;
 	}
 
-	private Long meritThreshold;
-
-    public String getTopic() {
-		return topic;
-	}
-
-	public void setTopic(String topic) {
-		this.topic = topic;
-	}
+	private Float meritThreshold;
 
     public RankBo() {
     }
 
-    public RankBo(Long id, String name, Long topicId, String topic, Long relativeWeight, Long meritThreshold) {
-    		this.id = id;
-    		this.name = name;
+    public RankBo(Long rankId, String rankName, Long topicId, String topicName, Long relativeWeight, Float meritThreshold) {
+    		this.rankId = rankId;
+    		this.topicName = rankName;
     		this.topicId = topicId;
-    		this.topic = topic;
+    		this.topicName = topicName;
     		this.relativeWeight = relativeWeight;
     		this.meritThreshold = meritThreshold;
 	}
 
-	public Long getId() {
-        return id;
+    public String getTopicName() {
+        return topicName;
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
+    public void setTopicName(String topicName) {
+        this.topicName = topicName;
     }
 
     public Long getRelativeWeight() {
@@ -69,11 +53,27 @@ public class RankBo {
         this.relativeWeight = relativeWeight;
     }
 
-    public Long getMeritThreshold() {
+    public Float getMeritThreshold() {
         return meritThreshold;
     }
 
-    public void setMeritThreshold(Long meritThreshold) {
+    public void setMeritThreshold(Float meritThreshold) {
         this.meritThreshold = meritThreshold;
+    }
+
+    public Long getRankId() {
+        return rankId;
+    }
+
+    public void setRankId(Long rankId) {
+        this.rankId = rankId;
+    }
+
+    public String getRankName() {
+        return rankName;
+    }
+
+    public void setRankName(String rankName) {
+        this.rankName = rankName;
     }
 }

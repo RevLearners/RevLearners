@@ -1,24 +1,24 @@
 <h1>NOT DONE</h1>
 
-<div *ngIf="!chosenChallenger; else forminfo">
+<div *ngIf="!challengeSuccess; else forminfo">
     <form [formGroup]="rForm" (ngSubmit)="addPost(rForm.value)">
         <div class="form-container">
             <div class="row columns">
                 <h1>Create a Challenge!</h1>
                 <div class="form-group">
-                    <label class="control-label"  for="topic">Choose Topic:</label>
+                    <label class="control-label" for="topic">Choose Topic:</label>
                     <br>
-                    <select [(ngModel)]="chosenTopic" class="form-control"  id="topic" formControlName="topic">
+                    <select [(ngModel)]="chosenTopic" class="form-control" id="topic" formControlName="topic">
                         <option *ngFor="let t of topics" [ngValue]="t.id">{{t.topicName}}</option>
                     </select>
                 </div>
 
                 <div class="form-group" *ngIf="chosenTopic">
-                    <label class="control-label"  for="challenger">Choose Challenger:</label>
+                    <label class="control-label" for="challenger">Choose Challenger:</label>
                     <br>
-                    <select [(ngModel)]="chosenChallenger" class="form-control"  id="challenger" formControlName="challengers" placeholder="hey">
+                    <select [(ngModel)]="chosenChallenger" class="form-control" id="challenger" formControlName="challengers">
                         <option *ngFor="let chal of challengers" [ngValue]="chal.id">
-                            {{chal.firstname}} {{chal.lastname}} - {{getRankInTopic(chal).name}}
+                            {{chal.firstName + ' ' + chal.lastName + ' - ' + getRankInTopic(chal)}}
                         </option>
                     </select>
                 </div>

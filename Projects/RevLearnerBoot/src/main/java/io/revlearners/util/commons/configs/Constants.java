@@ -155,83 +155,83 @@ public final class Constants {
 	public static final Long JRANKS_BEGINNER = 1L;
 	public static final String JRANKS_BEGINNER_STR = "Beginner";
 	public static final Long JRANKS_BEGINNER_RANK = 1L;
-	public static final Long JRANKS_BEGINNER_THRESHOLD = 0L;
+	public static final Float JRANKS_BEGINNER_THRESHOLD = 0f;
 	public static final Long JRANKS_INTERMEDIATE = 2L;
 	public static final String JRANKS_INTERMEDIATE_STR = "Intermediate";
 	public static final Long JRANKS_INTERMEDIATE_RANK = 2L;
-	public static final Long JRANKS_INTERMEDIATE_THRESHOLD = 100L;
+	public static final Float JRANKS_INTERMEDIATE_THRESHOLD = 100f;
 	public static final Long JRANKS_EXPERT = 3L;
 	public static final String JRANKS_EXPERT_STR = "Expert";
 	public static final Long JRANKS_EXPERT_RANK = 3L;
-	public static final Long JRANKS_EXPERT_THRESHOLD = 1000L;
+	public static final Float JRANKS_EXPERT_THRESHOLD = 1000f;
 	public static final Long JRANKS_JGURU = 4L;
 	public static final String JRANKS_JGURU_STR = "JGuru";
 	public static final Long JRANKS_JGURU_RANK = 4L;
-	public static final Long JRANKS_JGURU_THRESHOLD = 10000L;
+	public static final Float JRANKS_JGURU_THRESHOLD = 10000f;
 	public static final Long ANG4RANKS_BEGINNER = 5L;
 	public static final String ANG4RANKS_BEGINNER_STR = "Beginner";
 	public static final Long ANG4RANKS_BEGINNER_RANK = 1L;
-	public static final Long ANG4RANKS_BEGINNER_THRESHOLD = 0L;
+	public static final Float ANG4RANKS_BEGINNER_THRESHOLD = 0f;
 	public static final Long ANG4RANKS_INTERMEDIATE = 6L;
 	public static final String ANG4RANKS_INTERMEDIATE_STR = "Intermediate";
 	public static final Long ANG4RANKS_INTERMEDIATE_RANK = 2L;
-	public static final Long ANG4RANKS_INTERMEDIATE_THRESHOLD = 100L;
+	public static final Float ANG4RANKS_INTERMEDIATE_THRESHOLD = 100f;
 	public static final Long ANG4RANKS_EXPERT = 7L;
 	public static final String ANG4RANKS_EXPERT_STR = "Expert";
 	public static final Long ANG4RANKS_EXPERT_RANK = 3L;
-	public static final Long ANG4RANKS_EXPERT_THRESHOLD = 1000L;
+	public static final Float ANG4RANKS_EXPERT_THRESHOLD = 1000f;
 	public static final Long ANG4RANKS_NGACE = 8L;
 	public static final String ANG4RANKS_NGACE_STR = "NgAce";
 	public static final Long ANG4RANKS_NGACE_RANK = 4L;
-	public static final Long ANG4RANKS_NGACE_THRESHOLD = 10000L;
+	public static final Float ANG4RANKS_NGACE_THRESHOLD = 10000f;
 	public static final Long DVOPSRANKS_BEGINNER = 9L;
 	public static final String DVOPSRANKS_BEGINNER_STR = "Beginner";
 	public static final Long DVOPSRANKS_BEGINNER_RANK = 1L;
-	public static final Long DVOPSRANKS_BEGINNER_THRESHOLD = 0L;
+	public static final Float DVOPSRANKS_BEGINNER_THRESHOLD = 0f;
 	public static final Long DVOPSRANKS_INTERMEDIATE = 10L;
 	public static final String DVOPSRANKS_INTERMEDIATE_STR = "Intermediate";
 	public static final Long DVOPSRANKS_INTERMEDIATE_RANK = 2L;
-	public static final Long DVOPSRANKS_INTERMEDIATE_THRESHOLD = 100L;
+	public static final Float DVOPSRANKS_INTERMEDIATE_THRESHOLD = 100f;
 	public static final Long DVOPSRANKS_EXPERT = 11L;
 	public static final String DVOPSRANKS_EXPERT_STR = "Expert";
 	public static final Long DVOPSRANKS_EXPERT_RANK = 3L;
-	public static final Long DVOPSRANKS_EXPERT_THRESHOLD = 1000L;
+	public static final Float DVOPSRANKS_EXPERT_THRESHOLD = 1000f;
 	public static final Long DVOPSRANKS_SCRUM_LORD = 12L;
 	public static final String DVOPSRANKS_SCRUM_LORD_STR = "Scrum Lord";
 	public static final Long DVOPSRANKS_SCRUM_LORD_RANK = 4L;
-	public static final Long DVOPSRANKS_SCRUM_LORD_THRESHOLD = 10000L;
+	public static final Float DVOPSRANKS_SCRUM_LORD_THRESHOLD = 10000f;
 	public static final Long HBMRANKS_BEGINNER = 13L;
 	public static final String HBMRANKS_BEGINNER_STR = "Beginner";
 	public static final Long HBMRANKS_BEGINNER_RANK = 1L;
-	public static final Long HBMRANKS_BEGINNER_THRESHOLD = 0L;
+	public static final Float HBMRANKS_BEGINNER_THRESHOLD = 0f;
 	public static final Long HBMRANKS_INTERMEDIATE = 14L;
 	public static final String HBMRANKS_INTERMEDIATE_STR = "Intermediate";
 	public static final Long HBMRANKS_INTERMEDIATE_RANK = 2L;
-	public static final Long HBMRANKS_INTERMEDIATE_THRESHOLD = 100L;
+	public static final Float HBMRANKS_INTERMEDIATE_THRESHOLD = 100f;
 	public static final Long HBMRANKS_EXPERT = 15L;
 	public static final String HBMRANKS_EXPERT_STR = "Expert";
 	public static final Long HBMRANKS_EXPERT_RANK = 3L;
-	public static final Long HBMRANKS_EXPERT_THRESHOLD = 1000L;
+	public static final Float HBMRANKS_EXPERT_THRESHOLD = 1000f;
 	public static final Long HBMRANKS_HBMASTER = 16L;
 	public static final String HBMRANKS_HBMASTER_STR = "HBMaster";
 	public static final Long HBMRANKS_HBMASTER_RANK = 4L;
-	public static final Long HBMRANKS_HBMASTER_THRESHOLD = 10000L;
+	public static final Float HBMRANKS_HBMASTER_THRESHOLD = 10000f;
 	public static final Long DPRANKS_BEGINNER = 17L;
 	public static final String DPRANKS_BEGINNER_STR = "Beginner";
 	public static final Long DPRANKS_BEGINNER_RANK = 1L;
-	public static final Long DPRANKS_BEGINNER_THRESHOLD = 0L;
+	public static final Float DPRANKS_BEGINNER_THRESHOLD = 0f;
 	public static final Long DPRANKS_INTERMEDIATE = 18L;
 	public static final String DPRANKS_INTERMEDIATE_STR = "Intermediate";
-	public static final Long DPRANKS_INTERMEDIATE_THRESHOLD = 100L;
+	public static final Float DPRANKS_INTERMEDIATE_THRESHOLD = 100f;
 	public static final Long DPRANKS_INTERMEDIATE_RANK = 2L;
 	public static final Long DPRANKS_EXPERT = 19L;
 	public static final String DPRANKS_EXPERT_STR = "Expert";
 	public static final Long DPRANKS_EXPERT_RANK = 3L;
-	public static final Long DPRANKS_EXPERT_THRESHOLD = 1000L;
+	public static final Float DPRANKS_EXPERT_THRESHOLD = 1000f;
 	public static final Long DPRANKS_MASTER = 20L;
 	public static final String DPRANKS_MASTER_STR = "GoF King";
 	public static final Long DPRANKS_MASTER_RANK = 4L;
-	public static final Long DPRANKS_MASTER_THRESHOLD = 10000L;
+	public static final Float DPRANKS_MASTER_THRESHOLD = 10000f;
 
 	public static final Long QREASON_WRONG = 1L;
 	public static final String QREASON_WRONG_STR = "The question is wrong";
@@ -396,7 +396,7 @@ public final class Constants {
 				new Rank(JRANKS_EXPERT, JRANKS_EXPERT_STR, JRANKS_EXPERT_RANK, JRANKS_EXPERT_THRESHOLD));
 		javaRanks.put(JRANKS_JGURU,
 				new Rank(JRANKS_JGURU, JRANKS_JGURU_STR, JRANKS_JGURU_RANK, JRANKS_JGURU_THRESHOLD));
-		
+
 		angular4Ranks.put(ANG4RANKS_BEGINNER, new Rank(ANG4RANKS_BEGINNER, ANG4RANKS_BEGINNER_STR,
 				ANG4RANKS_BEGINNER_RANK, ANG4RANKS_BEGINNER_THRESHOLD));
 		angular4Ranks.put(ANG4RANKS_INTERMEDIATE, new Rank(ANG4RANKS_INTERMEDIATE, ANG4RANKS_INTERMEDIATE_STR,
@@ -585,7 +585,32 @@ public final class Constants {
 		for(Rank r : javaRanks.values()) {
 			r.setTopic(topics.get(TOPIC_CORE_JAVA));
 		}
-		
+
+		topics.put(TOPIC_HIBERNATE,
+				new Topic(TOPIC_HIBERNATE, TOPIC_HIBERNATE_STR, new HashSet<Rank>(hibernateRanks.values())));
+		for(Rank r : hibernateRanks.values()) {
+			r.setTopic(topics.get(TOPIC_HIBERNATE));
+		}
+
+		topics.put(TOPIC_ANGULAR4,
+				new Topic(TOPIC_ANGULAR4, TOPIC_ANGULAR4_STR, new HashSet<Rank>(angular4Ranks.values())));
+		for(Rank r : angular4Ranks.values()) {
+			r.setTopic(topics.get(TOPIC_ANGULAR4));
+		}
+
+		topics.put(TOPIC_DEVOPS,
+				new Topic(TOPIC_DEVOPS, TOPIC_DEVOPS_STR, new HashSet<Rank>(devOpsRanks.values())));
+		for(Rank r : devOpsRanks.values()) {
+			r.setTopic(topics.get(TOPIC_DEVOPS));
+		}
+
+		topics.put(TOPIC_DESIGN_PATTERNS, new Topic(TOPIC_DESIGN_PATTERNS, TOPIC_DESIGN_PATTERNS_STR,
+				new HashSet<Rank>(designPatternRanks.values())));
+		for(Rank r : designPatternRanks.values()) {
+			r.setTopic(topics.get(TOPIC_DESIGN_PATTERNS));
+		}
+
+		/*
 		topics.put(TOPIC_J2EE, new Topic(TOPIC_J2EE, TOPIC_J2EE_STR, new HashSet<Rank>(j2eeRanks.values())));
 		for(Rank r : j2eeRanks.values()) {
 			r.setTopic(topics.get(TOPIC_J2EE));
@@ -595,13 +620,7 @@ public final class Constants {
 		for(Rank r : jtaRanks.values()) {
 			r.setTopic(topics.get(TOPIC_JTA));
 		}
-		
-		topics.put(TOPIC_HIBERNATE,
-				new Topic(TOPIC_HIBERNATE, TOPIC_HIBERNATE_STR, new HashSet<Rank>(hibernateRanks.values())));
-		for(Rank r : hibernateRanks.values()) {
-			r.setTopic(topics.get(TOPIC_HIBERNATE));
-		}
-		
+
 		topics.put(TOPIC_JPA, new Topic(TOPIC_JPA, TOPIC_JPA_STR, new HashSet<Rank>(jpaRanks.values())));
 		for(Rank r : jpaRanks.values()) {
 			r.setTopic(topics.get(TOPIC_JPA));
@@ -652,30 +671,12 @@ public final class Constants {
 			r.setTopic(topics.get(TOPIC_ANGULARJS));
 		}
 		
-		topics.put(TOPIC_ANGULAR4,
-				new Topic(TOPIC_ANGULAR4, TOPIC_ANGULAR4_STR, new HashSet<Rank>(angular4Ranks.values())));
-		for(Rank r : angular4Ranks.values()) {
-			r.setTopic(topics.get(TOPIC_ANGULAR4));
-		}
-		
-		topics.put(TOPIC_DEVOPS,
-				new Topic(TOPIC_DEVOPS, TOPIC_DEVOPS_STR, new HashSet<Rank>(devOpsRanks.values())));
-		for(Rank r : devOpsRanks.values()) {
-			r.setTopic(topics.get(TOPIC_DEVOPS));
-		}
-		
 		topics.put(TOPIC_MICROSERVICES,
 				new Topic(TOPIC_MICROSERVICES, TOPIC_MICROSERVICES_STR, new HashSet<Rank>(microsRanks.values())));
 		for(Rank r : microsRanks.values()) {
 			r.setTopic(topics.get(TOPIC_MICROSERVICES));
 		}
-		
-		topics.put(TOPIC_DESIGN_PATTERNS, new Topic(TOPIC_DESIGN_PATTERNS, TOPIC_DESIGN_PATTERNS_STR,
-				new HashSet<Rank>(designPatternRanks.values())));
-		for(Rank r : designPatternRanks.values()) {
-			r.setTopic(topics.get(TOPIC_DESIGN_PATTERNS));
-		}		
-
+        */
 		questionReasons.put(QREASON_WRONG, new Reason(QREASON_WRONG, QREASON_WRONG_STR, "Todo: insert description",
 				new ReasonType(REASON_TYPE_QUESTION)));
 		questionReasons.put(QREASON_OFF_TOPIC, new Reason(QREASON_OFF_TOPIC, QREASON_OFF_TOPIC_STR,

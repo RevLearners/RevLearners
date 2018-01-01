@@ -20,6 +20,7 @@ public class UserRankModelMapper extends ConverterConfigurerSupport<UserRank, Us
                         source.getRank().getId(),
                         source.getRank().getName(),
                         source.getMerit(),
+                        source.getRank().getMeritThreshold(),
                         source.getRank().getTopic().getId(),
                         source.getRank().getTopic().getTopicName()
                 );

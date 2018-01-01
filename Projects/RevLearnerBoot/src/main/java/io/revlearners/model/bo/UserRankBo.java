@@ -5,16 +5,19 @@ public class UserRankBo {
 	private String rankName;
 	private Long rankId;
 	private Float merit;
+    private Float threshold;
 	private String topicName;
 	private Long topicId;
 	
 	public UserRankBo() {
 	}
 
-	public UserRankBo(Long id, String name, Float merit, Long topicId, String topicName) {
+	public UserRankBo(Long id, String name, Float merit, Float threshold,
+                      Long topicId, String topicName) {
 		this.rankName = name;
 		this.rankId = id;
 		this.merit = merit;
+		this.threshold = threshold;
 		this.topicName = topicName;
 		this.topicId = topicId;
 	}
@@ -59,4 +62,11 @@ public class UserRankBo {
 		this.merit = merit;
 	}
 
+    public Float getThreshold() {
+        return threshold;
+    }
+
+    public void setThreshold(Float threshold) {
+        this.threshold = threshold;
+    }
 }

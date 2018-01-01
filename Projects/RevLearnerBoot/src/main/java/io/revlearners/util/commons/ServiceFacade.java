@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import io.revlearners.model.bo.*;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -29,17 +30,6 @@ import io.revlearners.model.bean.ReportUser;
 import io.revlearners.model.bean.Topic;
 import io.revlearners.model.bean.User;
 import io.revlearners.model.bean.UserRole;
-import io.revlearners.model.bo.ChallengeAttemptBo2;
-import io.revlearners.model.bo.ChallengeInfoBo;
-import io.revlearners.model.bo.FileBlobBo;
-import io.revlearners.model.bo.MessageBo;
-import io.revlearners.model.bo.NotificationBo;
-import io.revlearners.model.bo.RankBo;
-import io.revlearners.model.bo.ReportQuestionBo;
-import io.revlearners.model.bo.ReportUserBo;
-import io.revlearners.model.bo.TopicBo;
-import io.revlearners.model.bo.UserBo;
-import io.revlearners.model.bo.UserRoleBo;
 import io.revlearners.model.mapper.customConverters.MessageModelMapper;
 import io.revlearners.model.services.EmailService;
 import io.revlearners.model.services.interfaces.IChallengeService;
@@ -80,7 +70,7 @@ public class ServiceFacade implements IServiceFacade {
 
 	@Autowired
 	private IUserRankService userRankService;
-	
+
 	@Autowired
 	private IUserRoleService userRoleService;
 
@@ -147,7 +137,7 @@ public class ServiceFacade implements IServiceFacade {
 		Rank rank = rankService.findOne(id);
 		return modelMapper.map(rank, RankBo.class);
 	}
-	
+
 
 	@Override
 	public List<RankBo> listRanks() {
@@ -182,13 +172,13 @@ public class ServiceFacade implements IServiceFacade {
 	public void deleteRankById(Serializable id) {
 		// rankService.deleteById(id);
 	}
-	
+
 	@Override
 	public UserRoleBo getRoleById(Serializable id) {
 		UserRole role = userRoleService.findOne(id);
 		return modelMapper.map(role, UserRoleBo.class);
 	};
-	
+
 	@Override
 	public List<UserRoleBo> listRoles() {
 		List<UserRole> roles = userRoleService.findAll();
@@ -198,9 +188,9 @@ public class ServiceFacade implements IServiceFacade {
 		}
 		return roleDTOs;
 	}
-	
-	
-	
+
+
+
 
 	@Override
 	public UserBo getUserById(Serializable id) {
@@ -226,6 +216,7 @@ public class ServiceFacade implements IServiceFacade {
 
     /**
      * returns null if user does not exist
+     * throws AuthenticationException
      *
      * @param username
      * @param password
@@ -233,8 +224,11 @@ public class ServiceFacade implements IServiceFacade {
      * @return
      */
 	@Override
-	public String login(String username, String password, Device device) {
-		return userService.login(username, password, device);
+	public LoginInfoBo login(String username, String password, Device device) {
+		MPair<User, String> info = userService.login(username, password, device);
+		User user = info.getFirst();
+		String token = info.getSecond();
+		return new LoginInfoBo(modelMapper.map(user, UserBo.class), token);
 	}
 
 	@Override
@@ -312,7 +306,7 @@ public class ServiceFacade implements IServiceFacade {
 		if (ids.contains(user.getId()))
 			receivers.add(user);
 	}
-	
+
 	@Override
 	public void updateMessage(MessageBo message) {
 	}
@@ -531,7 +525,7 @@ public class ServiceFacade implements IServiceFacade {
 	public String verifyUser(String token, Device device) {
 		return userService.verify(token, device);
 	}
-	
-	
-	
+
+
+
 }
