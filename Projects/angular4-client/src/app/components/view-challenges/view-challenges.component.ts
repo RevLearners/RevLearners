@@ -25,6 +25,7 @@ import {AUTHORIZATION_HEADER, TOKEN_HEADER} from '../../model/session-token';
   styleUrls: ['./view-challenges.component.css']
 })
 export class ViewChallengesComponent implements OnInit {
+  
   chall: Challenge;
   quiz: Quiz;  
   user: User;

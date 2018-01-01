@@ -28,6 +28,7 @@ import io.revlearners.model.bean.ReportQuestion;
 import io.revlearners.model.bean.ReportUser;
 import io.revlearners.model.bean.Topic;
 import io.revlearners.model.bean.User;
+import io.revlearners.model.bean.UserRole;
 import io.revlearners.model.bo.ChallengeAttemptBo2;
 import io.revlearners.model.bo.ChallengeInfoBo;
 import io.revlearners.model.bo.FileBlobBo;
@@ -38,6 +39,7 @@ import io.revlearners.model.bo.ReportQuestionBo;
 import io.revlearners.model.bo.ReportUserBo;
 import io.revlearners.model.bo.TopicBo;
 import io.revlearners.model.bo.UserBo;
+import io.revlearners.model.bo.UserRoleBo;
 import io.revlearners.model.mapper.customConverters.MessageModelMapper;
 import io.revlearners.model.services.EmailService;
 import io.revlearners.model.services.interfaces.IChallengeService;
@@ -50,6 +52,7 @@ import io.revlearners.model.services.interfaces.IReportUserService;
 import io.revlearners.model.services.interfaces.ITopicService;
 import io.revlearners.model.services.interfaces.IUserCertificationService;
 import io.revlearners.model.services.interfaces.IUserRankService;
+import io.revlearners.model.services.interfaces.IUserRoleService;
 import io.revlearners.model.services.interfaces.IUserService;
 import io.revlearners.util.commons.configs.Constants;
 import io.revlearners.util.commons.interfaces.IServiceFacade;
@@ -77,6 +80,9 @@ public class ServiceFacade implements IServiceFacade {
 
 	@Autowired
 	private IUserRankService userRankService;
+	
+	@Autowired
+	private IUserRoleService userRoleService;
 
 	@Autowired
 	private IUserCertificationService userCertificationService;
@@ -141,6 +147,7 @@ public class ServiceFacade implements IServiceFacade {
 		Rank rank = rankService.findOne(id);
 		return modelMapper.map(rank, RankBo.class);
 	}
+	
 
 	@Override
 	public List<RankBo> listRanks() {
@@ -175,6 +182,25 @@ public class ServiceFacade implements IServiceFacade {
 	public void deleteRankById(Serializable id) {
 		// rankService.deleteById(id);
 	}
+	
+	@Override
+	public UserRoleBo getRoleById(Serializable id) {
+		UserRole role = userRoleService.findOne(id);
+		return modelMapper.map(role, UserRoleBo.class);
+	};
+	
+	@Override
+	public List<UserRoleBo> listRoles() {
+		List<UserRole> roles = userRoleService.findAll();
+		List<UserRoleBo> roleDTOs = new LinkedList<>();
+		for (UserRole t : roles) {
+			roleDTOs.add(modelMapper.map(t, UserRoleBo.class));
+		}
+		return roleDTOs;
+	}
+	
+	
+	
 
 	@Override
 	public UserBo getUserById(Serializable id) {
@@ -497,4 +523,7 @@ public class ServiceFacade implements IServiceFacade {
 	public String verifyUser(String token, Device device) {
 		return userService.verify(token, device);
 	}
+	
+	
+	
 }
