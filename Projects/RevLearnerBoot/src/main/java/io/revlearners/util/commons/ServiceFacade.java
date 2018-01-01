@@ -178,13 +178,7 @@ public class ServiceFacade implements IServiceFacade {
 		UserRole role = userRoleService.findOne(id);
 		return modelMapper.map(role, UserRoleBo.class);
 	};
-<<<<<<< HEAD
-	
-	
-	
-	
-	
-	
+
 	@Override
 	public UserRoleBo getRoleByUserId(Serializable userId) {
 		User user = modelMapper.map(getUserById(userId), User.class);
@@ -192,14 +186,6 @@ public class ServiceFacade implements IServiceFacade {
 		return modelMapper.map(role, UserRoleBo.class);
 	};
 
-		
-
-	
-	
-	
-=======
-
->>>>>>> c65a801c93516d2dfefddaabc0c79c8f5fa1170e
 	@Override
 	public List<UserRoleBo> listRoles() {
 		List<UserRole> roles = userRoleService.findAll();
@@ -209,9 +195,6 @@ public class ServiceFacade implements IServiceFacade {
 		}
 		return roleDTOs;
 	}
-
-
-
 
 	@Override
 	public UserBo getUserById(Serializable id) {
