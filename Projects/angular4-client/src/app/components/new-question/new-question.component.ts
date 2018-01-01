@@ -47,7 +47,7 @@ export class NewQuestionComponent implements OnInit {
         this.questionService.submitNewQuestion(this.newQuestion).subscribe(
             console.log,
             console.log,
-            () => this.router.navigate(['/home'])
+            () => this.router.navigate(['/profile'])
         );
     }
 

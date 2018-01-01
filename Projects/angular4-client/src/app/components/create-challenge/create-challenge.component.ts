@@ -70,7 +70,7 @@ export class CreateChallengeComponent implements OnInit {
     }
 
     getRankInTopic(challenger: any): string {
-        for (const rank: Rank of challenger.ranks) {
+        for(const rank of challenger.ranks) {
             if (rank.topicId == this.chosenTopic)
                 return rank.rankName;
         }
