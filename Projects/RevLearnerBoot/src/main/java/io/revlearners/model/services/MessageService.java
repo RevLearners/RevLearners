@@ -21,7 +21,7 @@ public class MessageService extends CrudService<Message> implements IMessageServ
 	public MessageStatus findOneStatus(Serializable id) {
 		return msgRepo.findOne(id);
 	}
-
+	
 	@Override
 	public void updateStatus(List<Message> messages) {
 		for(Message m : messages) {

@@ -62,8 +62,8 @@ public interface IServiceFacade {
 	List<MessageBo> listMessages();
 
 	Page<MessageBo> pageMessages(int page, int size);
-
-	void createMessage(MessageBo message);
+	
+	void createMessages();
 
 	void updateMessage(MessageBo message);
 	
@@ -75,6 +75,8 @@ public interface IServiceFacade {
 	NotificationBo getNotificationById(Serializable id);
 
 	List<NotificationBo> listNotifications();
+	
+	void createNotifications(List<NotificationBo> notification);
 
 	Page<NotificationBo> pageNotifications(int page, int size);
 
