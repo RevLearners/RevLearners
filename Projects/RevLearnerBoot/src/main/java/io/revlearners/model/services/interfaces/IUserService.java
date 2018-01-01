@@ -1,5 +1,6 @@
 package io.revlearners.model.services.interfaces;
 
+import io.revlearners.model.bo.MPair;
 import org.springframework.mobile.device.Device;
 
 import io.revlearners.model.bean.User;
@@ -9,7 +10,7 @@ public interface IUserService extends ICrudService<User> {
 
 	public String register(UserBo user, Device device);
 
-	public String login(String username, String password, Device device);
+	public MPair<User, String> login(String username, String password, Device device);
 
 	public String tryRefresh(String token);
 

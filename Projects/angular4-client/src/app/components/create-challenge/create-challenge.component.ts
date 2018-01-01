@@ -1,6 +1,8 @@
-import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { BackendService } from '../../services/backend.service';
+import {Component, OnInit} from '@angular/core';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {BackendService} from '../../services/backend.service';
+import {Rank} from "../../model/rank";
+import {QuestionService} from "../../services/question.service";
 
 @Component({
     selector: 'app-create-challenge',
@@ -8,46 +10,41 @@ import { BackendService } from '../../services/backend.service';
     styleUrls: ['./create-challenge.component.css'],
 })
 
-export class CreateChallengeComponent {
+export class CreateChallengeComponent implements OnInit {
 
     rForm: FormGroup;
-    chosenTopic: String = '';
-    chosenChallenger: String = '';
+    chosenTopic: number;
+    chosenChallenger: number;
+    challengeSuccess: boolean;
     //Temporary Table of Topics
-    public topics = [
-        "Java",
-        "SQL",
-        "HTML/CSS",
-        "JavaScript",
-        'Hibernate',
-        "DevOps",
-    ]
+    public topics = [];
 
     //Temporary Table of Challengers
-    public challengers = [
-        { rank: 122, name: 'Xavier' },
-        { rank: 123, name: 'Bobbert' },
-        { rank: 124, name: 'Caleb' },
-        { rank: 125, name: 'Matt' },
-        { rank: 126, name: 'Sean' },
-        { rank: 123, name: 'Bobbert' }
-    ]
+    public challengers = [];
 
-    constructor(private fb: FormBuilder, private dataservice: BackendService) {
+    constructor(private fb: FormBuilder, private dataService: BackendService, private questionService: QuestionService) {
         this.rForm = fb.group({
             'topic': [null, Validators.required],
             'challengers': [null, Validators.required],
             'validate': ''
         });
-
     }
 
-    ngOnInit(){
-        this.dataservice.getUsers().subscribe(
-            (data: any) =>{
+    ngOnInit() {
+        this.dataService.getUsers().subscribe(
+            (data: any) => {
                 this.challengers = data;
-                console.log("Data: " + data);
-            }
+                console.log("challengers: ", data);
+            },
+            console.log
+        );
+        this.dataService.getTopics().subscribe(
+            (topics: any[]) => {
+                console.log(" ====== topics =======");
+                console.log(topics);
+                this.topics = topics;
+            },
+            console.log
         )
     }
 
@@ -55,9 +52,28 @@ export class CreateChallengeComponent {
         console.log(post.challengers);
         this.chosenChallenger = post.challengers;
         this.chosenTopic = post.topic;
+        if (!this.chosenChallenger || !this.chosenTopic) {
+            return
+        }
+        this.challengeSuccess = true;
+        this.questionService.generateChallenge(this.chosenTopic, this.chosenChallenger).subscribe(
+            (challenge) => {
+                console.log("generated challenge", challenge)
+            },
+            console.log
+        );
     }
 
     resetForm() {
-        this.chosenChallenger = '';
+        this.chosenChallenger = null;
+        this.challengeSuccess = false;
+    }
+
+    getRankInTopic(challenger: any): string {
+        for (const rank: Rank of challenger.ranks) {
+            if (rank.topicId == this.chosenTopic)
+                return rank.rankName;
+        }
+        return null;
     }
 }

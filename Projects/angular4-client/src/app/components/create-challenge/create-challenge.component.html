@@ -1,26 +1,27 @@
 <h1>NOT DONE</h1>
 
-<div *ngIf="!chosenChallenger; else forminfo">
+<div *ngIf="!challengeSuccess; else forminfo">
     <form [formGroup]="rForm" (ngSubmit)="addPost(rForm.value)">
         <div class="form-container">
             <div class="row columns">
                 <h1>Create a Challenge!</h1>
-                <label>Choose Topic:</label>
-                <br>
-                <select formControlName="topic" style="width: 20%; height: 5%">
-                    <option *ngFor="let t of topics">
-                        {{t}}
-                    </option>
-                </select>
-                <br>
+                <div class="form-group">
+                    <label class="control-label" for="topic">Choose Topic:</label>
+                    <br>
+                    <select [(ngModel)]="chosenTopic" class="form-control" id="topic" formControlName="topic">
+                        <option *ngFor="let t of topics" [ngValue]="t.id">{{t.topicName}}</option>
+                    </select>
+                </div>
 
-                <label>Choose Challenger:</label>
-                <br>
-                <select formControlName="challengers" style="width: 40%; height: 5%">
-                    <option *ngFor="let u of challengers">
-                        Rank: {{u.rank}} Name: {{u.name}}
-                    </option>
-                </select>
+                <div class="form-group" *ngIf="chosenTopic">
+                    <label class="control-label" for="challenger">Choose Challenger:</label>
+                    <br>
+                    <select [(ngModel)]="chosenChallenger" class="form-control" id="challenger" formControlName="challengers">
+                        <option *ngFor="let chal of challengers" [ngValue]="chal.id">
+                            {{chal.firstName + ' ' + chal.lastName + ' - ' + getRankInTopic(chal)}}
+                        </option>
+                    </select>
+                </div>
 
 
                 <input type="submit" class="button expanded" value="Start Challenge!" [disabled]="!rForm.valid">
@@ -30,11 +31,11 @@
 </div>
 
 <ng-template #forminfo>
-        <div class="form-container">
-          <div class="row columns">
+    <div class="form-container">
+        <div class="row columns">
             <h1>Challenge set!</h1>
             <h4>You've sent a challenge to {{chosenChallenger}} on {{chosenTopic}}!</h4>
             <button class="button" type="button" (click)="resetForm()">Send Another.</button>
-          </div>
         </div>
-      </ng-template>
+    </div>
+</ng-template>

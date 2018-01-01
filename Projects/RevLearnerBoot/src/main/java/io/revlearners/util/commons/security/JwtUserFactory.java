@@ -23,7 +23,7 @@ public final class JwtUserFactory {
 	}
 
 	private static boolean isEnabled(UserBo user) {
-		return user.getStatId().equals(Constants.STATUS_OK);
+		return user.getStatus().getId().equals(Constants.STATUS_OK);
 	}
 
 	// special permissions granted to user

@@ -4,6 +4,7 @@ import java.time.ZoneId;
 import java.util.Date;
 import java.util.HashSet;
 
+import io.revlearners.model.bo.MPair;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mobile.device.Device;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -58,23 +59,25 @@ public class UserService extends CrudService<User> implements UserDetailsService
 	PasswordEncoder encoder;
 
 	private UserDetails ud;
+	private User user;
 
 	private static final String USER_NOT_FOUND = "Invalid username";
 
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		User userDao = userRepo.findByUsername(username);
-		UserBo user = modelMapper.map(userDao, UserBo.class);
-		if (user == null)
+		if (userDao == null)
 			throw new UsernameNotFoundException(USER_NOT_FOUND);
+
+		this.user = userDao;
+        UserBo user = modelMapper.map(userDao, UserBo.class);
 		ud = JwtUserFactory.create(user);
 		return ud;
 	}
 
 	public String register(UserBo user, Device device) {
-
 		UserStatus stat = statRepo.findOne(Constants.STATUS_PENDING);
-		UserRole role = roleRepo.findOne(user.getRoleId());
+		UserRole role = roleRepo.findOne(user.getRole().getId());
 		String pass = encoder.encode(user.getPassword());
 
 		User userEntity = new User(user.getFirstName(), user.getMiddleName(), user.getLastName(), stat, role,
@@ -91,7 +94,7 @@ public class UserService extends CrudService<User> implements UserDetailsService
 	}
 
 	@Override
-	public String login(String username, String password, Device device) {
+	public MPair<User, String> login(String username, String password, Device device) {
 		// Perform the security
 		final Authentication authentication = authenticationManager
 				.authenticate(new UsernamePasswordAuthenticationToken(username, password));
@@ -99,11 +102,11 @@ public class UserService extends CrudService<User> implements UserDetailsService
 
 		// Load only once thanks to cached details
 		final UserDetails userDetails = ud;
-
 		// userDetailsService.loadUserByUsername(username);
 
 		// return token
-		return jwtTokenUtil.generateToken(userDetails, device);
+		String token = jwtTokenUtil.generateToken(userDetails, device);
+		return new MPair<>(this.user, token);
 	}
 
 	@Override

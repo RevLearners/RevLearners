@@ -1,3 +1,7 @@
+<div *ngIf="error">
+    <h3 class="alert-danger row column" *ngIf="error">Login Failed. Try Again.</h3>
+</div>
+
 <div *ngIf="true; else forminfo">
     <!--   <form (ngSubmit)="login()"> -->
     <div class="form-container">
@@ -49,3 +53,4 @@
     </ng-template>
 
 </ng-template>
+

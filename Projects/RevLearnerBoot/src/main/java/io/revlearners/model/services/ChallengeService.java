@@ -141,6 +141,9 @@ public class ChallengeService extends CrudService<Question> implements IChalleng
                     u.setId(id);
                     return u;
                 }).collect(Collectors.toSet());
+        User sender = new User();
+        sender.setId(info.getSenderId());
+        users.add(new User());
 
         Challenge challenge = new Challenge(quiz, users);
         return challengeRepo.saveAndFlush(challenge);
