@@ -33,21 +33,23 @@ export class NavbarComponent{
 constructor(private http: HttpClient, private validate:LoginCredentialsService) { }
 
   ngOnInit() {
-    this.user = this.validate.getUser();
-    this.token = this.validate.getToken();
-    this.headers = this.headers.append(AUTHORIZATION_HEADER, this.token.username);
-    this.headers = this.headers.append(TOKEN_HEADER, this.token.token);
-    // this.role = 
-      
+    }
+
+    public appendHeaders() {
+        this.user = this.validate.getUser();
+        this.token = this.validate.getToken();
+        this.headers = this.headers.append(AUTHORIZATION_HEADER, this.token.username);
+        this.headers = this.headers.append(TOKEN_HEADER, this.token.token);
+        this.invokeMonitors();
+    }
+
+    public invokeMonitors() {
     // notificationCount = fetchNoteCount().
     }
     
     
 //    fetchNoteCount() {
 //      let url = `http://localhost:4200/api/rest/notifications/getByUserId/${this.user.id}/`;
-
-  
-  
 }
 
 
@@ -70,3 +72,7 @@ constructor(private http: HttpClient, private validate:LoginCredentialsService) 
 //    doSomething();
 //    }
 //  );
+
+/**
+ * appendHeaders
+ */
