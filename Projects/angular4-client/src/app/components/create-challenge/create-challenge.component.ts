@@ -1,7 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {BackendService} from '../../services/backend.service';
-import {User} from "../../model/user";
 import {Rank} from "../../model/rank";
 
 @Component({

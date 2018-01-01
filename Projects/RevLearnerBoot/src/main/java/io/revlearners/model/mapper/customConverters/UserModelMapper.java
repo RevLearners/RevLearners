@@ -25,6 +25,7 @@ import io.revlearners.model.bean.UserRank;
 import io.revlearners.model.bo.CertificationBo;
 import io.revlearners.model.bo.ChallengeAttemptBo;
 import io.revlearners.model.bo.ChallengeBo;
+import io.revlearners.model.bo.FriendBo;
 import io.revlearners.model.bo.RankBo;
 import io.revlearners.model.bo.UserBo;
 import io.revlearners.model.bo.UserCertificationBo;
@@ -99,10 +100,13 @@ public class UserModelMapper extends ConverterConfigurerSupport<User, UserBo> {
 				}
 
 			// we must manually create users
-			Set<Long> friends = new LinkedHashSet<Long>();
+			Set<FriendBo> friends = new LinkedHashSet<FriendBo>();
 			if (user.getFriends() != null)
 				for (User u : user.getFriends()) {
-					u.getId();
+					Set<User> mutuals = u.getFriends();
+					mutuals.retainAll(user.getFriends());
+					
+					friends.add(new FriendBo(u.getId(), u.getUsername(), mutuals.size()));
 				}
 
 			permissions.add(user.getRole().getName());

@@ -1,3 +1,20 @@
 <p>
-  notifications works!
+  Notifications:
 </p>
+
+<table border = "2px">
+    <tr>
+        <th>Title</th>
+        <th>Content</th>
+        <th>Time</th>
+        <th>Sender</th>
+        <th>Status</th>
+    </tr>
+    <tr *ngFor="let note of fetchUserNotes()">
+        <td>{{note.title}}</td>
+        <td>{{note.content}}</td>
+        <td>{{note.time}}</td>
+		<td>{{note.sender}}</td>
+		<td>{{note.status}}</td>
+    </tr>
+</table>

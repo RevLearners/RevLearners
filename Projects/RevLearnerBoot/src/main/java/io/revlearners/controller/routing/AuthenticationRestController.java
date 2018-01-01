@@ -6,6 +6,7 @@ import io.revlearners.util.commons.configs.Constants;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.mobile.device.Device;
 import org.springframework.security.core.AuthenticationException;
@@ -54,11 +55,16 @@ public class AuthenticationRestController extends WebServicesController {
 	@RequestMapping(value = "${jwt.route.authentication.path}", method = RequestMethod.POST)
 	public ResponseEntity<?> createAuthenticationToken(@RequestBody JwtAuthenticationRequest authenticationRequest,
 			Device device) throws AuthenticationException {
-		String token;
+	    try {
+            String token;
 
-		token = serviceFacade.login(authenticationRequest.getUsername(), authenticationRequest.getPassword(), device);
+            token = serviceFacade.login(authenticationRequest.getUsername(), authenticationRequest.getPassword(), device);
 
-		return ResponseEntity.ok(new JwtAuthenticationResponse(token));
+            return ResponseEntity.ok(new JwtAuthenticationResponse(token));
+        }
+        catch(AuthenticationException e) {
+	        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Login Failed!");
+        }
 	}
 
 	@RequestMapping(value = "${jwt.route.authentication.refresh}", method = RequestMethod.GET)
