@@ -46,6 +46,7 @@ export class CreateChallengeComponent {
         this.dataservice.getUsers().subscribe(
             (data: any) =>{
                 this.challengers = data;
+                console.log("Data: " + data);
             }
         )
     }
