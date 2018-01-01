@@ -3,7 +3,6 @@ import {Component, OnInit} from '@angular/core';
 import {User} from '../../model/user';
 import {Role} from '../../model/role';
 import {LoginCredentialsService} from '../../services/login-credentials.service';
-import {Observable} from 'rxjs/Rx';
 
 import {SessionToken} from '../../model/session-token';
 import {HttpHeaders} from '@angular/common/http';
@@ -62,7 +61,6 @@ export class NavbarComponent implements OnInit {
             }
         )
     }
-
 
 }
 

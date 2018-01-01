@@ -179,6 +179,7 @@ public class ServiceFacade implements IServiceFacade {
 		return modelMapper.map(role, UserRoleBo.class);
 	};
 
+	
 	@Override
 	public UserRoleBo getRoleByUserId(Serializable userId) {
 		User user = modelMapper.map(getUserById(userId), User.class);
@@ -195,6 +196,9 @@ public class ServiceFacade implements IServiceFacade {
 		}
 		return roleDTOs;
 	}
+
+
+
 
 	@Override
 	public UserBo getUserById(Serializable id) {
