@@ -1,5 +1,5 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import {Injectable, OnInit} from '@angular/core';
 
 import {Rank} from '../model/rank';
 import {User} from '../model/user';
@@ -12,13 +12,13 @@ import {AUTHORIZATION_HEADER, TOKEN_HEADER} from '../model/session-token';
 export const backendUrl = 'http://localhost:8085/RevLearners';
 
 @Injectable()
-export class BackendService {
+export class BackendService implements OnInit{
     public rankId;
     public rank: Rank = new Rank(0, 0, "", 0, null);
     ranks: Rank[];
     user: User;
     token: SessionToken = null;
-    
+
     private headers = new HttpHeaders({'Content-Type': 'application/json'});
 
     constructor(private http: HttpClient, private validate: LoginCredentialsService) {

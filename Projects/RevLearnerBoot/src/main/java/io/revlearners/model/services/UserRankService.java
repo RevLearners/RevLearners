@@ -12,13 +12,15 @@ import io.revlearners.model.bean.UserRank;
 import io.revlearners.model.services.interfaces.IUserRankService;
 
 import java.util.Optional;
-import java.util.Set;
 
 @Service
 public class UserRankService extends CrudService<UserRank> implements IUserRankService {
 
     @Autowired
     IUserRankRepository userRankRepo;
+
+    @Autowired
+    IUserRepository userRepo;
 
     /**
      * assumes user is a managed entity, and thus all the accesses will
@@ -29,8 +31,18 @@ public class UserRankService extends CrudService<UserRank> implements IUserRankS
      * @param user
      */
     private void applyMeritPoints(Float increment, Topic topic, User user) {
-        Set<UserRank> userRanks = user.getRanks();
+        UserRank rankInTopic = getUserRankForTopic(user, topic);
+        rankInTopic.setMerit(rankInTopic.getMerit() + increment);
+        float overflow = rankInTopic.getMerit() - rankInTopic.getRank().getMeritThreshold();
 
+        // advance to user to next rank if merit rank exceeds threshold
+        if (overflow > 0) {
+            Rank nextRankInTopic = getNextUserRank(user, topic);
+            UserRank nextUserRank = new UserRank(user, nextRankInTopic, overflow);
+            user.getRanks().remove(rankInTopic);
+            user.getRanks().add(nextUserRank);
+            userRepo.save(user);    // update the ranks
+        }
     }
 
     /**
@@ -59,28 +71,24 @@ public class UserRankService extends CrudService<UserRank> implements IUserRankS
      * @param topic
      * @return
      */
-    /*
     private Rank getNextUserRank(User user, Topic topic) {
+        Rank currRank = getUserRankForTopic(user, topic).getRank();
+
+        // get max rank for topic
         Optional<Rank> potMax = topic.getRanks().stream().max((a, b) -> (int)(a.getRelativeWeight() - b.getRelativeWeight()));
         if (!potMax.isPresent())
             return null;
-
         Rank maxRank = potMax.get();
-        Rank currRank = getUserRankForTopic(user, topic).getRank();
-
-        if (currRank.getRank().getRelativeWeight() >= maxRank.getRelativeWeight() - 1)    // assumed that it cannot be greater of less than
+        // if we're already at max rank don't bother
+        if (currRank.getRelativeWeight() >= maxRank.getRelativeWeight() - 1)    // assumed that it cannot be greater of less than this
             return maxRank;
 
+        long nextRelWeight = currRank.getRelativeWeight() + 1;
         for (Rank rank : topic.getRanks()) {
-            if (rank.getTopic().getId().equals(topic.getId()) && rank.getRelativeWeight().equals(currRank.getRank().getRelativeWeight() + 1));
+            if (rank.getRelativeWeight().equals(nextRelWeight))
                 return rank;
         }
         return null;
     }
-
-    private Rank getMaxRankForTopic(Topic topic) {
-        return potMax.orElse(null);
-    }
-    */
 
 }
