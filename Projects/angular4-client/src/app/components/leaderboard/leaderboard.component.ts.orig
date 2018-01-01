@@ -26,7 +26,11 @@ export class LeaderboardComponent implements OnInit {
     topic: Topic,
     user: User,
     score: number
+<<<<<<< HEAD
   }
+=======
+  };
+>>>>>>> 09d9c2c8e2d15e425a3568c15dde9f724e487b1e
 
   users: User[];
   public topics = []
