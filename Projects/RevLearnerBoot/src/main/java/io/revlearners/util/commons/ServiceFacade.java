@@ -267,27 +267,34 @@ public class ServiceFacade implements IServiceFacade {
 			MessageStatus stat = messageService.findOneStatus(Constants.MESSAGE_STATUS_UNREAD);
 
 			message.getReceivers().forEach(user -> ids.add(user.getId()));
-			userService.findAll().forEach(user -> appendReceivers(receivers, user));
+			userService.findAll().forEach(user -> appendReceivers(receivers, ids, user));
 
 			messageService.create(new Message(sender, receivers, message.getTitle(), message.getContents(), blobs,
 					message.getTime(), stat));
 		}
 	}
 
-	private void appendReceivers(Set<User> receivers, User user) {
-		receivers.add(user);
+	private void appendReceivers(Set<User> receivers, Set<Long> ids, User user) {
+		if (ids.contains(user.getId()))
+			receivers.add(user);
+	}
+	
+	@Override
+	public void updateMessage(MessageBo message) {
 	}
 
 	@Override
-	public void updateMessage(MessageBo message) {
-		// TODO Auto-generated method stub
-
+	public void updateMessages(List<MessageBo> messages) {
+		List<Message> msgs = new LinkedList<Message>();
+		for (MessageBo mbo : messages) {
+			Message n = modelMapper.map(mbo, Message.class);
+			msgs.add(n);
+		}
+		messageService.updateStatus(msgs);
 	}
 
 	@Override
 	public void deleteMessageById(Serializable id) {
-		// TODO Auto-generated method stub
-
 	}
 
 	@Override
@@ -314,7 +321,7 @@ public class ServiceFacade implements IServiceFacade {
 
 	@Override
 	public void updateNotification(List<NotificationBo> notifications) {
-		List<Notification> notifs = null;
+		List<Notification> notifs = new LinkedList<Notification>();
 		for (NotificationBo nbo : notifications) {
 			Notification n = modelMapper.map(nbo, Notification.class);
 			notifs.add(n);

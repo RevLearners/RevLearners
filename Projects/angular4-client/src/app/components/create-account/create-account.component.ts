@@ -98,6 +98,10 @@ export class CreateAccountComponent implements OnInit {
                             }
                         );
                     }
+                },
+                (err) => {
+                    console.log(err);
+                    this.resetForm();
                 }
             );
 

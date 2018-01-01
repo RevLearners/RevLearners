@@ -134,8 +134,11 @@ public class JwtToken implements Serializable {
 	}
 
 	String generateToken(Map<String, Object> claims) {
-		return Jwts.builder().setClaims(claims).setExpiration(generateExpirationDate())
+		System.out.println("Generating token...");
+		String token = Jwts.builder().setClaims(claims).setExpiration(generateExpirationDate())
 				.signWith(SignatureAlgorithm.HS512, secret).compact();
+		System.out.println("Token generated");
+		return token;
 	}
 
 	public Boolean canTokenBeRefreshed(String token, Date lastPasswordReset) {

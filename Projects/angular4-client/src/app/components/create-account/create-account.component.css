@@ -12,6 +12,12 @@ body{
     animation: 2s alertAnim forwards;
 }
 
+div.alert {
+    background: #f2eaaf;
+    color: red;
+}
+
+
 .alert > h3 {
     background: #f2edda;
 }
