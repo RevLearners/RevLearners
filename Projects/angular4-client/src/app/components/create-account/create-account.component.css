@@ -5,32 +5,25 @@ body{
     font-family: 'Muli';
 }
 
-label{
-    font-size: 1em;
-}
-
-input{
-    font-size: 1em;
-}
-
-.form-container{
-    display: block;
-    width: 90%;
-    padding: 2em;
-    margin: 2em auto;
-    background: #fff;
-}
-
 .alert{
-    background: #f2edda;
     padding: 7px;
     margin-bottom: 20px;
     display: inline-block;
     animation: 2s alertAnim forwards;
 }
 
-.button {
-    margin-top: 3rem;
+div.alert {
+    background: #f2eaaf;
+    color: red;
+}
+
+
+.alert > h3 {
+    background: #f2edda;
+}
+
+label, button, input[type="submit"] {
+    font-size: 12pt;
 }
 
 h1 {
@@ -40,7 +33,7 @@ h1 {
     font-size: 2em;
 }
 
-@keyframes alertAnim{
+@keyframes alertAnim {
     from {
         opacity: 0;
         transform: translateY(-20px);

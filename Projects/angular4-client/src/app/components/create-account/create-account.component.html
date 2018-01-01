@@ -1,5 +1,5 @@
-<div class="alert-danger form-container" *ngIf="usernameTaken">
-    <div class="row columns">
+<div *ngIf="usernameTaken">
+    <div class="alert-danger row columns">
         <h3>Sorry, but that username has been taken already. Please use a different username.</h3>
     </div>
 </div>
@@ -10,32 +10,28 @@
             <div class="row columns">
                 <h1>Creating an account!</h1>
 
-                <label>First Name
-                    <input type="text" formControlName="fname">
-                </label>
+                <label for="fname">First Name</label>
+                <input class="form-control"  id="fname" type="text" formControlName="fname">
                 <br>
                 <div class="alert" *ngIf="!rForm.controls['fname'].valid && rForm.controls['fname'].touched">
                     {{titleAlert}}
                 </div>
                 <br>
 
-                <label>Middle Name
-                    <input type="text" formControlName="mname">
-                </label>
+                <label for="mname">Middle Name</label>
+                <input class="form-control"  id="mname" type="text" formControlName="mname">
                 <br>
 
-                <label>Last Name
-                    <input type="text" formControlName="lname">
-                </label>
+                <label for="lname">Last Name</label>
+                <input class="form-control"  id="lname" type="text" formControlName="lname">
                 <br>
                 <div class="alert" *ngIf="!rForm.controls['lname'].valid && rForm.controls['lname'].touched">
                     {{titleAlert}}
                 </div>
                 <br>
 
-                <label>Email
-                    <input type="email" formControlName="email">
-                </label>
+                <label for="email" >Email</label>
+                <input class="form-control"  id="email" type="email" formControlName="email">
                 <br>
                 <div class="alert" *ngIf="!rForm.controls['email'].valid && rForm.controls['email'].touched">
                     You need an email man. Everyone has an email, you have one right? Otherwise, how are we sending you
@@ -45,18 +41,16 @@
 
                 <br>
 
-                <label>Username
-                    <input type="text" formControlName="username">
-                </label>
+                <label for="username">Username</label>
+                <input class="form-control"  id="username" type="text" formControlName="username">
                 <br>
                 <div class="alert" *ngIf="!rForm.controls['username'].valid && rForm.controls['username'].touched">
                     {{titleAlert}}
                 </div>
                 <br>
 
-                <label>Password
-                    <input type="password" formControlName="password">
-                </label>
+                <label for="password">Password</label>
+                <input class="form-control"  id="password" type="password" formControlName="password">
                 <br>
                 <div class="alert" *ngIf="!rForm.controls['password'].valid && rForm.controls['password'].touched">
                     Yo, enter a password so we can protect your account bruh.
@@ -64,21 +58,15 @@
 
                 <br>
 
-                <label>Confirm Password
-                    <input type="password" formControlName="password2">
-                </label>
+                <label for="confirm-password">Confirm Password</label>
+                <input class="form-control"  id="confirm-password" type="password" formControlName="password2">
                 <br>
                 <div class="alert" *ngIf="!rForm.controls['password2'].valid && rForm.controls['password2'].touched">
                     C'mon now bruh, confirm your password so you don't make a mistake.
                 </div>
                 <br>
 
-                <!-- Just testing file upload. Ignore this for now.
-                  <input #fileInput type="file"/>
-                  <button (click)="addFile()">Add</button>
-                  -->
-
-                <input type="submit" class="button expanded" value="Create Account" [disabled]="!rForm.valid">
+                <input class="form-control"  type="submit" class="button expanded" value="Create Account" [disabled]="!rForm.valid">
             </div>
         </div>
     </form>
@@ -89,7 +77,7 @@
         <div class="row columns">
             <h1>Welcome {{fname}}! Your account has been created.</h1>
             <h3>Please verify your account using the link from email we just sent you!</h3>
-            <a class="btn btn-primary" routerLink="/home">Back</a>
+            <a class="btn btn-primary" routerLink="/home">Home</a>
         </div>
     </div>
 </ng-template>

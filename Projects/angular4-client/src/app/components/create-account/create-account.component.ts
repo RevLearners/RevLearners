@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {CreateAccountService} from '../../service/create-account-service';
+import {CreateAccountService} from '../../services/create-account-service';
 
 @Component({
     selector: 'app-create-account',
@@ -77,14 +77,14 @@ export class CreateAccountComponent implements OnInit {
             this.userCred.push(post.password);
             this.userCred.push(post.email);
             console.log(this.userCred);
-            // this.dataService.userExist(post.username).subscribe(
-            //     (data: any) => {
-            //         this.usernameTaken = data === true;
-            //         if (this.usernameTaken) {
-            //             console.log('impostor (username taken)');
-            //             this.resetForm();
-            //         }
-            //         else {
+            this.dataService.userExist(post.username).subscribe(
+                (data: any) => {
+                    this.usernameTaken = data === true;
+                    if (this.usernameTaken) {
+                        console.log('impostor (username taken)');
+                        this.resetForm();
+                    }
+                    else {
                         this.dataService.createAccount(this.userCred).subscribe(
                             (createdUser: any) => {
                                 this.userCreated = true;
@@ -96,9 +96,13 @@ export class CreateAccountComponent implements OnInit {
                                 this.userCreated = false;
                                 this.resetForm();
                             }
-                        // );
-                    // }
-                // }
+                        );
+                    }
+                },
+                (err) => {
+                    console.log(err);
+                    this.resetForm();
+                }
             );
 
         }

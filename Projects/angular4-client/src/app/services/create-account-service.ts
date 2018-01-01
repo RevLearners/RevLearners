@@ -1,7 +1,5 @@
-import {Observable} from 'rxjs/Observable';
-import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Injectable} from '@angular/core';
-import {FormGroup} from '@angular/forms/src/model';
 
 @Injectable()
 export class CreateAccountService {
@@ -41,6 +39,6 @@ export class CreateAccountService {
         };
 
         // Link will change after the rest calls/controller has been fully set up
-        return this.http.get('http://localhost:8085/users/userExist/' + username, options);        // watch the f****** trailing slashes
+        return this.http.get('http://localhost:8085/userExist/' + username, options);        // watch the f****** trailing slashes
     }
 }

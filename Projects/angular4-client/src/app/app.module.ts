@@ -4,6 +4,8 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {RouterModule} from '@angular/router';
 import {HttpClientModule} from '@angular/common/http';
 
+import {appRoutes} from './routing';
+
 import {AppComponent} from './app.component';
 import {NavbarComponent} from './components/navbar/navbar.component';
 import {CreateAccountComponent} from './components/create-account/create-account.component';
@@ -16,20 +18,20 @@ import {ReviewChallengeComponent} from './components/review-quiz/review-challeng
 import {NewQuestionComponent} from './components/new-question/new-question.component';
 import {ProfileComponent} from './components/profile/profile.component';
 import {PageDneComponent} from './components/page-dne/page-dne.component';
-import { NotificationsComponent } from './components/notifications/notifications.component';
-import { ViewChallengesComponent } from './components/view-challenges/view-challenges.component'
-import { LeaderboardComponent } from './components/leaderboard/leaderboard.component';
+import {NotificationsComponent} from './components/notifications/notifications.component';
+import {ViewChallengesComponent} from './components/view-challenges/view-challenges.component';
+import {LeaderboardComponent} from './components/leaderboard/leaderboard.component';
 import {ApproveCertificationsComponent} from './components/approve-certifications/approve-certifications.component';
-import { MessagesComponent }  from './components/messages/messages.component';
+import {MessagesComponent} from './components/messages/messages.component';
 
-import {appRoutes} from './routing';
-
-import {CreateAccountService} from './service/create-account-service';
-import { BackendService } from './services/backend.service';
-import { FileService } from './services/file.service';
-import { LoginCredentialsService } from './services/login-credentials.service';
-import { QuestionService } from './services/question.service';
-import { AuthenticationService }  from './services/authentication.service';
+import {CreateAccountService} from './services/create-account-service';
+import {BackendService} from './services/backend.service';
+import {FileService} from './services/file.service';
+import {LoginCredentialsService} from './services/login-credentials.service';
+import {QuestionService} from './services/question.service';
+import {AuthenticationService} from './services/authentication.service';
+import {VerifyAccountComponent} from './components/verify-account/verify-account.component';
+import {VerifyEmailComponent} from './components/verify-email/verify-email.component';
 
 @NgModule({
     declarations: [
@@ -49,7 +51,9 @@ import { AuthenticationService }  from './services/authentication.service';
         ViewChallengesComponent,
         LeaderboardComponent,
         ApproveCertificationsComponent,
-        MessagesComponent
+        MessagesComponent,
+        VerifyEmailComponent,
+        VerifyAccountComponent,
     ],
     imports: [
         BrowserModule,
@@ -59,7 +63,7 @@ import { AuthenticationService }  from './services/authentication.service';
         ReactiveFormsModule
     ],
     providers: [CreateAccountService, BackendService, FileService, LoginCredentialsService,
-      QuestionService, AuthenticationService],
+        QuestionService, AuthenticationService],
     bootstrap: [AppComponent]
 })
 export class AppModule {
