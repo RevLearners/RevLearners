@@ -64,9 +64,10 @@ public class UserService extends CrudService<User> implements UserDetailsService
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		User userDao = userRepo.findByUsername(username);
-		UserBo user = modelMapper.map(userDao, UserBo.class);
-		if (user == null)
+		if (userDao == null)
 			throw new UsernameNotFoundException(USER_NOT_FOUND);
+
+        UserBo user = modelMapper.map(userDao, UserBo.class);
 		ud = JwtUserFactory.create(user);
 		return ud;
 	}

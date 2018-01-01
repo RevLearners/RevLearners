@@ -224,6 +224,14 @@ public class ServiceFacade implements IServiceFacade {
 		return users.map(source -> modelMapper.map(source, UserBo.class));
 	}
 
+    /**
+     * returns null if user does not exist
+     *
+     * @param username
+     * @param password
+     * @param device
+     * @return
+     */
 	@Override
 	public String login(String username, String password, Device device) {
 		return userService.login(username, password, device);

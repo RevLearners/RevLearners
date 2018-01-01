@@ -14,24 +14,10 @@ export class CreateChallengeComponent {
     chosenTopic: String = '';
     chosenChallenger: String = '';
     //Temporary Table of Topics
-    public topics = [
-        "Java",
-        "SQL",
-        "HTML/CSS",
-        "JavaScript",
-        'Hibernate',
-        "DevOps",
-    ]
+    public topics = []
 
     //Temporary Table of Challengers
-    public challengers = [
-        { rank: 122, name: 'Xavier' },
-        { rank: 123, name: 'Bobbert' },
-        { rank: 124, name: 'Caleb' },
-        { rank: 125, name: 'Matt' },
-        { rank: 126, name: 'Sean' },
-        { rank: 123, name: 'Bobbert' }
-    ]
+    public challengers = []
 
     constructor(private fb: FormBuilder, private dataservice: BackendService) {
         this.rForm = fb.group({
@@ -43,18 +29,27 @@ export class CreateChallengeComponent {
     }
 
     ngOnInit(){
+        this.dataservice.getTopics().subscribe(
+            (data: any) =>{
+                this.topics = data;
+                console.log("Topic Data");
+                console.log(data);
+            }
+        )
         this.dataservice.getUsers().subscribe(
             (data: any) =>{
                 this.challengers = data;
                 console.log("Data: " + data);
+                console.log(data);
             }
         )
     }
 
     addPost(post) {
-        console.log(post.challengers);
-        this.chosenChallenger = post.challengers;
-        this.chosenTopic = post.topic;
+        console.log("TEST!");
+        console.log(post.challengers.firstName);
+        this.chosenChallenger = post.challengers.firstName;
+        this.chosenTopic = post.topic.topicName;
     }
 
     resetForm() {
