@@ -46,7 +46,7 @@ export class NotificationsComponent implements OnInit {
             console.log("Notification Data");
             console.log(data);
         }
-    }else{
+    } else{
       this.rout.navigate(["401"]);
     }
     

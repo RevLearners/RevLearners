@@ -1,5 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Injectable, OnInit } from '@angular/core';
+import {Injectable, OnInit} from '@angular/core';
+import {Observable} from 'rxjs/Observable';
+
 
 import { Rank } from '../model/rank';
 import { User } from '../model/user';
@@ -50,10 +52,9 @@ export class BackendService implements OnInit {
         return this.http.get('http://localhost:8085/api/rest/users/getList', { headers: this.headers });
     }
 
-    public getTopics() {
-
+    public getTopics(): Observable<any[]> {
         console.log(this.token);
-        return this.http.get('http://localhost:8085/api/rest/topics/getList', {headers: this.headers});
+        return this.http.get<any[]>('http://localhost:8085/api/rest/topics/getList', {headers: this.headers});
     }
   
     public getMessages() {

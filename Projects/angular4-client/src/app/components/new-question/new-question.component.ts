@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 import { Component, OnInit } from '@angular/core';
 import { Question } from '../../model/question';
 import { QuestionOption } from '../../model/question-option';
@@ -10,15 +10,7 @@ import { AUTHORIZATION_HEADER, TOKEN_HEADER } from '../../model/session-token';
 import { User } from '../../model/user';
 import { SessionToken } from '../../model/session-token';
 import { LoginCredentialsService } from '../../services/login-credentials.service';
-=======
-import {Component, OnInit} from '@angular/core';
-import {Question} from '../../model/question';
-import {QuestionOption} from '../../model/question-option';
-import {Topic} from '../../model/topic';
-import {QuestionService} from '../../services/question.service';
-import {Router} from '@angular/router';
 import {BackendService} from "../../services/backend.service";
->>>>>>> b42f68373b7d4c27c896089153c9f531ca1f27b4
 
 @Component({
     selector: 'app-new-question',
@@ -36,12 +28,7 @@ export class NewQuestionComponent implements OnInit {
 
     topics: any[] = [];
 
-<<<<<<< HEAD
-
-    constructor(private questionService: QuestionService, private router: Router,
-        private lcs: LoginCredentialsService) {
-=======
-    constructor(private dataService: BackendService, private questionService: QuestionService, private router: Router) {
+    constructor(private dataService: BackendService, private questionService: QuestionService, private router: Router, private lcs: LoginCredentialsService) {
         this.dataService.getTopics().subscribe(
             (data: any[]) => {
                 this.topics = data;
@@ -49,13 +36,13 @@ export class NewQuestionComponent implements OnInit {
             },
             console.log
         );
->>>>>>> b42f68373b7d4c27c896089153c9f531ca1f27b4
+
     }
 
     ngOnInit() {
         this.token = this.lcs.getToken();
         if (this.token != null) {
-            this.questionService.getAllTopics().subscribe(
+            this.dataService.getTopics().subscribe(
                 data => {
                     this.topics = data;
                     this.newQuestion.topic = this.topics[0];
