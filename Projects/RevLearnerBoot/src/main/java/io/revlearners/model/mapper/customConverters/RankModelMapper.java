@@ -19,7 +19,8 @@ public class RankModelMapper extends ConverterConfigurerSupport<Rank, RankBo>{
 			@Override
 			protected RankBo convert(Rank rank) {
 				
-				return new RankBo(rank.getId(), rank.getName(), rank.getTopic().getId(), rank.getTopic().getTopicName(), rank.getRelativeWeight(), rank.getMeritThreshold());
+				return new RankBo(rank.getId(), rank.getName(), rank.getTopic().getId(),
+                        rank.getTopic().getTopicName(), rank.getRelativeWeight(), rank.getMeritThreshold());
 			}
 			
 		};

@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import io.revlearners.model.bo.*;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -28,16 +29,7 @@ import io.revlearners.model.bean.ReportQuestion;
 import io.revlearners.model.bean.ReportUser;
 import io.revlearners.model.bean.Topic;
 import io.revlearners.model.bean.User;
-import io.revlearners.model.bo.ChallengeAttemptBo2;
-import io.revlearners.model.bo.ChallengeInfoBo;
-import io.revlearners.model.bo.FileBlobBo;
-import io.revlearners.model.bo.MessageBo;
-import io.revlearners.model.bo.NotificationBo;
-import io.revlearners.model.bo.RankBo;
-import io.revlearners.model.bo.ReportQuestionBo;
-import io.revlearners.model.bo.ReportUserBo;
-import io.revlearners.model.bo.TopicBo;
-import io.revlearners.model.bo.UserBo;
+import io.revlearners.model.bean.UserRole;
 import io.revlearners.model.mapper.customConverters.MessageModelMapper;
 import io.revlearners.model.services.EmailService;
 import io.revlearners.model.services.interfaces.IChallengeService;
@@ -50,6 +42,7 @@ import io.revlearners.model.services.interfaces.IReportUserService;
 import io.revlearners.model.services.interfaces.ITopicService;
 import io.revlearners.model.services.interfaces.IUserCertificationService;
 import io.revlearners.model.services.interfaces.IUserRankService;
+import io.revlearners.model.services.interfaces.IUserRoleService;
 import io.revlearners.model.services.interfaces.IUserService;
 import io.revlearners.util.commons.configs.Constants;
 import io.revlearners.util.commons.interfaces.IServiceFacade;
@@ -77,6 +70,9 @@ public class ServiceFacade implements IServiceFacade {
 
 	@Autowired
 	private IUserRankService userRankService;
+
+	@Autowired
+	private IUserRoleService userRoleService;
 
 	@Autowired
 	private IUserCertificationService userCertificationService;
@@ -142,6 +138,7 @@ public class ServiceFacade implements IServiceFacade {
 		return modelMapper.map(rank, RankBo.class);
 	}
 
+
 	@Override
 	public List<RankBo> listRanks() {
 		List<Rank> ranks = rankService.findAll();
@@ -177,6 +174,25 @@ public class ServiceFacade implements IServiceFacade {
 	}
 
 	@Override
+	public UserRoleBo getRoleById(Serializable id) {
+		UserRole role = userRoleService.findOne(id);
+		return modelMapper.map(role, UserRoleBo.class);
+	};
+
+	@Override
+	public List<UserRoleBo> listRoles() {
+		List<UserRole> roles = userRoleService.findAll();
+		List<UserRoleBo> roleDTOs = new LinkedList<>();
+		for (UserRole t : roles) {
+			roleDTOs.add(modelMapper.map(t, UserRoleBo.class));
+		}
+		return roleDTOs;
+	}
+
+
+
+
+	@Override
 	public UserBo getUserById(Serializable id) {
 		User user = userService.findOne(id);
 		return modelMapper.map(user, UserBo.class);
@@ -198,9 +214,21 @@ public class ServiceFacade implements IServiceFacade {
 		return users.map(source -> modelMapper.map(source, UserBo.class));
 	}
 
+    /**
+     * returns null if user does not exist
+     * throws AuthenticationException
+     *
+     * @param username
+     * @param password
+     * @param device
+     * @return
+     */
 	@Override
-	public String login(String username, String password, Device device) {
-		return userService.login(username, password, device);
+	public LoginInfoBo login(String username, String password, Device device) {
+		MPair<User, String> info = userService.login(username, password, device);
+		User user = info.getFirst();
+		String token = info.getSecond();
+		return new LoginInfoBo(modelMapper.map(user, UserBo.class), token);
 	}
 
 	@Override
@@ -278,7 +306,7 @@ public class ServiceFacade implements IServiceFacade {
 		if (ids.contains(user.getId()))
 			receivers.add(user);
 	}
-	
+
 	@Override
 	public void updateMessage(MessageBo message) {
 	}
@@ -497,4 +525,7 @@ public class ServiceFacade implements IServiceFacade {
 	public String verifyUser(String token, Device device) {
 		return userService.verify(token, device);
 	}
+
+
+
 }

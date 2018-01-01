@@ -2,270 +2,197 @@ package io.revlearners.model.bo;
 
 import java.time.LocalDateTime;
 import java.util.Collection;
-import java.util.LinkedList;
 import java.util.Set;
 
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import io.revlearners.util.commons.configs.Constants;
 
 public class UserBo implements UserDetails {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 9102984883242741488L;
+    /**
+     *
+     */
+    private static final long serialVersionUID = 9102984883242741488L;
 
-	Collection<GrantedAuthority> auths;
-	
-	private Long id;
+    Collection<GrantedAuthority> auths;
 
-	private String firstName;
+    private Long id;
 
-	private String middleName;
+    private String firstName;
 
-	private String lastName;
+    private String middleName;
 
-	private Long statId;
-	
-	private String status;
+    private String lastName;
 
-	private Long roleId;
-	
-	private String role;
-	
-	private String email;
-	
-	private String username;
-	
-	private String password;
-		
-	private LocalDateTime lastPasswordReset;
+    private String email;
 
-	public LocalDateTime getLastPasswordReset() {
-		return lastPasswordReset;
-	}
+    private String username;
 
-	public void setLastPasswordReset(LocalDateTime lastPasswordReset) {
-		this.lastPasswordReset = lastPasswordReset;
-	}
+    private String password;
 
-	private Set<FriendBo> friends;
+    private UserStatusBo status;
 
-	private Set<UserRankBo> ranks;
+    private UserRoleBo role;
 
-	private Set<ChallengeBo> challenges;
+    private Set<UserRankBo> ranks;
 
-	private Set<ChallengeAttemptBo> challengeAttempts;
+    private LocalDateTime lastPasswordReset;
 
-	private Set<UserCertificationBo> certifications;
 
-	private Set<String> permissions;
-	
-	
-	public Set<String> getPermissions() {
-		return permissions;
-	}
+    public UserBo(Long id, String firstName, String middleName, String lastName, String email,
+                  String username, String password, LocalDateTime lastPasswordReset, UserStatusBo status,
+                  UserRoleBo role, Set<UserRankBo> ranks, Set<String> permissions) {
 
-	public void setPermissions(Set<String> permissions) {
-		this.permissions = permissions;
-	}
+        this.id = id;
+        this.firstName = firstName;
+        this.middleName = middleName;
+        this.lastName = lastName;
+        this.email = email;
+        this.username = username;
+        this.password = password;
+        this.status = status;
+        this.role = role;
+        this.ranks = ranks;
+        this.lastPasswordReset = lastPasswordReset;
+        this.permissions = permissions;
+    }
 
-	public String getEmail() {
-		return email;
-	}
+    public UserBo() {
+    }
 
-	public void setEmail(String email) {
-		this.email = email;
-	}
+    public LocalDateTime getLastPasswordReset() {
+        return lastPasswordReset;
+    }
 
-	public String getUsername() {
-		return username;
-	}
+    public void setLastPasswordReset(LocalDateTime lastPasswordReset) {
+        this.lastPasswordReset = lastPasswordReset;
+    }
 
-	public void setUsername(String username) {
-		this.username = username;
-	}
+    private Set<String> permissions;
 
-	public String getPassword() {
-		return password;
-	}
+    public Set<String> getPermissions() {
+        return permissions;
+    }
 
-	public void setPassword(String password) {
-		this.password = password;
-	}
+    public void setPermissions(Set<String> permissions) {
+        this.permissions = permissions;
+    }
 
-	public UserBo() {
-	}
-	
-	public UserBo(String username, String password) {
-		this.username = username;
-		this.password = password;
-	}
-	
-	public UserBo(String firstName, String middleName, String lastName, String username, String password, String email) {
-		this.firstName = firstName;
-		this.middleName = middleName;
-		this.lastName = lastName;
-		this.username = username;
-		this.password = password;
-	}
-	
-	public UserBo(Long id, String firstName, String middleName, String lastName, String email, String username,
-			String password, LocalDateTime ldt, Long roleId, String roleName, Long statId, String statName, Set<UserRankBo> ranks,
-			Set<UserCertificationBo> certs, Set<ChallengeAttemptBo> chalAttempts, Set<ChallengeBo> challenges,
-			Set<FriendBo> friends, Set<String> permissions) {
-		this.id = id;
-		this.firstName = firstName;
-		this.middleName = middleName;
-		this.lastName = lastName;
-		this.email = email;
-		this.username = username;
-		this.password = password;
-		this.statId = statId;
-		this.status = statName;
-		this.roleId = roleId;
-		this.role = roleName;
-		this.ranks = ranks;
-		this.friends = friends;
-		this.permissions = permissions;
-		this.lastPasswordReset = ldt;
-		auths = new LinkedList<GrantedAuthority>();
-		for(String s : permissions) {
-			auths.add(new SimpleGrantedAuthority(s));
-		}
-	}
+    public String getEmail() {
+        return email;
+    }
 
-	public Long getStatId() {
-		return statId;
-	}
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
-	public void setStatId(Long statId) {
-		this.statId = statId;
-	}
+    public String getUsername() {
+        return username;
+    }
 
-	public String getStatus() {
-		return status;
-	}
+    public void setUsername(String username) {
+        this.username = username;
+    }
 
-	public void setStatus(String status) {
-		this.status = status;
-	}
+    public Collection<GrantedAuthority> getAuths() {
+        return auths;
+    }
 
-	public Long getRoleId() {
-		return roleId;
-	}
+    public void setAuths(Collection<GrantedAuthority> auths) {
+        this.auths = auths;
+    }
 
-	public void setRoleId(Long roleId) {
-		this.roleId = roleId;
-	}
+    public Long getId() {
+        return id;
+    }
 
-	public String getRole() {
-		return role;
-	}
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-	public void setRole(String role) {
-		this.role = role;
-	}
+    public String getFirstName() {
+        return firstName;
+    }
 
-	public Set<UserRankBo> getRanks() {
-		return ranks;
-	}
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
 
-	public void setRanks(Set<UserRankBo> ranks) {
-		this.ranks = ranks;
-	}
+    public String getMiddleName() {
+        return middleName;
+    }
 
-	public Set<UserCertificationBo> getCertifications() {
-		return certifications;
-	}
+    public void setMiddleName(String middleName) {
+        this.middleName = middleName;
+    }
 
-	public void setCertifications(Set<UserCertificationBo> certifications) {
-		this.certifications = certifications;
-	}
+    public String getLastName() {
+        return lastName;
+    }
 
-	public Long getId() {
-		return id;
-	}
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
 
-	public void setId(Long userId) {
-		this.id = userId;
-	}
+    public UserStatusBo getStatus() {
+        return status;
+    }
 
-	public String getFirstName() {
-		return firstName;
-	}
+    public void setStatus(UserStatusBo status) {
+        this.status = status;
+    }
 
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
-	}
+    public UserRoleBo getRole() {
+        return role;
+    }
 
-	public String getMiddleName() {
-		return middleName;
-	}
+    public void setRole(UserRoleBo role) {
+        this.role = role;
+    }
 
-	public void setMiddleName(String middleName) {
-		this.middleName = middleName;
-	}
+    public Set<UserRankBo> getRanks() {
+        return ranks;
+    }
 
-	public String getLastName() {
-		return lastName;
-	}
+    public void setRanks(Set<UserRankBo> ranks) {
+        this.ranks = ranks;
+    }
 
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
-	}
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return auths;
+    }
 
-	public Set<FriendBo> getFriends() {
-		return friends;
-	}
+    @Override
+    public String getPassword() {
+        return this.password;
+    }
 
-	public void setFriends(Set<FriendBo> friends) {
-		this.friends = friends;
-	}
+    public void setPassword(String password) {
+        this.password = password;
+    }
 
-	public Set<ChallengeBo> getChallenges() {
-		return challenges;
-	}
+    @Override
+    public boolean isAccountNonExpired() {
+        // TODO Auto-generated method stub
+        return true;
+    }
 
-	public void setChallenges(Set<ChallengeBo> challenges) {
-		this.challenges = challenges;
-	}
+    @Override
+    public boolean isAccountNonLocked() {
+        // TODO Auto-generated method stub
+        return isEnabled();
+    }
 
-	public Set<ChallengeAttemptBo> getChallengeAttempts() {
-		return challengeAttempts;
-	}
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
 
-	public void setChallengeAttempts(Set<ChallengeAttemptBo> challengeAttempts) {
-		this.challengeAttempts = challengeAttempts;
-	}
-
-	@Override
-	public Collection<? extends GrantedAuthority> getAuthorities() {
-		return auths;
-	}
-
-	@Override
-	public boolean isAccountNonExpired() {
-		// TODO Auto-generated method stub
-		return true;
-	}
-
-	@Override
-	public boolean isAccountNonLocked() {
-		// TODO Auto-generated method stub
-		return isEnabled();
-	}
-
-	@Override
-	public boolean isCredentialsNonExpired() {
-		return true;
-	}
-
-	@Override
-	public boolean isEnabled() {
-		return statId.equals(Constants.STATUS_OK);
-	}
+    @Override
+    public boolean isEnabled() {
+        return status.getId().equals(Constants.STATUS_OK);
+    }
 }

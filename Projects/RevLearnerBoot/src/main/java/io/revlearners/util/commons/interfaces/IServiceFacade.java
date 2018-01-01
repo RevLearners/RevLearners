@@ -48,7 +48,7 @@ public interface IServiceFacade {
 
 	Page<UserBo> pageUsers(int page, int size);
 
-	String login(String username, String password, Device device);
+	LoginInfoBo login(String username, String password, Device device);
 
 	void register(UserBo user, Device device);
 
@@ -134,5 +134,9 @@ public interface IServiceFacade {
 	String checkRefresh(String token);
 
 	String verifyUser(String token, Device device);
+
+	UserRoleBo getRoleById(Serializable id);
+
+	List<UserRoleBo> listRoles();
 
 }

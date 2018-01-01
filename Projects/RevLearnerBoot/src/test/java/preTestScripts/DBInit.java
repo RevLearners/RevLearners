@@ -2,6 +2,7 @@ package preTestScripts;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
@@ -43,6 +44,15 @@ public class DBInit {
 
 	private static User user1 = new User("User1", null, "User1", new UserStatus(Constants.STATUS_OK), new UserRole(Constants.ROLE_ADMIN),
 			"botbert@email.com", "User1", "$2a$10$trilJ1OUwLZqA9PjJYD9Bu1zpKq8jYKG3Dxsigxf1R4XLPBTH1LOW", Constants.START_DATE);
+	
+	private static User basic = new User("Basic", null, "User", new UserStatus(Constants.STATUS_OK), new UserRole(Constants.ROLE_BASIC),
+			"basic@email.com", "basic", "$2a$10$trilJ1OUwLZqA9PjJYD9Bu1zpKq8jYKG3Dxsigxf1R4XLPBTH1LOW", Constants.START_DATE);
+	
+	private static User advanced = new User("Advanced", null, "User", new UserStatus(Constants.STATUS_OK), new UserRole(Constants.ROLE_ADVANCED),
+			"advanced@email.com", "advanced", "$2a$10$trilJ1OUwLZqA9PjJYD9Bu1zpKq8jYKG3Dxsigxf1R4XLPBTH1LOW", Constants.START_DATE);
+	
+	private static User certified = new User("Certified", null, "User", new UserStatus(Constants.STATUS_OK), new UserRole(Constants.ROLE_CERTIFIED),
+			"certified@email.com", "certified", "$2a$10$trilJ1OUwLZqA9PjJYD9Bu1zpKq8jYKG3Dxsigxf1R4XLPBTH1LOW", Constants.START_DATE);
 	
 	public static void main(String[] args) {
 		springContext = new AnnotationConfigApplicationContext(MockPersistenceConfig.class);
@@ -112,14 +122,12 @@ public class DBInit {
 
 			addQuestions(session);
 			/*****************************************************************/
-			
-			botbert.setRanks(ranks);
-			user1.setRanks(ranks2);
-			session.save(botbert);
-			session.save(user1);
-			for(UserRank ur : ranks)
-			session.save(ur);
-			
+
+			for (User user: new User[]{botbert, user1, basic, advanced, certified}) {
+                initRanks(user);
+                session.save(user);
+            }
+
 			Set<User> friends1 = new HashSet<User>();
 			Set<User> friends2 = new HashSet<User>();
 			friends1.add(botbert);
@@ -127,8 +135,8 @@ public class DBInit {
 			
 			botbert.setFriends(friends2);
 			user1.setFriends(friends1);
-			session.save(user1);
-			session.save(botbert);
+			session.update(user1);
+			session.update(botbert);
 			
 			addNotifications(session);
 			addMessages(session);
@@ -149,6 +157,17 @@ public class DBInit {
 			session.save(ranks.get(id));
 		}
 	}
+
+    /**
+     * assign ranks to beginner ranks
+     */
+	public static void initRanks (User user) {
+	    Set<UserRank> userRanks = new HashSet<>();
+	    for (Rank rank: Constants.getBeginnerRanks()) {
+	        userRanks.add(new UserRank(user, rank, 0f));
+        }
+        user.setRanks(userRanks);
+    }
 
 	/**
 	 * for quick adding of questions; does not do much validation

@@ -5,10 +5,13 @@
 
 <table border = "2px">
     <tr>
-        <th>Topic</th><th>User 1</th><th>User 2</th>
+        <th>Topic</th><th>User 1</th><th>User 2</th><th>Accept</th>
     </tr>
-    <tr *ngFor="let chall of challs">
-        <td>{{chall.quiz.topic}}</td><td>{{chall.users[0]}}</td><td>{{chall.users[1]}}</td>
+    <tr *ngFor="let chall of fetchUserQuiz()">
+        <td>{{chall.quiz.topic}}</td>
+        <td>{{chall.users[0]}}</td>
+        <td>{{chall.users[1]}}</td>
+        <td><button>Accept</button></td>
     </tr>
 </table>
 

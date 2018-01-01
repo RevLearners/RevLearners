@@ -39,7 +39,7 @@ export class BackendService implements OnInit{
         return this.http.get('http://localhost:8085/api/rest/users/getList', {headers: this.headers});
     }
 
-    public getTopics(){
+    public getTopics() {
         return this.http.get('http://localhost:8085/api/rest/topics/getList', {headers: this.headers})
     }
 }
