@@ -1,7 +1,5 @@
-import {Observable} from 'rxjs/Observable';
 import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 import {Injectable} from '@angular/core';
-import {FormGroup} from '@angular/forms/src/model';
 
 @Injectable()
 export class CreateAccountService {

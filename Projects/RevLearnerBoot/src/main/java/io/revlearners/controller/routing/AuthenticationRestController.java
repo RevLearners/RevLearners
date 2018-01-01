@@ -28,23 +28,13 @@ public class AuthenticationRestController extends WebServicesController {
     @Value("${jwt.header}")
     private String tokenHeader;
 
-    @GetMapping(value = "verify", params = "token")
-    public @ResponseBody
-    Boolean verifyEmail(@RequestParam("token") String token, Device device) throws UnsupportedEncodingException {
-        String decodedToken = URLDecoder.decode(token, "UTF-8");
-        serviceFacade.verifyUser(decodedToken, device);
-        System.out.println("=========================== verified! =================================");
-        return true;
-    }
-
-    @PostMapping("/register")
-    public ResponseEntity<?> createUser(@RequestBody UserBo userCred, Device device) {
-        userCred.setRoleId(Constants.ROLE_BASIC);
-        serviceFacade.register(userCred, device);
-
-        System.out.println(userCred);
-        return ResponseEntity.ok().build();
-    }
+	@PostMapping(value = "/verify")
+	public @ResponseBody Boolean verifyEmail(@RequestBody String token, Device device) throws UnsupportedEncodingException {
+		String decodedToken = URLDecoder.decode(token, "UTF-8");
+		serviceFacade.verifyUser(decodedToken, device);
+		System.out.println("=========================== verified! =================================");
+		return true;
+	}
 
     @GetMapping("/userExist/{username}")
     public boolean userExist(@PathVariable(value = "username") String username) {
@@ -52,26 +42,34 @@ public class AuthenticationRestController extends WebServicesController {
         return userService.userExists(username);
     }
 
+	@PostMapping("/register")
+	public ResponseEntity<?> createUser(@RequestBody UserBo userCred, Device device) {
+		userCred.setRoleId(Constants.ROLE_BASIC);
+		serviceFacade.register(userCred, device);
 
-    @RequestMapping(value = "${jwt.route.authentication.path}", method = RequestMethod.POST)
-    public ResponseEntity<?> createAuthenticationToken(@RequestBody JwtAuthenticationRequest authenticationRequest,
-                                                       Device device) throws AuthenticationException {
-        String token;
-
-        token = serviceFacade.login(authenticationRequest.getUsername(), authenticationRequest.getPassword(), device);
-
-        return ResponseEntity.ok(new JwtAuthenticationResponse(token));
+        System.out.println(userCred);
+        return ResponseEntity.ok().build();
     }
 
-    @RequestMapping(value = "${jwt.route.authentication.refresh}", method = RequestMethod.GET)
-    public ResponseEntity<?> refreshAndGetAuthenticationToken(HttpServletRequest request) {
-        String token = request.getHeader(tokenHeader);
-        String refreshedToken = serviceFacade.checkRefresh(token);
-        if (refreshedToken != null) {
-            return ResponseEntity.ok(new JwtAuthenticationResponse(refreshedToken));
-        } else {
-            return ResponseEntity.badRequest().body(null);
-        }
-    }
+	@RequestMapping(value = "${jwt.route.authentication.path}", method = RequestMethod.POST)
+	public ResponseEntity<?> createAuthenticationToken(@RequestBody JwtAuthenticationRequest authenticationRequest,
+			Device device) throws AuthenticationException {
+		String token;
+
+		token = serviceFacade.login(authenticationRequest.getUsername(), authenticationRequest.getPassword(), device);
+
+		return ResponseEntity.ok(new JwtAuthenticationResponse(token));
+	}
+
+	@RequestMapping(value = "${jwt.route.authentication.refresh}", method = RequestMethod.GET)
+	public ResponseEntity<?> refreshAndGetAuthenticationToken(HttpServletRequest request) {
+		String token = request.getHeader(tokenHeader);
+		String refreshedToken = serviceFacade.checkRefresh(token);
+		if (refreshedToken != null) {
+			return ResponseEntity.ok(new JwtAuthenticationResponse(refreshedToken));
+		} else {
+			return ResponseEntity.badRequest().body(null);
+		}
+	}
 
 }

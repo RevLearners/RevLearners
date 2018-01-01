@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {CreateAccountService} from '../../service/create-account-service';
+import {CreateAccountService} from '../../services/create-account-service';
 
 @Component({
     selector: 'app-create-account',

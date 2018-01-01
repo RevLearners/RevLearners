@@ -15,6 +15,7 @@ import {LeaderboardComponent} from './components/leaderboard/leaderboard.compone
 import {ApproveCertificationsComponent} from './components/approve-certifications/approve-certifications.component';
 import {NotificationsComponent} from './components/notifications/notifications.component';
 import {MessagesComponent} from './components/messages/messages.component';
+import {VerifyAccountComponent} from './components/verify-account/verify-account.component';
 
 export const appRoutes: Routes = [
     {
@@ -61,6 +62,10 @@ export const appRoutes: Routes = [
     {
         path: 'view-challenges',
         component: ViewChallengesComponent
+    },
+    {
+        path: 'verify-account',
+        component: VerifyAccountComponent
     },
     {
         path: 'leaderboard',

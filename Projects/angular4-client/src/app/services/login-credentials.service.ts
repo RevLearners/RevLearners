@@ -8,7 +8,7 @@ import 'rxjs/add/operator/map';
 import {SessionToken} from '../model/session-token';
 import {USER1} from './question.service';
 
-export const SESSION_KEY: string = "currentUser";
+export const SESSION_KEY = "currentUser";
 
 @Injectable()
 export class LoginCredentialsService {
