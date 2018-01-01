@@ -6,53 +6,53 @@ import {User} from '../model/user';
 import {LoginCredentialsService} from './login-credentials.service';
 import {SessionToken} from '../model/session-token';
 
-import {AUTHORIZATION_HEADER, TOKEN_HEADER} from '../model/session-token';
+import { AUTHORIZATION_HEADER, TOKEN_HEADER } from '../model/session-token';
+import { Router } from '@angular/router';
+import {Observable} from "rxjs/Observable";
 
 @Injectable()
-export class BackendService implements OnInit{
-    public rankId;
-    public rank: Rank = new Rank(0, 0, "", 0, null);
+export class BackendService implements OnInit {
     ranks: Rank[];
     user: User;
     token: SessionToken = null;
+    headers: HttpHeaders;
 
-    private headers = new HttpHeaders({'Content-Type': 'application/json'});
-
-    constructor(private http: HttpClient, private validate: LoginCredentialsService) {
-        this.user = this.validate.getUser();
-        this.token = this.validate.getToken();
-        this.headers = this.headers.append(AUTHORIZATION_HEADER, this.token.username);
-        this.headers = this.headers.append(TOKEN_HEADER, this.token.token);
-        console.log("Princewill's statement.");
-        console.log(this.token);
+    constructor(private http: HttpClient, private creds: LoginCredentialsService,
+        private rout: Router) {
+        this.user = this.creds.getUser();
+        this.token = this.creds.getToken();
     }
 
     ngOnInit() {
+        if (!this.creds.isLoggedIn()) {
+            this.rout.navigate(['401']);
+        }
+        else {
+            this.headers = this.creds.prepareAuthHeaders();
+        }
+    }
 
+    public getCerts() {
+        return this.http.get('http://localhost:4200/api/rest/certifications/getList', { headers: this.headers });
     }
 
     public getUsers() {
         console.log(this.token);
-        return this.http.get('http://localhost:8085/api/rest/users/getList', {headers: this.headers});
+        return this.http.get('http://localhost:8085/api/rest/users/getList', { headers: this.headers });
     }
 
-    public getTopics() {
-        return this.http.get('http://localhost:8085/api/rest/topics/getList', {headers: this.headers})
+    public getTopics(): Observable<any[]> {
+        console.log(this.token);
+        return this.http.get<any[]>('http://localhost:8085/api/rest/topics/getList', {headers: this.headers});
     }
 
-    public makeChallenge(challengeInfo: string[]){
-
-        const challengeInfo2 = {
-            "topicId": challengeInfo[0],
-            "senderId": 1,
-            "receiverIds": [challengeInfo[1]],
-            "numQuestions": 5
-        }
-
-        const options = {
-            headers: new HttpHeaders(),
-        };
-
-        return this.http.post('http://localhost:8085/api/rest/challenges/createChallenge', challengeInfo2, options)
+    public getMessages() {
+        console.log(this.token);
+        return this.http.get('http://localhost:8085/api/rest/messages/getList', {headers: this.headers});
     }
+
+    public getNotifications() {
+        return this.http.get('http://localhost:8085/api/rest/notifications/getList', {headers: this.headers});
+    }
+
 }

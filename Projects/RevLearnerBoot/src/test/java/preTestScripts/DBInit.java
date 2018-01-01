@@ -263,11 +263,11 @@ public class DBInit {
 		MessageStatus ms = new MessageStatus();
 		ms.setId(Constants.MESSAGE_STATUS_RECEIVED);
 		persistNotification("0Hello World!", receivers, botbert, ms, LocalDateTime.now(), "0Hello World!", session);
-//		persistNotification("1Hello World!", receivers, botbert, ms, LocalDateTime.now(), "1Hello World!", session);
-//		persistNotification("2Hello World!", receivers, botbert, ms, LocalDateTime.now(), "2Hello World!", session);
-//		persistNotification("3Hello World!", receivers, botbert, ms, LocalDateTime.now(), "3Hello World!", session);
-//		persistNotification("4Hello World!", receivers, botbert, ms, LocalDateTime.now(), "4Hello World!", session);
-//		persistNotification("5Hello World!", receivers, botbert, ms, LocalDateTime.now(), "5Hello World!", session);
+		persistNotification("1Hello World!", receivers, botbert, ms, LocalDateTime.now(), "1Hello World!", session);
+		persistNotification("2Hello World!", receivers, botbert, ms, LocalDateTime.now(), "2Hello World!", session);
+		persistNotification("3Hello World!", receivers, botbert, ms, LocalDateTime.now(), "3Hello World!", session);
+		persistNotification("4Hello World!", receivers, botbert, ms, LocalDateTime.now(), "4Hello World!", session);
+		persistNotification("5Hello World!", receivers, botbert, ms, LocalDateTime.now(), "5Hello World!", session);
 	}
 
 	
@@ -292,11 +292,11 @@ public class DBInit {
 		ms.setId(Constants.MESSAGE_STATUS_RECEIVED);
 		Set<FileBlob> files = new HashSet<FileBlob>();
 		persistMessage("0Hello World!", LocalDateTime.now(), "0Hello World!", botbert, receivers, ms, files, session);
-//		persistMessage("1Hello World!", LocalDateTime.now(), "1Hello World!", botbert, receivers, ms, files, session);
-//		persistMessage("2Hello World!", LocalDateTime.now(), "2Hello World!", botbert, receivers, ms, files, session);
-//		persistMessage("3Hello World!", LocalDateTime.now(), "3Hello World!", botbert, receivers, ms, files, session);
-//		persistMessage("4Hello World!", LocalDateTime.now(), "4Hello World!", botbert, receivers, ms, files, session);
-//		persistMessage("5Hello World!", LocalDateTime.now(), "5Hello World!", botbert, receivers, ms, files, session);
+		persistMessage("1Hello World!", LocalDateTime.now(), "1Hello World!", botbert, receivers, ms, files, session);
+		persistMessage("2Hello World!", LocalDateTime.now(), "2Hello World!", botbert, receivers, ms, files, session);
+		persistMessage("3Hello World!", LocalDateTime.now(), "3Hello World!", botbert, receivers, ms, files, session);
+		persistMessage("4Hello World!", LocalDateTime.now(), "4Hello World!", botbert, receivers, ms, files, session);
+		persistMessage("5Hello World!", LocalDateTime.now(), "5Hello World!", botbert, receivers, ms, files, session);
 	}
 
 }

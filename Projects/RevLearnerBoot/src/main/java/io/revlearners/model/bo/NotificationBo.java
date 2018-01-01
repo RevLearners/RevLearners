@@ -33,8 +33,15 @@ public class NotificationBo {
     }
 
     public NotificationBo(Long id2, UserBo map, Set<UserBo> receivers2, String title2, String contents2,
-			LocalDateTime time2, MessageStatus status2) {
+			LocalDateTime time2, MessageStatusBo status2) {
 		// TODO Auto-generated constructor stub
+    	this.id = id2;
+    	this.sender = map;
+    	this.receivers = receivers2;
+    	this.title = title2;
+    	this.contents = contents2;
+    	this.time = time2;
+    	this.status = status2;
 	}
 
 	public Long getId() {

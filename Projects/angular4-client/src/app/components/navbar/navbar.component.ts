@@ -1,13 +1,14 @@
-import {HttpClient} from '@angular/common/http';
-import {Component, OnInit} from '@angular/core';
-import {User} from '../../model/user';
-import {Role} from '../../model/role';
-import {LoginCredentialsService} from '../../services/login-credentials.service';
+import { HttpClient } from '@angular/common/http';
+import { Component, OnInit } from '@angular/core';
+import { User } from '../../model/user';
+import { Role } from '../../model/role';
+import { LoginCredentialsService } from '../../services/login-credentials.service';
+import { Observable } from 'rxjs/Rx';
 
-import {SessionToken} from '../../model/session-token';
-import {HttpHeaders} from '@angular/common/http';
+import { SessionToken } from '../../model/session-token';
+import { HttpHeaders } from '@angular/common/http';
 
-import {AUTHORIZATION_HEADER, TOKEN_HEADER} from '../../model/session-token';
+import { AUTHORIZATION_HEADER, TOKEN_HEADER } from '../../model/session-token';
 
 
 @Component({
@@ -18,35 +19,34 @@ import {AUTHORIZATION_HEADER, TOKEN_HEADER} from '../../model/session-token';
     ]
 })
 export class NavbarComponent implements OnInit {
+    
+    user: User;
+    role: Role;
 
-    user: User = new User(0, "");
-    role: Role = new Role(0, "");
     token: SessionToken = null;
 
-    private headers = new HttpHeaders({'Content-Type': 'application/json'});
+    private headers = new HttpHeaders({ 'Content-Type': 'application/json' });
 
     notificationCount: number;
     messageCount: number;
 
-    constructor(private http: HttpClient, private validate: LoginCredentialsService) {
-    }
+    constructor(private http: HttpClient, private validate: LoginCredentialsService) { }
 
     ngOnInit() {
-
+        this.token = this.validate.getToken();
     }
 
     public appendHeaders() {
         this.user = this.validate.getUser();
         this.token = this.validate.getToken();
-        this.headers = this.headers.append(AUTHORIZATION_HEADER, this.token.username);
-        this.headers = this.headers.append(TOKEN_HEADER, this.token.token);
-        this.invokeMonitors();
+        if (this.token != null) {
+            this.headers = this.headers.append(AUTHORIZATION_HEADER, this.token.username);
+            this.headers = this.headers.append(TOKEN_HEADER, this.token.token);
+            this.invokeMonitors();
+        }
     }
 
-    public invokeMonitors() {
-        // notificationCount = fetchNoteCount().
-    }
-
+    public invokeMonitors() {}
 
     public fetchRole(user: User) {
         let url = `http://localhost:4200/api/rest/roles/getById/${user.id}/`;

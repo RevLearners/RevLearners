@@ -1,3 +1,17 @@
-<p>
-  approve-certifications works!
-</p>
+
+<h3>Pending Certification Requests:</h3>
+
+<table border = "2px">
+    <tr>
+        <th>User</th>
+        <th>Certification</th>
+        <th>Topic</th>
+        <th>Attachment</th>
+    </tr>
+    <tr *ngFor="let cert of certs"> <!-- *ngIf="cert.status=='pending'"> -->
+        <td>{{cert.user}}</td>
+        <td>{{cert.name}}</td>
+        <td>{{cert.topic}}</td>
+		<td>{{cert.file}}</td>
+    </tr>
+</table>

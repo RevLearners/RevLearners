@@ -1,57 +1,52 @@
-import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-
+import {Component, OnInit} from '@angular/core';
+import {HttpClient} from '@angular/common/http';
 import 'rxjs/add/operator/map';
 
 import {User} from '../../model/user';
 import {Notification} from '../../model/notification';
 
 import {LoginCredentialsService} from '../../services/login-credentials.service';
-import {AUTHORIZATION_HEADER, SessionToken, TOKEN_HEADER} from '../../model/session-token';
-import {HttpHeaders} from '@angular/common/http';
-import {Observable} from "rxjs/Observable";
+import {SessionToken} from '../../model/session-token';
+
+import {BackendService} from '../../services/backend.service';
 import {Router} from "@angular/router";
 
 
-
 @Component({
-  selector: 'app-notifications',
-  templateUrl: './notifications.component.html',
-  styleUrls: ['./notifications.component.css']
+    selector: 'app-notifications',
+    templateUrl: './notifications.component.html',
+    styleUrls: ['./notifications.component.css']
 })
 
 export class NotificationsComponent implements OnInit {
 
-  note: Notification;
-  user: User;
-  token: SessionToken = null;
+    note: Notification;
+    notes: Notification[];
+    user: User;
+    token: SessionToken = null;
 
-  private headers = new HttpHeaders({'Content-Type': 'application/json'});
 
-  constructor(private http:HttpClient, private creds:LoginCredentialsService, private router: Router) { }
+    constructor(private http: HttpClient, private router: Router, private creds: LoginCredentialsService, private dataservice: BackendService) {
+    }
 
-  ngOnInit() {
-      if (!this.creds.isLoggedIn()) {
-          console.log("===== is logged in ====", this.creds.isLoggedIn());
-          this.router.navigate(['/login']);
-      }
-  }
+    ngOnInit() {
+        this.user = this.creds.getUser();
+        this.token = this.creds.getToken();
 
-  fetchUserNotes(): Observable<Notification> {
-      const url = `http://localhost:4200/api/rest/notifications/getByUserId/${this.user.id}/`;
-      return this.http.get(url, {headers: this.creds.prepareAuthHeaders()})
-        .map((res: any) => {
-          return res.json().results.map(item => {
-            return new Notification(
-              item.id,
-              item.senderId,
-              item.receivers,
-              item.title,
-              item.contents,
-              item.time,
-              item.status
-              );
-            });
-          });
-  }
+        if (this.creds.isLoggedIn()) {
+            this.dataservice.getNotifications().subscribe(
+                (data: any) => {
+                    this.notes = data;
+                    console.log("Notification Data");
+                    console.log(data);
+                },
+                console.log
+            )
+        } else {
+            this.creds.navigateToLogin(this.router);
+        }
+    }
+
 }
+
+

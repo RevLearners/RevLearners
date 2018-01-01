@@ -8,7 +8,8 @@ import {HttpHeaders} from "@angular/common/http";
 import {Router} from "@angular/router";
 
 
-export const SESSION_KEY = "currentUser";
+export const SESSION_KEY = "token";
+export const SESSION_USER = "currentUser";
 
 @Injectable()
 export class LoginCredentialsService {
@@ -18,7 +19,8 @@ export class LoginCredentialsService {
     token: SessionToken = null;
 
     setToken(token: SessionToken): void {
-        this.token = JSON.parse(localStorage.getItem(SESSION_KEY));
+        localStorage.setItem(SESSION_KEY, JSON.stringify(token));
+        this.token = token;
     }
 
     getToken(): SessionToken {
@@ -26,11 +28,12 @@ export class LoginCredentialsService {
     }
 
     setUser(user: any): void {
+        localStorage.setItem(SESSION_USER, JSON.stringify(user));
         this.user = user;
     }
 
     getUser(): any {
-        return this.user;
+        return JSON.parse(localStorage.getItem(SESSION_USER));
     }
 
     clear(): void {

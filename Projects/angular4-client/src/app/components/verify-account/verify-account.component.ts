@@ -1,6 +1,7 @@
-import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
-import {AuthenticationService} from '../../services/authentication.service';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { AuthenticationService } from '../../services/authentication.service';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-verify-account',
@@ -9,20 +10,24 @@ import {AuthenticationService} from '../../services/authentication.service';
 })
 export class VerifyAccountComponent implements OnInit {
 
-    constructor(private activeRoute: ActivatedRoute, private authService: AuthenticationService) {
+    constructor(private activeRoute: ActivatedRoute, private authService: AuthenticationService,
+    private rout: Router) {
     }
 
     ngOnInit() {
         this.activeRoute.queryParams.subscribe(
             (params) => {
-                this.authService.verifyAccount(params["token"]).subscribe(
-                    (wasVerified) => {
-                        console.log("wasVerified", wasVerified);
-                    }
-                );
+                if (params["token"] != null) {
+                    this.authService.verifyAccount(params["token"]).subscribe(
+                        (wasVerified) => {
+                            console.log("wasVerified", wasVerified);
+                        }
+                    );
+                }
+                else{
+                    this.rout.navigate(['401']);
+                }
             }
         );
     }
-
-
 }
