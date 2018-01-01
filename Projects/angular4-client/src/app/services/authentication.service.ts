@@ -1,4 +1,4 @@
-import {AUTHORIZATION_HEADER, SessionToken, TOKEN_HEADER} from '../model/session-token';
+import {SessionToken} from '../model/session-token';
 import {LoginCredentialsService} from './login-credentials.service';
 import {HttpHeaders} from '@angular/common/http';
 import {Injectable} from '@angular/core';

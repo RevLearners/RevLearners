@@ -3,16 +3,14 @@ import 'rxjs/add/observable/of';
 import 'rxjs/add/observable/empty';
 import 'rxjs/add/operator/map';
 
-import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {HttpClient} from '@angular/common/http';
 
 import {Question} from '../model/question';
 import {Injectable} from '@angular/core';
 import {ChallengeAttempt} from '../model/challenge-attempt';
 import {Challenge} from '../model/challenge';
 import {Quiz} from '../model/quiz';
-import {AUTHORIZATION_HEADER, TOKEN_HEADER} from "../model/session-token";
 import {LoginCredentialsService} from "./login-credentials.service";
-import {Topic} from '../model/topic';
 
 const CREATE_CHALLENGE_URL = 'http://localhost:8085/api/rest/challenges/createChallenge';
 const USER_CHALLENGES_BASE_URL = 'http://localhost:8085/api/rest/challenges/getChallengesByUser';
@@ -27,8 +25,6 @@ export class QuestionService {
     }
 
     public generateChallenge(topicId: number, receiverId: number): Observable<any> {
-        const token = this.creds.getToken();
-
         const requestOptions = {headers: this.creds.prepareAuthHeaders()};
 
         const userId = this.creds.getUser().id;
@@ -50,10 +46,6 @@ export class QuestionService {
     }
 
     public submitNewQuestion(newQuestion: Question): Observable<any> {
-        return Observable.empty();
-    }
-
-    public getQuizById(id: number): Observable<Quiz> {
         return Observable.empty();
     }
 
