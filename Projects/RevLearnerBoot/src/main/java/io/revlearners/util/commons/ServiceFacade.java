@@ -334,6 +334,12 @@ public class ServiceFacade implements IServiceFacade {
 		Notification notification = notificationService.findOne(id);
 		return modelMapper.map(notification, NotificationBo.class);
 	}
+	
+	@Override
+	public void createNotifications(List<NotificationBo> notification) {
+		// TODO Auto-generated method stub
+		
+	}
 
 	@Override
 	public List<NotificationBo> listNotifications() {
