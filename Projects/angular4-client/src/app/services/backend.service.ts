@@ -6,7 +6,6 @@ import {User} from '../model/user';
 import {LoginCredentialsService} from './login-credentials.service';
 import {SessionToken} from '../model/session-token';
 
-import { AUTHORIZATION_HEADER, TOKEN_HEADER } from '../model/session-token';
 import { Router } from '@angular/router';
 import {Observable} from "rxjs/Observable";
 
@@ -33,26 +32,26 @@ export class BackendService implements OnInit {
     }
 
     public getCerts() {
-        return this.http.get('http://localhost:8085/api/rest/certifications/getList', { headers: this.headers });
+        return this.http.get('http://localhost:8085/api/rest/certifications/getList', { headers: this.creds.prepareAuthHeaders()});
     }
 
     public getUsers() {
         console.log(this.token);
-        return this.http.get('http://localhost:8085/api/rest/users/getList', { headers: this.headers });
+        return this.http.get('http://localhost:8085/api/rest/users/getList', { headers: this.creds.prepareAuthHeaders()});
     }
 
     public getTopics(): Observable<any[]> {
         console.log(this.token);
-        return this.http.get<any[]>('http://localhost:8085/api/rest/topics/getList', {headers: this.headers});
+        return this.http.get<any[]>('http://localhost:8085/api/rest/topics/getList', {headers: this.creds.prepareAuthHeaders()});
     }
 
     public getMessages() {
         console.log(this.token);
-        return this.http.get('http://localhost:8085/api/rest/messages/getList', {headers: this.headers});
+        return this.http.get(`http://localhost:8085/api/rest/messages/getAllMessages/${this.user.id}`, {headers: this.creds.prepareAuthHeaders()});
     }
 
     public getNotifications() {
-        return this.http.get('http://localhost:8085/api/rest/notifications/getList', {headers: this.headers});
+        return this.http.get('http://localhost:8085/api/rest/notifications/getList', {headers: this.creds.prepareAuthHeaders()});
     }
 
 }

@@ -42,7 +42,7 @@ export class ReviewChallengeComponent implements OnInit {
                          * discolor right and wrong answers
                          */
 
-                        // build question selected-answer map
+                            // build question selected-answer map
                         const dict = {};
                         for (const selectedOpt of attempt.answers) {
                             for (const question of attempt.challenge.quiz.questions) {
@@ -64,5 +64,11 @@ export class ReviewChallengeComponent implements OnInit {
         else {
             this.rout.navigate(["401"]);
         }
+    }
+
+    getOptionColor(opt: QuestionOption) {
+        const incorrectColor = 'rgb(214, 174, 174)';
+        const correctColor = 'rgb(174, 214, 174)';
+        return opt.isCorrect? correctColor: incorrectColor;
     }
 }

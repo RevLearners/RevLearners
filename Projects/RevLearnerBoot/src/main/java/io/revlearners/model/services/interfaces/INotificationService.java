@@ -13,11 +13,11 @@ import io.revlearners.model.bean.User;
 public interface INotificationService extends ICrudService<Notification>{
 	
 	
-	public Notification generateCertificationNotification(User sender, Set<User> receivers, MessageStatus status, String certName);
+	public void generateCertificationNotification(User sender, Set<User> receivers, MessageStatus status, String certName);
 	
-	public Notification generateAdvancementNotification(User sender, Set<User> receivers, MessageStatus status, String topic, String rankOld, String rankNew);
+	public void generateAdvancementNotification(User sender, Set<User> receivers, MessageStatus status, String topic, String rankOld, String rankNew);
 	
-	public Notification generateChallengeNotification(User sender, Set<User> receivers, MessageStatus status, Challenge challenge);
+	public void generateChallengeNotification(User sender, Set<User> receivers, MessageStatus status, Challenge challenge);
     
 	public List<Notification> getByUserId(User user);
     

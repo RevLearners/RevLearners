@@ -63,7 +63,7 @@ public interface IServiceFacade {
 
 	Page<MessageBo> pageMessages(int page, int size);
 	
-	void createMessages();
+	void createMessages(MessageBo message);
 
 	void updateMessage(MessageBo message);
 	
@@ -144,5 +144,7 @@ public interface IServiceFacade {
 	List<UserRoleBo> listRoles();
 
 	UserRoleBo getRoleByUserId(Serializable userId);
+
+	List<MessageBo> listMessagesByReceiverId(Long id);
 
 }

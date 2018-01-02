@@ -9,6 +9,7 @@ import io.revlearners.model.dao.interfaces.IUserRepository;
 import io.revlearners.model.services.interfaces.IChallengeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.*;
@@ -164,14 +165,15 @@ public class ChallengeService extends CrudService<Question> implements IChalleng
 
 
     @Override
+    @Transactional(readOnly = true)
     public Challenge getChallengeById(long id) {
         Challenge res = challengeRepo.findOne(id);
         // mask it so front end doesn't know which ones are correct
-        /*
+
+        // this method seesm to be bb
         for (Question question: res.getQuiz().getQuestions())
             for (QuestionOption opt: question.getOptions())
                 opt.setCorrect(false);
-        */
         return res;
     }
 

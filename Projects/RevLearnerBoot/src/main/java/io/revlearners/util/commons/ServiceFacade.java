@@ -1,12 +1,9 @@
 package io.revlearners.util.commons;
 
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
+import io.revlearners.model.bean.*;
 import io.revlearners.model.bo.*;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,19 +11,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.mobile.device.Device;
 import org.springframework.stereotype.Component;
 
-import io.revlearners.model.bean.Challenge;
-import io.revlearners.model.bean.ChallengeAttempt;
-import io.revlearners.model.bean.Message;
-import io.revlearners.model.bean.MessageStatus;
-import io.revlearners.model.bean.Notification;
-import io.revlearners.model.bean.Question;
-import io.revlearners.model.bean.QuestionOption;
-import io.revlearners.model.bean.Rank;
-import io.revlearners.model.bean.ReportQuestion;
-import io.revlearners.model.bean.ReportUser;
-import io.revlearners.model.bean.Topic;
-import io.revlearners.model.bean.User;
-import io.revlearners.model.bean.UserRole;
 import io.revlearners.model.mapper.customConverters.MessageModelMapper;
 import io.revlearners.model.services.EmailService;
 import io.revlearners.model.services.interfaces.IChallengeService;
@@ -278,30 +262,35 @@ public class ServiceFacade implements IServiceFacade {
 	}
 
 	@Override
-	public void createMessages() {
-		//
-		// if (message.getBlobs() != null && !message.getBlobs().isEmpty()) {
-		//
-		// Set<FileBlob> blobs = new LinkedHashSet<FileBlob>();
-		// MimeType mime;
-		// for (FileBlobBo fb : message.getBlobs()) {
-		// mime = (MimeType) blobService.findOneMime(fb.getMimeType().getId());
-		// blobs.add(new FileBlob(fb.getName(), fb.getSize(), fb.getContents(), mime));
-		// }
-		//
-		// Set<Long> ids = new HashSet<Long>();
-		// Set<User> receivers = new HashSet<User>();
-		// User sender = userService.findOne(message.getSender().getId());
-		// MessageStatus stat =
-		// messageService.findOneStatus(Constants.MESSAGE_STATUS_UNREAD);
-		//
-		// message.getReceivers().forEach(user -> ids.add(user.getId()));
-		// userService.findAll().forEach(user -> appendReceivers(receivers, ids, user));
-		//
-		// messageService.create(new Message(sender, receivers, message.getTitle(),
-		// message.getContents(), blobs,
-		// message.getTime(), stat));
-		// }
+	public void createMessages(MessageBo message) {
+	
+		List<Message> messages = new LinkedList<Message>();
+			
+		if (message.getBlobs() != null && !message.getBlobs().isEmpty()) {
+			
+			Set<FileBlob> blobs = new LinkedHashSet<FileBlob>();
+			MimeType mime;
+			for (FileBlobBo fb : message.getBlobs()) {
+				mime = (MimeType) blobService.findOneMime(fb.getMimeType().getId());
+				blobs.add(new FileBlob(fb.getName(), fb.getSize(), fb.getContents(), mime));
+			}
+			
+			Set<Long> ids = new HashSet<Long>();
+			Set<User> receivers = new HashSet<User>();
+			User sender = userService.findOne(message.getSender().getId());
+			MessageStatus stat = messageService.findOneStatus(Constants.MESSAGE_STATUS_UNREAD);
+						
+			message.getReceivers().forEach(user -> ids.add(user.getId()));
+			userService.findAll().forEach(user -> appendReceivers(receivers, ids, user));
+
+			for(User u : receivers) {
+				Set<User> cc = new HashSet<User>(receivers);
+				cc.remove(u);
+				messages.add(new Message(sender, u, cc, message.getTitle(), message.getContents(), blobs, message.getTime(), stat));
+			}
+
+			messages = messageService.create(messages);
+		}
 	}
 
 	private void appendReceivers(Set<User> receivers, Set<Long> ids, User user) {
@@ -335,7 +324,6 @@ public class ServiceFacade implements IServiceFacade {
 	
 	@Override
 	public void createNotifications(List<NotificationBo> notification) {
-		// TODO Auto-generated method stub
 		
 	}
 
@@ -539,4 +527,16 @@ public class ServiceFacade implements IServiceFacade {
 	public String verifyUser(String token, Device device) {
 		return userService.verify(token, device);
 	}
+
+	@Override
+	public List<MessageBo> listMessagesByReceiverId(Long id) {
+		List<MessageBo> bos = new LinkedList<MessageBo>();
+		List<Message> messages = messageService.findByReceiverId(id);
+		for(Message msg : messages) {
+			bos.add(modelMapper.map(msg, MessageBo.class));
+		}
+		return bos;
+		
+	}
+
 }
