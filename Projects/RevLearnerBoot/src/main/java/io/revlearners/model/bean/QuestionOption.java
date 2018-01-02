@@ -38,7 +38,7 @@ public class QuestionOption implements Serializable{
 	private Question question;
 
     @JsonView({Views.ToBackEnd.class, Views.ToFrontEnd.class})
-	@Column(name=Constants.COLUMN_IS_CORRECT)
+	@Column(name=Constants.COLUMN_IS_CORRECT, updatable=false)
 	private boolean isCorrect;
 
 	public QuestionOption(Question question, String text, boolean isCorrect) {
