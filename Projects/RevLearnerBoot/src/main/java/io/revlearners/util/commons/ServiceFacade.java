@@ -280,30 +280,30 @@ public class ServiceFacade implements IServiceFacade {
 	}
 
 	@Override
-	public void createMessages() {
-		//
-		// if (message.getBlobs() != null && !message.getBlobs().isEmpty()) {
-		//
-		// Set<FileBlob> blobs = new LinkedHashSet<FileBlob>();
-		// MimeType mime;
-		// for (FileBlobBo fb : message.getBlobs()) {
-		// mime = (MimeType) blobService.findOneMime(fb.getMimeType().getId());
-		// blobs.add(new FileBlob(fb.getName(), fb.getSize(), fb.getContents(), mime));
-		// }
-		//
-		// Set<Long> ids = new HashSet<Long>();
-		// Set<User> receivers = new HashSet<User>();
-		// User sender = userService.findOne(message.getSender().getId());
-		// MessageStatus stat =
-		// messageService.findOneStatus(Constants.MESSAGE_STATUS_UNREAD);
-		//
-		// message.getReceivers().forEach(user -> ids.add(user.getId()));
-		// userService.findAll().forEach(user -> appendReceivers(receivers, ids, user));
-		//
-		// messageService.create(new Message(sender, receivers, message.getTitle(),
-		// message.getContents(), blobs,
-		// message.getTime(), stat));
-		// }
+	public void createMessages(Long senderId, List<Long> receiverIds, String title, String contents, List<File> files) {
+		
+		 if (message.getBlobs() != null && !message.getBlobs().isEmpty()) {
+		
+		 Set<FileBlob> blobs = new LinkedHashSet<FileBlob>();
+		 MimeType mime;
+		 for (FileBlobBo fb : message.getBlobs()) {
+		 mime = (MimeType) blobService.findOneMime(fb.getMimeType().getId());
+		 blobs.add(new FileBlob(fb.getName(), fb.getSize(), fb.getContents(), mime));
+		 }
+		
+		 Set<Long> ids = new HashSet<Long>();
+		 Set<User> receivers = new HashSet<User>();
+		 User sender = userService.findOne(message.getSender().getId());
+		 MessageStatus stat =
+		 messageService.findOneStatus(Constants.MESSAGE_STATUS_UNREAD);
+		
+		 message.getReceivers().forEach(user -> ids.add(user.getId()));
+		 userService.findAll().forEach(user -> appendReceivers(receivers, ids, user));
+		
+		 messageService.create(new Message(sender, receivers, message.getTitle(),
+		 message.getContents(), blobs,
+		 message.getTime(), stat));
+		 }
 	}
 
 	private void appendReceivers(Set<User> receivers, Set<Long> ids, User user) {
