@@ -2,7 +2,6 @@ package io.revlearners.util.commons;
 
 import java.io.Serializable;
 import java.util.HashSet;
-import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -17,10 +16,8 @@ import org.springframework.stereotype.Component;
 
 import io.revlearners.model.bean.Challenge;
 import io.revlearners.model.bean.ChallengeAttempt;
-import io.revlearners.model.bean.FileBlob;
 import io.revlearners.model.bean.Message;
 import io.revlearners.model.bean.MessageStatus;
-import io.revlearners.model.bean.MimeType;
 import io.revlearners.model.bean.Notification;
 import io.revlearners.model.bean.Question;
 import io.revlearners.model.bean.QuestionOption;
@@ -100,6 +97,7 @@ public class ServiceFacade implements IServiceFacade {
 		Topic topic = topicService.findOne(id);
 		return modelMapper.map(topic, TopicBo.class);
 	}
+
 
 	@Override
 	public List<TopicBo> listTopics() {
@@ -406,7 +404,13 @@ public class ServiceFacade implements IServiceFacade {
 	}
 
 	@Override
-	public float scoreChallenge(ChallengeAttemptBo2 info) {
+	public ChallengeAttempt getAttemptById(Long id) {
+		// todo: validate user id is logged in user
+		return questionService.getAttemptById(id);
+	}
+
+	@Override
+	public ChallengeAttempt scoreChallenge(ChallengeAttemptBo2 info) {
 		Map<Long, List<Long>> answersMap = info.getAnswers();
 		Set<QuestionOption> flattened = new HashSet<>();
 		for (Long questId : answersMap.keySet()) {

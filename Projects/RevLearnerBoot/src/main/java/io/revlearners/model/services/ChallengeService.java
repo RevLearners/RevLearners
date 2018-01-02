@@ -52,13 +52,12 @@ public class ChallengeService extends CrudService<Question> implements IChalleng
      * @return
      */
     @Override
-    public float submitChallengeAttempt(ChallengeAttempt attempt) {
+    public ChallengeAttempt submitChallengeAttempt(ChallengeAttempt attempt) {
         Set<Question> questions = attempt.getChallenge().getQuiz().getQuestions();
         Set<QuestionOption> options = attempt.getAnswers();
         float score = scoreAll(questions, distillOptions(options));
         attempt.setScore(score);
-        attemptRepo.save(attempt);
-        return score;
+        return attemptRepo.save(attempt);
     }
 
     /**
@@ -168,10 +167,11 @@ public class ChallengeService extends CrudService<Question> implements IChalleng
     public Challenge getChallengeById(long id) {
         Challenge res = challengeRepo.findOne(id);
         // mask it so front end doesn't know which ones are correct
+        /*
         for (Question question: res.getQuiz().getQuestions())
             for (QuestionOption opt: question.getOptions())
                 opt.setCorrect(false);
-
+        */
         return res;
     }
 
@@ -182,6 +182,11 @@ public class ChallengeService extends CrudService<Question> implements IChalleng
         Challenge challenge = new Challenge();
         challenge.setId(userId);
         return new ArrayList<>(attemptRepo.getByUserAndChallenge(user, challenge));
+    }
+
+    @Override
+    public ChallengeAttempt getAttemptById(Long id) {
+        return attemptRepo.findOne(id);
     }
 
 }

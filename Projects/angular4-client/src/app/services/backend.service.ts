@@ -33,7 +33,7 @@ export class BackendService implements OnInit {
     }
 
     public getCerts() {
-        return this.http.get('http://localhost:4200/api/rest/certifications/getList', { headers: this.headers });
+        return this.http.get('http://localhost:8085/api/rest/certifications/getList', { headers: this.headers });
     }
 
     public getUsers() {

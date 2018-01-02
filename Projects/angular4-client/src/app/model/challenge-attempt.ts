@@ -7,13 +7,13 @@ export class ChallengeAttempt {
     user: User;
     challenge: Challenge;    // we will send this to backend
     score: number;           // we will receive this from server
-    selectedOptions: QuestionOption[];
+    answers: QuestionOption[];  // selected options
 
     constructor(id, user, challenge, score, selectedOptions) {
         this.id = id;
         this.user = user;
         this.challenge = challenge;
         this.score = score;
-        this.selectedOptions = selectedOptions;
+        this.answers = selectedOptions;
     }
 }

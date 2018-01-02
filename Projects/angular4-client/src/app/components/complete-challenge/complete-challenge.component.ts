@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {QuestionService} from '../../services/question.service';
+import {CompletedChallenge, QuestionService} from '../../services/question.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {QuestionOption} from '../../model/question-option';
 import {Question} from '../../model/question';
@@ -14,7 +14,6 @@ import {LoginCredentialsService} from '../../services/login-credentials.service'
 })
 export class CompleteChallengeComponent implements OnInit {
 
-    attempt: ChallengeAttempt;
     challenge: Challenge;
     challengeId: number;
 
@@ -34,9 +33,6 @@ export class CompleteChallengeComponent implements OnInit {
             this.questionService.getChallengeById(this.challengeId).subscribe(
                 (challenge: Challenge) => {
                     this.challenge = challenge;
-                    this.attempt = new ChallengeAttempt(
-                        -1, this.creds.getUser(), challenge, 0, []
-                    );
                 },
                 console.log
             );
@@ -48,14 +44,32 @@ export class CompleteChallengeComponent implements OnInit {
     }
 
     submitAttempt(): void {
-        this.questionService.submitAttempt(this.attempt).subscribe(
+        const answerMap = {};
+        for (const quest of this.challenge.quiz.questions) {
+            answerMap[quest.id] = quest.options
+                .filter(opt => opt.isCorrect)
+                .map(opt => opt.id);
+        }
+        const completedChallenge = new CompletedChallenge(
+            this.creds.getUser().id,
+            this.challenge.id,
+            answerMap
+        );
+
+        this.questionService.submitAttempt(completedChallenge).subscribe(
             (result: ChallengeAttempt) => {
-                this.router.navigate([`/reviewChallenge/${result.id}`]);
+                console.log(result);
+                this.router.navigate(['/', 'review-challenge', result.id]);
             },
             console.log
         );
     }
 
+    /**
+     * keep them mutually exclusive for now
+     * @param {QuestionOption} option
+     * @param {Question} question
+     */
     selectOption(option: QuestionOption, question: Question) {
         for (const opt of question.options) {
             opt.isCorrect = false;

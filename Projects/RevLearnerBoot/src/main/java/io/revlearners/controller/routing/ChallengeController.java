@@ -46,7 +46,8 @@ public class ChallengeController extends WebServicesController {
      * @return
      */
     @GetMapping("getChallengeById/{id}")
-    public @JsonView(Views.ToFrontEnd.class) Challenge getChallengeById(@PathVariable long id) {
+    public @JsonView(Views.ToFrontEnd.class)
+    Challenge getChallengeById(@PathVariable long id) {
         return serviceFacade.getChallengeById(id);
     }
 
@@ -68,14 +69,35 @@ public class ChallengeController extends WebServicesController {
      * @param userId
      * @return
      */
-    @GetMapping("getChallengeAttempts/{userId}/{challengeId}")
+    @GetMapping("getUserChallengeAttempts/{userId}/{challengeId}")
     public @JsonView(Views.ToFrontEnd.class)
     List<ChallengeAttempt> getAttemptsByUser(@PathVariable("userId") long userId, @PathVariable("challengeId") long challengeId) {
-        return serviceFacade.getChallengeAttemptsByUser(userId, challengeId);
+        List<ChallengeAttempt> result = serviceFacade.getChallengeAttemptsByUser(userId, challengeId);
+        return result;
     }
 
+    /**
+     * get request with given id
+     *
+     * @param id
+     * @return
+     */
+    @GetMapping("getChallengeAttempt/{id}")
+    public @JsonView(Views.ToFrontEnd.class)
+    ChallengeAttempt getAttemptById(@PathVariable("id") long id) {
+        ChallengeAttempt attempt = serviceFacade.getAttemptById(id);
+        return attempt;
+    }
+
+    /**
+     * submit challenges
+     *
+     * @param attemptInfo
+     * @return
+     */
     @PostMapping("createAttempt")
-    public Float submitAttempt(@RequestBody ChallengeAttemptBo2 attemptInfo) {
+    public @ResponseBody @JsonView({Views.ToFrontEnd.class}) ChallengeAttempt
+    submitAttempt(@RequestBody ChallengeAttemptBo2 attemptInfo) {
         return serviceFacade.scoreChallenge(attemptInfo);
     }
 }
