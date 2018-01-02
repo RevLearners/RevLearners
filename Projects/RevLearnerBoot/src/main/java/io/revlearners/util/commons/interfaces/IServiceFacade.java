@@ -63,7 +63,7 @@ public interface IServiceFacade {
 
 	Page<MessageBo> pageMessages(int page, int size);
 	
-	void createMessages();
+	void createMessages(MessageBo message);
 
 	void updateMessage(MessageBo message);
 	

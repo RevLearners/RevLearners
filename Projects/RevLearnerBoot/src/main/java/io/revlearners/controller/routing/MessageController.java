@@ -47,8 +47,8 @@ public class MessageController extends WebServicesController  {
 	
 	@PostMapping("/create")
 	public void createMessage(	@JsonView(Views.ToBackEnd.class) @RequestBody MessageBo message) {
-		//status updates persisted from front-end events
-//		serviceFacade.createMessages(message);
+		List<MessageBo> messages;
+		serviceFacade.createMessages(message);
 	}
 	
 	@PostMapping("/updateMessgaeStatus/{status}")

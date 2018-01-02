@@ -39,21 +39,26 @@ public class DBInit {
 	private static SessionFactory sf;
 	private static Set<UserRank> ranks = new HashSet<UserRank>();
 	private static Set<UserRank> ranks2 = new HashSet<UserRank>();
-	private static User botbert = new User("Root", null, "Admin", new UserStatus(Constants.STATUS_OK), new UserRole(Constants.ROLE_ADMIN),
-			"botbert@email.com", "Botbert", "$2a$10$trilJ1OUwLZqA9PjJYD9Bu1zpKq8jYKG3Dxsigxf1R4XLPBTH1LOW", Constants.START_DATE);
+	private static User botbert = new User("Root", null, "Admin", new UserStatus(Constants.STATUS_OK),
+			new UserRole(Constants.ROLE_ADMIN), "botbert@email.com", "Botbert",
+			"$2a$10$trilJ1OUwLZqA9PjJYD9Bu1zpKq8jYKG3Dxsigxf1R4XLPBTH1LOW", Constants.START_DATE);
 
-	private static User user1 = new User("User1", null, "User1", new UserStatus(Constants.STATUS_OK), new UserRole(Constants.ROLE_ADMIN),
-			"botbert@email.com", "User1", "$2a$10$trilJ1OUwLZqA9PjJYD9Bu1zpKq8jYKG3Dxsigxf1R4XLPBTH1LOW", Constants.START_DATE);
-	
-	private static User basic = new User("Basic", null, "User", new UserStatus(Constants.STATUS_OK), new UserRole(Constants.ROLE_BASIC),
-			"basic@email.com", "basic", "$2a$10$trilJ1OUwLZqA9PjJYD9Bu1zpKq8jYKG3Dxsigxf1R4XLPBTH1LOW", Constants.START_DATE);
-	
-	private static User advanced = new User("Advanced", null, "User", new UserStatus(Constants.STATUS_OK), new UserRole(Constants.ROLE_ADVANCED),
-			"advanced@email.com", "advanced", "$2a$10$trilJ1OUwLZqA9PjJYD9Bu1zpKq8jYKG3Dxsigxf1R4XLPBTH1LOW", Constants.START_DATE);
-	
-	private static User certified = new User("Certified", null, "User", new UserStatus(Constants.STATUS_OK), new UserRole(Constants.ROLE_CERTIFIED),
-			"certified@email.com", "certified", "$2a$10$trilJ1OUwLZqA9PjJYD9Bu1zpKq8jYKG3Dxsigxf1R4XLPBTH1LOW", Constants.START_DATE);
-	
+	private static User user1 = new User("User1", null, "User1", new UserStatus(Constants.STATUS_OK),
+			new UserRole(Constants.ROLE_ADMIN), "botbert@email.com", "User1",
+			"$2a$10$trilJ1OUwLZqA9PjJYD9Bu1zpKq8jYKG3Dxsigxf1R4XLPBTH1LOW", Constants.START_DATE);
+
+	private static User basic = new User("Basic", null, "User", new UserStatus(Constants.STATUS_OK),
+			new UserRole(Constants.ROLE_BASIC), "basic@email.com", "basic",
+			"$2a$10$trilJ1OUwLZqA9PjJYD9Bu1zpKq8jYKG3Dxsigxf1R4XLPBTH1LOW", Constants.START_DATE);
+
+	private static User advanced = new User("Advanced", null, "User", new UserStatus(Constants.STATUS_OK),
+			new UserRole(Constants.ROLE_ADVANCED), "advanced@email.com", "advanced",
+			"$2a$10$trilJ1OUwLZqA9PjJYD9Bu1zpKq8jYKG3Dxsigxf1R4XLPBTH1LOW", Constants.START_DATE);
+
+	private static User certified = new User("Certified", null, "User", new UserStatus(Constants.STATUS_OK),
+			new UserRole(Constants.ROLE_CERTIFIED), "certified@email.com", "certified",
+			"$2a$10$trilJ1OUwLZqA9PjJYD9Bu1zpKq8jYKG3Dxsigxf1R4XLPBTH1LOW", Constants.START_DATE);
+
 	public static void main(String[] args) {
 		springContext = new AnnotationConfigApplicationContext(MockPersistenceConfig.class);
 		sf = springContext.getBean(SessionFactory.class);
@@ -123,21 +128,21 @@ public class DBInit {
 			addQuestions(session);
 			/*****************************************************************/
 
-			for (User user: new User[]{botbert, user1, basic, advanced, certified}) {
-                initRanks(user);
-                session.save(user);
-            }
+			for (User user : new User[] { botbert, user1, basic, advanced, certified }) {
+				initRanks(user);
+				session.save(user);
+			}
 
 			Set<User> friends1 = new HashSet<User>();
 			Set<User> friends2 = new HashSet<User>();
 			friends1.add(botbert);
 			friends2.add(user1);
-			
+
 			botbert.setFriends(friends2);
 			user1.setFriends(friends1);
 			session.update(user1);
 			session.update(botbert);
-			
+
 			addNotifications(session);
 			addMessages(session);
 
@@ -147,27 +152,27 @@ public class DBInit {
 
 	public static void saveEntities(Map<Long, ? extends Serializable> ranks, Session session) {
 		for (Long id : ranks.keySet()) {
-			if(ranks.get(id) instanceof Rank) {
-				if(((Rank)ranks.get(id)).getRelativeWeight() == 1) {
+			if (ranks.get(id) instanceof Rank) {
+				if (((Rank) ranks.get(id)).getRelativeWeight() == 1) {
 					DBInit.ranks.add(new UserRank(botbert, (Rank) ranks.get(id), 0f));
 					DBInit.ranks2.add(new UserRank(user1, (Rank) ranks.get(id), 0f));
 				}
 			}
-				
+
 			session.save(ranks.get(id));
 		}
 	}
 
-    /**
-     * assign ranks to beginner ranks
-     */
-	public static void initRanks (User user) {
-	    Set<UserRank> userRanks = new HashSet<>();
-	    for (Rank rank: Constants.getBeginnerRanks()) {
-	        userRanks.add(new UserRank(user, rank, 0f));
-        }
-        user.setRanks(userRanks);
-    }
+	/**
+	 * assign ranks to beginner ranks
+	 */
+	public static void initRanks(User user) {
+		Set<UserRank> userRanks = new HashSet<>();
+		for (Rank rank : Constants.getBeginnerRanks()) {
+			userRanks.add(new UserRank(user, rank, 0f));
+		}
+		user.setRanks(userRanks);
+	}
 
 	/**
 	 * for quick adding of questions; does not do much validation
@@ -180,7 +185,7 @@ public class DBInit {
 	 * @param correctIdx
 	 */
 	public static void persistQuestion(String questionText, long topicId, long typeId, long difficultyId,
-		String[] optionTexts, int correctIdx, String explanation, Session session) {
+			String[] optionTexts, int correctIdx, String explanation, Session session) {
 
 		Question question = new Question();
 		question.setText(questionText);
@@ -241,22 +246,20 @@ public class DBInit {
 				"Only one copy of static variables is created when a class is loaded. Each object instantiated has its own copy of instance variables.",
 				session);
 	}
-	
-	
-	public static void persistNotification(String notificationContent, Set<User> receivers, User sender, 
+
+	public static void persistNotification(String notificationContent, Set<User> receivers, User sender,
 			MessageStatus status, LocalDateTime time, String title, Session session) {
-		
-			Notification notification = new Notification();
-			notification.setContents(notificationContent);
-			notification.setReceivers(receivers);
-			notification.setSender(sender);
-			notification.setStatus(status);
-			notification.setTime(time);
-			notification.setTitle(title);
-			session.persist(notification);
-		}
-	
-	
+
+		Notification notification = new Notification();
+		notification.setContents(notificationContent);
+		notification.setReceivers(receivers);
+		notification.setSender(sender);
+		notification.setStatus(status);
+		notification.setTime(time);
+		notification.setTitle(title);
+		session.persist(notification);
+	}
+
 	private static void addNotifications(Session session) {
 		Set<User> receivers = new HashSet<User>();
 		receivers.add(botbert);
@@ -270,21 +273,23 @@ public class DBInit {
 		persistNotification("5Hello World!", receivers, botbert, ms, LocalDateTime.now(), "5Hello World!", session);
 	}
 
-	
 	public static void persistMessage(String contents, LocalDateTime time, String title, User sender,
 			Set<User> receivers, MessageStatus status, Set<FileBlob> blobs, Session session) {
+		if (receivers != null && !receivers.isEmpty()) {
+			User receiver = receivers.iterator().next();
 			Message message = new Message();
 			message.setContents(contents);
 			message.setTime(time);
 			message.setTitle(title);
 			message.setSender(sender);
+			message.setReceiver(receiver);
 			message.setReceivers(receivers);
 			message.setStatus(status);
 			message.setBlobs(blobs);
 			session.persist(message);
 		}
-	
-	
+	}
+
 	private static void addMessages(Session session) {
 		Set<User> receivers = new HashSet<User>();
 		receivers.add(user1);

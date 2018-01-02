@@ -968,4 +968,6 @@ public final class Constants {
 	public static final String COLUMN_LAST_PW_RESET = "LAST_PASSWORD_RESET";
 
 	public static final LocalDateTime START_DATE = LocalDateTime.of(1970, 1, 1, 0, 0);
+
+	public static final String TABLE_NOTIFICATION_OTHER_RECEIVERS = "OTHER RECEUVERS";
 }
