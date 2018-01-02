@@ -77,6 +77,8 @@ export class NewQuestionComponent implements OnInit {
     submitNewQuestion(): void {
         // todo: validate new question
         if (this.token != null) {
+            console.log(this.newQuestion.text);
+            console.log(this.newQuestion.options);
             this.questionService.submitNewQuestion(this.newQuestion).subscribe(
                 console.log,
                 console.log,

@@ -50,7 +50,15 @@ export class QuestionService {
     }
 
     public submitNewQuestion(newQuestion: Question): Observable<any> {
-        return Observable.empty();
+
+        const questionInfo = {
+            topic: newQuestion.topic,
+            text: newQuestion.text,
+            options: newQuestion.options,
+            explanation: newQuestion.explanation
+        }
+
+        return this.http.post('http://localhost:8085/api/rest/challenges/createQuestion', questionInfo, { headers: this.creds.prepareAuthHeaders()});                 //Observable.empty();
     }
 
     public getQuizById(id: number): Observable<Quiz> {
