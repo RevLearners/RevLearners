@@ -34,9 +34,6 @@ export class ReviewChallengeComponent implements OnInit {
                         console.log(attempt);
                         this.attempt = attempt;
                         /**
-                         *
-                         * databind to template
-                         *
                          * attach explanation right after quesstion
                          *
                          * discolor right and wrong answers
@@ -52,6 +49,21 @@ export class ReviewChallengeComponent implements OnInit {
                                             dict[question.id] = [];
                                         }
                                         dict[question.id].push(selectedOpt);
+                                    }
+                                }
+                            }
+                        }
+                        console.log(dict);
+
+                        // for each question mark the ones seelcted as checked
+                        for (const question of attempt.challenge.quiz.questions) {
+                            const selected = dict[question.id];
+                            if (selected) {
+                                for (const qOpt of question.options) {
+                                    for (const picked of selected) {
+                                        if (picked.id === qOpt.id) {
+                                            qOpt['wasPicked'] = true;
+                                        }
                                     }
                                 }
                             }
