@@ -18,6 +18,8 @@ import {Question} from "../../model/question";
 export class ReviewChallengeComponent implements OnInit {
 
     attempt: ChallengeAttempt;
+    correct: number = 0.0;
+    total: number = 0.0;
 
     constructor(private questionService: QuestionService, private activatedRoute: ActivatedRoute,
                 private creds: LoginCredentialsService, private rout: Router) {
@@ -41,19 +43,25 @@ export class ReviewChallengeComponent implements OnInit {
 
                             // build question selected-answer map
                         const dict = {};
+                        let points: number;
                         for (const selectedOpt of attempt.answers) {
                             for (const question of attempt.challenge.quiz.questions) {
                                 for (const qOpt of question.options) {
                                     if (selectedOpt.id === qOpt.id) {
                                         if (!dict[question.id]) {
                                             dict[question.id] = [];
-                                        }
+                                        }   
+                                        points = question.difficulty.multiplier * question.type.baseVal;
+                                        this.total += points;
                                         dict[question.id].push(selectedOpt);
+                                        if(dict[question.id].isCorrect){
+                                            this.correct += points;
+                                        }
                                     }
                                 }
                             }
                         }
-                        console.log(dict);
+                        console.log("dict", dict);
 
                         // for each question mark the ones seelcted as checked
                         for (const question of attempt.challenge.quiz.questions) {

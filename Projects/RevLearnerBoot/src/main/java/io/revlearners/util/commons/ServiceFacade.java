@@ -397,7 +397,6 @@ public class ServiceFacade implements IServiceFacade {
 
 	@Override
 	public ChallengeAttempt getAttemptById(Long id) {
-		// todo: validate user id is logged in user
 		return questionService.getAttemptById(id);
 	}
 
