@@ -143,4 +143,6 @@ public interface IServiceFacade {
 
 	UserRoleBo getRoleByUserId(Serializable userId);
 
+	List<MessageBo> listMessagesByReceiverId(Long id);
+
 }

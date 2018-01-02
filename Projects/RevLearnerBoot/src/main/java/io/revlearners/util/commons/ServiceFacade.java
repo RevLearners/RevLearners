@@ -541,4 +541,16 @@ public class ServiceFacade implements IServiceFacade {
 	public String verifyUser(String token, Device device) {
 		return userService.verify(token, device);
 	}
+
+	@Override
+	public List<MessageBo> listMessagesByReceiverId(Long id) {
+		List<MessageBo> bos = new LinkedList<MessageBo>();
+		List<Message> messages = messageService.findByReceiverId(id);
+		for(Message msg : messages) {
+			bos.add(modelMapper.map(msg, MessageBo.class));
+		}
+		return bos;
+		
+	}
+
 }

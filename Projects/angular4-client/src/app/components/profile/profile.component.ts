@@ -50,7 +50,7 @@ export class ProfileComponent implements OnInit {
       this.rank.relativeWeight = 0;
       this.rank.meritThreshold = 0;
       console.log(this.token);
-      this.http.get('http://localhost:4200/api/rest/ranks/getById/' + this.rankId + '/', { headers: this.headers }).subscribe(
+      this.http.get('http://localhost:8085/api/rest/ranks/getById/' + this.rankId + '/', { headers: this.headers }).subscribe(
         data => {
           console.log("test");
           this.rank.rankName = data["name"],

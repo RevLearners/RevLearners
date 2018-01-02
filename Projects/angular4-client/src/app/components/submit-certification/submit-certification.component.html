@@ -9,10 +9,9 @@
   </div>
   <div class="form-group">
     <label for="exampleFileUpload1">User File</label>
-    <input type="file" class="form-control" id="image" #UserImage formControlName="UserImage">
   </div>
   <button type="submit" class="btn btn-primary" (click)="OnSubmit()">Submit</button>
   
-  <app-file-upload></app-file-upload>
+  <app-file-upload required></app-file-upload>
   
 </form>
