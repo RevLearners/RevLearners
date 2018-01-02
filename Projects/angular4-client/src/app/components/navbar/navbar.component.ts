@@ -21,7 +21,7 @@ import { AUTHORIZATION_HEADER, TOKEN_HEADER } from '../../model/session-token';
 export class NavbarComponent implements OnInit {
     
     user: User;
-    role: Role;
+    role: Role = {id:0, name:""};
 
     token: SessionToken = null;
 
@@ -34,6 +34,7 @@ export class NavbarComponent implements OnInit {
 
     ngOnInit() {
         this.token = this.validate.getToken();
+        //this.role.name = localStorage.getItem(role);
     }
 
     public appendHeaders() {

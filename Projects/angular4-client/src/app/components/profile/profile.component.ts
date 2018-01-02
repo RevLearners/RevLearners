@@ -5,6 +5,7 @@ import { LoginCredentialsService } from '../../services/login-credentials.servic
 import { AuthenticationService } from '../../services/authentication.service';
 
 import { Rank } from '../../model/rank';
+import { Role } from '../../model/role';
 import { User } from '../../model/user';
 import { SessionToken } from '../../model/session-token';
 import { Router } from '@angular/router';
@@ -21,6 +22,7 @@ export class ProfileComponent implements OnInit {
     rankId;
     rank: Rank = new Rank(0, 0, "", 0, null);
     ranks: Rank[];
+    role: Role = {id:0, name:""};
     user: User;
     token: SessionToken = null;
 
@@ -32,6 +34,8 @@ export class ProfileComponent implements OnInit {
 
   ngOnInit() {
     this.user = this.validate.getUser();
+    
+    //this.ranks = localStorage.getItem(this.ranks);
     this.token = this.validate.getToken();
     if (this.user != null && this.token != null) {
       this.headers = this.headers.append(AUTHORIZATION_HEADER, this.token.username);
