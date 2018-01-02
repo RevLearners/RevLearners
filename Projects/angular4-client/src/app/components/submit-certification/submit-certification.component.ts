@@ -8,6 +8,8 @@ import { AUTHORIZATION_HEADER, TOKEN_HEADER } from '../../model/session-token';
 import { BackendService } from '../../services/backend.service';
 import { Ng4LoadingSpinnerService } from 'ng4-loading-spinner';
 import { FileService } from '../../services/file.service';
+import { FileDropModule, UploadFile, UploadEvent } from 'ngx-file-drop';
+import { FileUploadComponent } from '../file-upload/file-upload.component';
 
 @Component({
   selector: 'app-submit-certification',
@@ -19,9 +21,13 @@ export class SubmitCertificationComponent {
   user: User;
   token: SessionToken = null;
 
+  uploads: UploadFile[];
   userForm: FormGroup;
-  files: File[];
-  @ViewChild('UserImage') User_Image;
+
+  @ViewChild(FileUploadComponent)
+   set appFileUpload(component: FileUploadComponent){
+     this.uploads = component.files;
+   }
 
   ngOnInit() {
     this.user = this.validate.getUser();
@@ -33,13 +39,11 @@ export class SubmitCertificationComponent {
 
   constructor(private fb: FormBuilder, private validate: LoginCredentialsService,
   private rout: Router, private fs: FileService, private spinner: Ng4LoadingSpinnerService) {
-    this.userForm = this.fb.group({
-      'UserImage': ['', Validators.required]
-    });
   }
 
   OnSubmit() {
     this.spinner.show();
+    this.fs.packageFiles(this.uploads);
     this.spinner.hide();
   }
 

@@ -1,5 +1,6 @@
 package io.revlearners.util.commons;
 
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.LinkedHashSet;
@@ -14,7 +15,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.mobile.device.Device;
 import org.springframework.stereotype.Component;
+import org.springframework.web.multipart.MultipartFile;
 
+import io.revlearners.model.bean.Certification;
 import io.revlearners.model.bean.Challenge;
 import io.revlearners.model.bean.ChallengeAttempt;
 import io.revlearners.model.bean.FileBlob;
@@ -27,8 +30,10 @@ import io.revlearners.model.bean.QuestionOption;
 import io.revlearners.model.bean.Rank;
 import io.revlearners.model.bean.ReportQuestion;
 import io.revlearners.model.bean.ReportUser;
+import io.revlearners.model.bean.RequestStatus;
 import io.revlearners.model.bean.Topic;
 import io.revlearners.model.bean.User;
+import io.revlearners.model.bean.UserCertification;
 import io.revlearners.model.bean.UserRole;
 import io.revlearners.model.mapper.customConverters.MessageModelMapper;
 import io.revlearners.model.services.EmailService;
@@ -280,35 +285,37 @@ public class ServiceFacade implements IServiceFacade {
 	}
 
 	@Override
-	public void createMessages(MessageBo message) {
-	
+	public void createMessages(MessageBo message) throws IOException {
+		Set<FileBlob> blobs = new LinkedHashSet<FileBlob>();
 		List<Message> messages = new LinkedList<Message>();
-			
-		if (message.getBlobs() != null && !message.getBlobs().isEmpty()) {
-			
-			Set<FileBlob> blobs = new LinkedHashSet<FileBlob>();
+
+		if (message.getFiles() != null && !message.getFiles().isEmpty()) {
+
 			MimeType mime;
-			for (FileBlobBo fb : message.getBlobs()) {
-				mime = (MimeType) blobService.findOneMime(fb.getMimeType().getId());
-				blobs.add(new FileBlob(fb.getName(), fb.getSize(), fb.getContents(), mime));
-			}
-			
-			Set<Long> ids = new HashSet<Long>();
-			Set<User> receivers = new HashSet<User>();
-			User sender = userService.findOne(message.getSender().getId());
-			MessageStatus stat = messageService.findOneStatus(Constants.MESSAGE_STATUS_UNREAD);
-						
-			message.getReceivers().forEach(user -> ids.add(user.getId()));
-			userService.findAll().forEach(user -> appendReceivers(receivers, ids, user));
+			for (MultipartFile mf : message.getFiles()) {
 
-			for(User u : receivers) {
-				Set<User> cc = new HashSet<User>(receivers);
-				cc.remove(u);
-				messages.add(new Message(sender, u, cc, message.getTitle(), message.getContents(), blobs, message.getTime(), stat));
+				mime = blobService.findOneMimeByName(mf.getContentType());
+				blobs.add(new FileBlob(mf.getName(), mf.getSize(), mf.getBytes(), mime));
 			}
-
-			messages = messageService.create(messages);
 		}
+
+		Set<Long> ids = new HashSet<Long>();
+		Set<User> receivers = new HashSet<User>();
+		User sender = userService.findOne(message.getSender().getId());
+		MessageStatus stat = messageService.findOneStatus(Constants.MESSAGE_STATUS_UNREAD);
+
+		message.getReceivers().forEach(user -> ids.add(user.getId()));
+		userService.findAll().forEach(user -> appendReceivers(receivers, ids, user));
+
+		for (User u : receivers) {
+			Set<User> cc = new HashSet<User>(receivers);
+			cc.remove(u);
+			messages.add(new Message(sender, u, cc, message.getTitle(), message.getContents(), blobs, message.getTime(),
+					stat));
+		}
+
+		messages = messageService.create(messages);
+
 	}
 
 	private void appendReceivers(Set<User> receivers, Set<Long> ids, User user) {
@@ -339,10 +346,10 @@ public class ServiceFacade implements IServiceFacade {
 		Notification notification = notificationService.findOne(id);
 		return modelMapper.map(notification, NotificationBo.class);
 	}
-	
+
 	@Override
 	public void createNotifications(List<NotificationBo> notification) {
-		
+
 	}
 
 	@Override
@@ -544,11 +551,95 @@ public class ServiceFacade implements IServiceFacade {
 	public List<MessageBo> listMessagesByReceiverId(Long id) {
 		List<MessageBo> bos = new LinkedList<MessageBo>();
 		List<Message> messages = messageService.findByReceiverId(id);
-		for(Message msg : messages) {
+		for (Message msg : messages) {
 			bos.add(modelMapper.map(msg, MessageBo.class));
 		}
 		return bos;
-		
+
 	}
 
+	public CertificationBo getCertificationById(Long id) {
+		Certification c = userCertificationService.findCert(id);
+		return modelMapper.map(c, CertificationBo.class);
+	}
+
+	public List<CertificationBo> listCertifications() {
+		List<Certification> certs = userCertificationService.listCertifications();
+		List<CertificationBo> certBos = new LinkedList<CertificationBo>();
+
+		for (Certification cert : certs) {
+			certBos.add(modelMapper.map(cert, CertificationBo.class));
+		}
+
+		return certBos;
+
+	}
+
+	public Page<CertificationBo> pageCertifications(int page, int size) {
+		Page<Certification> userCerts = userCertificationService.pageCerts(page, size);
+		return userCerts.map(source -> modelMapper.map(source, CertificationBo.class));
+	}
+
+	public void createCertifications(UserCertificationBo certs) throws IOException {
+		List<FileBlob> blobs = new LinkedList<FileBlob>();
+		Certification cert;
+		List<UserCertification> ucerts = new LinkedList<UserCertification>();
+		User user = userService.findOne(certs.getUserId());
+		RequestStatus req = userCertificationService.findRequest(Constants.REQUEST_STATUS_PENDING);
+
+		MimeType mime;
+		for (MultipartFile mf : certs.getFiles()) {
+
+			mime = blobService.findOneMimeByName(mf.getContentType());
+			blobs.add(new FileBlob(mf.getName(), mf.getSize(), mf.getBytes(), mime));
+		}
+
+		for (int i = 0; i < certs.getNames().size(); i++) {
+			cert = userCertificationService.findCert(certs.getCertId());
+			Set<FileBlob> blob = new HashSet<FileBlob>();
+			blob.add(blobs.get(i));
+			ucerts.add(new UserCertification(user, cert, blob, req));
+		}
+		userCertificationService.create(ucerts);
+	}
+
+	public UserCertificationBo getUserCertificationById(Long id) {
+		UserCertification c = userCertificationService.findOne(id);
+		return modelMapper.map(c, UserCertificationBo.class);
+	}
+
+	public List<UserCertificationBo> listUserCertifications() {
+		List<UserCertification> certs = userCertificationService.findAll();
+		List<UserCertificationBo> certBos = new LinkedList<UserCertificationBo>();
+
+		for (UserCertification cert : certs) {
+			certBos.add(modelMapper.map(cert, UserCertificationBo.class));
+		}
+
+		return certBos;
+
+	}
+
+	public Page<UserCertificationBo> pageUserCertifications(int page, int size) {
+		Page<UserCertification> userCerts = userCertificationService.pageAll(page, size);
+		return userCerts.map(source -> modelMapper.map(source, UserCertificationBo.class));
+	}
+	
+	public void updateUserCertification (Long userId, Long certId, Long stat) {
+		User user = userService.findOne(userId);
+		Certification cert = userCertificationService.findCert(certId);
+		UserCertification c = userCertificationService.findOne(UserCertification.generatePk(user, cert));
+		RequestStatus req = userCertificationService.findRequest(stat);
+		c.setStatus(req);
+		userCertificationService.update(c);
+	}
+
+	public List<UserCertificationBo> listCertificationsByUserId(Long userId) {
+		User user = userService.findOne(userId);
+		List<UserCertificationBo> bos = new LinkedList<UserCertificationBo>();
+		for(UserCertification uc : user.getCertifications()) {
+			bos.add(modelMapper.map(uc, UserCertificationBo.class));
+		}
+		return bos;
+	}
 }

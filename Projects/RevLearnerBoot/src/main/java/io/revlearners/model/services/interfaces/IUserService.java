@@ -1,9 +1,15 @@
 package io.revlearners.model.services.interfaces;
 
+import io.revlearners.model.bo.CertificationBo;
 import io.revlearners.model.bo.MPair;
+
+import java.util.List;
+
+import org.springframework.data.domain.Page;
 import org.springframework.mobile.device.Device;
 
 import io.revlearners.model.bean.User;
+import io.revlearners.model.bean.UserCertification;
 import io.revlearners.model.bo.UserBo;
 
 public interface IUserService extends ICrudService<User> {
@@ -17,4 +23,5 @@ public interface IUserService extends ICrudService<User> {
 	public String verify(String token, Device device);
 
 	boolean userExists(String username);
+
 }

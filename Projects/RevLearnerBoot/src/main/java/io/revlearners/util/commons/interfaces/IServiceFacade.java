@@ -1,5 +1,6 @@
 package io.revlearners.util.commons.interfaces;
 
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.*;
 
@@ -63,7 +64,7 @@ public interface IServiceFacade {
 
 	Page<MessageBo> pageMessages(int page, int size);
 	
-	void createMessages(MessageBo message);
+	void createMessages(MessageBo message) throws IOException;
 
 	void updateMessage(MessageBo message);
 	

@@ -1,5 +1,6 @@
 package io.revlearners.controller.routing;
 
+import java.io.IOException;
 import java.util.List;
 
 import org.springframework.data.domain.Page;
@@ -46,7 +47,7 @@ public class MessageController extends WebServicesController  {
 	}
 	
 	@PostMapping("/create")
-	public void createMessage(	@JsonView(Views.ToBackEnd.class) @RequestBody MessageBo message) {
+	public void createMessage(	@JsonView(Views.ToBackEnd.class) @RequestBody MessageBo message) throws IOException {
 		serviceFacade.createMessages(message);
 	}
 	

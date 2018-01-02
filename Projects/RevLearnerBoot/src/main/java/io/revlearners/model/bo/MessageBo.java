@@ -2,6 +2,8 @@ package io.revlearners.model.bo;
 
 import javax.persistence.*;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonView;
 
@@ -29,8 +31,19 @@ public class MessageBo {
 	@JsonView({Views.ToFrontEnd.class,Views.ToBackEnd.class})
 	private String contents;
 	
-	@JsonView({Views.ToFrontEnd.class,Views.ToBackEnd.class})
+	@JsonView(Views.ToFrontEnd.class)
 	private Set<FileBlobBo> blobs = new LinkedHashSet<FileBlobBo>();
+	
+	@JsonView({Views.ToBackEnd.class})
+	private Set<MultipartFile> files;
+
+	public Set<MultipartFile> getFiles() {
+		return files;
+	}
+
+	public void setFiles(Set<MultipartFile> files) {
+		this.files = files;
+	}
 
 	// input
 	@JsonView(Views.ToBackEnd.class)

@@ -3,9 +3,12 @@ package io.revlearners.model.services;
 import java.time.ZoneId;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 
+import io.revlearners.model.bo.CertificationBo;
 import io.revlearners.model.bo.MPair;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.mobile.device.Device;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -137,7 +140,5 @@ public class UserService extends CrudService<User> implements UserDetailsService
     @Override
     public boolean userExists(String username) {
 	    return userRepo.findByUsername(username) != null;
-    }
-    
-    
+    } 
 }
