@@ -24,6 +24,7 @@ export class SubmitCertificationComponent {
   uploads: UploadFile[];
   userForm: FormGroup;
   file: any;
+  fd: FormData;
 
   @ViewChild(FileUploadComponent)
    set appFileUpload(component: FileUploadComponent){

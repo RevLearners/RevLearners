@@ -2,6 +2,7 @@ package io.revlearners.util.commons;
 
 import java.io.IOException;
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.*;
 
 import io.revlearners.model.bean.*;
@@ -280,16 +281,16 @@ public class ServiceFacade implements IServiceFacade {
 
 		Set<Long> ids = new HashSet<Long>();
 		Set<User> receivers = new HashSet<User>();
-		User sender = userService.findOne(message.getSender().getId());
+		User sender = userService.findOne(message.getSenderId());
 		MessageStatus stat = messageService.findOneStatus(Constants.MESSAGE_STATUS_UNREAD);
 
-		message.getReceivers().forEach(user -> ids.add(user.getId()));
+		message.getReceiverIds().forEach(user -> ids.add(user));
 		userService.findAll().forEach(user -> appendReceivers(receivers, ids, user));
 
 		for (User u : receivers) {
 			Set<User> cc = new HashSet<User>(receivers);
 			cc.remove(u);
-			messages.add(new Message(sender, u, cc, message.getTitle(), message.getContents(), blobs, message.getTime(),
+			messages.add(new Message(sender, u, cc, message.getTitle(), message.getContents(), blobs,  LocalDateTime.now(),
 					stat));
 		}
 
