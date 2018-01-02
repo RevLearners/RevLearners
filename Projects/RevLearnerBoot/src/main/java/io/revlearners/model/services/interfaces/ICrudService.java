@@ -20,4 +20,6 @@ public interface ICrudService<TEntity>
     TEntity update(TEntity entity);
     
     TEntity create(TEntity entity);
+    
+    List<TEntity> create(List<TEntity> entities);
 }

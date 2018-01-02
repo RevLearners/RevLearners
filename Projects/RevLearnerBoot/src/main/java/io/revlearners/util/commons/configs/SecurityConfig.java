@@ -28,7 +28,7 @@ import io.revlearners.util.commons.security.JwtAuthenticationEntryPoint;
 import io.revlearners.util.commons.security.JwtAuthenticationTokenFilter;
 
 @Configuration
-//@EnableWebSecurity
+@EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired

@@ -14,6 +14,8 @@ import { SessionToken } from '../../model/session-token';
 import { HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
 
+import {BackendService} from '../../services/backend.service';
+
 import { AUTHORIZATION_HEADER, TOKEN_HEADER } from '../../model/session-token';
 
 
@@ -25,45 +27,37 @@ import { AUTHORIZATION_HEADER, TOKEN_HEADER } from '../../model/session-token';
 export class MessagesComponent implements OnInit {
 
   msg: Message;
+  msgs: Message[];
   user: User;
   token: SessionToken = null;
 
   private headers = new HttpHeaders({ 'Content-Type': 'application/json' });
 
-  constructor(private http: HttpClient, private validate: LoginCredentialsService,
+  constructor(private http: HttpClient, private validate: LoginCredentialsService, private dataservice:BackendService,
   private rout: Router ) { }
 
   ngOnInit() {
     this.user = this.validate.getUser();
     this.token = this.validate.getToken();
+    
     if (this.user != null && this.token != null) {
       this.headers = this.headers.append(AUTHORIZATION_HEADER, this.token.username);
       this.headers = this.headers.append(TOKEN_HEADER, this.token.token);
     }
-  }
-
-  fetchUserMsgs(): Observable<Notification> {
+    
+    // the below method is return all messages... 
     if (this.token != null) {
-      let url = `http://localhost:4200/api/rest/messages/getByUserId/${this.user.id}/`;
-      return this.http.get(url, { headers: this.headers })
-        .map((res: Response) => {
-          return res.json().results.map(item => {
-            return new Message(
-              item.id,
-              item.contents,
-              item.time,
-              item.senderId,
-              item.receivers,
-              item.attachment,
-              item.title,
-              item.status
-            );
-          });
-        });
-    }
-    else{
+      this.dataservice.getMessages().subscribe(
+        (data: any) =>{
+            this.msgs = data;
+            console.log("Message Data");
+            console.log(data);
+        }
+    } else{
       this.rout.navigate(["401"]);
     }
+    )
   }
 
+ 
 }

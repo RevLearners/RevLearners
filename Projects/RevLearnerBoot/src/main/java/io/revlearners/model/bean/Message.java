@@ -31,6 +31,10 @@ public class Message implements Serializable {
 	@ManyToOne
     @JoinColumn(name = Constants.COLUMN_SENDER_ID, referencedColumnName = Constants.COLUMN_USER_ID)
     private User sender;
+	
+	@ManyToOne
+    @JoinColumn(name = Constants.COLUMN_RECEIVER_ID, referencedColumnName = Constants.COLUMN_USER_ID)
+    private User receiver;
 
     @ManyToMany
     @JoinTable(name = Constants.TABLE_MESSAGE_RECEIVER, joinColumns = @JoinColumn(name = Constants.COLUMN_MESSAGE_ID), inverseJoinColumns = @JoinColumn(name = Constants.COLUMN_USER_ID))
@@ -62,7 +66,7 @@ public class Message implements Serializable {
         this.blobs = blobs;
     }
 
-    public Message(User sender, Set<User> receivers, String title, String contents, Set<FileBlob> blobs, LocalDateTime time, MessageStatus status) {
+    public Message(User sender, User receiver, Set<User> receivers, String title, String contents, Set<FileBlob> blobs, LocalDateTime time, MessageStatus status) {
         this.sender = sender;
         this.receivers = receivers;
         this.title = title;
@@ -72,7 +76,15 @@ public class Message implements Serializable {
         this.status = status;
     }
 
-    public Message(User sender, Set<User> receivers, String title, String content, LocalDateTime time, MessageStatus status) {
+    public User getReceiver() {
+		return receiver;
+	}
+
+	public void setReceiver(User receiver) {
+		this.receiver = receiver;
+	}
+
+	public Message(User sender, Set<User> receivers, String title, String content, LocalDateTime time, MessageStatus status) {
         this.sender = sender;
         this.receivers = receivers;
         this.title = title;
