@@ -45,7 +45,7 @@ export class MessagesComponent implements OnInit {
       this.headers = this.headers.append(TOKEN_HEADER, this.token.token);
     }
     
-    // the below method is return all messages... 
+    // the below method is returning all messages... 
     if (this.token != null) {
       this.dataservice.getMessages().subscribe(
         (data: any) =>{
@@ -53,10 +53,10 @@ export class MessagesComponent implements OnInit {
             console.log("Message Data");
             console.log(data);
         }
+        )
     } else{
       this.rout.navigate(["401"]);
     }
-    )
   }
 
  

@@ -11,6 +11,8 @@ import {SessionToken} from '../../model/session-token';
 import {BackendService} from '../../services/backend.service';
 import {Router} from "@angular/router";
 
+import { AUTHORIZATION_HEADER, TOKEN_HEADER } from '../../model/session-token';
+import { HttpHeaders } from "@angular/common/http";
 
 @Component({
     selector: 'app-notifications',
@@ -46,10 +48,10 @@ export class NotificationsComponent implements OnInit {
             console.log("Notification Data");
             console.log(data);
         }
+        )
     } else{
       this.rout.navigate(["401"]);
     }
-    )
   }
 }
 
