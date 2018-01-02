@@ -54,6 +54,18 @@
 	font-stretch: wider;
 }
 
+.read{
+    background-color: #99411b;
+}
+
+.unread{
+    background-color: rgba(0,0,0,0.2);
+}
+
+.unread{
+
+}
+
 li {
     border-right: 1px solid #bbb;
 }

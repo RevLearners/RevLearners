@@ -32,10 +32,13 @@ import { FileService } from './services/file.service';
 import { LoginCredentialsService } from './services/login-credentials.service';
 import { QuestionService } from './services/question.service';
 import { AuthenticationService } from './services/authentication.service';
+import { MonitorService } from './services/monitor.service';
+
 import { VerifyAccountComponent } from './components/verify-account/verify-account.component';
 import { UnauthorizedComponent } from './components/unauthorized/unauthorized.component';
 import { LogoutComponent } from './components/logout/logout.component';
 import { FileUploadComponent } from './components/file-upload/file-upload.component';
+
 
 @NgModule({
     declarations: [
@@ -71,7 +74,7 @@ import { FileUploadComponent } from './components/file-upload/file-upload.compon
         FileDropModule
     ],
     providers: [CreateAccountService, BackendService, FileService, LoginCredentialsService,
-        QuestionService, AuthenticationService],
+        QuestionService, AuthenticationService, MonitorService],
     bootstrap: [AppComponent]
 })
 export class AppModule {

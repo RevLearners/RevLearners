@@ -25,11 +25,11 @@
 
 <h3>New Message:</h3>
 <h5>To:</h5>
-<textarea rows="1" cols="10"></textarea> 
+<textarea rows="1" cols="10" [(ngModel)]=receiver></textarea> 
 <h5>Title:</h5>
-<textarea rows="1" cols="10"></textarea> 
+<textarea rows="1" cols="10" [(ngModel)]=title></textarea> 
 <h5>Body:</h5>
-<textarea rows="4" cols="50">
+<textarea rows="4" cols="50" [(ngModel)]=body>
 </textarea> 
-<button class="btn">Submit</button>
+<button class="btn" (click)="createMessage()">Submit</button>
 

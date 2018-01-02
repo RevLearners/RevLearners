@@ -33,12 +33,18 @@ export class MessagesComponent implements OnInit {
 
   private headers = new HttpHeaders({ 'Content-Type': 'application/json' });
 
+  title: string;
+  receiver: number;
+  body: string;
+  files: File[] = []
+
   constructor(private http: HttpClient, private validate: LoginCredentialsService, private dataservice:BackendService,
   private rout: Router ) { }
 
   ngOnInit() {
     this.user = this.validate.getUser();
     this.token = this.validate.getToken();
+    
     
     if (this.user != null && this.token != null) {
       this.headers = this.headers.append(AUTHORIZATION_HEADER, this.token.username);
@@ -53,11 +59,15 @@ export class MessagesComponent implements OnInit {
             console.log("Message Data");
             console.log(data);
         }
-        )
+        );
     } else{
       this.rout.navigate(["401"]);
     }
   }
 
+  public createMessage(){
+    let sender: number = this.validate.getUser().id;
+    this.dataservice.createMessage(sender, this.receiver, this.title, this.body this.files).subscribe(console.log, console.log);
+  }
  
 }
