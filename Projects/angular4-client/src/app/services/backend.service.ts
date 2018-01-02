@@ -6,7 +6,6 @@ import {User} from '../model/user';
 import {LoginCredentialsService} from './login-credentials.service';
 import {SessionToken} from '../model/session-token';
 
-import { AUTHORIZATION_HEADER, TOKEN_HEADER } from '../model/session-token';
 import { Router } from '@angular/router';
 import {Observable} from "rxjs/Observable";
 

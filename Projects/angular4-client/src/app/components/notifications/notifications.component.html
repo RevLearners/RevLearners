@@ -13,8 +13,10 @@
     <tr *ngFor="let note of notes" >
         <td>{{note.title}}</td>
         <td>{{note.contents}}</td>
-        <td>{{note.time}}</td>
+        <td>{{note.time.year}} {{note.time.month}} {{note.time.dayOfMonth}}
+            {{note.time.hour}}:{{note.time.minute}}:{{note.time.second}}
+        </td>
 		<td>{{note.senderId}}</td>
-		<td>{{note.status}}</td>
+		<td>{{note.status.name}}</td>
     </tr>
 </table>

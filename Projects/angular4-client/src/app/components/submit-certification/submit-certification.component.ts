@@ -17,12 +17,13 @@ import { FileUploadComponent } from '../file-upload/file-upload.component';
   styleUrls: ['./submit-certification.component.css']
 })
 export class SubmitCertificationComponent {
-
+    
   user: User;
   token: SessionToken = null;
 
   uploads: UploadFile[];
   userForm: FormGroup;
+  file: any;
 
   @ViewChild(FileUploadComponent)
    set appFileUpload(component: FileUploadComponent){
@@ -39,6 +40,9 @@ export class SubmitCertificationComponent {
 
   constructor(private fb: FormBuilder, private validate: LoginCredentialsService,
   private rout: Router, private fs: FileService, private spinner: Ng4LoadingSpinnerService) {
+    this.userForm = fb.group({
+      'file': [null, Validators.required]
+    });
   }
 
   OnSubmit() {
@@ -46,6 +50,7 @@ export class SubmitCertificationComponent {
     this.fs.packageFiles(this.uploads);
     this.spinner.hide();
   }
+
 
 
 }

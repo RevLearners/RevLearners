@@ -7,8 +7,6 @@ import java.util.List;
 
 public interface IChallengeService {
 
-    float submitChallengeAttempt(ChallengeAttempt attempt);
-
     Challenge generateChallenge(ChallengeInfoBo info);
 
     List<Challenge> getChallengesByUser(long userId);
@@ -18,4 +16,8 @@ public interface IChallengeService {
     Challenge getChallengeById(long id);
 
     List<ChallengeAttempt> getChallengeAttemptsByUser(long challengeId, long userId);
+
+    ChallengeAttempt submitChallengeAttempt(ChallengeAttempt attempt);
+
+    ChallengeAttempt getAttemptById(Long id);
 }

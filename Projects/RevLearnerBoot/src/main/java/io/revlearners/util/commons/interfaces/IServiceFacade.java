@@ -97,7 +97,9 @@ public interface IServiceFacade {
 
     List<ChallengeAttempt> getChallengeAttemptsByUser(Long challengeId, Long userId);
 
-    float scoreChallenge(ChallengeAttemptBo2 info);
+    public ChallengeAttempt getAttemptById(Long id);
+
+    ChallengeAttempt scoreChallenge(ChallengeAttemptBo2 info);
 
     void updateChallenge(Challenge challenge);
 

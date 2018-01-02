@@ -3,20 +3,21 @@ import 'rxjs/add/observable/of';
 import 'rxjs/add/observable/empty';
 import 'rxjs/add/operator/map';
 
-import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {HttpClient} from '@angular/common/http';
 
 import {Question} from '../model/question';
 import {Injectable} from '@angular/core';
 import {ChallengeAttempt} from '../model/challenge-attempt';
 import {Challenge} from '../model/challenge';
-import {Quiz} from '../model/quiz';
-import {AUTHORIZATION_HEADER, TOKEN_HEADER} from "../model/session-token";
 import {LoginCredentialsService} from "./login-credentials.service";
-import {Topic} from '../model/topic';
 
 const CREATE_CHALLENGE_URL = 'http://localhost:8085/api/rest/challenges/createChallenge';
 const USER_CHALLENGES_BASE_URL = 'http://localhost:8085/api/rest/challenges/getChallengesByUser';
-const CHALLENGE_BASE_URL = 'http://localhost:8085/api/rest/challenges/getChallengeById';
+const CHALLENGE_BY_ID_BASE_URL = 'http://localhost:8085/api/rest/challenges/getChallengeById';
+
+const CREATE_ATTEMPT_URL = 'http://localhost:8085/api/rest/challenges/createAttempt';
+const ATTEMPT_BY_ID_BASE_URL = 'http://localhost:8085/api/rest/challenges/getChallengeAttempt';
+const USER_ATTEMPTS_BASE_URL = 'http://localhost:8085/api/rest/challenges/getUserChallengeAttempts';
 
 const DEFAULT_QUESTION_COUNT = 5;
 
@@ -27,8 +28,6 @@ export class QuestionService {
     }
 
     public generateChallenge(topicId: number, receiverId: number): Observable<any> {
-        const token = this.creds.getToken();
-
         const requestOptions = {headers: this.creds.prepareAuthHeaders()};
 
         const userId = this.creds.getUser().id;
@@ -41,36 +40,32 @@ export class QuestionService {
         return this.http.post(CREATE_CHALLENGE_URL, requestBody, requestOptions);
     }
 
-    public getAttemptById(id: number): Observable<ChallengeAttempt> {
-        return Observable.empty();
-    }
-
-    public submitAttempt(completedChallenge: ChallengeAttempt): Observable<ChallengeAttempt> {
-        return Observable.empty();
-    }
-
     public submitNewQuestion(newQuestion: Question): Observable<any> {
-        return Observable.empty();
-    }
 
-    public getQuizById(id: number): Observable<Quiz> {
-        return Observable.empty();
+        const questionInfo = {
+            topic: newQuestion.topic,
+            text: newQuestion.text,
+            options: newQuestion.options,
+            explanation: newQuestion.explanation
+        };
+
+        return this.http.post('http://localhost:8085/api/rest/challenges/createQuestion', questionInfo, { headers: this.creds.prepareAuthHeaders()});
     }
 
     public getChallengeById(id: number): Observable<Challenge> {
-        const challengeUrl = CHALLENGE_BASE_URL + '/' + id;
-        return this.http.get(challengeUrl, {headers: this.creds.prepareAuthHeaders()})
+        const attemptUrl = `${CHALLENGE_BY_ID_BASE_URL}/${id}`;
+        return this.http.get(attemptUrl, {headers: this.creds.prepareAuthHeaders()})
             .map((res: any) => {
-                    return new Challenge(
-                        res.id,
-                        res.quiz,
-                        res.users,
-                        res.attempts
-                    );
+                return new Challenge(
+                    res.id,
+                    res.quiz,
+                    res.users,
+                    res.attempts
+                );
             });
     }
 
-    getChallengesForUser(): Observable<Challenge[]> {
+    public getChallengesForUser(): Observable<Challenge[]> {
         const userChallengsUrl = USER_CHALLENGES_BASE_URL + '/' + this.creds.getUser().id;
         return this.http.get(userChallengsUrl, {headers: this.creds.prepareAuthHeaders()})
             .map((res: any[]) => {
@@ -85,4 +80,35 @@ export class QuestionService {
             });
     }
 
+    public getUserAttemptsForChallenge(id: number): Observable<ChallengeAttempt[]> {
+        return this.http.get<ChallengeAttempt[]>(
+            `${USER_ATTEMPTS_BASE_URL}/${this.creds.getUser().id}/${id}`,
+            {headers: this.creds.prepareAuthHeaders()}
+        );
+    }
+
+    public getAttemptById(id: number): Observable<ChallengeAttempt> {
+        return this.http.get<ChallengeAttempt>(
+            `${ATTEMPT_BY_ID_BASE_URL}/${id}`,
+            {headers: this.creds.prepareAuthHeaders()}
+        );
+    }
+
+    public submitAttempt(completedChallenge: CompletedChallenge): Observable<ChallengeAttempt> {
+        return this.http.post<ChallengeAttempt>(CREATE_ATTEMPT_URL, completedChallenge, {headers: this.creds.prepareAuthHeaders()});
+    }
+
+}
+
+
+export class CompletedChallenge {
+    userId: number;
+    challengeId: number;
+    answers: Object;
+
+    constructor(userId: number, challengeId: number, answers: Object) {
+        this.userId = userId;
+        this.challengeId = challengeId;
+        this.answers = answers;
+    }
 }

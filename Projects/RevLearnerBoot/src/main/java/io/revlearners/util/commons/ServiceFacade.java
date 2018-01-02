@@ -2,13 +2,9 @@ package io.revlearners.util.commons;
 
 import java.io.IOException;
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.LinkedHashSet;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
+import io.revlearners.model.bean.*;
 import io.revlearners.model.bo.*;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,24 +13,6 @@ import org.springframework.mobile.device.Device;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
-import io.revlearners.model.bean.Certification;
-import io.revlearners.model.bean.Challenge;
-import io.revlearners.model.bean.ChallengeAttempt;
-import io.revlearners.model.bean.FileBlob;
-import io.revlearners.model.bean.Message;
-import io.revlearners.model.bean.MessageStatus;
-import io.revlearners.model.bean.MimeType;
-import io.revlearners.model.bean.Notification;
-import io.revlearners.model.bean.Question;
-import io.revlearners.model.bean.QuestionOption;
-import io.revlearners.model.bean.Rank;
-import io.revlearners.model.bean.ReportQuestion;
-import io.revlearners.model.bean.ReportUser;
-import io.revlearners.model.bean.RequestStatus;
-import io.revlearners.model.bean.Topic;
-import io.revlearners.model.bean.User;
-import io.revlearners.model.bean.UserCertification;
-import io.revlearners.model.bean.UserRole;
 import io.revlearners.model.mapper.customConverters.MessageModelMapper;
 import io.revlearners.model.services.EmailService;
 import io.revlearners.model.services.interfaces.IChallengeService;
@@ -105,6 +83,7 @@ public class ServiceFacade implements IServiceFacade {
 		Topic topic = topicService.findOne(id);
 		return modelMapper.map(topic, TopicBo.class);
 	}
+
 
 	@Override
 	public List<TopicBo> listTopics() {
@@ -417,7 +396,13 @@ public class ServiceFacade implements IServiceFacade {
 	}
 
 	@Override
-	public float scoreChallenge(ChallengeAttemptBo2 info) {
+	public ChallengeAttempt getAttemptById(Long id) {
+		// todo: validate user id is logged in user
+		return questionService.getAttemptById(id);
+	}
+
+	@Override
+	public ChallengeAttempt scoreChallenge(ChallengeAttemptBo2 info) {
 		Map<Long, List<Long>> answersMap = info.getAnswers();
 		Set<QuestionOption> flattened = new HashSet<>();
 		for (Long questId : answersMap.keySet()) {

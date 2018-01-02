@@ -6,12 +6,12 @@
         <th>User</th>
         <th>Certification</th>
         <th>Topic</th>
-        <th>Attachment</th>
+        <th>Status</th>
     </tr>
     <tr *ngFor="let cert of certs"> <!-- *ngIf="cert.status=='pending'"> -->
         <td>{{cert.user}}</td>
         <td>{{cert.name}}</td>
         <td>{{cert.topic}}</td>
-		<td>{{cert.file}}</td>
+		<td>{{cert.status}}</td>
     </tr>
 </table>

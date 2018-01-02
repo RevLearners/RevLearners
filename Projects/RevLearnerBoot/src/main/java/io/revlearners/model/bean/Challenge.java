@@ -24,7 +24,7 @@ public class Challenge implements Serializable {
 
     @JsonView({Views.ToBackEnd.class, Views.ToFrontEnd.class})
 	@OneToOne(cascade=CascadeType.ALL)
-    @JoinColumn(name=Constants.COLUMN_QUIZ_ID)
+    @JoinColumn(name=Constants.COLUMN_QUIZ_ID, updatable=false)
 	private Quiz quiz;
 
     @JsonView({Views.ToBackEnd.class, Views.ToFrontEnd.class})
