@@ -62,6 +62,15 @@ export class BackendService implements OnInit {
         return this.http.get('http://localhost:8085/api/rest/messages/getList', {headers: this.headers});
     }
   
+//    public getUserMessages() {
+//      console.log(this.token);
+//      let userMsgs = this.getMessages().subscribe(
+//        (data: any) => {
+//          
+//        }
+//      )
+//    }
+  
     public getNotifications() {
         return this.http.get('http://localhost:8085/api/rest/notifications/getList', {headers: this.headers});
     }

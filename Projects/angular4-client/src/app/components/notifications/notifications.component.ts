@@ -33,14 +33,20 @@ export class NotificationsComponent implements OnInit {
   
   private headers = new HttpHeaders({'Content-Type': 'application/json'});
   
-  constructor(private http:HttpClient, private validate:LoginCredentialsService, private dataservice:BackendService) { }
+  constructor(private http:HttpClient, private validate:LoginCredentialsService, private dataservice:BackendService,
+              private rout: Router) { }
 
   ngOnInit() {
     this.user = this.validate.getUser();
     this.token = this.validate.getToken();
     
+    if (this.user != null && this.token != null) {
+      this.headers = this.headers.append(AUTHORIZATION_HEADER, this.token.username);
+      this.headers = this.headers.append(TOKEN_HEADER, this.token.token);
+    }
+    
     if (this.token != null) {
-      this.notes == this.dataservice.getNotifications().subscribe(
+      this.dataservice.getNotifications().subscribe(
         (data: any) =>{
             this.notes = data;
             console.log("Notification Data");
@@ -49,12 +55,11 @@ export class NotificationsComponent implements OnInit {
     } else{
       this.rout.navigate(["401"]);
     }
-    
-     this.headers = this.headers.append(AUTHORIZATION_HEADER, this.user.username);
-     this.headers = this.headers.append(TOKEN_HEADER, this.token);
-    }
- 
+    )
+  }
 }
+
+  
   
   
  

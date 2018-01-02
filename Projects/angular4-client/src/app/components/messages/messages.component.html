@@ -11,11 +11,11 @@
         <th>Status</th>
         <th>Attachment</th>
     </tr>
-    <tr *ngFor="let msg of fetchUserMsgs()">
+    <tr *ngFor="let msg of msgs">
         <td>{{msg.title}}</td>
-        <td>{{msg.content}}</td>
+        <td>{{msg.contents}}</td>
         <td>{{msg.time}}</td>
-		<td>{{msg.sender}}</td>
+		<td>{{msg.senderId}}</td>
 		<td>{{msg.status}}</td>
 		<td>{{msg.attachment}}</td>
     </tr>
