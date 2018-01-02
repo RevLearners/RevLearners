@@ -15,6 +15,14 @@ public class Notification implements Serializable {
 
 	private static final long serialVersionUID = 6295517192344156314L;
 
+	public User getReceiver() {
+		return receiver;
+	}
+
+	public void setReceiver(User receiver) {
+		this.receiver = receiver;
+	}
+
 	@Id
     @Column(name = Constants.COLUMN_NOTIFICATION_ID)
     @SequenceGenerator(name = "SEQ_GEN_NOTIFICATION", sequenceName = "SEQ_NOTIFICATION", initialValue = 1, allocationSize = 1)
@@ -24,6 +32,10 @@ public class Notification implements Serializable {
     @ManyToOne
     @JoinColumn(name=Constants.COLUMN_SENDER_ID, referencedColumnName=Constants.COLUMN_USER_ID)
     private User sender;
+    
+    @ManyToOne
+    @JoinColumn(name=Constants.COLUMN_RECEIVER_ID, referencedColumnName=Constants.COLUMN_USER_ID)
+    private User receiver;
 
     @ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(name=Constants.TABLE_NOTIFICATION_RECEIVER, joinColumns=@JoinColumn(name=Constants.COLUMN_NOTIFICATION_ID), inverseJoinColumns=@JoinColumn(name=Constants.COLUMN_USER_ID))
@@ -45,7 +57,7 @@ public class Notification implements Serializable {
     public Notification() {
     }
 
-    public Notification(User sender, Set<User> receivers, String title, String contents, LocalDateTime time, MessageStatus status) {
+    public Notification(User sender, User receiver, Set<User> receivers, String title, String contents, LocalDateTime time, MessageStatus status) {
         this.sender = sender;
         this.receivers = receivers;
         this.title = title;

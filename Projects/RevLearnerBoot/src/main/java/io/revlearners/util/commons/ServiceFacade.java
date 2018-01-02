@@ -279,32 +279,37 @@ public class ServiceFacade implements IServiceFacade {
 		return messages.map(source -> modelMapper.map(source, MessageBo.class));
 	}
 
-//	@Override
-//	public void createMessages(Long senderId, List<Long> receiverIds, String title, String contents, List<File> files) {
-//		
-//		 if (message.getBlobs() != null && !message.getBlobs().isEmpty()) {
-//		
-//		 Set<FileBlob> blobs = new LinkedHashSet<FileBlob>();
-//		 MimeType mime;
-//		 for (FileBlobBo fb : message.getBlobs()) {
-//		 mime = (MimeType) blobService.findOneMime(fb.getMimeType().getId());
-//		 blobs.add(new FileBlob(fb.getName(), fb.getSize(), fb.getContents(), mime));
-//		 }
-//		
-//		 Set<Long> ids = new HashSet<Long>();
-//		 Set<User> receivers = new HashSet<User>();
-//		 User sender = userService.findOne(message.getSender().getId());
-//		 MessageStatus stat =
-//		 messageService.findOneStatus(Constants.MESSAGE_STATUS_UNREAD);
-//		
-//		 message.getReceivers().forEach(user -> ids.add(user.getId()));
-//		 userService.findAll().forEach(user -> appendReceivers(receivers, ids, user));
-//		
-//		 messageService.create(new Message(sender, receivers, message.getTitle(),
-//		 message.getContents(), blobs,
-//		 message.getTime(), stat));
-//		 }
-//	}
+	@Override
+	public void createMessages(MessageBo message) {
+	
+		List<Message> messages = new LinkedList<Message>();
+			
+		if (message.getBlobs() != null && !message.getBlobs().isEmpty()) {
+			
+			Set<FileBlob> blobs = new LinkedHashSet<FileBlob>();
+			MimeType mime;
+			for (FileBlobBo fb : message.getBlobs()) {
+				mime = (MimeType) blobService.findOneMime(fb.getMimeType().getId());
+				blobs.add(new FileBlob(fb.getName(), fb.getSize(), fb.getContents(), mime));
+			}
+			
+			Set<Long> ids = new HashSet<Long>();
+			Set<User> receivers = new HashSet<User>();
+			User sender = userService.findOne(message.getSender().getId());
+			MessageStatus stat = messageService.findOneStatus(Constants.MESSAGE_STATUS_UNREAD);
+						
+			message.getReceivers().forEach(user -> ids.add(user.getId()));
+			userService.findAll().forEach(user -> appendReceivers(receivers, ids, user));
+
+			for(User u : receivers) {
+				Set<User> cc = new HashSet<User>(receivers);
+				cc.remove(u);
+				messages.add(new Message(sender, u, cc, message.getTitle(), message.getContents(), blobs, message.getTime(), stat));
+			}
+
+			messages = messageService.create(messages);
+		}
+	}
 
 	private void appendReceivers(Set<User> receivers, Set<Long> ids, User user) {
 		if (ids.contains(user.getId()))
@@ -337,7 +342,6 @@ public class ServiceFacade implements IServiceFacade {
 	
 	@Override
 	public void createNotifications(List<NotificationBo> notification) {
-		// TODO Auto-generated method stub
 		
 	}
 
@@ -537,10 +541,14 @@ public class ServiceFacade implements IServiceFacade {
 	}
 
 	@Override
-	public void createMessages() {
-		// TODO Auto-generated method stub
+	public List<MessageBo> listMessagesByReceiverId(Long id) {
+		List<MessageBo> bos = new LinkedList<MessageBo>();
+		List<Message> messages = messageService.findByReceiverId(id);
+		for(Message msg : messages) {
+			bos.add(modelMapper.map(msg, MessageBo.class));
+		}
+		return bos;
 		
 	}
-
 
 }

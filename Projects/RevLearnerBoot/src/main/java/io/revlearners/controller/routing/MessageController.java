@@ -47,8 +47,8 @@ public class MessageController extends WebServicesController  {
 	
 	@PostMapping("/create")
 	public void createMessage(	@JsonView(Views.ToBackEnd.class) @RequestBody MessageBo message) {
-		//status updates persisted from front-end events
-//		serviceFacade.createMessages(message);
+		List<MessageBo> messages;
+		serviceFacade.createMessages(message);
 	}
 	
 	@PostMapping("/updateMessgaeStatus/{status}")
@@ -58,8 +58,8 @@ public class MessageController extends WebServicesController  {
 	}
 	
 	@GetMapping("/getAllMessages/{userid}")
-	public @ResponseBody List<MessageBo> getAllMessagesById(@PathVariable("userid") Long userid) {
-		return serviceFacade.listMessages();
+	public @ResponseBody List<MessageBo> getAllMessagesByReceiverId(@PathVariable("userid") Long userId) {
+		return serviceFacade.listMessagesByReceiverId(userId);
 	}
 	
 
