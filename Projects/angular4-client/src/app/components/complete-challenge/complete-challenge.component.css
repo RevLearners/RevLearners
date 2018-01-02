@@ -1,0 +1,45 @@
+.nopadding {
+    padding: 0;
+}
+
+.nomargin {
+    margin: 0;
+}
+
+.options-form-group {
+    margin-bottom: 0;
+}
+
+ul {
+    list-style: none;
+}
+
+.option-control-text {
+    flex-grow: 1;
+    border: 1px solid #dce4ec;
+
+    padding: 0.375rem 0.75rem;
+    font-size: 0.9375rem;
+    line-height: 1.5;
+}
+
+.option-control-text {
+    height: calc(2.15625rem + 2px);
+    padding: 6px;
+}
+
+.trash-button {
+    border-radius: 0;
+}
+
+label[for="newOption"] {
+    margin: 0px;
+}
+
+span > .fa-trash, input[type="radio"] {
+    transform: scale(1.5);
+}
+
+div > label.text-center {
+    display: inline;
+}

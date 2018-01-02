@@ -1,0 +1,55 @@
+.nopadding {
+    padding: 0;
+}
+
+.nomargin {
+    margin: 0;
+}
+
+.options-form-group {
+    margin-bottom: 0;
+}
+
+ul {
+    list-style: none;
+}
+
+li.question {
+    margin: 50px 0px;
+}
+
+.question-text {
+    font-size: 2rem;
+}
+
+.option-control-text {
+    flex-grow: 1;
+    border: 1px solid #dce4ec;
+
+    padding: 0.375rem 0.75rem;
+    line-height: 1.5;
+
+    height: calc(2.15625rem + 2px);
+    padding: 6px;
+}
+
+
+p.question-option {
+    padding: 10px 15px;
+    border-radius: 2px;
+}
+
+.trash-button {
+    border-radius: 0;
+}
+
+input[type="radio"] {
+    position: relative;
+    top: 10px;
+    transform: scale(1.5);
+}
+
+div > label.text-center {
+    display: inline;
+}
+

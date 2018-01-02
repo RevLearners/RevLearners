@@ -5,19 +5,20 @@
 
             <div class="form-group">
                 <div class="col-sm-7">
-                    <p type="text">{{question.text}}</p>
+                    <p>{{question.text}}</p>
                 </div>
             </div>
 
             <div *ngFor="let option of question.options" class="form-group">
                 <div class="nopadding">
-                    <div class="option-control-wide col-sm-7" (click)="selectOption(option, question)">
-                        <label for="qOption" class="btn btn-default text-center">
-                            <input type="radio" name="ignored" (click)="selectOption(option, question)"/>
+                    <div class="col-sm-12" (click)="selectOption(option, question)">
+                        <label class="col-sm-1 text-center" for="qOption">
+                            <input type="radio" [checked]="option.isCorrect" (click)="selectOption(option, question)"/>
                         </label>
-                        <p type="text" class="nopadding option-control-text" id="qOption">
+                        <p class="col-sm-7 nopadding" id="qOption">
                             {{option.text}}
                         </p>
+
                     </div>
                 </div>
             </div>
@@ -26,11 +27,9 @@
     </ul>
 
     <div class="form-group">
-        <div class="col-sm-offset-4 col-sm-7">
-            <button type="button" class="btn btn-primary btn-block" (click)="submitAttempt()">
-                Submit Quiz
-            </button>
-        </div>
+        <button type="button" class="btn btn-primary btn-block" (click)="submitAttempt()">
+            Submit Quiz
+        </button>
     </div>
 
 </form>

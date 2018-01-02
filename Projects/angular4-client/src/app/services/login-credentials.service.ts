@@ -14,13 +14,8 @@ export const SESSION_USER = "currentUser";
 @Injectable()
 export class LoginCredentialsService {
 
-    user: any = null;
-
-    token: SessionToken = null;
-
     setToken(token: SessionToken): void {
         localStorage.setItem(SESSION_KEY, JSON.stringify(token));
-        this.token = token;
     }
 
     getToken(): SessionToken {
@@ -29,7 +24,6 @@ export class LoginCredentialsService {
 
     setUser(user: any): void {
         localStorage.setItem(SESSION_USER, JSON.stringify(user));
-        this.user = user;
     }
 
     getUser(): any {
@@ -37,19 +31,19 @@ export class LoginCredentialsService {
     }
 
     clear(): void {
-        this.user = null;
-        this.token = null;
+        localStorage.clear();
     }
 
     prepareAuthHeaders(): HttpHeaders {
+        const token: SessionToken = this.getToken();
         let headers = new HttpHeaders({'Content-Type': 'application/json'});
-        headers = headers.append(AUTHORIZATION_HEADER, this.token.username);
-        headers = headers.append(TOKEN_HEADER, this.token.token);
+        headers = headers.append(AUTHORIZATION_HEADER, token.username);
+        headers = headers.append(TOKEN_HEADER, token.token);
         return headers;
     }
 
     isLoggedIn(): boolean {
-        return this.token != null;
+        return this.getToken() != null;
     }
 
     navigateToLogin(router: Router) {

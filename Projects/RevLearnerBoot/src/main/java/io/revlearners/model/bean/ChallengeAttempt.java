@@ -49,7 +49,9 @@ public class ChallengeAttempt implements Serializable {
 
     @JsonView({Views.ToBackEnd.class, Views.ToFrontEnd.class})
 	@ManyToMany(targetEntity=QuestionOption.class, fetch=FetchType.EAGER)
-	@JoinTable(name=Constants.TABLE_CHALLENGE_ATTEMPT_ANSWERS, joinColumns=@JoinColumn(name=Constants.COLUMN_ATTEMPT_ID), inverseJoinColumns=@JoinColumn(name=Constants.COLUMN_OPTION_ID))
+	@JoinTable( name=Constants.TABLE_CHALLENGE_ATTEMPT_ANSWERS,
+            joinColumns=@JoinColumn(updatable=false, name=Constants.COLUMN_ATTEMPT_ID),
+            inverseJoinColumns=@JoinColumn(updatable=false, name=Constants.COLUMN_OPTION_ID))
 	private Set<QuestionOption> answers;
 
     public ChallengeAttempt() {
