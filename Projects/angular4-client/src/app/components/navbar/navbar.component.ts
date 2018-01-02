@@ -65,26 +65,26 @@ export class NavbarComponent implements OnInit {
     }
 
     public invokeMessageMonitor() {
-        // this.msgAlive = true;
-        // if (this.token != null) {
-        //     IntervalObservable.create(2000
-        //     ).takeWhile(() => this.msgAlive) // only fires when component is alive
-        //         .subscribe(() => {
-        //             this.bs.getMessages().subscribe((data: any) => {
-        //                 if (this.messageCount < this.msgArr.length) {
-        //                     this.msgNew = true;
-        //                     console.log("Msg", data);
-        //                     localStorage.setItem(MSG_CACHE, JSON.stringify(data));
-        //                     this.msgArr = data;
-        //                     this.messageCount = this.msgArr.length;
-        //                 }
-        //             });
-        //         }
-        //         )
-        // }
-        // else {
-        //     this.stopMessageMonitor();
-        // }
+        this.msgAlive = true;
+        if (this.token != null) {
+            IntervalObservable.create(10000
+            ).takeWhile(() => this.msgAlive) // only fires when component is alive
+                .subscribe(() => {
+                    this.bs.getMessages().subscribe((data: any) => {
+                        if (this.messageCount < this.msgArr.length) {
+                            this.msgNew = true;
+                            console.log("Msg", data);
+                            localStorage.setItem(MSG_CACHE, JSON.stringify(data));
+                            this.msgArr = data;
+                            this.messageCount = this.msgArr.length;
+                        }
+                    });
+                }
+                )
+        }
+        else {
+            this.stopMessageMonitor();
+        }
     }
 
     public stopMessageMonitor() {
@@ -97,26 +97,26 @@ export class NavbarComponent implements OnInit {
     }
 
     public invokeNotificationMonitor() {
-        // this.msgAlive = true;
-        // if (this.token != null) {
-        //     IntervalObservable.create(2000
-        //     ).takeWhile(() => this.msgAlive) // only fires when component is alive
-        //         .subscribe(() => {
-        //             this.bs.getNotifications().subscribe((data: any) => {
-        //                 if (this.notificationCount < this.msgArr.length) {
-        //                     this.notNew = true;
-        //                     console.log("Notifs", data);
-        //                     localStorage.setItem(NOTIF_CACHE, JSON.stringify(data));
-        //                     this.notArr = data;
-        //                     this.notificationCount = this.msgArr.length;
-        //                 }
-        //             });
-        //         }
-        //         )
-        // }
-        // else {
-        //     this.stopNotificationMonitor();
-        // }
+        this.msgAlive = true;
+        if (this.token != null) {
+            IntervalObservable.create(10000
+            ).takeWhile(() => this.msgAlive) // only fires when component is alive
+                .subscribe(() => {
+                    this.bs.getNotifications().subscribe((data: any) => {
+                        if (this.notificationCount < this.msgArr.length) {
+                            this.notNew = true;
+                            console.log("Notifs", data);
+                            localStorage.setItem(NOTIF_CACHE, JSON.stringify(data));
+                            this.notArr = data;
+                            this.notificationCount = this.msgArr.length;
+                        }
+                    });
+                }
+                )
+        }
+        else {
+            this.stopNotificationMonitor();
+        }
     }
 
     public stopNotificationMonitor() {

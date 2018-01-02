@@ -31,9 +31,13 @@ export class BackendService implements OnInit {
         }
     }
 
-    public createMessage(sender: number, receiver: number, title: string, body: string, files: any[]){
+    public createMessage(sender: number, receiver: number, title: string, body: string, files: FormData){
         console.log(sender, receiver, title, body);
-        return this.http.post('http://localhost:8085/api/rest/messages/create', { senderId: sender, receiverIds: [receiver], title: title, contents: body, files: files}, { headers: this.creds.prepareAuthHeaders()});
+        return this.http.post('http://localhost:8085/api/rest/messages/create', { senderId: sender, receiverIds: [receiver], title: title, contents: body}, { headers: this.creds.prepareAuthHeaders()});
+    }
+
+    public createCertification(user: number, certification: number, files: FormData){
+        return this.http.post('http://localhost:8085/api/rest/user_certifications/create', { user, certification, files }, { headers: this.creds.prepareAuthHeaders()});
     }
 
     public getCerts() {

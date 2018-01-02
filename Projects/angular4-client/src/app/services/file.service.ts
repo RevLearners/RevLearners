@@ -4,24 +4,14 @@ import { FileDropModule, UploadFile, UploadEvent } from 'ngx-file-drop';
 
 @Injectable()
 export class FileService {
-    
 
-    public fileOver(event) {
-        console.log(event);
-    }
-
-    public fileLeave(event) {
-        console.log(event);
-    }
-
-    public packageFiles(uploads: UploadFile[]): File[] {
-        let files: File[] = [];
+    public packageFiles(uploads: UploadFile[]): FormData {
+        let fd: FormData = new FormData();
         for (var file of uploads) {
             file.fileEntry.file(info => {
-                files.push(info);
+                fd.append('file', info);
             });
         }
-        return files;
+        return fd;
     }
-
 }

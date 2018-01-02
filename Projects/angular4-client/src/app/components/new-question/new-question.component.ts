@@ -1,11 +1,11 @@
-import {Component, OnInit} from '@angular/core';
-import {Question} from '../../model/question';
-import {QuestionOption} from '../../model/question-option';
-import {QuestionService} from '../../services/question.service';
-import {Router} from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { Question } from '../../model/question';
+import { QuestionOption } from '../../model/question-option';
+import { QuestionService } from '../../services/question.service';
+import { Router } from '@angular/router';
 
-import {LoginCredentialsService} from '../../services/login-credentials.service';
-import {BackendService} from "../../services/backend.service";
+import { LoginCredentialsService } from '../../services/login-credentials.service';
+import { BackendService } from "../../services/backend.service";
 
 @Component({
     selector: 'app-new-question',
@@ -14,38 +14,40 @@ import {BackendService} from "../../services/backend.service";
 })
 export class NewQuestionComponent implements OnInit {
 
-    newQuestion: Question = new Question(-1, null, null,[
+    newQuestion: Question = new Question(-1, null, null, [
         new QuestionOption(-1, null, false)
     ]);
 
     topics: any[] = [];
 
     constructor(private dataService: BackendService, private questionService: QuestionService,
-                private router: Router, private creds: LoginCredentialsService) {
+        private router: Router, private creds: LoginCredentialsService) {
         console.log(this.newQuestion);
     }
 
     ngOnInit() {
-        if (this.creds.isLoggedIn()) {
-            this.dataService.getTopics().subscribe(
-                data => {
-                    this.topics = data;
-                    this.newQuestion.topic = this.topics[0];
-                },
-                console.log
-            );
-            this.dataService.getTopics().subscribe(
-                (data: any[]) => {
-                    this.topics = data;
-                    this.newQuestion.topic = this.topics[0];
-                },
-                console.log
-            );
-        }
-        else {
-            this.creds.navigateToLogin(this.router);
+        if (this.creds.getToken() != null) {
+                this.dataService.getTopics().subscribe(
+                    data => {
+                        this.topics = data;
+                        this.newQuestion.topic = this.topics[0];
+                    },
+                    console.log
+                );
+                this.dataService.getTopics().subscribe(
+                    (data: any[]) => {
+                        this.topics = data;
+                        this.newQuestion.topic = this.topics[0];
+                    },
+                    console.log
+                );
+            }
+        
+        else{
+            this.router.navigate(['401']);
         }
     }
+    
 
     addNewOption(): void {
         if (this.creds.isLoggedIn()) {

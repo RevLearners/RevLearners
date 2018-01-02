@@ -54,7 +54,7 @@ export class ReviewChallengeComponent implements OnInit {
                                         points = question.difficulty.multiplier * question.type.baseVal;
                                         this.total += points;
                                         dict[question.id].push(selectedOpt);
-                                        if(dict[question.id].isCorrect){
+                                        if(selectedOpt.isCorrect){
                                             this.correct += points;
                                         }
                                     }
