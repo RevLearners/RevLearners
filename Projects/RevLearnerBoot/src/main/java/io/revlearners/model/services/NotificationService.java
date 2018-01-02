@@ -1,6 +1,7 @@
 package io.revlearners.model.services;
 
 import java.time.LocalDateTime;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -53,7 +54,7 @@ public class NotificationService extends CrudService<Notification> implements IN
 		LocalDateTime now = LocalDateTime.now();
 		
 		notif.setSender(sender);
-		notif.setReceivers(receivers);
+		notif.setReceivers(new HashSet<>(receivers));
 		notif.setTitle("Challenge Issued!");
 		notif.setContents("You have been issued a challenge by: " + sender.getUsername() + "!");
 		notif.setTime(now);

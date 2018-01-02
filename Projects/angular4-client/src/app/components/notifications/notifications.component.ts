@@ -1,27 +1,21 @@
-import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-
-import { Http, Response, Headers, RequestOptions } from '@angular/http';
-import { Observable } from 'rxjs/Rx';
+import {Component, OnInit} from '@angular/core';
+import {HttpClient} from '@angular/common/http';
 import 'rxjs/add/operator/map';
 
-import { User } from '../../model/user';
-import { Notification } from '../../model/notification';
+import {User} from '../../model/user';
+import {Notification} from '../../model/notification';
 
-import { LoginCredentialsService } from '../../services/login-credentials.service';
-import { AuthenticationService } from '../../services/authentication.service';
-import { SessionToken } from '../../model/session-token';
-import { HttpHeaders } from '@angular/common/http';
-import {Router} from '@angular/router';
+import {LoginCredentialsService} from '../../services/login-credentials.service';
+import {SessionToken} from '../../model/session-token';
 
 import {BackendService} from '../../services/backend.service';
+import {Router} from "@angular/router";
 
-import {AUTHORIZATION_HEADER, TOKEN_HEADER} from '../../model/session-token';
 
 @Component({
-  selector: 'app-notifications',
-  templateUrl: './notifications.component.html',
-  styleUrls: ['./notifications.component.css']
+    selector: 'app-notifications',
+    templateUrl: './notifications.component.html',
+    styleUrls: ['./notifications.component.css']
 })
 
 export class NotificationsComponent implements OnInit {
@@ -62,4 +56,4 @@ export class NotificationsComponent implements OnInit {
   
   
   
- 
+

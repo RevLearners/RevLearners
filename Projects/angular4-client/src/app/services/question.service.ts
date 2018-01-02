@@ -16,7 +16,7 @@ import {Topic} from '../model/topic';
 
 const CREATE_CHALLENGE_URL = 'http://localhost:8085/api/rest/challenges/createChallenge';
 const USER_CHALLENGES_BASE_URL = 'http://localhost:8085/api/rest/challenges/getChallengesByUser';
-const CHALLENGE_BASE_URL = 'http://localhost:8085/api/rest/challenges/getChallengesById';
+const CHALLENGE_BASE_URL = 'http://localhost:8085/api/rest/challenges/getChallengeById';
 
 const DEFAULT_QUESTION_COUNT = 5;
 
