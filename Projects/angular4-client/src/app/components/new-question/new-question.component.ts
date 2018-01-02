@@ -4,8 +4,6 @@ import {QuestionOption} from '../../model/question-option';
 import {QuestionService} from '../../services/question.service';
 import {Router} from '@angular/router';
 
-import {User} from '../../model/user';
-import {SessionToken} from '../../model/session-token';
 import {LoginCredentialsService} from '../../services/login-credentials.service';
 import {BackendService} from "../../services/backend.service";
 
@@ -16,17 +14,15 @@ import {BackendService} from "../../services/backend.service";
 })
 export class NewQuestionComponent implements OnInit {
 
-    user: User;
-    token: SessionToken;
-
-    newQuestion: Question = new Question(-1, '', '', [
-        new QuestionOption(-1, '', false)
+    newQuestion: Question = new Question(-1, null, null,[
+        new QuestionOption(-1, null, false)
     ]);
 
     topics: any[] = [];
 
     constructor(private dataService: BackendService, private questionService: QuestionService,
                 private router: Router, private creds: LoginCredentialsService) {
+        console.log(this.newQuestion);
     }
 
     ngOnInit() {

@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import io.revlearners.model.bean.FileBlob;
+import io.revlearners.model.bean.MimeType;
 import io.revlearners.model.services.interfaces.IFileBlobService;
 import io.revlearners.model.services.interfaces.IMimeTypeRepository;
 
@@ -18,5 +19,10 @@ public class FileBlobService extends CrudService<FileBlob> implements IFileBlobS
 	@Override
 	public Serializable findOneMime(Long id) {
 		return mimeRepo.findOne(id);
+	}
+
+	@Override
+	public MimeType findOneMimeByName(String contentType) {
+		return mimeRepo.findMimeTypeByName(contentType);
 	}
 }

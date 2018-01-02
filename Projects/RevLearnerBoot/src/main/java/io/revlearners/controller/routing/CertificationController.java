@@ -17,49 +17,29 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.annotation.JsonView;
 
-import io.revlearners.model.bo.MessageBo;
+import io.revlearners.model.bo.CertificationBo;
 import io.revlearners.model.jsonview.Views;
 import io.revlearners.util.commons.configs.WebConstants;
 
 @RestController
-@RequestMapping(WebConstants.MESSAGES)
-public class MessageController extends WebServicesController  {
+@RequestMapping(WebConstants.CERTIFICATIONS)
+public class CertificationController extends WebServicesController  {
 
 	@GetMapping(WebConstants.GET_BY_ID)
-	public ResponseEntity<MessageBo> getMsgById(@PathVariable(value = "id") Long id) {
-		MessageBo msg = serviceFacade.getMessageById(id);
+	public ResponseEntity<CertificationBo> getMsgById(@PathVariable(value = "id") Long id) {
+		CertificationBo msg = serviceFacade.getCertificationById(id);
 		if(msg == null)
 			return ResponseEntity.notFound().build();
 		return ResponseEntity.ok().body(msg);
 	}
 	
 	@GetMapping(WebConstants.GET_LIST)
-	public List<MessageBo> listRanks(Model model){
-		return serviceFacade.listMessages();
+	public List<CertificationBo> listRanks(Model model){
+		return serviceFacade.listCertifications();
 	}
 	
 	@GetMapping(value = WebConstants.GET_PAGE, params = { "page", "size" })
-	public Page<MessageBo> pageRanks(Model model, @RequestParam("page") int page, @RequestParam("size") int size){
-		return serviceFacade.pageMessages(page, size);
+	public Page<CertificationBo> pageRanks(Model model, @RequestParam("page") int page, @RequestParam("size") int size){
+		return serviceFacade.pageCertifications(page, size);
 	}
-	
-	@PostMapping("/create")
-	public void createMessage(	@JsonView(Views.ToBackEnd.class) @RequestBody MessageBo message) throws IOException {
-		serviceFacade.createMessages(message);
-	}
-	
-	@PostMapping("/updateMessgaeStatus/{status}")
-	public void updateStatus(@RequestBody List<MessageBo> messages) {
-		//status updates persisted from front-end events
-		serviceFacade.updateMessages(messages);
-	}
-	
-	@GetMapping("/getAllMessages/{userid}")
-	public @ResponseBody List<MessageBo> getAllMessagesByReceiverId(@PathVariable("userid") Long userId) {
-		return serviceFacade.listMessagesByReceiverId(userId);
-	}
-	
-
 }
-
-

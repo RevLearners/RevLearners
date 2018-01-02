@@ -22,6 +22,9 @@ public final class WebConstants {
 	public static final String NOTIFICATIONS = REST_DOMAIN + "/notifications";
 	public static final String CHALLENGES = REST_DOMAIN + "/challenges";
 	public static final String REPORTS = REST_DOMAIN + "/reports";
+	public static final String CERTIFICATIONS = REST_DOMAIN + "/certifications";
+	public static final String USER_CERTIFICATIONS = REST_DOMAIN + "/user_certifications";
+	
 
 	// Convenience variable names for identifiers from restful JSONs
 	// use these to maintain consistency between Angular4 and Spring rest calls

@@ -47,9 +47,9 @@ export class QuestionService {
             text: newQuestion.text,
             options: newQuestion.options,
             explanation: newQuestion.explanation
-        }
+        };
 
-        return this.http.post('http://localhost:8085/api/rest/challenges/createQuestion', questionInfo, { headers: this.creds.prepareAuthHeaders()});                 //Observable.empty();
+        return this.http.post('http://localhost:8085/api/rest/challenges/createQuestion', questionInfo, { headers: this.creds.prepareAuthHeaders()});
     }
 
     public getChallengeById(id: number): Observable<Challenge> {

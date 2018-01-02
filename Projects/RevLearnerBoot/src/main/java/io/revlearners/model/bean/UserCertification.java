@@ -41,7 +41,7 @@ public class UserCertification implements Serializable {
         setCertification(certification);
     }
 
-    public UserCertification(User user, Certification certification, RequestStatus requestStatus) {
+    public UserCertification(User user, Certification certification, Set<FileBlob> blobs, RequestStatus requestStatus) {
         this.pk.user = user;
         this.pk.certification = certification;
         this.status = requestStatus;
@@ -133,4 +133,11 @@ public class UserCertification implements Serializable {
             return result;
         }
     }
+
+	public static UserCertPair generatePk(User user, Certification cert) {
+		UserCertPair ucp = new UserCertPair();
+		ucp.user = user;
+		ucp.certification = cert;
+		return ucp;
+	}
 }

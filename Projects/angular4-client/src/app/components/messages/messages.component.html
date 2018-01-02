@@ -14,9 +14,11 @@
     <tr *ngFor="let msg of msgs">
         <td>{{msg.title}}</td>
         <td>{{msg.contents}}</td>
-        <td>{{msg.time}}</td>
+        <td>{{msg.time.year}} {{msg.time.month}} {{msg.time.dayOfMonth}}
+            {{msg.time.hour}}:{{msg.time.minute}}:{{msg.time.second}}
+        </td>
 		<td>{{msg.senderId}}</td>
-		<td>{{msg.status}}</td>
+		<td>{{msg.status.name}}</td>
 		<td>{{msg.attachment}}</td>
     </tr>
 </table>
@@ -29,4 +31,5 @@
 <h5>Body:</h5>
 <textarea rows="4" cols="50">
 </textarea> 
+<button class="btn">Submit</button>
 

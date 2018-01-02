@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FileDropModule, UploadFile, UploadEvent } from 'ngx-file-drop';
+import {FileService} from '../../services/file.service';
 
 @Component({
   selector: 'app-file-upload',
@@ -11,28 +12,21 @@ export class FileUploadComponent {
 
   public selectedFiles;
   public files: UploadFile[] = [];
+  constructor(private fs: FileService){}
 
   public dropped(event: UploadEvent) {
     for (var file of event.files) {
-      this.files.push(file);
+        this.files.push(file);
     }
     for (var file of this.files) {
-      file.fileEntry.file(info => {
-        console.log(info);
-      });
+        file.fileEntry.file(info => {
+            console.log(info);
+        });
     }
-  }
+}
 
-  public removeFile(file: UploadFile) {
+public removeFile(file: UploadFile) {
     const idx: number = this.files.indexOf(file);
     this.files.splice(idx, 1);
-  }
-
-  public fileOver(event) {
-    console.log(event);
-  }
-
-  public fileLeave(event) {
-    console.log(event);
-  }
+}
 }

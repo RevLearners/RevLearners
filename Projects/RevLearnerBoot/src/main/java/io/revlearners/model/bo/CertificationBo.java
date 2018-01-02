@@ -2,6 +2,9 @@ package io.revlearners.model.bo;
 
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonView;
+
+import io.revlearners.model.jsonview.Views;
 import io.revlearners.util.commons.configs.Constants;
 
 import java.io.Serializable;
@@ -10,6 +13,7 @@ import java.util.Set;
 public class CertificationBo {
 
 
+	@JsonView({Views.ToFrontEnd.class,Views.ToBackEnd.class})
 	private Long id;
 	private String name;
 	private TopicBo topic;

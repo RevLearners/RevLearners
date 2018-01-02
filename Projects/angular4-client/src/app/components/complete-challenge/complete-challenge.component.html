@@ -1,11 +1,11 @@
 <form class="form form-horizontal">
 
     <ul *ngIf="this.challenge">
-        <li *ngFor="let question of this.challenge.quiz.questions">
+        <li class="question" *ngFor="let question of this.challenge.quiz.questions">
 
             <div class="form-group">
                 <div class="col-sm-7">
-                    <p>{{question.text}}</p>
+                    <p class="question-text">{{question.text}}</p>
                 </div>
             </div>
 
@@ -15,7 +15,7 @@
                         <label class="col-sm-1 text-center" for="qOption">
                             <input type="radio" [checked]="option.isCorrect" (click)="selectOption(option, question)"/>
                         </label>
-                        <p class="col-sm-7 nopadding" id="qOption">
+                        <p class="col-sm-7 nopadding question-option" id="qOption">
                             {{option.text}}
                         </p>
 

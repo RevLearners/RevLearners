@@ -2,11 +2,9 @@ package io.revlearners.model.services;
 
 import io.revlearners.model.bean.*;
 import io.revlearners.model.bo.ChallengeInfoBo;
-import io.revlearners.model.dao.interfaces.IAttemptRepository;
-import io.revlearners.model.dao.interfaces.IChallengeRepository;
-import io.revlearners.model.dao.interfaces.IQuestionRepository;
-import io.revlearners.model.dao.interfaces.IUserRepository;
+import io.revlearners.model.dao.interfaces.*;
 import io.revlearners.model.services.interfaces.IChallengeService;
+import io.revlearners.util.commons.configs.Constants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -28,6 +26,9 @@ public class ChallengeService extends CrudService<Question> implements IChalleng
     IQuestionRepository questionRepo;
 
     @Autowired
+    IQuestionOptionRepository optionsRepo;
+
+    @Autowired
     IUserRepository userRepo;
 
 
@@ -39,7 +40,20 @@ public class ChallengeService extends CrudService<Question> implements IChalleng
      */
     @Override
     public Question saveQuestion(Question question) {
-        return questionRepo.save(question);
+        Set<QuestionOption> options = question.getOptions();
+
+        question.setDifficulty(new QuestionDifficulty(Constants.DIFFICULTY_EASY));
+        question.setType(new QuestionType(Constants.QUESTION_MULTI_CHOICE));
+        question.setOptions(new HashSet<>());
+        Question savedQ = questionRepo.save(question);
+
+
+        for (QuestionOption o: options) {
+            o.setQuestion(savedQ);
+        }
+        optionsRepo.save(options);
+        savedQ.setOptions(options);
+        return savedQ;
     }
 
     /**
@@ -165,12 +179,11 @@ public class ChallengeService extends CrudService<Question> implements IChalleng
 
 
     @Override
-    @Transactional(readOnly = true)
     public Challenge getChallengeById(long id) {
         Challenge res = challengeRepo.findOne(id);
-        // mask it so front end doesn't know which ones are correct
 
-        // this method seesm to be bb
+        // mask it so front end doesn't know which ones are correct
+        // nulling it seems to set that value in the db though
         for (Question question: res.getQuiz().getQuestions())
             for (QuestionOption opt: question.getOptions())
                 opt.setCorrect(false);

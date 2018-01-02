@@ -27,6 +27,10 @@
     line-height: 1.5;
 }
 
+form {
+    margin: 50px 0px;
+}
+
 .option-control-text {
     height: calc(2.15625rem + 2px);
     padding: 6px;
@@ -34,12 +38,28 @@
 
 .trash-button {
     border-radius: 0;
+    height: 34px;
 }
 
-label[for="newOption"] {
+label {
     margin: 0px;
+    font-size: 12pt;
+    font-weight: 600;
+    height: 34px;
 }
 
 span > .fa-trash, input[type="radio"] {
-    transform: scale(2);
+    transform: scale(1.7);
+}
+
+#newOption {
+    display: block;
+    width: 100%;
+    height: 34px;
+    padding: 6px 12px;
+    font-size: 14px;
+    line-height: 1.42857143;
+    color: #555;
+    box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+    transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
 }

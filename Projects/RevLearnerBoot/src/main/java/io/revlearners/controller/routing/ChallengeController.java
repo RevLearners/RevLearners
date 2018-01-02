@@ -86,6 +86,7 @@ public class ChallengeController extends WebServicesController {
     public @JsonView(Views.ToFrontEnd.class)
     ChallengeAttempt getAttemptById(@PathVariable("id") long id) {
         ChallengeAttempt attempt = serviceFacade.getAttemptById(id);
+        return attempt;
     }
 
     /**
