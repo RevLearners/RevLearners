@@ -25,6 +25,14 @@ export class FileUploadComponent {
     }
 }
 
+public fileOver(event) {
+    console.log(event);
+}
+
+public fileLeave(event) {
+    console.log(event);
+}
+
 public removeFile(file: UploadFile) {
     const idx: number = this.files.indexOf(file);
     this.files.splice(idx, 1);

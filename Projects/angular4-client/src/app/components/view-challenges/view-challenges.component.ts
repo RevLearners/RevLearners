@@ -33,6 +33,7 @@ export class ViewChallengesComponent implements OnInit {
     }
 
     ngOnInit() {
+        if(this.creds.getToken() != null){
         if (this.creds.isLoggedIn()) {  // redirect users not logged in
             this.challengeService.getChallengesForUser().subscribe(
                 (data: Challenge[]) => {
@@ -42,11 +43,11 @@ export class ViewChallengesComponent implements OnInit {
                 console.log
             );
         }
+    }
         else {
-            this.creds.navigateToLogin(this.router);
+            this.router.navigate(['401']);
+            // this.creds.navigateToLogin(this.router);
         }
 
     }
-
-
 }

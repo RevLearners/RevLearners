@@ -1,10 +1,10 @@
-import {Component, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {BackendService} from '../../services/backend.service';
-import {Rank} from "../../model/rank";
-import {QuestionService} from "../../services/question.service";
-import {Router} from "@angular/router";
-import {LoginCredentialsService} from "../../services/login-credentials.service";
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { BackendService } from '../../services/backend.service';
+import { Rank } from "../../model/rank";
+import { QuestionService } from "../../services/question.service";
+import { Router } from "@angular/router";
+import { LoginCredentialsService } from "../../services/login-credentials.service";
 
 @Component({
     selector: 'app-create-challenge',
@@ -25,7 +25,7 @@ export class CreateChallengeComponent implements OnInit {
     public challengers = [];
 
     constructor(private fb: FormBuilder, private dataService: BackendService, private questionService: QuestionService,
-                private router: Router, private creds: LoginCredentialsService) {
+        private router: Router, private creds: LoginCredentialsService) {
         this.rForm = fb.group({
             'topic': [null, Validators.required],
             'challengers': [null, Validators.required],
@@ -34,26 +34,28 @@ export class CreateChallengeComponent implements OnInit {
     }
 
     ngOnInit() {
-        if (!this.creds.isLoggedIn()) {
+        if (this.creds.getToken() == null) {
             console.log("===== is logged in ====", this.creds.isLoggedIn());
-            this.router.navigate(['/login']);
+            this.router.navigate(['401']);
+            // this.router.navigate(['/login']);
         }
-
-        this.dataService.getUsers().subscribe(
-            (data: any) => {
-                this.challengers = data;
-                console.log("challengers: ", data);
-            },
-            console.log
-        );
-        this.dataService.getTopics().subscribe(
-            (topics: any[]) => {
-                console.log(" ====== topics =======");
-                console.log(topics);
-                this.topics = topics;
-            },
-            console.log
-        )
+        else {
+            this.dataService.getUsers().subscribe(
+                (data: any) => {
+                    this.challengers = data;
+                    console.log("challengers: ", data);
+                },
+                console.log
+            );
+            this.dataService.getTopics().subscribe(
+                (topics: any[]) => {
+                    console.log(" ====== topics =======");
+                    console.log(topics);
+                    this.topics = topics;
+                },
+                console.log
+            )
+        }
     }
 
     addPost(post) {

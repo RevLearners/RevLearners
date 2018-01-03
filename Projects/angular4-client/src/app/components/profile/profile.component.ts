@@ -33,11 +33,12 @@ export class ProfileComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.user = this.validate.getUser();
     
     //this.ranks = localStorage.getItem(this.ranks);
     this.token = this.validate.getToken();
-    if (this.user != null && this.token != null) {
+    if (this.token != null) {
+      this.user = this.validate.getUser();
+      
       this.headers = this.headers.append(AUTHORIZATION_HEADER, this.token.username);
       this.headers = this.headers.append(TOKEN_HEADER, this.token.token);
     }
